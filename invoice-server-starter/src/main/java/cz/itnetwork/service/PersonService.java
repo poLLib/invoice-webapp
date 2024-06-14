@@ -33,6 +33,7 @@ public interface PersonService {
     /**
      * Fetches the specific person by [id]
      * In case a person with the passed [id] isn't found, the method silently fails
+     * 
      * @param id Person to look up
      * @return Found person
      */
