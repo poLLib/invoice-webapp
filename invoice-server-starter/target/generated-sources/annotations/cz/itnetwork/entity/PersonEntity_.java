@@ -1,6 +1,7 @@
 package cz.itnetwork.entity;
 
 import cz.itnetwork.constant.Countries;
+import jakarta.persistence.metamodel.ListAttribute;
 import jakarta.persistence.metamodel.SingularAttribute;
 import jakarta.persistence.metamodel.StaticMetamodel;
 import javax.annotation.processing.Generated;
@@ -16,9 +17,11 @@ public abstract class PersonEntity_ {
 	public static volatile SingularAttribute<PersonEntity, String> mail;
 	public static volatile SingularAttribute<PersonEntity, Boolean> hidden;
 	public static volatile SingularAttribute<PersonEntity, String> city;
+	public static volatile ListAttribute<PersonEntity, InvoiceEntity> purchases;
 	public static volatile SingularAttribute<PersonEntity, String> taxNumber;
 	public static volatile SingularAttribute<PersonEntity, String> telephone;
 	public static volatile SingularAttribute<PersonEntity, String> accountNumber;
+	public static volatile ListAttribute<PersonEntity, InvoiceEntity> sales;
 	public static volatile SingularAttribute<PersonEntity, String> street;
 	public static volatile SingularAttribute<PersonEntity, String> iban;
 	public static volatile SingularAttribute<PersonEntity, String> name;
@@ -32,9 +35,11 @@ public abstract class PersonEntity_ {
 	public static final String MAIL = "mail";
 	public static final String HIDDEN = "hidden";
 	public static final String CITY = "city";
+	public static final String PURCHASES = "purchases";
 	public static final String TAX_NUMBER = "taxNumber";
 	public static final String TELEPHONE = "telephone";
 	public static final String ACCOUNT_NUMBER = "accountNumber";
+	public static final String SALES = "sales";
 	public static final String STREET = "street";
 	public static final String IBAN = "iban";
 	public static final String NAME = "name";

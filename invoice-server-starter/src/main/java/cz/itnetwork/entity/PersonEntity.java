@@ -26,7 +26,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "person")
@@ -77,4 +76,9 @@ public class PersonEntity {
 
     private boolean hidden = false;
 
+    @OneToMany(mappedBy = "buyer")
+    List<InvoiceEntity> purchases;
+
+    @OneToMany(mappedBy = "seller")
+    List<InvoiceEntity> sales;
 }

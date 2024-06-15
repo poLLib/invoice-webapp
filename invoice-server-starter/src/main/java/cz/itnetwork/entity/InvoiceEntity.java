@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity(name = "invoice")
 @Getter
@@ -18,10 +18,10 @@ public class InvoiceEntity {
     private int invoiceNumber;
 
     @Column(nullable = false)
-    private Date issued;
+    private LocalDate issued;
 
     @Column(nullable = false)
-    private Date dueDate;
+    private LocalDate dueDate;
 
     @Column(nullable = false)
     private String product;
@@ -35,10 +35,10 @@ public class InvoiceEntity {
     @Column
     private String note;
 
-    @Column
-    private Long buyerId;
+    @ManyToOne
+    private PersonEntity buyer;
 
-    @Column
-    private Long sellerId;
+    @ManyToOne
+    private PersonEntity seller;
 
 }

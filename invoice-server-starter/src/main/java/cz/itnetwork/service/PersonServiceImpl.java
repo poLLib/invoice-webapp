@@ -21,14 +21,19 @@
  */
 package cz.itnetwork.service;
 
+import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.dto.PersonDTO;
+import cz.itnetwork.dto.mapper.InvoiceMapper;
 import cz.itnetwork.dto.mapper.PersonMapper;
+import cz.itnetwork.entity.InvoiceEntity;
 import cz.itnetwork.entity.PersonEntity;
+import cz.itnetwork.entity.repository.InvoiceRepository;
 import cz.itnetwork.entity.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,10 +46,15 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private PersonRepository personRepository;
 
+    @Autowired
+    private InvoiceRepository invoiceRepository;
+
+    @Autowired
+    private InvoiceMapper invoiceMapper;
+
     public PersonDTO addPerson(PersonDTO personDTO) {
         PersonEntity entity = personMapper.toEntity(personDTO);
         entity = personRepository.save(entity);
-
         return personMapper.toDTO(entity);
     }
 
@@ -74,6 +84,36 @@ public class PersonServiceImpl implements PersonService {
         return personMapper.toDTO(person);
     }
 
+    @Override
+    public PersonDTO editPerson(Long id, PersonDTO data) {
+        PersonEntity entity = fetchPersonById(id);
+        entity.setHidden(true);
+        personRepository.save(entity);
+        return addPerson(data);
+    }
+
+    @Override
+    public List<InvoiceDTO> getInvoicesBySeller(String identificationNumber) {
+        PersonEntity personEntity = personRepository.findByIdentificationNumber(identificationNumber);
+        List<InvoiceDTO> list = new ArrayList<>();
+        for (InvoiceEntity i : invoiceRepository.findAll()){
+            if (i.getSeller().equals(personEntity))
+                list.add(invoiceMapper.toDTO(i));
+        }
+        return list;
+    }
+
+    @Override
+    public List<InvoiceDTO> getInvoicesByBuyer(String identificationNumber) {
+        PersonEntity personEntity = personRepository.findByIdentificationNumber(identificationNumber);
+        List<InvoiceDTO> list = new ArrayList<>();
+        for(InvoiceEntity i : invoiceRepository.findAll()){
+            if (i.getBuyer().equals(personEntity))
+                list.add(invoiceMapper.toDTO(i));
+        }
+        return list;
+    }
+
     // region: Private methods
     /**
      * <p>Attempts to fetch a person.</p>
@@ -83,7 +123,7 @@ public class PersonServiceImpl implements PersonService {
      * @return Fetched entity
      * @throws org.webjars.NotFoundException In case a person with the passed [id] isn't found
      */
-    private PersonEntity fetchPersonById(long id) {
+    private PersonEntity fetchPersonById(Long id) {
         return personRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Person with id " + id + " wasn't found in the database."));
     }
