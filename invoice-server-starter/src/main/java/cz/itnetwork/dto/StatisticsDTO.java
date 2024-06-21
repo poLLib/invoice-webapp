@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class StatisticsDTO {
     private Long currentYearSum;
     private Long allTimeSum;
-    private int invoicesCount;
+    private Long invoicesCount;
 
 }

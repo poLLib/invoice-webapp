@@ -32,7 +32,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.ApplicationMain.executor": "Debug",
+    "Application.ApplicationMain.executor": "Run",
     "Maven.SpringInvoiceDatabase [clean].executor": "Run",
     "Maven.SpringInvoiceDatabase [install].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -105,16 +105,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/cz/itnetwork/service/StatisticsServiceImpl.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
