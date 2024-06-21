@@ -1,9 +1,9 @@
 package cz.itnetwork.controller;
 
 import cz.itnetwork.dto.InvoiceDTO;
-import cz.itnetwork.dto.StatisticsDTO;
+import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.service.InvoiceService;
-import cz.itnetwork.service.StatisticsService;
+import cz.itnetwork.service.InvoiceStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class InvoiceController {
     private InvoiceService invoiceService;
 
     @Autowired
-    private StatisticsService statisticsService;
+    private InvoiceStatisticsService invoiceStatisticsService;
 
     @PostMapping({"/invoices", "/invoices/"})
     public InvoiceDTO createInvoice(@RequestBody InvoiceDTO data) {
@@ -47,7 +47,7 @@ public class InvoiceController {
     }
 
     @GetMapping({"/invoices/statistics", "/invoices/statistics/"})
-    public StatisticsDTO getStatistics() {
-        return statisticsService.getStatistics();
+    public InvoiceStatisticsDTO getStatistics() {
+        return invoiceStatisticsService.getInvoiceStatistics();
     }
 }

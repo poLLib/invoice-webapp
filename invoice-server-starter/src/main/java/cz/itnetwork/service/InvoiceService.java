@@ -1,9 +1,6 @@
 package cz.itnetwork.service;
 
 import cz.itnetwork.dto.InvoiceDTO;
-import cz.itnetwork.dto.PersonDTO;
-import cz.itnetwork.entity.InvoiceEntity;
-import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -12,24 +9,24 @@ public interface InvoiceService {
      * Creates an invoice and attach it to Person
      *
      * @param data Invoice to create
-     * @return Created invoice
+     * @return Created InvoiceDTO
      */
     InvoiceDTO createInvoice(InvoiceDTO data);
 
     /**
      * Edit invoice by [id] if exists
      *
-     * @param id
+     * @param id   Invoice to be edited
      * @param data New source of data for update invoice
-     * @return Edited Person
+     * @return Edited InvoiceDTO
      */
     InvoiceDTO editInvoice(Long id, InvoiceDTO data);
 
     /**
-     * Look up for a specific Person by [id]
+     * Look up for a specific invoice by [id]
      *
      * @param id Person we look for
-     * @return Fetched Person
+     * @return Fetched InvoiceDTO
      */
     InvoiceDTO detailInvoice(Long id);
 
@@ -44,7 +41,7 @@ public interface InvoiceService {
     /**
      * Fetches all invoices in database
      *
-     * @return List of invoices
+     * @return List of InvoiceDTO
      */
     List<InvoiceDTO> getAllInvoices();
 }

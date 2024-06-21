@@ -12,7 +12,7 @@ public interface PersonService {
      * Creates a new person
      *
      * @param personDTO Person to create
-     * @return newly created person
+     * @return Newly created PersonDTO
      */
     PersonDTO addPerson(PersonDTO personDTO);
 
@@ -27,7 +27,7 @@ public interface PersonService {
     /**
      * Fetches all non-hidden persons
      *
-     * @return List of all non-hidden persons
+     * @return List of PersonDTO
      */
     List<PersonDTO> getAll();
 
@@ -37,7 +37,7 @@ public interface PersonService {
      * In case a person with the passed [id] isn't found, the method silently fails
      *
      * @param id Person to look up
-     * @return Found person
+     * @return Found PersonDTO
      */
     PersonDTO getPerson(Long id);
 
@@ -46,7 +46,7 @@ public interface PersonService {
      *
      * @param id
      * @param data Person to edit
-     * @return Edited person
+     * @return Edited PersonDTO
      */
     PersonDTO editPerson(Long id, PersonDTO data);
 
@@ -54,7 +54,7 @@ public interface PersonService {
      * Fetches all invoices by [identificationNumber] of the seller
      *
      * @param identificationNumber The seller
-     * @return List of the invoices
+     * @return List of the InvoiceDTO
      */
     List<InvoiceDTO>getInvoicesBySeller(String identificationNumber);
 
@@ -62,7 +62,7 @@ public interface PersonService {
      * Fetches all invoices by [identificationNumber] of the buyer
      *
      * @param identificationNumber The buyer
-     * @return List of the invoices
+     * @return List of the InvoiceDTO
      */
     List<InvoiceDTO>getInvoicesByBuyer(String identificationNumber);
 }

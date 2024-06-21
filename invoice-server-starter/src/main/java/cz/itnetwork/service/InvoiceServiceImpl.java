@@ -74,6 +74,16 @@ public class InvoiceServiceImpl implements InvoiceService {
                 .toList();
     }
 
+    // region: Private methods
+
+    /**
+     * <p>Attempts to fetch an invoice.</p>
+     * <p>In case a invoice with the passed [id] doesn't exist a [{@link org.webjars.NotFoundException}] is thrown.</p>
+     *
+     * @param id Invoice to fetch
+     * @return Fetched entity
+     * @throws org.webjars.NotFoundException In case the invoice with the passed [id] isn't found
+     */
     private InvoiceEntity fetchInvoiceById(long id) {
         return invoiceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Invoice with id " + id + " wasn't found in the database."));
