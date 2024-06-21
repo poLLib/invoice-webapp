@@ -94,27 +94,26 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<InvoiceDTO> getInvoicesBySeller(String identificationNumber) {
-        PersonEntity personEntity = personRepository.findByIdentificationNumber(identificationNumber);
-        List<InvoiceDTO> list = new ArrayList<>();
-        for (InvoiceEntity i : invoiceRepository.findAll()){
-            if (i.getSeller().equals(personEntity))
-                list.add(invoiceMapper.toDTO(i));
-        }
-        return list;
+        PersonEntity fetchedBuyer = personRepository.findByIdentificationNumber(identificationNumber);
+        return invoiceRepository.findAll().stream()
+                .filter(i -> i.getBuyer().equals(fetchedBuyer))
+                .map(invoiceMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<InvoiceDTO> getInvoicesByBuyer(String identificationNumber) {
-        PersonEntity personEntity = personRepository.findByIdentificationNumber(identificationNumber);
+        PersonEntity fetchedSeller = personRepository.findByIdentificationNumber(identificationNumber);
         List<InvoiceDTO> list = new ArrayList<>();
-        for(InvoiceEntity i : invoiceRepository.findAll()){
-            if (i.getBuyer().equals(personEntity))
+        for (InvoiceEntity i : invoiceRepository.findAll()) {
+            if (i.getBuyer().equals(fetchedSeller))
                 list.add(invoiceMapper.toDTO(i));
         }
         return list;
     }
 
     // region: Private methods
+
     /**
      * <p>Attempts to fetch a person.</p>
      * <p>In case a person with the passed [id] doesn't exist a [{@link org.webjars.NotFoundException}] is thrown.</p>

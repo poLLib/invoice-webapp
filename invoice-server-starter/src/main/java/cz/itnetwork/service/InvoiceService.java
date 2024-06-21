@@ -3,6 +3,7 @@ package cz.itnetwork.service;
 import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.dto.PersonDTO;
 import cz.itnetwork.entity.InvoiceEntity;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface InvoiceService {
     /**
      * Look up for a specific Person by [id]
      *
-     * @param id
+     * @param id Person we look for
      * @return Fetched Person
      */
     InvoiceDTO detailInvoice(Long id);
