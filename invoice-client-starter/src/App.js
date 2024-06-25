@@ -33,6 +33,8 @@ import {
 import PersonIndex from "./persons/PersonIndex";
 import PersonDetail from "./persons/PersonDetail";
 import PersonForm from "./persons/PersonForm";
+import InvoiceForm from "./invoice/InvoiceForm";
+import InvoiceIndex from "./invoice/InvoiceIndex";
 
 export function App() {
   return (
@@ -45,6 +47,11 @@ export function App() {
                 Osoby
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to={"/invoices"} className="nav-link">
+                Faktury
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -55,6 +62,12 @@ export function App() {
             <Route path="show/:id" element={<PersonDetail />} />
             <Route path="create" element={<PersonForm />} />
             <Route path="edit/:id" element={<PersonForm />} />
+          </Route>
+
+          <Route index element={<Navigate to={"/invoices"} />} />
+          <Route path="/invoices">
+            <Route index element={<InvoiceIndex />} />
+            <Route path="create" element={<InvoiceForm />} />
           </Route>
         </Routes>
       </div>
