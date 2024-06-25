@@ -15,8 +15,8 @@ public class InvoiceStatisticsServiceImpl implements InvoiceStatisticsService {
     public InvoiceStatisticsDTO getInvoiceStatistics() {
         InvoiceStatisticsDTO invoiceStatisticsDTO = new InvoiceStatisticsDTO();
 
-        invoiceStatisticsDTO.setCurrentYearSum(invoiceRepository.getSumCurrentYear());
-        invoiceStatisticsDTO.setAllTimeSum(invoiceRepository.getSumAllTime());
+        invoiceStatisticsDTO.setCurrentYearSum(invoiceRepository.getSumPriceCurrentYear());
+        invoiceStatisticsDTO.setAllTimeSum(invoiceRepository.getSumPriceAllTime());
         invoiceStatisticsDTO.setInvoicesCount(invoiceRepository.getCountInvoices());
 
         return invoiceStatisticsDTO;

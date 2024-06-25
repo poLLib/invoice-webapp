@@ -35,7 +35,7 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
     PersonEntity findByIdentificationNumber(String identificationNumber);
 
 
-    // Method to get all income of a person by [id]
+    // Method to get income of all time of a person by [id]
     @Query(value = "SELECT SUM(i.price) FROM invoice i JOIN person p ON i.seller_id = p.id WHERE p.id = :id", nativeQuery = true)
     Long getPersonStatistics(@Param("id") Long id);
 }
