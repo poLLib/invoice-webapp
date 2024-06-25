@@ -20,16 +20,16 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
-import {apiDelete, apiGet} from "../utils/api";
+import { apiDelete, apiGet } from "../utils/api";
 
 import InvoiceTable from "./InvoiceTable";
 
 const InvoiceIndex = () => {
     const [invoices, setInvoices] = useState([]);
 
-    const deletePerson = async (id) => {
+    const deleteInvoice = async (id) => {
         try {
             await apiDelete("/api/invoices/" + id);
         } catch (error) {
@@ -47,6 +47,7 @@ const InvoiceIndex = () => {
         <div>
             <h1>Seznam faktur</h1>
             <InvoiceTable
+                deleteInvoice={deleteInvoice}
                 items={invoices}
                 label="Počet faktur:"
             />

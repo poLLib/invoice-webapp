@@ -23,7 +23,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const InvoiceTable = ({label, items}) => {
+const InvoiceTable = ({label, items, deleteInvoice}) => {
     return (
         <div>
             <p>
@@ -35,6 +35,8 @@ const InvoiceTable = ({label, items}) => {
                 <tr>
                     <th>#</th>
                     <th>Číslo faktury</th>
+                    <th>Dodavatel</th>
+                    <th>Odběratel</th>
                     <th colSpan={3}>Akce</th>
                 </tr>
                 </thead>
@@ -42,7 +44,9 @@ const InvoiceTable = ({label, items}) => {
                 {items.map((item, index) => (
                     <tr key={index + 1}>
                         <td>{index + 1}</td>
-                        <td>{item.name}</td>
+                        <td className="fw-bold">{item.invoiceNumber}</td>
+                        <td>{item.seller.name}</td>
+                        <td>{item.buyer.name}</td>
                         <td>
                             <div className="btn-group">
                                 <Link
@@ -57,6 +61,12 @@ const InvoiceTable = ({label, items}) => {
                                 >
                                     Upravit
                                 </Link>
+                                <button
+                                    onClick={() => deleteInvoice(item._id)}
+                                    className="btn btn-sm btn-danger"
+                                >
+                                    Odstranit
+                                </button>
 
                             </div>
                         </td>
