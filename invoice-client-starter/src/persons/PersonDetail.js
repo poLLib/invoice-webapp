@@ -20,59 +20,115 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import {apiGet} from "../utils/api";
+import { apiGet } from "../utils/api";
 import Country from "./Country";
 
 const PersonDetail = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const [person, setPerson] = useState({});
+    const [soldInvoices, setSoldInvoices] = useState([]);
+    const [receivedInvoices, setReceivedInvoices] = useState([]);
+    const [isLoadingPersons, setIsLoadingPersons] = useState();
+    const [isLoadingInvoices, setIsLoadingInvoices] = useState();
+    const identificationNumber = person.identificationNumber;
 
     useEffect(() => {
-    
+
+        setIsLoadingPersons(true);
         apiGet(`/api/persons/${id}`).then((data) => setPerson(data));
+        setIsLoadingPersons(false);
+
     }, [id]);
+
+    useEffect(() => {
+
+        setIsLoadingInvoices(true);
+        apiGet(`/api/identification/${identificationNumber}/sales`).then((data) => setSoldInvoices(data));
+        apiGet(`/api/identification/${identificationNumber}/purchases`).then((data) => setReceivedInvoices(data));
+        setIsLoadingInvoices(false);
+
+    }, [identificationNumber]);
+
     const country = Country.CZECHIA === person.country ? "Česká republika" : "Slovensko";
 
     return (
         <>
-            <div>
+            <div className="container-fluid">
                 <h1>Detail osoby</h1>
-                <hr/>
-                <h3>{person.name} ({person.identificationNumber})</h3>
-                <p>
-                    <strong>DIČ:</strong>
-                    <br/>
-                    {person.taxNumber}
-                </p>
-                <p>
-                    <strong>Bankovní účet:</strong>
-                    <br/>
-                    {person.accountNumber}/{person.bankCode} ({person.iban})
-                </p>
-                <p>
-                    <strong>Tel.:</strong>
-                    <br/>
-                    {person.telephone}
-                </p>
-                <p>
-                    <strong>Mail:</strong>
-                    <br/>
-                    {person.mail}
-                </p>
-                <p>
-                    <strong>Sídlo:</strong>
-                    <br/>
-                    {person.street}, {person.city},
-                    {person.zip}, {country}
-                </p>
-                <p>
-                    <strong>Poznámka:</strong>
-                    <br/>
-                    {person.note}
-                </p>
+                <hr />
+                <div className="col">
+                    <div className="row">
+                        {isLoadingPersons ? (
+                            <div className="text-center">
+                                <div className="spinner-border" role="status">
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
+                                <h3>{person.name} ({person.identificationNumber})</h3>
+                                <p>
+                                    <strong>DIČ:</strong>
+                                    <br />
+                                    {person.taxNumber}
+                                </p>
+                                <p>
+                                    <strong>Bankovní účet:</strong>
+                                    <br />
+                                    {person.accountNumber}/{person.bankCode} ({person.iban})
+                                </p>
+                                <p>
+                                    <strong>Tel.:</strong>
+                                    <br />
+                                    {person.telephone}
+                                </p>
+                                <p>
+                                    <strong>Mail:</strong>
+                                    <br />
+                                    {person.mail}
+                                </p>
+                                <p>
+                                    <strong>Sídlo:</strong>
+                                    <br />
+                                    {person.street}, {person.city},
+                                    {person.zip}, {country}
+                                </p>
+                                <p>
+                                    <strong>Poznámka:</strong>
+                                    <br />
+                                    {person.note}
+                                </p>
+                            </div>
+                        )};
+                    </div>
+
+                    {isLoadingInvoices ? (
+                        <div className="text-center">
+                            <div className="spinner-border" role="status"></div>
+                        </div>
+                    ) : (
+                        <div className="col">
+                            <div className="row">
+                                <strong>Vystavené faktury:</strong>
+                                {soldInvoices.map((i, index) => (
+                                    <div key={index + 1}>
+                                        <p>Faktura č.: {i.invoiceNumber}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="row">
+                                <strong>Proplacené faktury:</strong>
+                                {receivedInvoices.map((i, index) => (
+                                    <div key={index + 1}>
+                                        <p>Faktura č.: {i.invoiceNumber}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )};
+                </div>
             </div>
         </>
     );

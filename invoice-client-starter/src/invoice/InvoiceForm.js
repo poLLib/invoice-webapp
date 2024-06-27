@@ -60,7 +60,7 @@ const InvoiceForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        (id ? apiPut("/api/invoices/" + id, invoice) : apiPost("/api/invoices/", invoice))
+        (id ? apiPut("/api/invoices/" + id, invoice) : apiPost("/api/invoices", invoice))
             .then((data) => {
                 setSent(true);
                 setSuccess(true);
@@ -74,7 +74,7 @@ const InvoiceForm = () => {
             });
     };
 
-    
+
 
     const sent = sentState;
     const success = successState;
@@ -182,7 +182,7 @@ const InvoiceForm = () => {
                     items={persons}
                     value={invoice.seller.id}
                     handleChange={(e) => {
-                        setInvoice({ ...invoice, seller: {_id: e.target.value }});
+                        setInvoice({ ...invoice, seller: { _id: e.target.value } });
                     }}
                 />
                 <InputSelect
@@ -193,7 +193,7 @@ const InvoiceForm = () => {
                     prompt="Vyberte odběratele"
                     value={invoice.buyer.id}
                     handleChange={(e) => {
-                        setInvoice({ ...invoice, buyer: {_id: e.target.value} });
+                        setInvoice({ ...invoice, buyer: { _id: e.target.value } });
                     }}
                 />
 
