@@ -4,9 +4,9 @@ import { apiGet } from "../utils/api";
 const InvoiceStatistics = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [statistic, setStatistic] = useState({
-        currentYearSum: 0,
-        allTimeSum: 0,
-        invoicesCount: 0,
+        currentYearSum: "",
+        allTimeSum: "",
+        invoicesCount: "",
     });
 
     useEffect(() => {
@@ -17,26 +17,28 @@ const InvoiceStatistics = () => {
 
     return (
         <table className="table">
-            <tbody>
-                <tr>
-                    <th>Celkový příjem za letošní rok:</th>
-                    {isLoading ? (
-                        <div className="progress">
-                            <div className="spinner-border" role="status">
-                            </div>
-                        </div>) : (
+            {isLoading ? (
+                <div className="text-center">
+                    <div className="spinner-border" role="status">
+                    </div>
+                </div>) : (
+                <tbody>
+                    <tr>
+                        <th>Celkový příjem za letošní rok:</th>
+
                         <td>{statistic.currentYearSum}</td>
-                    )}
-                </tr>
-                <tr>
-                    <th>Celkový příjem:</th>
-                    <td>{statistic.allTimeSum}</td>
-                </tr>
-                <tr>
-                    <th>Celkový počet faktur:</th>
-                    <td>{statistic.invoicesCount}</td>
-                </tr>
-            </tbody>
+                    </tr>
+                    <tr>
+                        <th>Celkový příjem:</th>
+                        <td>{statistic.allTimeSum}</td>
+                    </tr>
+                    <tr>
+                        <th>Celkový počet faktur:</th>
+                        <td>{statistic.invoicesCount}</td>
+                    </tr>
+                </tbody>
+            )}
+
         </table>
     );
 };
