@@ -5,7 +5,3 @@ export function FlashMessage({ theme, text }) {
 }
 
 export default FlashMessage;
-
-//TODO: uprava faktury - pridat flash msg, treba po prenacteni na jinou url
-// vypsani statistik
-// udelat hezke rozlozeni ve 2 sloupcich v personDetail

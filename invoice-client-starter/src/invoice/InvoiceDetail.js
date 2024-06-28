@@ -30,7 +30,7 @@ const InvoiceDetail = () => {
     const [invoice, setInvoice] = useState({});
     const [seller, setSeller] = useState({});
     const [buyer, setBuyer] = useState({});
-    const [isLoading, setIsLoading] = useState();
+    const [isLoading, setIsLoading] = useState(true);
 
 
 

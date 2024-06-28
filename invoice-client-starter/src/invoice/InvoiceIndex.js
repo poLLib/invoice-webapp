@@ -28,6 +28,7 @@ import InvoiceTable from "./InvoiceTable";
 
 const InvoiceIndex = () => {
     const [invoices, setInvoices] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const deleteInvoice = async (id) => {
         try {
@@ -40,17 +41,25 @@ const InvoiceIndex = () => {
     };
 
     useEffect(() => {
+        setIsLoading(true);
         apiGet("/api/invoices").then((data) => setInvoices(data));
+        setIsLoading(false);
     }, []);
 
     return (
         <div>
             <h1>Seznam faktur</h1>
-            <InvoiceTable
-                deleteInvoice={deleteInvoice}
-                items={invoices}
-                label="Počet faktur:"
-            />
+            {isLoading ? (
+                <div className="text-center">
+                    <div className="spinner-grow my-3" role="status"></div>
+                </div>
+            ) : (
+                <InvoiceTable
+                    deleteInvoice={deleteInvoice}
+                    items={invoices}
+                    label="Počet faktur:"
+                />
+            )}
         </div>
     );
 };

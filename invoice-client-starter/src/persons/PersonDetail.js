@@ -31,8 +31,8 @@ const PersonDetail = () => {
     const [person, setPerson] = useState({});
     const [soldInvoices, setSoldInvoices] = useState([]);
     const [receivedInvoices, setReceivedInvoices] = useState([]);
-    const [isLoadingPersons, setIsLoadingPersons] = useState();
-    const [isLoadingInvoices, setIsLoadingInvoices] = useState();
+    const [isLoadingPersons, setIsLoadingPersons] = useState(true);
+    const [isLoadingInvoices, setIsLoadingInvoices] = useState(true);
     const identificationNumber = person.identificationNumber;
 
     useEffect(() => {

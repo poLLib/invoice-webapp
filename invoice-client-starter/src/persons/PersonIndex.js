@@ -28,6 +28,8 @@ import PersonTable from "./PersonTable";
 
 const PersonIndex = () => {
     const [persons, setPersons] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     const deletePerson = async (id) => {
         try {
@@ -40,17 +42,25 @@ const PersonIndex = () => {
     };
 
     useEffect(() => {
+        setIsLoading(true);
         apiGet("/api/persons").then((data) => setPersons(data));
+        setIsLoading(false);
     }, []);
 
     return (
         <div>
             <h1>Seznam osob</h1>
+            {isLoading ? (
+                <div className="text-center">
+                    <div className="spinner-grow my-3" role="status"></div>
+                </div>
+            ) : (
             <PersonTable
                 deletePerson={deletePerson}
                 items={persons}
                 label="Počet osob:"
             />
+            )}
         </div>
     );
 };

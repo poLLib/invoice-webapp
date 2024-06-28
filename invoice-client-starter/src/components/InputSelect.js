@@ -34,17 +34,17 @@ export function InputSelect(props) {
 
         {objectItems
           ? /* vykreslení položek jako objektů z databáze (osobnosti) */
-            props.items.map((item, index) => (
-              <option key={required ? index : index + 1} value={item._id}>
-                {item.name}
-              </option>
-            ))
+          props.items.map((item, index) => (
+            <option key={required ? index : index + 1} value={item._id}>
+              {item.name}
+            </option>
+          ))
           : /* vykreslení položek jako hodnot z výčtu (žánry) */
-            props.items.map((item, index) => (
-              <option key={required ? index : index + 1} value={item}>
-                {props.enum[item]}
-              </option>
-            ))}
+          props.items.map((item, index) => (
+            <option key={required ? index : index + 1} value={item}>
+              {props.enum[item]}
+            </option>
+          ))}
       </select>
     </div>
   );
