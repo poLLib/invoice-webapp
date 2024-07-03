@@ -25,10 +25,16 @@ import React, { useEffect, useState } from "react";
 import { apiDelete, apiGet } from "../utils/api";
 
 import InvoiceTable from "./InvoiceTable";
+import InvoiceFilter from "./InvoiceFilter";
+
 
 const InvoiceIndex = () => {
     const [invoices, setInvoices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [filter, setFilter] = useState({
+        minPrice: undefined,
+        maxPrice: undefined,
+    });
 
     const deleteInvoice = async (id) => {
         try {
@@ -46,6 +52,22 @@ const InvoiceIndex = () => {
         setIsLoading(false);
     }, []);
 
+    function handleChange(e) {
+
+            setFilter((prevState) => {
+                return { ...prevState, [e.target.name]: e.target.value };
+            });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const params = filter;
+
+        const data = apiGet("/api/invoices", params);
+        setInvoices(data)
+    }
+
+
     return (
         <div>
             <h1>Seznam faktur</h1>
@@ -54,11 +76,22 @@ const InvoiceIndex = () => {
                     <div className="spinner-grow my-3" role="status"></div>
                 </div>
             ) : (
-                <InvoiceTable
-                    deleteInvoice={deleteInvoice}
-                    items={invoices}
-                    label="Počet faktur:"
-                />
+                <div>
+                    {/* <InvoiceFilter
+                        handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                        minPrice={minPrice}
+                        maxPrice={maxPrice}
+                        confirm="Filtrovat faktury"
+                    /> */}
+
+                    <hr />
+                    <InvoiceTable
+                        deleteInvoice={deleteInvoice}
+                        items={invoices}
+                        label="Počet faktur:"
+                    />
+                </div>
             )}
         </div>
     );

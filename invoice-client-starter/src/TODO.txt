@@ -1,0 +1,10 @@
+//TODO:
+// checkni props rodic komponenty kdyz chces predat props do filtr kompo
+//
+// ???:
+// Rozebrat handler pro filtraci -> InvoiceIndex handleChange
+// 
+// UPGRADE:
+// flash msg udelat popup, nebo po prenacteni na jinou url setContext.
+// udelat hezke rozlozeni ve 2 sloupcich v personDetail
+// osetrit isLoading pri fetchovani dat

@@ -64,13 +64,19 @@ const InvoiceForm = () => {
             .then((data) => {
                 setSent(true);
                 setSuccess(true);
-                navigate("/invoices");
+                setTimeout(() => {
+                    setSent(false);
+                    navigate("/invoices");
+                }, 5000);
             })
             .catch((error) => {
                 console.log(error.message);
                 setError(error.message);
                 setSent(true);
                 setSuccess(false);
+                setTimeout(() => {
+                    setSent(false);
+                }, 5000);
             });
     };
 
@@ -180,7 +186,8 @@ const InvoiceForm = () => {
                     name="seller"
                     label="Dodavatel"
                     items={persons}
-                    value={invoice.seller.id}
+                    prompt="Vyberte dodavatele"
+                    value={invoice.seller._id}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, seller: { _id: e.target.value } });
                     }}
@@ -191,7 +198,7 @@ const InvoiceForm = () => {
                     label="Odběratel"
                     items={persons}
                     prompt="Vyberte odběratele"
-                    value={invoice.buyer.id}
+                    value={invoice.buyer._id}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, buyer: { _id: e.target.value } });
                     }}
