@@ -1,6 +1,7 @@
 package cz.itnetwork.service;
 
 import cz.itnetwork.dto.InvoiceDTO;
+import cz.itnetwork.entity.filter.InvoiceFilter;
 
 import java.util.List;
 
@@ -39,9 +40,9 @@ public interface InvoiceService {
     void deleteInvoice(Long id);
 
     /**
-     * Fetches all invoices in database
+     * Fetches all invoices in database and filter them according to users parameters
      *
      * @return List of InvoiceDTO
      */
-    List<InvoiceDTO> getAllInvoices();
+    List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter);
 }

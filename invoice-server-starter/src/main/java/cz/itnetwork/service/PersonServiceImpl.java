@@ -94,19 +94,17 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<InvoiceDTO> getInvoicesBySeller(String identificationNumber) {
-        PersonEntity fetchedBuyer = personRepository.findByIdentificationNumber(identificationNumber);
         return invoiceRepository.findAll().stream()
-                .filter(i -> i.getBuyer().equals(fetchedBuyer))
+                .filter(i -> i.getSeller().getIdentificationNumber().equals(identificationNumber))
                 .map(invoiceMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<InvoiceDTO> getInvoicesByBuyer(String identificationNumber) {
-        PersonEntity fetchedSeller = personRepository.findByIdentificationNumber(identificationNumber);
         List<InvoiceDTO> list = new ArrayList<>();
         for (InvoiceEntity i : invoiceRepository.findAll()) {
-            if (i.getBuyer().equals(fetchedSeller))
+            if (i.getBuyer().getIdentificationNumber().equals(identificationNumber))
                 list.add(invoiceMapper.toDTO(i));
         }
         return list;
