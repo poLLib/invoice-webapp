@@ -3,6 +3,7 @@ cz/itnetwork/service/PersonService.class
 cz/itnetwork/service/PersonStatisticsService.class
 cz/itnetwork/controller/advice/EntityNotFoundExceptionAdvice.class
 cz/itnetwork/service/InvoiceService.class
+cz/itnetwork/entity/filter/InvoiceFilter.class
 cz/itnetwork/service/InvoiceServiceImpl.class
 cz/itnetwork/entity/InvoiceEntity.class
 cz/itnetwork/entity/repository/PersonRepository.class
@@ -18,6 +19,7 @@ cz/itnetwork/dto/InvoiceDTO.class
 cz/itnetwork/controller/InvoiceController.class
 cz/itnetwork/service/InvoiceStatisticsService.class
 cz/itnetwork/service/PersonStatisticsServiceImpl.class
+cz/itnetwork/entity/repository/specification/InvoiceSpecification.class
 cz/itnetwork/service/InvoiceStatisticsServiceImpl.class
 cz/itnetwork/dto/mapper/InvoiceMapper.class
 cz/itnetwork/dto/PersonDTO.class

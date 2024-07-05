@@ -29,13 +29,14 @@ public class InvoiceSpecification implements Specification<InvoiceEntity> {
             predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(InvoiceEntity_.PRICE), invoiceFilter.getMaxPrice()));
         }
 
-        if(invoiceFilter.getSellerID() != null) {
+        if(invoiceFilter.getSellerId() != null) {
             Join<PersonEntity, InvoiceEntity> sellerJoin = root.join(InvoiceEntity_.SELLER);
-            predicates.add(criteriaBuilder.equal(sellerJoin.get(PersonEntity_.ID), invoiceFilter.getSellerID()));
+            predicates.add(criteriaBuilder.equal(sellerJoin.get(PersonEntity_.ID), invoiceFilter.getSellerId()));
         }
-        if(invoiceFilter.getBuyerID() != null) {
+
+        if(invoiceFilter.getBuyerId() != null) {
             Join<PersonEntity, InvoiceEntity> buyerJoin = root.join(InvoiceEntity_.BUYER);
-            predicates.add(criteriaBuilder.equal(buyerJoin.get(PersonEntity_.ID), invoiceFilter.getBuyerID()));
+            predicates.add(criteriaBuilder.equal(buyerJoin.get(PersonEntity_.ID), invoiceFilter.getBuyerId()));
         }
         if (invoiceFilter.getProduct() != null) {
             predicates.add(criteriaBuilder.equal(root.get(InvoiceEntity_.PRODUCT), invoiceFilter.getProduct()));
