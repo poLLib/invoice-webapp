@@ -31,9 +31,14 @@ import InvoiceFilter from "./InvoiceFilter";
 const InvoiceIndex = () => {
     const [invoices, setInvoices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [filter, setFilter] = useState({
+    const [personsState,setPersonsState] = useState([]);
+    const [filterState, setFilter] = useState({
         minPrice: undefined,
         maxPrice: undefined,
+        limit: undefined,
+        sellerId: undefined,
+        buyerId: undefined,
+        product: undefined,
     });
 
     const deleteInvoice = async (id) => {
@@ -47,24 +52,30 @@ const InvoiceIndex = () => {
     };
 
     useEffect(() => {
-        setIsLoading(true);
         apiGet("/api/invoices").then((data) => setInvoices(data));
+        apiGet("/api/persons").then((data) => setPersonsState(data));
         setIsLoading(false);
     }, []);
 
     function handleChange(e) {
-
-            setFilter((prevState) => {
-                return { ...prevState, [e.target.name]: e.target.value };
+        if (e.target.value === "false" || e.target.value === "true" || e.target.value === '') {
+            setFilter(prevState => {
+                return { ...prevState, [e.target.name]: undefined }
             });
+        } else {
+            setFilter(prevState => {
+                return { ...prevState, [e.target.name]: e.target.value }
+            });
+        }
     };
 
-    const handleSubmit = async (e) => {
+    async function handleSubmit(e) {
         e.preventDefault();
-        const params = filter;
+        const params = filterState;
 
-        const data = apiGet("/api/invoices", params);
-        setInvoices(data)
+        const data = await apiGet("/api/invoices", params);
+
+        setInvoices(data);
     }
 
 
@@ -77,13 +88,14 @@ const InvoiceIndex = () => {
                 </div>
             ) : (
                 <div>
-                    {/* <InvoiceFilter
+                    <InvoiceFilter
                         handleChange={handleChange}
                         handleSubmit={handleSubmit}
-                        minPrice={minPrice}
-                        maxPrice={maxPrice}
+                        sellers={personsState}
+                        buyers={personsState}
+                        filter={filterState}
                         confirm="Filtrovat faktury"
-                    /> */}
+                    />
 
                     <hr />
                     <InvoiceTable

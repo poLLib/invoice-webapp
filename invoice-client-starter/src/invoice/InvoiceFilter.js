@@ -1,12 +1,12 @@
 import InputField from "../components/InputField"
+import InputSelect from "../components/InputSelect";
 
-
-function InvoiceFilter (props) {
+function InvoiceFilter(props) {
     function handleChange(e) {
         return props.handleChange(e);
     };
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         return props.handleSubmit(e);
     };
 
@@ -16,15 +16,14 @@ function InvoiceFilter (props) {
         <form onSubmit={handleSubmit}>
             <div className="row">
                 <div className="col">
-
                     <InputField
                         type="number"
                         min="0"
                         name="minPrice"
                         handleChange={handleChange}
-                        label="Minimální částka"
-                        prompt="částka"
-                        value={filter.minPice ? filter.minPrice : ''}
+                        label="Minimální cena"
+                        prompt="Zadejte cenu"
+                        value={filter.minPice}
                     />
                 </div>
 
@@ -34,10 +33,63 @@ function InvoiceFilter (props) {
                         min="0"
                         name="maxPrice"
                         handleChange={handleChange}
-                        label="Maximální částka"
-                        prompt="částka"
-                        value={filter.maxPrice ? filter.maxPrice : ''}
+                        label="Maximální cena"
+                        prompt="Zadejte cenu"
+                        value={filter.maxPrice}
                     />
+                </div>
+
+                <div className="col">
+                    < InputField
+
+                    />
+                </div>
+
+                {/* <div className="col">
+                    <InputField
+                        type="text"
+                        name="product"
+                        handleChange={handleChange}
+                        label="Vyhledat zboží"
+                        prompt="Zadejte název"
+                        value={filter.product}
+                    />
+                </div> */}
+
+                <div className="row">
+                    <div className="col">
+                        <InputSelect
+                            name="sellerId"
+                            handleChange={handleChange}
+                            label="Dodavatel"
+                            prompt="Vyberte dodavatele"
+                            value={filter.sellerId}
+                            items={props.sellers}
+                        />
+                    </div>
+
+                    <div className="col">
+                        <InputSelect
+                            name="buyerId"
+                            handleChange={handleChange}
+                            label="Odběratel"
+                            prompt="Vyberte odběratele"
+                            value={filter.buyerId}
+                            items={props.buyers}
+                        />
+                    </div>
+
+                    <div className="col">
+                        <InputField
+                            type="number"
+                            name="limit"
+                            handleChange={handleChange}
+                            label="Limit zobrazených faktur"
+                            prompt="Zadejte limit"
+                            value={filter.limit}
+                        />
+                    </div>
+
                 </div>
 
             </div>

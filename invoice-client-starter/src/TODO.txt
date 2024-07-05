@@ -1,8 +1,8 @@
 //TODO:
-// checkni props rodic komponenty kdyz chces predat props do filtr kompo
+// dynamicke vyhledavani ve filtraci produkt + reset btn
+// vypis statistik, JOINu tabulky a potom pres AND vytvorim jeden dotaz
 //
-// ???:
-// Rozebrat handler pro filtraci -> InvoiceIndex handleChange
+// ??
 // 
 // UPGRADE:
 // flash msg udelat popup, nebo po prenacteni na jinou url setContext.

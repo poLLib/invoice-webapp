@@ -1,6 +1,6 @@
 import React from "react";
 
-export function InputSelect(props) {
+function InputSelect(props) {
   const multiple = props.multiple;
   const required = props.required || false;
 

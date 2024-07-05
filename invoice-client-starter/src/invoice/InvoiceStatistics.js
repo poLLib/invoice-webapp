@@ -24,7 +24,7 @@ const InvoiceStatistics = () => {
                 </div>) : (
                 <tbody>
                     <tr>
-                        <th>Celkový příjem za letošní rok:</th>
+                        <th >Celkový příjem za letošní rok:</th>
 
                         <td>{statistic.currentYearSum}</td>
                     </tr>
@@ -33,7 +33,7 @@ const InvoiceStatistics = () => {
                         <td>{statistic.allTimeSum}</td>
                     </tr>
                     <tr>
-                        <th>Celkový počet faktur:</th>
+                        <th >Celkový počet faktur:</th>
                         <td>{statistic.invoicesCount}</td>
                     </tr>
                 </tbody>

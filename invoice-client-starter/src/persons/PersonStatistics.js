@@ -12,7 +12,7 @@ const PersonStatistics = () => {
     }, []);
     console.log(statistics.personName)
     return (
-        <table className="table">
+        <table>
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-border" role="status">
