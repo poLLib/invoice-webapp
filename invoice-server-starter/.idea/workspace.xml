@@ -6,11 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="83f5d95b-44bd-4074-be9a-fcffea5063c4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/filter/InvoiceFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/filter/InvoiceFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/InvoiceStatisticsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/InvoiceStatisticsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/InvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/InvoiceRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/specification/InvoiceSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/specification/InvoiceSpecification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/SpringInvoiceDatabase-1.0-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/SpringInvoiceDatabase-1.0-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceStatisticsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceStatisticsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/SpringInvoiceDatabase-1.0-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/dto/mapper/InvoiceMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/dto/mapper/PersonMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/entity/InvoiceEntity_.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/entity/PersonEntity_.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,21 +45,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ApplicationMain.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.SpringInvoiceDatabase [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.SpringInvoiceDatabase [install].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/pollib-raxek-ubuntu/Dropbox/Programming/KURZ/invoice-server-starter&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ApplicationMain.executor": "Run",
+    "Maven.SpringInvoiceDatabase [clean].executor": "Run",
+    "Maven.SpringInvoiceDatabase [install].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/pollib-raxek-ubuntu/Dropbox/Programming/KURZ/invoice-server-starter",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="cz.itnetwork.service" />
@@ -123,5 +131,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceStatisticsServiceImpl.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
