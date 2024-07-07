@@ -10,6 +10,10 @@ function InvoiceFilter(props) {
         return props.handleSubmit(e);
     };
 
+    function handleInput(e) {
+        return props.handleChange(e);
+    }
+
     const filter = props.filter;
 
     return (
@@ -40,21 +44,15 @@ function InvoiceFilter(props) {
                 </div>
 
                 <div className="col">
-                    < InputField
-
-                    />
-                </div>
-
-                {/* <div className="col">
                     <InputField
                         type="text"
                         name="product"
-                        handleChange={handleChange}
-                        label="Vyhledat zboží"
-                        prompt="Zadejte název"
+                        handleChange={handleInput}
+                        label="Vyhledat položku"
+                        prompt="Zadejte název produktu"
                         value={filter.product}
                     />
-                </div> */}
+                </div>
 
                 <div className="row">
                     <div className="col">

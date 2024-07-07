@@ -31,14 +31,14 @@ import InvoiceFilter from "./InvoiceFilter";
 const InvoiceIndex = () => {
     const [invoices, setInvoices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [personsState,setPersonsState] = useState([]);
+    const [personsState, setPersonsState] = useState([]);
+    const [inputText, setInputText] = useState("");
     const [filterState, setFilter] = useState({
         minPrice: undefined,
         maxPrice: undefined,
         limit: undefined,
         sellerId: undefined,
         buyerId: undefined,
-        product: undefined,
     });
 
     const deleteInvoice = async (id) => {
@@ -72,10 +72,15 @@ const InvoiceIndex = () => {
     async function handleSubmit(e) {
         e.preventDefault();
         const params = filterState;
-
         const data = await apiGet("/api/invoices", params);
-
         setInvoices(data);
+    }
+
+    function handleInput(e) {
+        setInputText(e.target.value.toLowerCase());
+        const filteredData = invoices.filter((product) => {
+            return product.text.toLowerCase().includes(inputText);
+        })
     }
 
 
@@ -91,12 +96,12 @@ const InvoiceIndex = () => {
                     <InvoiceFilter
                         handleChange={handleChange}
                         handleSubmit={handleSubmit}
+                        handleInput={handleInput}
                         sellers={personsState}
                         buyers={personsState}
                         filter={filterState}
                         confirm="Filtrovat faktury"
                     />
-
                     <hr />
                     <InvoiceTable
                         deleteInvoice={deleteInvoice}
