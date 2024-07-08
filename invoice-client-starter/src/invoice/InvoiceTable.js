@@ -33,20 +33,22 @@ export function InvoiceTable({ label, items, deleteInvoice }) {
             <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Číslo faktury</th>
+                        <th>Položka</th>
                         <th>Dodavatel</th>
                         <th>Odběratel</th>
+                        <th>Cena</th>
                         <th colSpan={3}>Akce</th>
                     </tr>
                 </thead>
                 <tbody>
                     {items.map((item, index) => (
                         <tr key={index + 1}>
-                            <td>{index + 1}</td>
                             <td className="fw-bold">{item.invoiceNumber}</td>
+                            <td>{item.product}</td>
                             <td>{item.seller.name}</td>
                             <td>{item.buyer.name}</td>
+                            <td>{item.price} Kč</td>
                             <td>
                                 <div className="btn-group">
                                     <Link
@@ -74,7 +76,7 @@ export function InvoiceTable({ label, items, deleteInvoice }) {
                     ))}
                 </tbody>
             </table>
-            <Link to={"/invoices/create"} className="btn btn-success">
+            <Link to={"/invoices/create"} className="btn btn-success ms-5 px-5">
                 Nová faktura
             </Link>
         </div>

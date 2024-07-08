@@ -37,13 +37,14 @@ import { InvoiceForm } from "./invoice/InvoiceForm";
 import { InvoiceDetail } from "./invoice/InvoiceDetail";
 import { InvoiceIndex } from "./invoice/InvoiceIndex";
 import { StatisticsTable } from "./statistics/StatisticsTable";
+import "./styles.css"
 
 export function App() {
   return (
     <div>
       <Router>
         <div className="container">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <nav className="navbar navbar-expand-lg navbar-light nav-style">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
                 <Link to={"/persons"} className="nav-link">
