@@ -25,7 +25,7 @@ import { useParams } from "react-router-dom";
 
 import { apiGet } from "../utils/api";
 
-const InvoiceDetail = () => {
+export function InvoiceDetail() {
     const { id } = useParams();
     const [invoice, setInvoice] = useState({});
     const [seller, setSeller] = useState({});
@@ -35,14 +35,14 @@ const InvoiceDetail = () => {
 
 
     useEffect(() => {
-
-        setIsLoading(true);
-        apiGet(`/api/invoices/${id}`).then((data) => setInvoice(data));
-        apiGet(`/api/invoices/${id}`).then((data) => setSeller(data.seller));
-        apiGet(`/api/invoices/${id}`).then((data) => setBuyer(data.buyer));
-        setIsLoading(false);
-
-
+        async function fetchInvoices() {
+            const data = await apiGet(`/api/invoices/${id}`);
+            setInvoice(data);
+            setSeller(data.seller);
+            setBuyer(data.buyer);
+            setIsLoading(false);
+        }
+        fetchInvoices();
     }, [id]);
 
     return (
@@ -80,10 +80,10 @@ const InvoiceDetail = () => {
                         <strong>Položka: </strong> {invoice.product}
                     </p>
                     <p>
-                        <strong>Cena: </strong> {invoice.price}
+                        <strong>Cena: </strong> {invoice.price} Kč
                     </p>
                     <p>
-                        <strong>DPH: </strong> {invoice.vat}
+                        <strong>DPH: </strong> {invoice.vat} %
                     </p>
                     <p>
                         <strong>Poznámky: </strong>
@@ -97,4 +97,3 @@ const InvoiceDetail = () => {
     );
 };
 
-export default InvoiceDetail;

@@ -1,7 +1,6 @@
 //TODO:
 // dynamicke vyhledavani ve filtraci produkt + reset btn
-// 
-// UPGRADE:
 // flash msg udelat popup, nebo po prenacteni na jinou url setContext.
 // udelat hezke rozlozeni ve 2 sloupcich v personDetail
-// osetrit isLoading pri fetchovani dat
+
+?? mel bych preferovat pouzivani async funkci pred then()? jako napr u apiPut a apiPost PersonForm a pak ji zavolat podobne jako tomu je u useEffect?

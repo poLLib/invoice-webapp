@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { apiGet } from "../utils/api";
 
-const PersonStatistics = () => {
-    const [isLoading, setIsLoading] = useState(true);
+export function PersonStatistics() {
+    const [isLoading, setIsLoading] = useState();
     const [statistics, setStatistics] = useState([]);
 
     useEffect(() => {
-        setIsLoading(true);
-        apiGet("/api/persons/statistics").then((data) => setStatistics(data));
-        setIsLoading(false);
+        async function fetchStats() {
+            setStatistics(await apiGet("/api/persons/statistics"));
+            setIsLoading(false);
+        }
+        fetchStats();
     }, []);
     console.log(statistics.personName)
     return (
@@ -29,7 +31,7 @@ const PersonStatistics = () => {
                                 <th>Celkový příjem:</th>
                                 <td>{person.revenue}</td>
                             </tr>
-                            <br/>
+                            <br />
                         </div>
                     ))}
                 </tbody>
@@ -38,5 +40,3 @@ const PersonStatistics = () => {
         </table>
     );
 };
-
-export default PersonStatistics;

@@ -20,20 +20,19 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
-import {apiDelete, apiGet} from "../utils/api";
+import { apiDelete, apiGet } from "../utils/api";
 
-import PersonTable from "./PersonTable";
+import { PersonTable } from "./PersonTable";
 
-const PersonIndex = () => {
+export function PersonIndex() {
     const [persons, setPersons] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-
-    const deletePerson = async (id) => {
+    async function deletePerson(id) {
         try {
-            await apiDelete("/api/persons/" + id);
+            await apiDelete(`/api/persons/${id}`);
         } catch (error) {
             console.log(error.message);
             alert(error.message)
@@ -42,26 +41,27 @@ const PersonIndex = () => {
     };
 
     useEffect(() => {
-        setIsLoading(true);
-        apiGet("/api/persons").then((data) => setPersons(data));
-        setIsLoading(false);
+        async function fetchPersons() {
+            setPersons(await apiGet("/api/persons"));
+            setIsLoading(false);
+        }
+        fetchPersons();
     }, []);
 
     return (
         <div>
-            <h1>Seznam osob</h1>
+            <h1>Seznam společností</h1>
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-grow my-3" role="status"></div>
                 </div>
             ) : (
-            <PersonTable
-                deletePerson={deletePerson}
-                items={persons}
-                label="Počet osob:"
-            />
+                <PersonTable
+                    deletePerson={deletePerson}
+                    items={persons}
+                    label="Celkový počet:"
+                />
             )}
         </div>
     );
 };
-export default PersonIndex;

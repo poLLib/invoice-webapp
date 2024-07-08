@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { apiGet } from "../utils/api";
 
-const InvoiceStatistics = () => {
+export function InvoiceStatistics() {
     const [isLoading, setIsLoading] = useState(true);
-    const [statistic, setStatistic] = useState({
+    const [statistics, setStatistics] = useState({
         currentYearSum: "",
         allTimeSum: "",
         invoicesCount: "",
     });
 
     useEffect(() => {
-        setIsLoading(true);
-        apiGet("/api/invoices/statistics").then((data) => setStatistic(data));
-        setIsLoading(false);
+        async function fetchStats() {
+            setStatistics(await apiGet("/api/invoices/statistics"));
+            setIsLoading(false);
+        }
+        fetchStats();
     }, []);
 
     return (
@@ -26,15 +28,15 @@ const InvoiceStatistics = () => {
                     <tr>
                         <th >Celkový příjem za letošní rok:</th>
 
-                        <td>{statistic.currentYearSum}</td>
+                        <td>{statistics.currentYearSum}</td>
                     </tr>
                     <tr>
                         <th>Celkový příjem:</th>
-                        <td>{statistic.allTimeSum}</td>
+                        <td>{statistics.allTimeSum}</td>
                     </tr>
                     <tr>
                         <th >Celkový počet faktur:</th>
-                        <td>{statistic.invoicesCount}</td>
+                        <td>{statistics.invoicesCount}</td>
                     </tr>
                 </tbody>
             )}
@@ -42,5 +44,3 @@ const InvoiceStatistics = () => {
         </table>
     );
 };
-
-export default InvoiceStatistics;

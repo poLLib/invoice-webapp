@@ -30,14 +30,14 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import PersonIndex from "./persons/PersonIndex";
-import PersonDetail from "./persons/PersonDetail";
-import PersonForm from "./persons/PersonForm";
-import PersonStatistics from "./persons/PersonStatistics";
-import InvoiceForm from "./invoice/InvoiceForm";
-import InvoiceIndex from "./invoice/InvoiceIndex";
-import InvoiceDetail from "./invoice/InvoiceDetail";
-import InvoiceStatistics from "./invoice/InvoiceStatistics";
+import { PersonIndex } from "./persons/PersonIndex";
+import { PersonDetail } from "./persons/PersonDetail";
+import { PersonForm } from "./persons/PersonForm";
+import { PersonStatistics } from "./persons/PersonStatistics";
+import { InvoiceForm } from "./invoice/InvoiceForm";
+import { InvoiceStatistics } from "./invoice/InvoiceStatistics";
+import { InvoiceDetail } from "./invoice/InvoiceDetail";
+import { InvoiceIndex } from "./invoice/InvoiceIndex";
 
 export function App() {
   return (
@@ -47,7 +47,7 @@ export function App() {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/persons"} className="nav-link">
-                Osoby
+                Společnosti
               </Link>
             </li>
             <li className="nav-item">

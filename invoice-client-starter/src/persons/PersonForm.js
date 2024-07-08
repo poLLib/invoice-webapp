@@ -28,10 +28,9 @@ import { apiGet, apiPost, apiPut } from "../utils/api";
 import InputField from "../components/InputField";
 import InputCheck from "../components/InputCheck";
 import FlashMessage from "../components/FlashMessage";
-
 import Country from "./Country";
 
-const PersonForm = () => {
+export function PersonForm() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [person, setPerson] = useState({
@@ -54,12 +53,15 @@ const PersonForm = () => {
     const [errorState, setError] = useState(null);
 
     useEffect(() => {
-        if (id) {
-            apiGet("/api/persons/" + id).then((data) => setPerson(data));
+        async function fetchPerson() {
+            if (id) {
+                setPerson(await apiGet(`/api/persons/${id}`))
+            }
         }
+        fetchPerson();
     }, [id]);
 
-    const handleSubmit = (e) => {
+    function handleSubmit(e) {
         e.preventDefault();
 
         (id ? apiPut("/api/persons/" + id, person) : apiPost("/api/persons", person))
@@ -88,7 +90,7 @@ const PersonForm = () => {
 
     return (
         <div>
-            <h1>{id ? "Upravit" : "Vytvořit"} osobnost</h1>
+            <h1>{id ? "Upravit" : "Vytvořit"} společnost</h1>
             <hr />
             {errorState ? (
                 <div className="alert alert-danger">{errorState}</div>
@@ -283,5 +285,3 @@ const PersonForm = () => {
         </div>
     );
 };
-
-export default PersonForm;

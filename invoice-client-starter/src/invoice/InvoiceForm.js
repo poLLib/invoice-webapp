@@ -30,7 +30,7 @@ import FlashMessage from "../components/FlashMessage";
 import InputSelect from "../components/InputSelect";
 import dateStringFormatter from "../utils/dateStringFormatter";
 
-const InvoiceForm = () => {
+export function InvoiceForm() {
     const navigate = useNavigate();
     const { id } = useParams();
     const [invoice, setInvoice] = useState({
@@ -51,13 +51,16 @@ const InvoiceForm = () => {
     const [persons, setPersons] = useState([]);
 
     useEffect(() => {
-        if (id) {
-            apiGet("/api/invoices/" + id).then((data) => setInvoice(data));
+        async function fetchInvoices() {
+            if (id) {
+                setInvoice(await apiGet("/api/invoices/" + id));
+            }
+            setPersons(await apiGet("/api/persons"));
         }
-        apiGet("/api/persons").then((data) => setPersons(data));
+        fetchInvoices();
     }, [id]);
 
-    const handleSubmit = (e) => {
+    function handleSubmit(e) {
         e.preventDefault();
 
         (id ? apiPut("/api/invoices/" + id, invoice) : apiPost("/api/invoices", invoice))
@@ -209,5 +212,3 @@ const InvoiceForm = () => {
         </div>
     );
 };
-export default InvoiceForm;
-

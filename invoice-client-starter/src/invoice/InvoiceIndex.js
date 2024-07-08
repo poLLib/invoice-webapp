@@ -24,14 +24,14 @@ import React, { useEffect, useState } from "react";
 
 import { apiDelete, apiGet } from "../utils/api";
 
-import InvoiceTable from "./InvoiceTable";
 import InvoiceFilter from "./InvoiceFilter";
+import { InvoiceTable } from "./InvoiceTable";
 
 
-const InvoiceIndex = () => {
+export function InvoiceIndex() {
     const [invoices, setInvoices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [personsState, setPersonsState] = useState([]);
+    const [persons, setPersons] = useState([]);
     const [inputText, setInputText] = useState("");
     const [filterState, setFilter] = useState({
         minPrice: undefined,
@@ -41,7 +41,7 @@ const InvoiceIndex = () => {
         buyerId: undefined,
     });
 
-    const deleteInvoice = async (id) => {
+    async function deleteInvoice(id) {
         try {
             await apiDelete("/api/invoices/" + id);
         } catch (error) {
@@ -52,9 +52,12 @@ const InvoiceIndex = () => {
     };
 
     useEffect(() => {
-        apiGet("/api/invoices").then((data) => setInvoices(data));
-        apiGet("/api/persons").then((data) => setPersonsState(data));
-        setIsLoading(false);
+        async function fetchInvoices() {
+            setInvoices(await apiGet("/api/invoices"));
+            setPersons(await apiGet("/api/persons"));
+            setIsLoading(false);
+        }
+        fetchInvoices();
     }, []);
 
     function handleChange(e) {
@@ -97,8 +100,8 @@ const InvoiceIndex = () => {
                         handleChange={handleChange}
                         handleSubmit={handleSubmit}
                         handleInput={handleInput}
-                        sellers={personsState}
-                        buyers={personsState}
+                        sellers={persons}
+                        buyers={persons}
                         filter={filterState}
                         confirm="Filtrovat faktury"
                     />
@@ -113,4 +116,3 @@ const InvoiceIndex = () => {
         </div>
     );
 };
-export default InvoiceIndex;

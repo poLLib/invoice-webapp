@@ -26,30 +26,30 @@ import { useParams } from "react-router-dom";
 import { apiGet } from "../utils/api";
 import Country from "./Country";
 
-const PersonDetail = () => {
+export function PersonDetail() {
     const { id } = useParams();
     const [person, setPerson] = useState({});
     const [soldInvoices, setSoldInvoices] = useState([]);
     const [receivedInvoices, setReceivedInvoices] = useState([]);
-    const [isLoadingPersons, setIsLoadingPersons] = useState(true);
-    const [isLoadingInvoices, setIsLoadingInvoices] = useState(true);
+    const [isLoadingPersons, setIsLoadingPersons] = useState();
+    const [isLoadingInvoices, setIsLoadingInvoices] = useState();
     const identificationNumber = person.identificationNumber;
 
     useEffect(() => {
-
-        setIsLoadingPersons(true);
-        apiGet(`/api/persons/${id}`).then((data) => setPerson(data));
-        setIsLoadingPersons(false);
-
+        async function fetchPerson() {
+            setPerson(await apiGet(`/api/persons/${id}`))
+            setIsLoadingPersons(false);
+        }
+        fetchPerson();
     }, [id]);
 
     useEffect(() => {
-
-        setIsLoadingInvoices(true);
-        apiGet(`/api/identification/${identificationNumber}/sales`).then((data) => setSoldInvoices(data));
-        apiGet(`/api/identification/${identificationNumber}/purchases`).then((data) => setReceivedInvoices(data));
-        setIsLoadingInvoices(false);
-
+        async function fetchInvoices() {
+            setSoldInvoices(await apiGet(`/api/identification/${identificationNumber}/sales`));
+            setReceivedInvoices(await apiGet(`/api/identification/${identificationNumber}/purchases`));
+            setIsLoadingInvoices(false);
+        }
+        fetchInvoices();
     }, [identificationNumber]);
 
     const country = Country.CZECHIA === person.country ? "Česká republika" : "Slovensko";
@@ -57,7 +57,7 @@ const PersonDetail = () => {
     return (
         <>
             <div className="container-fluid">
-                <h1>Detail osoby</h1>
+                <h1>Detail společnosti:</h1>
                 <hr />
                 <div className="col">
                     <div className="row">
@@ -133,5 +133,3 @@ const PersonDetail = () => {
         </>
     );
 };
-
-export default PersonDetail;
