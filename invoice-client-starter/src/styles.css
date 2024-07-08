@@ -1,3 +1,9 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 .table-statistics {
     padding: 30px 200px 0px;
 }
@@ -24,4 +30,26 @@
 .nav-style .navbar-nav .nav-item .nav-link:hover {
     color: rgb(223, 30, 30);
     text-decoration: none;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    padding-top: 25px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
 }

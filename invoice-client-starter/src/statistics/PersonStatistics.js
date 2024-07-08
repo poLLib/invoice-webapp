@@ -56,7 +56,7 @@ export function PersonStatistics() {
             ) : (
                 <>
                     <div className="col-md-6">
-                        <table className="table">
+                        <table className="table table-bordered">
                             {renderStatistics(firstHalf)}
                         </table>
                     </div>

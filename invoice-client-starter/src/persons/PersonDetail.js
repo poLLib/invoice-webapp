@@ -56,11 +56,12 @@ export function PersonDetail() {
 
     return (
         <>
-            <div className="container-fluid">
+            <div className="container">
                 <h1>Detail společnosti:</h1>
                 <hr />
-                <div className="col">
-                    <div className="row">
+                <div className="row mb-5">
+                    <div className="col-md-6">
+
                         {isLoadingPersons ? (
                             <div className="text-center">
                                 <div className="spinner-border" role="status">
@@ -68,66 +69,67 @@ export function PersonDetail() {
                             </div>
                         ) : (
                             <div>
-                                <h3>{person.name} ({person.identificationNumber})</h3>
+
+                                <h3 className="ms-3 fs-2">{person.name}</h3>
+                                <p className="ms-5">IČO:{person.identificationNumber}</p>
                                 <p>
-                                    <strong>DIČ:</strong>
-                                    <br />
-                                    {person.taxNumber}
-                                </p>
-                                <p>
-                                    <strong>Bankovní účet:</strong>
+                                    <strong className="ms-2">Bankovní účet:</strong>
                                     <br />
                                     {person.accountNumber}/{person.bankCode} ({person.iban})
                                 </p>
                                 <p>
-                                    <strong>Tel.:</strong>
+                                    <strong className="ms-2">Tel.:</strong>
                                     <br />
                                     {person.telephone}
                                 </p>
                                 <p>
-                                    <strong>Mail:</strong>
+                                    <strong className="ms-2">Mail:</strong>
                                     <br />
                                     {person.mail}
                                 </p>
                                 <p>
-                                    <strong>Sídlo:</strong>
+                                    <strong className="ms-2">Sídlo:</strong>
                                     <br />
                                     {person.street}, {person.city},
                                     {person.zip}, {country}
                                 </p>
                                 <p>
-                                    <strong>Poznámka:</strong>
+                                    <strong className="ms-2">Poznámka:</strong>
                                     <br />
                                     {person.note}
                                 </p>
                             </div>
-                        )};
+                        )}
                     </div>
 
-                    {isLoadingInvoices ? (
-                        <div className="text-center">
-                            <div className="spinner-border" role="status"></div>
-                        </div>
-                    ) : (
-                        <div className="col">
-                            <div className="row">
-                                <strong>Vystavené faktury:</strong>
-                                {soldInvoices.map((i, index) => (
-                                    <div key={index + 1}>
-                                        <p>Faktura č.: {i.invoiceNumber}</p>
-                                    </div>
-                                ))}
+
+                    <div className="col-md-6">
+                        {isLoadingInvoices ? (
+                            <div className="text-center">
+                                <div className="spinner-border" role="status"></div>
                             </div>
-                            <div className="row">
-                                <strong>Proplacené faktury:</strong>
-                                {receivedInvoices.map((i, index) => (
-                                    <div key={index + 1}>
-                                        <p>Faktura č.: {i.invoiceNumber}</p>
-                                    </div>
-                                ))}
+                        ) : (
+                            <div>
+                                <div>
+                                    <strong className="fs-4">Vystavené faktury:</strong>
+                                    {soldInvoices.map((i, index) => (
+                                        <div key={index + 1}>
+                                            <p>Faktura č.: {i.invoiceNumber}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                <hr/>
+                                <div>
+                                    <strong className="fs-4">Proplacené faktury:</strong>
+                                    {receivedInvoices.map((i, index) => (
+                                        <div key={index + 1}>
+                                            <p>Faktura č.: {i.invoiceNumber}</p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    )};
+                        )}
+                    </div>
                 </div>
             </div>
         </>

@@ -22,6 +22,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css'
 
 export function PersonTable({ label, items, deletePerson }) {
     return (
@@ -30,20 +31,20 @@ export function PersonTable({ label, items, deletePerson }) {
                 {label} {items.length}
             </p>
 
-            <table className="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Název</th>
-                        <th colSpan={3}></th>
-                    </tr>
+            <table className="table table-striped">
+                <thead className="fs-5">
+                    <th>NÁZEV</th>
+                    <th>IČO</th>
+                    <th>E-mail</th>
+                    <th colSpan={3}></th>
                 </thead>
                 <tbody>
                     {items.map((item, index) => (
                         <tr key={index + 1}>
-                            <td>{index + 1}</td>
                             <td className="fw-bold">{item.name}</td>
-                            <td>
+                            <td>{item.identificationNumber}</td>
+                            <td>{item.mail}</td>
+                            <td className="text-end">
                                 <div className="btn-group">
                                     <Link
                                         to={"/persons/show/" + item._id}
@@ -69,7 +70,7 @@ export function PersonTable({ label, items, deletePerson }) {
                     ))}
                 </tbody>
             </table>
-            <Link to={"/persons/create"} className="btn btn-success">
+            <Link to={"/persons/create"} className="btn btn-success ms-5 px-5">
                 Nová firma/osoba
             </Link>
         </div>

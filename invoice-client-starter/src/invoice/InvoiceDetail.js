@@ -59,14 +59,15 @@ export function InvoiceDetail() {
                     </div>
                 ) : (<div>
 
-                    <h3>{invoice?.invoiceNumber}</h3>
+                    <h3 className="ms-5 fs-2">Faktura číslo: <strong>{invoice?.invoiceNumber}</strong></h3>
+                    <br />
                     <p>
-                        <strong>Odběratel:</strong>
+                        <strong className="ms-2">Odběratel:</strong>
                         <br />
                         {buyer.name}
                     </p>
                     <p>
-                        <strong>Dodavatel:</strong>
+                        <strong className="ms-2">Dodavatel:</strong>
                         <br />
                         {seller.name}
                     </p>
@@ -86,7 +87,7 @@ export function InvoiceDetail() {
                         <strong>DPH: </strong> {invoice.vat} %
                     </p>
                     <p>
-                        <strong>Poznámky: </strong>
+                        <strong className="ms-2">Poznámky: </strong>
                         <br />
                         {invoice.note}
                     </p>

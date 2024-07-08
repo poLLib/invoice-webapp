@@ -41,9 +41,9 @@ import "./styles.css"
 
 export function App() {
   return (
-    <div>
+    <div className="wrapper">
       <Router>
-        <div className="container">
+        <div className="container content">
           <nav className="navbar navbar-expand-lg navbar-light nav-style">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
@@ -86,7 +86,7 @@ export function App() {
         </div>
 
       </Router>
-      <footer className="bg-dark text-white py-4">
+      <footer >
         <div className="container">
           <div className="row">
             <div className="col-md-6">
