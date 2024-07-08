@@ -18,7 +18,7 @@ export function InvoiceStatistics() {
     }, []);
 
     return (
-        <table className="table">
+        <table className="table table-success table-striped">
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-border" role="status">
@@ -28,15 +28,15 @@ export function InvoiceStatistics() {
                     <tr>
                         <th >Celkový příjem za letošní rok:</th>
 
-                        <td>{statistics.currentYearSum}</td>
+                        <td className="fw-bold">{statistics.currentYearSum}</td>
                     </tr>
                     <tr>
                         <th>Celkový příjem:</th>
-                        <td>{statistics.allTimeSum}</td>
+                        <td className="fw-bold">{statistics.allTimeSum}</td>
                     </tr>
                     <tr>
                         <th >Celkový počet faktur:</th>
-                        <td>{statistics.invoicesCount}</td>
+                        <td className="fw-bold">{statistics.invoicesCount}</td>
                     </tr>
                 </tbody>
             )}

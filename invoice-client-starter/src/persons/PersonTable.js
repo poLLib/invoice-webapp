@@ -25,7 +25,7 @@ import { Link } from "react-router-dom";
 
 export function PersonTable({ label, items, deletePerson }) {
     return (
-        <div>
+        <div className="pb-5">
             <p>
                 {label} {items.length}
             </p>

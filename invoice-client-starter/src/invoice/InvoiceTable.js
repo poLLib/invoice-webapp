@@ -25,7 +25,7 @@ import { Link } from "react-router-dom";
 
 export function InvoiceTable({ label, items, deleteInvoice }) {
     return (
-        <div>
+        <div className="pb-5">
             <p>
                 {label} {items.length}
             </p>

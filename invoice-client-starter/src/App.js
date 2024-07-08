@@ -33,63 +33,78 @@ import {
 import { PersonIndex } from "./persons/PersonIndex";
 import { PersonDetail } from "./persons/PersonDetail";
 import { PersonForm } from "./persons/PersonForm";
-import { PersonStatistics } from "./persons/PersonStatistics";
 import { InvoiceForm } from "./invoice/InvoiceForm";
-import { InvoiceStatistics } from "./invoice/InvoiceStatistics";
 import { InvoiceDetail } from "./invoice/InvoiceDetail";
 import { InvoiceIndex } from "./invoice/InvoiceIndex";
+import { StatisticsTable } from "./statistics/StatisticsTable";
 
 export function App() {
   return (
-    <Router>
-      <div className="container">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/persons"} className="nav-link">
-                Společnosti
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/invoices"} className="nav-link">
-                Faktury
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"invoices/statistics"} className="nav-link">
-                Statistiky faktur
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"persons/statistics"} className="nav-link">
-                Statistiky firem
-              </Link>
-            </li>
-          </ul>
-        </nav>
+    <div>
+      <Router>
+        <div className="container">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link to={"/persons"} className="nav-link">
+                  Společnosti
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/invoices"} className="nav-link">
+                  Faktury
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"statistics"} className="nav-link">
+                  Statistiky
+                </Link>
+              </li>
 
-        <Routes>
-          <Route index element={<Navigate to={"/persons"} />} />
-          <Route path="/persons">
-            <Route index element={<PersonIndex />} />
-            <Route path="show/:id" element={<PersonDetail />} />
-            <Route path="create" element={<PersonForm />} />
-            <Route path="edit/:id" element={<PersonForm />} />
-            <Route path="statistics" element={<PersonStatistics />} />
-          </Route>
+            </ul>
+          </nav>
 
-          <Route index element={<Navigate to={"/invoices"} />} />
-          <Route path="/invoices">
-            <Route index element={<InvoiceIndex />} />
-            <Route path="create" element={<InvoiceForm />} />
-            <Route path="show/:id" element={<InvoiceDetail />} />
-            <Route path="edit/:id" element={<InvoiceForm />} />
-            <Route path="statistics" element={<InvoiceStatistics />} />
+          <Routes>
+            <Route index element={<Navigate to={"/persons"} />} />
+            <Route path="/persons">
+              <Route index element={<PersonIndex />} />
+              <Route path="show/:id" element={<PersonDetail />} />
+              <Route path="create" element={<PersonForm />} />
+              <Route path="edit/:id" element={<PersonForm />} />
+            </Route>
 
-          </Route>
-        </Routes>
-      </div>
-    </Router>
+            <Route index element={<Navigate to={"/invoices"} />} />
+            <Route path="/invoices">
+              <Route index element={<InvoiceIndex />} />
+              <Route path="create" element={<InvoiceForm />} />
+              <Route path="show/:id" element={<InvoiceDetail />} />
+              <Route path="edit/:id" element={<InvoiceForm />} />
+            </Route>
+            <Route path="statistics" element={<StatisticsTable />} />
+          </Routes>
+        </div>
+
+      </Router>
+      <footer className="bg-dark text-white py-4">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <h4>Fakturační databáze</h4>
+              <p>Tento projekt slouží jako zkušební.</p>
+            </div>
+            <div className="col-md-6 text-md-right">
+              <ul className="list-unstyled">
+                <li>Email: tom.bilder321@gmail.com</li>
+                <li>Telefon: +420 735 256 931</li>
+              </ul>
+            </div>
+          </div>
+          <div className="text-center mt-3">
+            <p>&copy; 2024 poLLib</p>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
 
