@@ -6,17 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="83f5d95b-44bd-4074-be9a-fcffea5063c4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/controller/InvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/controller/InvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/InvoiceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/InvoiceDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/mapper/InvoiceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/mapper/InvoiceMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/mapper/PersonMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/mapper/PersonMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/InvoiceEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/InvoiceEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/InvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/InvoiceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/PersonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/PersonRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/dto/mapper/InvoiceMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/dto/mapper/InvoiceMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/dto/mapper/PersonMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/dto/mapper/PersonMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/PersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/PersonService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,16 +119,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceStatisticsServiceImpl.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

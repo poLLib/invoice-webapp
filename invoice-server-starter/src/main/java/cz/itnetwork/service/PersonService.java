@@ -44,8 +44,8 @@ public interface PersonService {
     /**
      * Edits person by [id]
      *
-     * @param id
-     * @param data Person to edit
+     * @param id Person to edit
+     * @param data Updated data of person to edit
      * @return Edited PersonDTO
      */
     PersonDTO editPerson(Long id, PersonDTO data);
