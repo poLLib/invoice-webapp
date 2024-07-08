@@ -8,6 +8,7 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring", uses = {PersonMapper.class})
 public interface InvoiceMapper {
+
     InvoiceDTO toDTO(InvoiceEntity source);
 
     InvoiceEntity toEntity(InvoiceDTO source);
@@ -16,5 +17,4 @@ public interface InvoiceMapper {
     @Mapping(target = "seller", ignore = true)
     void updateEntity(InvoiceDTO source, @MappingTarget InvoiceEntity target);
 
-    void updateDTO(InvoiceEntity source, @MappingTarget InvoiceDTO target);
 }

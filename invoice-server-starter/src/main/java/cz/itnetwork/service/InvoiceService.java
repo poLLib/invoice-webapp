@@ -1,11 +1,13 @@
 package cz.itnetwork.service;
 
 import cz.itnetwork.dto.InvoiceDTO;
+import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.entity.filter.InvoiceFilter;
 
 import java.util.List;
 
 public interface InvoiceService {
+
     /**
      * Creates an invoice and attach it to Person
      *
@@ -40,9 +42,16 @@ public interface InvoiceService {
     void deleteInvoice(Long id);
 
     /**
-     * Fetches all invoices in database and filter them according to users parameters
+     * Fetches all invoices in database and filter them according to user's parameters
      *
      * @return List of InvoiceDTO
      */
     List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter);
+
+    /**
+     * Counts the invoices, profit of the invoices current year and in total
+     *
+     * @return InvoiceStatisticsDTO with the counted values
+     */
+    InvoiceStatisticsDTO getInvoiceStatistics();
 }

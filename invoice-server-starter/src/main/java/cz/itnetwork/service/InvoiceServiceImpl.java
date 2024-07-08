@@ -1,6 +1,7 @@
 package cz.itnetwork.service;
 
 import cz.itnetwork.dto.InvoiceDTO;
+import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.dto.mapper.InvoiceMapper;
 import cz.itnetwork.dto.mapper.PersonMapper;
 import cz.itnetwork.entity.InvoiceEntity;
@@ -14,11 +15,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
+
     @Autowired
     private InvoiceRepository invoiceRepository;
 
@@ -76,6 +79,23 @@ public class InvoiceServiceImpl implements InvoiceService {
                 .stream()
                 .map(invoiceMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public InvoiceStatisticsDTO getInvoiceStatistics() {
+        InvoiceStatisticsDTO invoiceStatisticsDTO = new InvoiceStatisticsDTO();
+        Object values = invoiceRepository.getStats();
+        Object[] stat = (Object[]) values;
+
+        if (stat[0] == null) {
+            stat[0] = 0;
+        } else {
+            invoiceStatisticsDTO.setAllTimeSum((BigDecimal) stat[0]);
+        }
+        invoiceStatisticsDTO.setInvoicesCount((Long) stat[1]);
+        invoiceStatisticsDTO.setCurrentYearSum((BigDecimal) stat[2]);
+
+        return invoiceStatisticsDTO;
     }
 
     // region: Private methods

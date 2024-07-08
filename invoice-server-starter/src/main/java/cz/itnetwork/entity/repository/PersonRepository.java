@@ -21,8 +21,6 @@
  */
 package cz.itnetwork.entity.repository;
 
-import cz.itnetwork.dto.PersonDTO;
-import cz.itnetwork.dto.PersonStatisticsDTO;
 import cz.itnetwork.entity.PersonEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,11 +29,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
+
     List<PersonEntity> findByHidden(boolean hidden);
+
     PersonEntity findByIdentificationNumber(String identificationNumber);
 
-
-    // Method to get income of all time of a person by [id]
+    // Method to sum income of all the time of a person by [id]
     @Query(value = "SELECT SUM(i.price) FROM invoice i JOIN person p ON i.seller_id = p.id WHERE p.id = :id", nativeQuery = true)
     Long getPersonStatistics(@Param("id") Long id);
 }

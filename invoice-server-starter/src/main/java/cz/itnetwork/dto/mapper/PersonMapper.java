@@ -34,7 +34,5 @@ public interface PersonMapper {
 
     PersonDTO toDTO(PersonEntity source);
 
-    void updateEntity(PersonDTO source, @MappingTarget PersonEntity target);
-
     void updateDTO(PersonEntity source, @MappingTarget PersonDTO target);
 }

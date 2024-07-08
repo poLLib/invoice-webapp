@@ -67,30 +67,6 @@ public class PersonMapperImpl implements PersonMapper {
     }
 
     @Override
-    public void updateEntity(PersonDTO source, PersonEntity target) {
-        if ( source == null ) {
-            return;
-        }
-
-        if ( source.getId() != null ) {
-            target.setId( source.getId() );
-        }
-        target.setName( source.getName() );
-        target.setIdentificationNumber( source.getIdentificationNumber() );
-        target.setTaxNumber( source.getTaxNumber() );
-        target.setAccountNumber( source.getAccountNumber() );
-        target.setBankCode( source.getBankCode() );
-        target.setIban( source.getIban() );
-        target.setTelephone( source.getTelephone() );
-        target.setMail( source.getMail() );
-        target.setStreet( source.getStreet() );
-        target.setZip( source.getZip() );
-        target.setCity( source.getCity() );
-        target.setCountry( source.getCountry() );
-        target.setNote( source.getNote() );
-    }
-
-    @Override
     public void updateDTO(PersonEntity source, PersonDTO target) {
         if ( source == null ) {
             return;

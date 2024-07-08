@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class InvoiceEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

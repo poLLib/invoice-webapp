@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InvoiceDTO {
+
     @JsonProperty("_id")
     private Long id;
 

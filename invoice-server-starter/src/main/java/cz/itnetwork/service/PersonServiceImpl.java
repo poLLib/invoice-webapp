@@ -23,6 +23,7 @@ package cz.itnetwork.service;
 
 import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.dto.PersonDTO;
+import cz.itnetwork.dto.PersonStatisticsDTO;
 import cz.itnetwork.dto.mapper.InvoiceMapper;
 import cz.itnetwork.dto.mapper.PersonMapper;
 import cz.itnetwork.entity.InvoiceEntity;
@@ -107,6 +108,23 @@ public class PersonServiceImpl implements PersonService {
             if (i.getBuyer().getIdentificationNumber().equals(identificationNumber))
                 list.add(invoiceMapper.toDTO(i));
         }
+        return list;
+    }
+
+    @Override
+    public List<PersonStatisticsDTO> getPersonStatistics() {
+        List<PersonStatisticsDTO> list = new ArrayList<>();
+
+        for (PersonEntity person : personRepository.findAll()) {
+            PersonStatisticsDTO personStatisticsDTO = new PersonStatisticsDTO();
+
+            personStatisticsDTO.setPersonId(person.getId());
+            personStatisticsDTO.setPersonName(person.getName());
+            personStatisticsDTO.setRevenue(personRepository.getPersonStatistics(person.getId()));
+
+            list.add(personStatisticsDTO);
+        }
+
         return list;
     }
 

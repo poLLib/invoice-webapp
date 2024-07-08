@@ -7,19 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, JpaSpecificationExecutor<InvoiceEntity> {
 
-
-
-    // region: JQuery methods to get values of InvoiceStatisticsDTO [Long currentYearSum, Long allTimeSum, Long invoicesCount]
-
-    @Query(value = "SELECT SUM(price) FROM invoice", nativeQuery = true)
-    Long getSumPriceAllTime();
-
-    @Query(value = "SELECT COUNT(*) FROM invoice", nativeQuery = true)
-    Long getCountInvoices();
-
-    @Query(value = "SELECT SUM(price) FROM invoice WHERE YEAR(due_date) = YEAR(CURDATE())", nativeQuery = true)
-    Long getSumPriceCurrentYear();
-
+    /**
+     * JQuery to get values for InvoiceStatisticsDTO [BigDecimal currentYearSum, BigDecimal allTimeSum, Long invoicesCount]
+     *
+     * @return Object contains array of three indexes
+     */
     @Query(value = """
             SELECT
                 IFNULL((SELECT SUM(IFNULL(price,0)) FROM invoice), 0) AS allTimeSum,

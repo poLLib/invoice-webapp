@@ -1,7 +1,6 @@
 package cz.itnetwork.dto.mapper;
 
 import cz.itnetwork.dto.InvoiceDTO;
-import cz.itnetwork.dto.PersonDTO;
 import cz.itnetwork.entity.InvoiceEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,39 +74,5 @@ public class InvoiceMapperImpl implements InvoiceMapper {
         target.setPrice( source.getPrice() );
         target.setVat( source.getVat() );
         target.setNote( source.getNote() );
-    }
-
-    @Override
-    public void updateDTO(InvoiceEntity source, InvoiceDTO target) {
-        if ( source == null ) {
-            return;
-        }
-
-        target.setId( source.getId() );
-        target.setInvoiceNumber( source.getInvoiceNumber() );
-        target.setIssued( source.getIssued() );
-        target.setDueDate( source.getDueDate() );
-        target.setProduct( source.getProduct() );
-        target.setPrice( source.getPrice() );
-        target.setVat( source.getVat() );
-        target.setNote( source.getNote() );
-        if ( source.getBuyer() != null ) {
-            if ( target.getBuyer() == null ) {
-                target.setBuyer( new PersonDTO() );
-            }
-            personMapper.updateDTO( source.getBuyer(), target.getBuyer() );
-        }
-        else {
-            target.setBuyer( null );
-        }
-        if ( source.getSeller() != null ) {
-            if ( target.getSeller() == null ) {
-                target.setSeller( new PersonDTO() );
-            }
-            personMapper.updateDTO( source.getSeller(), target.getSeller() );
-        }
-        else {
-            target.setSeller( null );
-        }
     }
 }
