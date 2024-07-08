@@ -5,3 +5,5 @@
 
 ?? mel bych preferovat pouzivani async funkci pred then()? jako napr u apiPut a apiPost PersonForm a pak ji zavolat podobne jako tomu je u useEffect?
 ?? kde v devtools najdu cesty k objektum, napr e.target.value
+
+git udelat

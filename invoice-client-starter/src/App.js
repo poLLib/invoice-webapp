@@ -19,7 +19,7 @@
  * našich členů. Je určen pouze pro osobní užití a nesmí být šířen.
  * Více informací na http://www.itnetwork.cz/licence
  */
-
+ 
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
