@@ -89,7 +89,7 @@ export function InvoiceForm() {
     const success = successState;
 
     return (
-        <div>
+        <div className="ms-5 px-5 mb-5">
             <h1>{id ? "Upravit" : "Vytvořit"} fakturu</h1>
             <hr />
             {errorState ? (

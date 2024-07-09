@@ -40,6 +40,7 @@ export function InvoiceIndex() {
         sellerId: undefined,
         buyerId: undefined,
     });
+    const [sumInvoices, setSumInvoices] = useState([]);
 
     async function deleteInvoice(id) {
         try {
@@ -109,7 +110,7 @@ export function InvoiceIndex() {
                     <InvoiceTable
                         deleteInvoice={deleteInvoice}
                         items={invoices}
-                        label="Počet faktur:"
+                        label="Počet zobrazených faktur:"
                     />
                 </div>
             )}

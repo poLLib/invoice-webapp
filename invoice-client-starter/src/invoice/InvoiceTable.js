@@ -38,7 +38,7 @@ export function InvoiceTable({ label, items, deleteInvoice }) {
                         <th>Dodavatel</th>
                         <th>Odběratel</th>
                         <th>Cena</th>
-                        <th colSpan={3}>Akce</th>
+                        <th colSpan={3}></th>
                     </tr>
                 </thead>
                 <tbody>

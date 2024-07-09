@@ -22,6 +22,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { apiGet } from "../utils/api";
 import Country from "./Country";
@@ -112,20 +113,43 @@ export function PersonDetail() {
                             <div>
                                 <div>
                                     <strong className="fs-4">Vystavené faktury:</strong>
-                                    {soldInvoices.map((i, index) => (
-                                        <div key={index + 1}>
-                                            <p>Faktura č.: {i.invoiceNumber}</p>
-                                        </div>
-                                    ))}
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Číslo faktury</th>
+                                                <th>Položka</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {soldInvoices.map((i, index) => (
+                                                <tr key={index + 1}>
+                                                    <Link to={`/invoices/show/${i._id}`}>{i.invoiceNumber}</Link>
+                                                    <td>{i.product}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <hr/>
+                                <hr />
                                 <div>
                                     <strong className="fs-4">Proplacené faktury:</strong>
-                                    {receivedInvoices.map((i, index) => (
-                                        <div key={index + 1}>
-                                            <p>Faktura č.: {i.invoiceNumber}</p>
-                                        </div>
-                                    ))}
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Číslo faktury</th>
+                                                <th>Položka</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {receivedInvoices.map((i, index) => (
+                                                <tr key={index + 1}>
+
+                                                    <Link to={`/invoices/show/${i._id}`}>{i.invoiceNumber}</Link>
+                                                    <td>{i.product}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         )}

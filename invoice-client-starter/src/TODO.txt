@@ -1,9 +1,11 @@
 //TODO:
 // dynamicke vyhledavani ve filtraci produkt + reset btn
 // flash msg udelat popup, nebo po prenacteni na jinou url setContext.
-// udelat hezke rozlozeni ve 2 sloupcich v personDetail
+// Pocet faktur ma ukazovat celkem. vytvorit strankovani
+// hledani person, neni vytvoreni filtrace pro personu nad ramec UC?
+
+?? nechavame si tento projekt do portfolia? ikdyz tam mam licencni komentar u clienta od ITN?
+?? mel bych vytvorit testy?
 
 ?? mel bych preferovat pouzivani async funkci pred then()? jako napr u apiPut a apiPost PersonForm a pak ji zavolat podobne jako tomu je u useEffect?
 ?? kde v devtools najdu cesty k objektum, napr e.target.value
-
-git udelat
