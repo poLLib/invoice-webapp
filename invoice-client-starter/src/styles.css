@@ -1,0 +1,55 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.table-statistics {
+    padding: 30px 200px 0px;
+}
+
+.person-stats {
+    border: 1px solid #bbc7d4;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px
+}
+
+.nav-style {
+    border-radius: 0px 0px 10px 10px;
+    margin: 0px 100px 15px;
+    text-shadow: 1px 1px 5px #162e80;
+    font-size: x-large;
+}
+.nav-style .navbar-nav .nav-item .nav-link {
+    padding-right: 30px;
+    margin-left: 30px;
+    color: rgb(66, 66, 30);
+}
+
+.nav-style .navbar-nav .nav-item .nav-link:hover {
+    color: rgb(223, 30, 30);
+    text-decoration: none;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    padding-top: 25px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+}

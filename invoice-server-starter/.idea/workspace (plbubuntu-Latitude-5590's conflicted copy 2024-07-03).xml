@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="882a2214-cf1a-48f1-86a8-3ad4143b8dcf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/ApplicationMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/configuration/WebConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/constant/Countries.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/controller/InvoiceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/controller/PersonController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/controller/advice/EntityNotFoundExceptionAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/InvoiceDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/InvoiceStatisticsDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/PersonDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/PersonStatisticsDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/mapper/InvoiceMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/dto/mapper/PersonMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/InvoiceEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/PersonEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/InvoiceRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/PersonRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceStatisticsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceStatisticsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/PersonService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/PersonServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/PersonStatisticsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/PersonStatisticsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/dto/mapper/InvoiceMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/dto/mapper/PersonMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/entity/InvoiceEntity_.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/cz/itnetwork/entity/PersonEntity_.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2ikIFlsY2r8APefVrSxgCCWlZR9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/plb-ubuntu/Dropbox/Programming/KURZ/invoice-server-starter"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="882a2214-cf1a-48f1-86a8-3ad4143b8dcf" name="Changes" comment="" />
+      <created>1720028052926</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1720028052926</updated>
+    </task>
+    <servers />
+  </component>
+</project>
