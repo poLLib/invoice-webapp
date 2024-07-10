@@ -26,6 +26,7 @@ export function PersonStatistics() {
             {stats.map((stat) => {
                 const person = persons.find(p => p._id === stat.personId);
                 return person && !person.hidden ? (
+
                     <React.Fragment key={stat.personId}>
                         <tr>
                             <th>Jméno společnosti:</th>
@@ -42,6 +43,7 @@ export function PersonStatistics() {
                         <br />
                         <br />
                     </React.Fragment>
+
                 ) : null;
             })}
         </tbody >

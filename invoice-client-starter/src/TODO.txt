@@ -1,11 +1,10 @@
 //TODO:
-// dynamicke vyhledavani ve filtraci produkt + reset btn
+// dynamicke vyhledavani ve filtraci produkt + reset btn -> use debounced tool
 // flash msg udelat popup, nebo po prenacteni na jinou url setContext.
-// Pocet faktur ma ukazovat celkem. vytvorit strankovani
+// Pocet faktur ma ukazovat celkem. vytvorit strankovani -> vytvorit api pro next prev pages
 // hledani person, neni vytvoreni filtrace pro personu nad ramec UC?
 
-?? nechavame si tento projekt do portfolia? ikdyz tam mam licencni komentar u clienta od ITN?
-?? mel bych vytvorit testy?
+?? nechavame si tento projekt do portfolia? ikdyz tam mam licencni komentar u clienta od ITN? Martin Valicek => ??
+?? testy jen junit
 
-?? mel bych preferovat pouzivani async funkci pred then()? jako napr u apiPut a apiPost PersonForm a pak ji zavolat podobne jako tomu je u useEffect?
-?? kde v devtools najdu cesty k objektum, napr e.target.value
+?? kde v devtools najdu cesty k objektum, napr e.target.value -> react components -> events
