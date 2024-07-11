@@ -5,6 +5,7 @@ import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.entity.filter.InvoiceFilter;
 import cz.itnetwork.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,14 @@ public class InvoiceController {
     public List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter) {
         return invoiceService.getAllInvoices(invoiceFilter);
     }
+
+/*    @GetMapping(value = {"/invoices", "/invoices/"}, params = {"page", "size"})
+    public List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter,
+                                           @RequestParam("page") int page
+    ) {
+        Page<InvoiceDTO> resultPage = invoiceService.getAllInvoices(invoiceFilter, page);
+        return resultPage.getContent();
+    }*/
 
     @GetMapping({"/invoices/{invoiceId}", "/invoices/{invoiceId}/"})
     public InvoiceDTO getInvoiceDetail(@PathVariable Long invoiceId) {

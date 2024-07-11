@@ -31,6 +31,7 @@ import cz.itnetwork.entity.PersonEntity;
 import cz.itnetwork.entity.repository.InvoiceRepository;
 import cz.itnetwork.entity.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -72,8 +73,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonDTO> getAll() {
-        return personRepository.findByHidden(false)
+    public List<PersonDTO> getAllPersons(int page, int size) {
+        return personRepository.findByHidden(false, PageRequest.of(page, size))
                 .stream()
                 .map(i -> personMapper.toDTO(i))
                 .collect(Collectors.toList());

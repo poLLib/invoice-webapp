@@ -11,6 +11,7 @@ import cz.itnetwork.entity.repository.InvoiceRepository;
 import cz.itnetwork.entity.repository.PersonRepository;
 import cz.itnetwork.entity.repository.specification.InvoiceSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -80,6 +81,15 @@ public class InvoiceServiceImpl implements InvoiceService {
                 .map(invoiceMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+/*    @Override
+    public Page<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter, int page) {
+        InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
+        PageRequest pageRequest = PageRequest.of(page, invoiceFilter.getLimit());
+        Page<InvoiceEntity> invoicePage = invoiceRepository.findAll(invoiceSpecification, pageRequest);
+
+        return invoicePage.map(invoiceMapper::toDTO);
+    }*/
 
     @Override
     public InvoiceStatisticsDTO getInvoiceStatistics() {

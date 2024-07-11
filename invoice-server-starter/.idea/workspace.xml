@@ -6,8 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="83f5d95b-44bd-4074-be9a-fcffea5063c4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../invoice-client-starter/src/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice-client-starter/src/TODO.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../invoice-client-starter/src/statistics/PersonStatistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice-client-starter/src/statistics/PersonStatistics.js" afterDir="false" />
+<<<<<<< Updated upstream
+      <change beforePath="$PROJECT_DIR$/../invoice-client-starter/src/invoice/InvoiceFilter.js" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice-client-starter/src/invoice/InvoiceFilter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../invoice-client-starter/src/invoice/InvoiceIndex.js" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice-client-starter/src/invoice/InvoiceIndex.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../invoice-client-starter/src/invoice/InvoiceTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice-client-starter/src/invoice/InvoiceTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/controller/InvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/controller/InvoiceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/controller/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/controller/PersonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/filter/InvoiceFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/filter/InvoiceFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/InvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/InvoiceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/PersonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/entity/repository/PersonRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/InvoiceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/PersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/PersonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/PersonServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/itnetwork/service/PersonServiceImpl.java" afterDir="false" />
+=======
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

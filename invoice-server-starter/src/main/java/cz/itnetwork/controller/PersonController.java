@@ -43,8 +43,9 @@ public class PersonController {
     }
 
     @GetMapping("/persons")
-    public List<PersonDTO> getPersons() {
-        return personService.getAll();
+    public List<PersonDTO> getPersons(@RequestParam(defaultValue = "0") int page,
+                                      @RequestParam(defaultValue = "10") int size) {
+        return personService.getAllPersons(page, size);
     }
 
     @DeleteMapping("/persons/{personId}")

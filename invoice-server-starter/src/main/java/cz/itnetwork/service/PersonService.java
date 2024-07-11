@@ -25,11 +25,13 @@ public interface PersonService {
     void removePerson(long id);
 
     /**
-     * Fetches all non-hidden persons
+     * Fetches all non-hidden persons and page them in lists
      *
-     * @return List of PersonDTO
+     * @param page Current page
+     * @param size Number of pages
+     * @return List of PersonDTO of current page
      */
-    List<PersonDTO> getAll();
+    List<PersonDTO> getAllPersons(int page, int size);
 
 
     /**
