@@ -3,6 +3,7 @@ package cz.itnetwork.service;
 import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.entity.filter.InvoiceFilter;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -47,6 +48,7 @@ public interface InvoiceService {
      * @return List of InvoiceDTO
      */
     List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter);
+    /*List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter)*/
 
     /**
      * Counts the invoices, profit of the invoices current year and in total

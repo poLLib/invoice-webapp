@@ -26,7 +26,11 @@ public interface PersonService {
 
     /**
      * Fetches all non-hidden persons and page them in lists
+     * Fetches all non-hidden persons and page them in lists
      *
+     * @param page Current page
+     * @param size Number of pages
+     * @return List of PersonDTO of current page
      * @param page Current page
      * @param size Number of pages
      * @return List of PersonDTO of current page

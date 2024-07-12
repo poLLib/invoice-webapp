@@ -1,9 +1,14 @@
 package cz.itnetwork.entity.repository;
 
+import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.entity.InvoiceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+import java.awt.print.Pageable;
+import java.util.List;
 
 public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, JpaSpecificationExecutor<InvoiceEntity> {
 

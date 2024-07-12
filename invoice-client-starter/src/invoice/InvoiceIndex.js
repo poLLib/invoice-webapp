@@ -21,18 +21,18 @@
  */
 
 import React, { useEffect, useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 
 import { apiDelete, apiGet } from "../utils/api";
 
 import InvoiceFilter from "./InvoiceFilter";
 import { InvoiceTable } from "./InvoiceTable";
-
+import { Pagination } from "../components/Pagination";
 
 export function InvoiceIndex() {
     const [invoices, setInvoices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [persons, setPersons] = useState([]);
-    const [inputText, setInputText] = useState("");
     const [filterState, setFilter] = useState({
         minPrice: undefined,
         maxPrice: undefined,
@@ -40,7 +40,6 @@ export function InvoiceIndex() {
         sellerId: undefined,
         buyerId: undefined,
     });
-    const [sumInvoices, setSumInvoices] = useState([]);
 
     async function deleteInvoice(id) {
         try {

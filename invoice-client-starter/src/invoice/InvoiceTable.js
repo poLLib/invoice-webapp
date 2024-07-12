@@ -20,10 +20,11 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export function InvoiceTable({ label, items, deleteInvoice }) {
+
     return (
         <div className="pb-5">
             <p>
