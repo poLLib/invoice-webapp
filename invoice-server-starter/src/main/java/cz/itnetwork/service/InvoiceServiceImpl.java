@@ -11,7 +11,6 @@ import cz.itnetwork.entity.repository.InvoiceRepository;
 import cz.itnetwork.entity.repository.PersonRepository;
 import cz.itnetwork.entity.repository.specification.InvoiceSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -46,6 +45,26 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter) {
+        InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
+
+        return invoiceRepository.findAll(invoiceSpecification, PageRequest.of(0, invoiceFilter.getLimit()))
+                .stream()
+                .map(invoiceMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public InvoiceDTO detailInvoice(Long id) {
+        return invoiceMapper.toDTO(invoiceRepository.getReferenceById(id));
+    }
+
+    @Override
+    public void deleteInvoice(Long id) {
+        invoiceRepository.delete(fetchInvoiceById(id));
+    }
+
+    @Override
     public InvoiceDTO editInvoice(Long id, InvoiceDTO data) {
         InvoiceEntity invoice = fetchInvoiceById(id);
         invoiceMapper.updateEntity(data, invoice);
@@ -61,35 +80,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         return invoiceMapper.toDTO(invoice);
     }
-
-    @Override
-    public void deleteInvoice(Long id) {
-        invoiceRepository.delete(fetchInvoiceById(id));
-    }
-
-    @Override
-    public InvoiceDTO detailInvoice(Long id) {
-        return invoiceMapper.toDTO(invoiceRepository.getReferenceById(id));
-    }
-
-    @Override
-     public List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter) {
-        InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
-
-        return invoiceRepository.findAll(invoiceSpecification, PageRequest.of(0, invoiceFilter.getLimit()))
-                .stream()
-                .map(invoiceMapper::toDTO)
-                .collect(Collectors.toList());
-    }
-
-/*    @Override
-    public Page<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter, int page) {
-        InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
-        PageRequest pageRequest = PageRequest.of(page, invoiceFilter.getLimit());
-        Page<InvoiceEntity> invoicePage = invoiceRepository.findAll(invoiceSpecification, pageRequest);
-
-        return invoicePage.map(invoiceMapper::toDTO);
-    }*/
 
     @Override
     public InvoiceStatisticsDTO getInvoiceStatistics() {

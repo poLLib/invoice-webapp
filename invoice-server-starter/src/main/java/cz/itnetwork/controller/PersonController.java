@@ -53,14 +53,14 @@ public class PersonController {
         return personService.getVisiblePersonsCount();
     }
 
-    @DeleteMapping("/persons/{personId}")
-    public void deletePerson(@PathVariable Long personId) {
-        personService.removePerson(personId);
-    }
-
     @GetMapping("/persons/{personId}")
     public PersonDTO getPerson(@PathVariable Long personId) {
         return personService.getPerson(personId);
+    }
+
+    @DeleteMapping("/persons/{personId}")
+    public void deletePerson(@PathVariable Long personId) {
+        personService.removePerson(personId);
     }
 
     @PutMapping("/persons/{personId}")
@@ -69,7 +69,7 @@ public class PersonController {
     }
 
     @GetMapping({"/identification/{identificationNumber}/sales", "/identification/{identificationNumber}/sales/"})
-    public List<InvoiceDTO> getSalesInvoices(@PathVariable String identificationNumber) {
+    public List<InvoiceDTO> getSellerInvoices(@PathVariable String identificationNumber) {
         return personService.getInvoicesBySeller(identificationNumber);
     }
 

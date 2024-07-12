@@ -3,7 +3,6 @@ package cz.itnetwork.service;
 import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.entity.filter.InvoiceFilter;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -18,13 +17,11 @@ public interface InvoiceService {
     InvoiceDTO createInvoice(InvoiceDTO data);
 
     /**
-     * Edit invoice by [id] if exists
+     * Fetches all invoices in database and filter them according to user's parameters
      *
-     * @param id   Invoice to be edited
-     * @param data New source of data for update invoice
-     * @return Edited InvoiceDTO
+     * @return List of InvoiceDTO
      */
-    InvoiceDTO editInvoice(Long id, InvoiceDTO data);
+    List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter);
 
     /**
      * Look up for a specific invoice by [id]
@@ -43,12 +40,13 @@ public interface InvoiceService {
     void deleteInvoice(Long id);
 
     /**
-     * Fetches all invoices in database and filter them according to user's parameters
+     * Edit invoice by [id] if exists
      *
-     * @return List of InvoiceDTO
+     * @param id   Invoice to be edited
+     * @param data New source of data for update invoice
+     * @return Edited InvoiceDTO
      */
-    List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter);
-    /*List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter)*/
+    InvoiceDTO editInvoice(Long id, InvoiceDTO data);
 
     /**
      * Counts the invoices, profit of the invoices current year and in total

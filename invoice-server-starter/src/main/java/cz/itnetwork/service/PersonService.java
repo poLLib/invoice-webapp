@@ -17,27 +17,19 @@ public interface PersonService {
     PersonDTO addPerson(PersonDTO personDTO);
 
     /**
-     * <p>Sets hidden flag to true for the person with the matching [id]</p>
-     * <p>In case a person with the passed [id] isn't found, the method <b>silently fails</b></p>
-     *
-     * @param id Person to delete
-     */
-    void removePerson(long id);
-
-    /**
-     * Fetches all non-hidden persons and page them in lists
      * Fetches all non-hidden persons and page them in lists
      *
-     * @param page Current page
-     * @param size Number of pages
-     * @return List of PersonDTO of current page
      * @param page Current page
      * @param size Number of pages
      * @return List of PersonDTO of current page
      */
     List<PersonDTO> getAllPersonsPages(int page, int size);
 
-
+    /**
+     * Counts all visible persons
+     *
+     * @return Sum of persons
+     */
     Long getVisiblePersonsCount();
 
     /**
@@ -48,6 +40,14 @@ public interface PersonService {
      * @return Found PersonDTO
      */
     PersonDTO getPerson(Long id);
+
+    /**
+     * <p>Sets hidden flag to true for the person with the matching [id]</p>
+     * <p>In case a person with the passed [id] isn't found, the method <b>silently fails</b></p>
+     *
+     * @param id Person to delete
+     */
+    void removePerson(long id);
 
     /**
      * Edits person by [id]
