@@ -24,13 +24,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css'
 
-export function PersonTable({ label, itemsPerPage, deletePerson }) {
+export function PersonTable({ itemsPerPage, deletePerson }) {
 
     return (
         <div className="pb-5">
-            <p>
-                {label} {itemsPerPage.length}
-            </p>
+
 
             <table className="table table-striped">
                 <thead className="fs-5">

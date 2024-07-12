@@ -39,6 +39,14 @@ const fetchData = (url, requestOptions) => {
             throw error;
         });
 };
+export const apiGetPage = (url) => {
+    const apiUrl = `${url}`;
+    const requestOptions = {
+        method: "GET",
+    };
+
+    return fetchData(apiUrl, requestOptions);
+};
 
 export const apiGet = (url, params) => {
     const filteredParams = Object.fromEntries(

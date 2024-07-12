@@ -73,11 +73,16 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonDTO> getAllPersons(int page, int size) {
+    public List<PersonDTO> getAllPersonsPages(int page, int size) {
         return personRepository.findByHidden(false, PageRequest.of(page, size))
                 .stream()
                 .map(i -> personMapper.toDTO(i))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Long getVisiblePersonsCount() {
+        return personRepository.countAllVisibleEntities();
     }
 
     @Override

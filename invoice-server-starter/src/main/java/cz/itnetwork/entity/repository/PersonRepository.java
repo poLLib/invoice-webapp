@@ -31,6 +31,14 @@ import java.util.List;
 
 public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
 
+
+    /**
+     * Look up for hidden entities and make them Pageable
+     *
+     * @param hidden   Entity which hidden in UI, but it is kept in database according to the law of accountancy
+     * @param pageable Defines pages of the List
+     * @return List of pages of PersonEntities
+     */
     List<PersonEntity> findByHidden(boolean hidden, Pageable pageable);
 
     PersonEntity findByIdentificationNumber(String identificationNumber);
@@ -38,4 +46,7 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
     // Method to sum income of all the time of a person by [id]
     @Query(value = "SELECT SUM(i.price) FROM invoice i JOIN person p ON i.seller_id = p.id WHERE p.id = :id", nativeQuery = true)
     Long getPersonStatistics(@Param("id") Long id);
+
+    @Query(value = "SELECT COUNT(*) FROM person p WHERE p.hidden = false", nativeQuery = true)
+    Long countAllVisibleEntities();
 }

@@ -84,7 +84,7 @@ function InvoiceFilter(props) {
                             handleChange={handleChange}
                             label="Limit zobrazených faktur"
                             min="1"
-                            prompt="25"
+                            prompt="10"
                             value={filter.limit}
                         />
                     </div>

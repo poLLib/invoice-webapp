@@ -22,7 +22,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import { apiDelete, apiGet } from "../utils/api";
+import { apiDelete, apiGet, apiGetPage } from "../utils/api";
 import { Pagination } from "../components/Pagination";
 import { PersonTable } from "./PersonTable";
 import { useNavigate, useParams } from "react-router-dom";
@@ -30,10 +30,12 @@ import { useNavigate, useParams } from "react-router-dom";
 export function PersonIndex() {
     const [persons, setPersons] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingCount, setIsLoadingCount] = useState(true);
     const [totalPages, setTotalPages] = useState(null);
     const [pageSize, setPageSize] = useState(10);
+    const [totalPersons, setTotalPersons] = useState(0);
 
-    const { page = 1 } = useParams();
+    const { page = 0 } = useParams();
     const navigate = useNavigate();
 
     async function deletePerson(id) {
@@ -47,22 +49,35 @@ export function PersonIndex() {
     };
 
     useEffect(() => {
+        async function fetchSumPersons() {
+            setTotalPersons(await apiGet("/api/persons/total"));
+            setTotalPages(Math.ceil(totalPersons / pageSize));
+            setIsLoadingCount(false);
+        }
+        fetchSumPersons();
+    }, [totalPersons, pageSize])
+
+    useEffect(() => {
         async function fetchPersons() {
-            const data = await apiGet(`/api/persons`, `page=${page}&size=${pageSize}`);
+            const data = await apiGetPage(`/api/persons?page=${page}&size=${pageSize}`);
             setPersons(data);
-            setTotalPages(Math.ceil(dataSum.length / pageSize));
             setIsLoading(false);
         }
         fetchPersons();
     }, [page]);
 
+
     function handlePageChange(newPage) {
         navigate(`/persons/pages/${newPage}`);
+        setIsLoading(true);
     }
 
     return (
         <div>
             <h1>Seznam společností</h1>
+            <p>
+                Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalPersons}</strong>)}
+            </p>
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-grow my-3" role="status"></div>

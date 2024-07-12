@@ -31,8 +31,10 @@ public interface PersonService {
      * @param size Number of pages
      * @return List of PersonDTO of current page
      */
-    List<PersonDTO> getAllPersons(int page, int size);
+    List<PersonDTO> getAllPersonsPages(int page, int size);
 
+
+    Long getVisiblePersonsCount();
 
     /**
      * Fetches the specific person by [id]

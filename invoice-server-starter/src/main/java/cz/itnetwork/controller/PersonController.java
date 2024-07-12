@@ -45,7 +45,12 @@ public class PersonController {
     @GetMapping("/persons")
     public List<PersonDTO> getPersons(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "10") int size) {
-        return personService.getAllPersons(page, size);
+        return personService.getAllPersonsPages(page, size);
+    }
+
+    @GetMapping("/persons/total")
+    public Long getTotalPersons() {
+        return personService.getVisiblePersonsCount();
     }
 
     @DeleteMapping("/persons/{personId}")
