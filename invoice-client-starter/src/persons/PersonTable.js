@@ -20,30 +20,16 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Pagination } from "../components/Pagination";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css'
 
-export function PersonTable({ label, items, deletePerson }) {
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
-    const totalPages = Math.ceil(items.length / itemsPerPage);
-
-    function getCurrentPageItems() {
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        return items.slice(start, end);
-    };
-
-    function handlePageChange(page) {
-        setCurrentPage(page);
-    };
+export function PersonTable({ label, itemsPerPage, deletePerson }) {
 
     return (
         <div className="pb-5">
             <p>
-                {label} {items.length}
+                {label} {itemsPerPage.length}
             </p>
 
             <table className="table table-striped">
@@ -54,7 +40,7 @@ export function PersonTable({ label, items, deletePerson }) {
                     <th colSpan={3}></th>
                 </thead>
                 <tbody>
-                    {getCurrentPageItems().map((item, index) => (
+                    {itemsPerPage.map((item, index) => (
                         <tr key={index + 1}>
                             <td className="fw-bold">{item.name}</td>
                             <td>{item.identificationNumber}</td>
@@ -88,7 +74,6 @@ export function PersonTable({ label, items, deletePerson }) {
             <Link to={"/persons/create"} className="btn btn-success ms-5 px-5">
                 Nová firma/osoba
             </Link>
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
     );
 };

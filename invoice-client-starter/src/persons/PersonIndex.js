@@ -23,12 +23,18 @@
 import React, { useEffect, useState } from "react";
 
 import { apiDelete, apiGet } from "../utils/api";
-
+import { Pagination } from "../components/Pagination";
 import { PersonTable } from "./PersonTable";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function PersonIndex() {
     const [persons, setPersons] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [totalPages, setTotalPages] = useState(null);
+    const [pageSize, setPageSize] = useState(10);
+
+    const { page = 1 } = useParams();
+    const navigate = useNavigate();
 
     async function deletePerson(id) {
         try {
@@ -42,11 +48,17 @@ export function PersonIndex() {
 
     useEffect(() => {
         async function fetchPersons() {
-            setPersons(await apiGet("/api/persons"));
+            const data = await apiGet(`/api/persons`, `page=${page}&size=${pageSize}`);
+            setPersons(data);
+            setTotalPages(Math.ceil(dataSum.length / pageSize));
             setIsLoading(false);
         }
         fetchPersons();
-    }, []);
+    }, [page]);
+
+    function handlePageChange(newPage) {
+        navigate(`/persons/pages/${newPage}`);
+    }
 
     return (
         <div>
@@ -58,10 +70,12 @@ export function PersonIndex() {
             ) : (
                 <PersonTable
                     deletePerson={deletePerson}
-                    items={persons}
+                    itemsPerPage={persons}
                     label="Celkový počet:"
+                    page={page}
                 />
             )}
+            <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
     );
 };
