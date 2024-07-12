@@ -27,7 +27,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 export function PersonTable({ itemsPerPage, deletePerson }) {
 
     return (
-        <div>
+        <div className="pb-5">
 
 
             <table className="table table-striped">
@@ -69,7 +69,9 @@ export function PersonTable({ itemsPerPage, deletePerson }) {
                     ))}
                 </tbody>
             </table>
-
+            <Link to={"/persons/create"} className="btn btn-success ms-5 px-5">
+                Nová firma/osoba
+            </Link>
         </div>
     );
 };

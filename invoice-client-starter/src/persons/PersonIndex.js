@@ -21,11 +21,11 @@
  */
 
 import React, { useEffect, useState } from "react";
+
 import { apiDelete, apiGet, apiGetPage } from "../utils/api";
 import { Pagination } from "../components/Pagination";
 import { PersonTable } from "./PersonTable";
 import { useNavigate, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 export function PersonIndex() {
     const [persons, setPersons] = useState([]);
@@ -33,9 +33,9 @@ export function PersonIndex() {
     const [isLoadingCount, setIsLoadingCount] = useState(true);
     const [totalPages, setTotalPages] = useState(null);
     const [pageSize, setPageSize] = useState(10);
-    const [totalPersons, setTotalPersons] = useState(null);
+    const [totalPersons, setTotalPersons] = useState(0);
 
-    const { page = 1 } = useParams();
+    const { page = 0 } = useParams();
     const navigate = useNavigate();
 
     async function deletePerson(id) {
@@ -46,7 +46,6 @@ export function PersonIndex() {
             alert(error.message)
         }
         setPersons(persons.filter((item) => item._id !== id));
-        setTotalPersons(totalPersons - 1);
     };
 
     useEffect(() => {
@@ -60,7 +59,7 @@ export function PersonIndex() {
 
     useEffect(() => {
         async function fetchPersons() {
-            const data = await apiGetPage(`/api/persons?page=${page - 1}&size=${pageSize}`);
+            const data = await apiGetPage(`/api/persons?page=${page}&size=${pageSize}`);
             setPersons(data);
             setIsLoading(false);
         }
@@ -72,8 +71,6 @@ export function PersonIndex() {
         navigate(`/persons/pages/${newPage}`);
         setIsLoading(true);
     }
-    console.log(page);
-
 
     return (
         <div>
@@ -94,10 +91,6 @@ export function PersonIndex() {
                 />
             )}
             <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
-
-            <Link to={"/persons/create"} className="btn btn-success ms-5 mb-5 px-5">
-                Nová firma/osoba
-            </Link>
         </div>
     );
 };

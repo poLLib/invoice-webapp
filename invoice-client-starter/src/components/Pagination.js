@@ -3,11 +3,11 @@ import React from "react";
 export function Pagination({ currentPage, totalPages, onPageChange }) {
 
     function handlePrevClick() {
-        if (currentPage > 1) { onPageChange(parseInt(currentPage) - 1) };
+        if (currentPage > 1) { onPageChange(currentPage - 1) };
     };
 
     function handleNextClick() {
-        if (currentPage < totalPages) { onPageChange(parseInt(currentPage) + 1) };
+        if (currentPage < totalPages) { onPageChange(currentPage + 1) };
     };
 
     return (
@@ -28,7 +28,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
                         </button>
                     </li>
                 ))}
-                <li className={`page-item ${currentPage === totalPages + 1 ? 'disabled' : ''}`}>
+                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
                     <button className="page-link" onClick={handleNextClick}>
                         &raquo;
                     </button>
