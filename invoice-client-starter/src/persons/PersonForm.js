@@ -72,7 +72,7 @@ export function PersonForm() {
                     setSent(false)
                     navigate("/persons");
 
-                }, 5000);
+                }, 2500);
             })
             .catch((error) => {
                 console.log(error.message);
@@ -81,7 +81,7 @@ export function PersonForm() {
                 setSuccess(false);
                 setTimeout(() => {
                     setSent(false)
-                }, 5000);
+                }, 2500);
             });
     };
 

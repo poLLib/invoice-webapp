@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import InputField from "../components/InputField"
 import InputSelect from "../components/InputSelect";
 
@@ -99,6 +100,11 @@ function InvoiceFilter(props) {
                         type="submit"
                         className="btn btn-secondary float-right mt-2"
                         value={props.confirm}
+                    />
+                    <input
+                        type="reset"
+                        className="btn btn-danger float-right mt-2 ms-3"
+                        value={props.reset}
                     />
                 </div>
             </div>

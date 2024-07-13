@@ -46,8 +46,13 @@ export function PersonIndex() {
             alert(error.message)
         }
         setPersons(persons.filter((item) => item._id !== id));
+
+        if ((totalPersons - 1) % 10 === 0) {
+            navigate(`/persons/pages/${page - 1}`)
+        }
         setTotalPersons(totalPersons - 1);
     };
+
 
     useEffect(() => {
         async function fetchSumPersons() {
@@ -56,6 +61,7 @@ export function PersonIndex() {
             setIsLoadingCount(false);
         }
         fetchSumPersons();
+
     }, [totalPersons, pageSize])
 
     useEffect(() => {
@@ -71,8 +77,6 @@ export function PersonIndex() {
     function handlePageChange(newPage) {
         navigate(`/persons/pages/${newPage}`);
     }
-    console.log(page);
-
 
     return (
         <div>
@@ -92,7 +96,7 @@ export function PersonIndex() {
                     page={page}
                 />
             )}
-            <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
+            <Pagination currentPage={parseInt(page)} totalPages={totalPages} onPageChange={handlePageChange} />
 
             <Link to={"/persons/create"} className="btn btn-success ms-5 mb-5 px-5">
                 Nová firma/osoba

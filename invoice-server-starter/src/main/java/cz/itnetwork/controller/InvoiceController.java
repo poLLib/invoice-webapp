@@ -4,6 +4,7 @@ import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.entity.filter.InvoiceFilter;
 import cz.itnetwork.service.InvoiceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class InvoiceController {
     private InvoiceService invoiceService;
 
     @PostMapping({"/invoices", "/invoices/"})
-    public InvoiceDTO createInvoice(@RequestBody InvoiceDTO data) {
+    public InvoiceDTO createInvoice(@Valid @RequestBody InvoiceDTO data) {
         return invoiceService.createInvoice(data);
     }
 

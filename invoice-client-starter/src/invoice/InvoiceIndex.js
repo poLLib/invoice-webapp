@@ -104,6 +104,7 @@ export function InvoiceIndex() {
                         buyers={persons}
                         filter={filterState}
                         confirm="Filtrovat faktury"
+                        reset="Reset"
                     />
                     <hr />
                     <InvoiceTable
