@@ -25,6 +25,7 @@ import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.dto.PersonDTO;
 import cz.itnetwork.dto.PersonStatisticsDTO;
 import cz.itnetwork.service.PersonService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping("/persons")
-    public PersonDTO addPerson(@RequestBody PersonDTO personDTO) {
+    public PersonDTO addPerson(@Valid @RequestBody PersonDTO personDTO) {
         return personService.addPerson(personDTO);
     }
 
@@ -64,7 +65,7 @@ public class PersonController {
     }
 
     @PutMapping("/persons/{personId}")
-    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody PersonDTO data) {
+    public PersonDTO editPerson(@PathVariable Long personId, @Valid @RequestBody PersonDTO data) {
         return personService.editPerson(personId, data);
     }
 

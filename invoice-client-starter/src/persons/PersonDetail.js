@@ -77,7 +77,7 @@ export function PersonDetail() {
                                 <p>
                                     <strong className="ms-2">Bankovní účet:</strong>
                                     <br />
-                                    {person.accountNumber}/{person.bankCode} ({person.iban})
+                                    {person.accountNumber}/{person.bankCode} (IBAN: {person.iban})
                                 </p>
                                 <p>
                                     <strong className="ms-2">Tel.:</strong>

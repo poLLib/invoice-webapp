@@ -40,7 +40,7 @@ public class InvoiceController {
     }
 
     @PutMapping({"/invoices/{invoiceId}", "/invoices/{invoiceId}/"})
-    public InvoiceDTO editInvoice(@PathVariable Long invoiceId, @RequestBody InvoiceDTO data) {
+    public InvoiceDTO editInvoice(@PathVariable Long invoiceId,@Valid @RequestBody InvoiceDTO data) {
         return invoiceService.editInvoice(invoiceId, data);
     }
 

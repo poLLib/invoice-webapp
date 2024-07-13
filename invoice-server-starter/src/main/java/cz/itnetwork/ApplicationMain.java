@@ -31,7 +31,7 @@ public class ApplicationMain {
         SpringApplication.run(ApplicationMain.class, args);
     }
 }
-// TODO: ?? zobrazit valid msg do flash msg? validace ICO a ostatnich, pri uprave nemenne?? settery, diff apiput apipost
+// TODO: ?? zobrazit valid msg do flash msg? nezobrazeni nemennych atributu (ico aj.) pri uprave ?? v FE si v tenarni podmince diff apiput apipost pro PUT nevypiseme nemenne pole. na BE pak muzes setnout null pro novou entitu po uprave
 // TODO: FlashMsg, presunout okno na FM.. alert(), setIntervat(), useContext()
 // TODO: promazat = udelat checkbox pro vyber kterych
 // TODO: ?? reset btn, neresetuje vyhledani polozky
