@@ -26,6 +26,7 @@ import { Link } from "react-router-dom";
 import '../styles.css'
 import { apiGet } from "../utils/api";
 import Country from "./Country";
+import { BackButton } from "../components/BackButton";
 
 export function PersonDetail() {
     const { id } = useParams();
@@ -156,6 +157,8 @@ export function PersonDetail() {
                         )}
                     </div>
                 </div>
+                <BackButton style="btn btn-success ms-3 px-4 mb-4"/>
+
             </div>
         </>
     );

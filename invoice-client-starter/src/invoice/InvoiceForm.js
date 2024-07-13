@@ -29,6 +29,7 @@ import InputField from "../components/InputField";
 import FlashMessage from "../components/FlashMessage";
 import InputSelect from "../components/InputSelect";
 import dateStringFormatter from "../utils/dateStringFormatter";
+import { BackButton } from "../components/BackButton";
 
 export function InvoiceForm() {
     const navigate = useNavigate();
@@ -206,7 +207,8 @@ export function InvoiceForm() {
                     }}
                 />
 
-                <input type="submit" className="btn btn-primary mt-3" value="Uložit" />
+                <BackButton style="btn btn-success mt-3 ms-3 px-4"/>
+                <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value="Uložit" />
             </form>
         </div>
     );

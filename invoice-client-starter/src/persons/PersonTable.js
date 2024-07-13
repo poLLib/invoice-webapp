@@ -27,8 +27,6 @@ export function PersonTable({ itemsPerPage, deletePerson }) {
 
     return (
         <div>
-
-
             <table className="table table-striped">
                 <thead className="fs-5">
                     <th>NÁZEV</th>

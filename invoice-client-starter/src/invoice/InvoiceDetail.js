@@ -22,8 +22,8 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import { apiGet } from "../utils/api";
+import { BackButton } from "../components/BackButton";
 
 export function InvoiceDetail() {
     const { id } = useParams();
@@ -93,6 +93,7 @@ export function InvoiceDetail() {
                     </p>
                 </div>
                 )}
+                <BackButton style="btn btn-success ms-3 px-4 mb-4"/>
             </div>
         </>
     );

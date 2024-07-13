@@ -79,28 +79,30 @@ export function PersonIndex() {
     }
 
     return (
-        <div>
-            <h1>Seznam společností</h1>
-            <p>
-                Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalPersons}</strong>)}
-            </p>
-            {isLoading ? (
-                <div className="text-center">
-                    <div className="spinner-grow my-3" role="status"></div>
-                </div>
-            ) : (
-                <PersonTable
-                    deletePerson={deletePerson}
-                    itemsPerPage={persons}
-                    label="Celkový počet:"
-                    page={page}
-                />
-            )}
-            <Pagination currentPage={parseInt(page)} totalPages={totalPages} onPageChange={handlePageChange} />
+        <div className="row">
+            <div className="col">
+                <h1>Seznam společností</h1>
+                <p>
+                    Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalPersons}</strong>)}
+                </p>
+                {isLoading ? (
+                    <div className="text-center">
+                        <div className="spinner-grow my-3" role="status"></div>
+                    </div>
+                ) : (
+                    <PersonTable
+                        deletePerson={deletePerson}
+                        itemsPerPage={persons}
+                        label="Celkový počet:"
+                        page={page}
+                    />
+                )}
+                <Pagination currentPage={parseInt(page)} totalPages={totalPages} onPageChange={handlePageChange} />
 
-            <Link to={"/persons/create"} className="btn btn-success ms-5 mb-5 px-5">
-                Nová firma/osoba
-            </Link>
+                <Link to={"/persons/create"} className="btn btn-success ms-5 mb-5 px-5">
+                    Nová firma/osoba
+                </Link>
+            </div>
         </div>
     );
 };

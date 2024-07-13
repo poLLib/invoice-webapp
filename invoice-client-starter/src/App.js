@@ -29,7 +29,6 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-
 import { PersonIndex } from "./persons/PersonIndex";
 import { PersonDetail } from "./persons/PersonDetail";
 import { PersonForm } from "./persons/PersonForm";
@@ -92,7 +91,7 @@ export function App() {
           <div className="row">
             <div className="col-md-6">
               <h4>Fakturační databáze</h4>
-              <p>Tento projekt slouží jako zkušební.</p>
+              <p>Tento projekt slouží jako učební.</p>
             </div>
             <div className="col-md-6 text-md-right">
               <ul className="list-unstyled">

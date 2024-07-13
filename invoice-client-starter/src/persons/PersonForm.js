@@ -23,6 +23,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiGet, apiPost, apiPut } from "../utils/api";
+import { BackButton } from "../components/BackButton";
 import InputField from "../components/InputField";
 import InputCheck from "../components/InputCheck";
 import FlashMessage from "../components/FlashMessage";
@@ -278,8 +279,8 @@ export function PersonForm() {
                     checked={Country.SLOVAKIA === person.country}
                 />
 
-                <input type="submit" className="btn btn-primary" value="Uložit" />
-            </form>
+                <BackButton style="btn btn-success mt-3 ms-3 px-4" />
+                <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value="Uložit" />            </form>
         </div>
     );
 };
