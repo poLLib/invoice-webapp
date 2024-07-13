@@ -23,7 +23,7 @@ public interface PersonService {
      * @param size Number of pages
      * @return List of PersonDTO of current page
      */
-    List<PersonDTO> getAllPersonsPages(int page, int size);
+    List<PersonDTO> getAllPeoplePageable(int page, int size);
 
     /**
      * Counts all visible persons

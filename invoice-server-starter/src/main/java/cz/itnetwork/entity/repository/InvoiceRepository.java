@@ -8,6 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, JpaSpecificationExecutor<InvoiceEntity> {
 
     /**
+     * Count all invoices
+     *
+     * @return The count of all invoices
+     */
+    @Query(value = "SELECT COUNT(*) FROM invoice i", nativeQuery = true)
+    Long countInvoices();
+
+    /**
      * JQuery to get values for InvoiceStatisticsDTO [BigDecimal currentYearSum, BigDecimal allTimeSum, Long invoicesCount]
      *
      * @return Object contains array of three indexes

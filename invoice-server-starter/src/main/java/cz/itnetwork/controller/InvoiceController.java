@@ -24,8 +24,14 @@ public class InvoiceController {
     }
 
     @GetMapping({"/invoices", "/invoices/"})
-    public List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter) {
-        return invoiceService.getAllInvoices(invoiceFilter);
+    public List<InvoiceDTO> getPagesInvoices(InvoiceFilter invoiceFilter,
+                                             @RequestParam(defaultValue = "0") int page) {
+        return invoiceService.getAllInvoicesPageable(invoiceFilter, page);
+    }
+
+    @GetMapping("/invoices/total")
+    public Long getTotalInvoices() {
+        return invoiceService.countAllInvoices();
     }
 
     @GetMapping({"/invoices/{invoiceId}", "/invoices/{invoiceId}/"})

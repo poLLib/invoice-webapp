@@ -17,11 +17,16 @@ public interface InvoiceService {
     InvoiceDTO createInvoice(InvoiceDTO data);
 
     /**
-     * Fetches all invoices in database and filter them according to user's parameters
+     * Fetches all invoices in database and filter them according to user's parameters and make them pageable
+     * The second parameter of the class Pageable which determinate size of page is taken from param [limit] InvoiceFilter
      *
+     * @param page Current page
      * @return List of InvoiceDTO
      */
-    List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter);
+    List<InvoiceDTO> getAllInvoicesPageable(InvoiceFilter invoiceFilter, int page);
+
+
+    Long countAllInvoices();
 
     /**
      * Look up for a specific invoice by [id]

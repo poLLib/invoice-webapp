@@ -61,7 +61,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonDTO> getAllPersonsPages(int page, int size) {
+    public List<PersonDTO> getAllPeoplePageable(int page, int size) {
         return personRepository.findByHidden(false, PageRequest.of(page, size))
                 .stream()
                 .map(i -> personMapper.toDTO(i))
@@ -70,7 +70,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Long getVisiblePersonsCount() {
-        return personRepository.countAllVisibleEntities();
+        return personRepository.countAllVisiblePeople();
     }
 
     @Override
@@ -85,7 +85,7 @@ public class PersonServiceImpl implements PersonService {
             PersonEntity person = fetchPersonById(personId);
             person.setHidden(true);
 
-            personRepository.save(person);
+            personRepository.saveAndFlush(person);
         } catch (NotFoundException ignored) {
             // The contract in the interface states, that no exception is thrown, if the entity is not found.
         }
@@ -93,9 +93,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDTO editPerson(Long id, PersonDTO data) {
-        PersonEntity entity = fetchPersonById(id);
-        entity.setHidden(true);
-        personRepository.save(entity);
+        removePerson(id);
         data.setId(null);
         return addPerson(data);
     }

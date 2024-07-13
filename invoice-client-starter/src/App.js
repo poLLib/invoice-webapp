@@ -19,7 +19,7 @@
  * našich členů. Je určen pouze pro osobní užití a nesmí být šířen.
  * Více informací na http://www.itnetwork.cz/licence
  */
- 
+
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -74,9 +74,10 @@ export function App() {
               <Route path="edit/:id" element={<PersonForm />} />
             </Route>
 
-            <Route index element={<Navigate to={"/invoices"} />} />
+            <Route index element={<Navigate to={"/invoices/pages/1"} />} />
             <Route path="/invoices">
               <Route index element={<InvoiceIndex />} />
+              <Route path="pages/:page" element={<InvoiceIndex />} />
               <Route path="create" element={<InvoiceForm />} />
               <Route path="show/:id" element={<InvoiceDetail />} />
               <Route path="edit/:id" element={<InvoiceForm />} />

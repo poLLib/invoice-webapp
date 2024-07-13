@@ -30,6 +30,8 @@ import { Link } from "react-router-dom";
 export function PersonIndex() {
     const [persons, setPersons] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    // Pagination states
     const [isLoadingCount, setIsLoadingCount] = useState(true);
     const [totalPages, setTotalPages] = useState(null);
     const [pageSize, setPageSize] = useState(10);
@@ -53,7 +55,6 @@ export function PersonIndex() {
         setTotalPersons(totalPersons - 1);
     };
 
-
     useEffect(() => {
         async function fetchSumPersons() {
             setTotalPersons(await apiGet("/api/persons/total"));
@@ -61,8 +62,7 @@ export function PersonIndex() {
             setIsLoadingCount(false);
         }
         fetchSumPersons();
-
-    }, [totalPersons, pageSize])
+    }, [totalPersons, pageSize]);
 
     useEffect(() => {
         async function fetchPersons() {

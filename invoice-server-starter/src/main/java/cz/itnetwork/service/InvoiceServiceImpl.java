@@ -45,13 +45,18 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<InvoiceDTO> getAllInvoices(InvoiceFilter invoiceFilter) {
+    public List<InvoiceDTO> getAllInvoicesPageable(InvoiceFilter invoiceFilter, int page) {
         InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
 
-        return invoiceRepository.findAll(invoiceSpecification, PageRequest.of(0, invoiceFilter.getLimit()))
+        return invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.getLimit()))
                 .stream()
                 .map(invoiceMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Long countAllInvoices() {
+        return invoiceRepository.countInvoices();
     }
 
     @Override

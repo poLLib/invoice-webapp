@@ -22,14 +22,10 @@
 
 import { Link } from "react-router-dom";
 
-export function InvoiceTable({ label, items, deleteInvoice }) {
+export function InvoiceTable({ items, deleteInvoice }) {
 
     return (
         <div className="pb-5">
-            <p>
-                {label} {items.length}
-            </p>
-
             <table className="table table-bordered">
                 <thead>
                     <tr>

@@ -23,7 +23,6 @@ package cz.itnetwork.entity.repository;
 
 import cz.itnetwork.entity.PersonEntity;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -42,14 +41,36 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
      */
     List<PersonEntity> findByHidden(boolean hidden, Pageable pageable);
 
+    /**
+     * Look up for hidden entities without pagination
+     *
+     * @param hidden Entity which is hidden in UI, but it is kept in the database according to the law of accountancy
+     * @return List of PersonEntities
+     */
     List<PersonEntity> findByHidden(boolean hidden);
 
-    PersonEntity findByIdentificationNumber(String identificationNumber);
+    /**
+     * Count all visible entities
+     *
+     * @return The count of all visible people
+     */
+    @Query(value = "SELECT COUNT(*) FROM person p WHERE p.hidden = false", nativeQuery = true)
+    Long countAllVisiblePeople();
 
-    // Method to sum income of all the time of a person by [id]
+    /**
+     * Method to sum the income of all time for a person by their id
+     *
+     * @param id The id of the person
+     * @return The total income of the person
+     */
     @Query(value = "SELECT SUM(i.price) FROM invoice i JOIN person p ON i.seller_id = p.id WHERE p.id = :id", nativeQuery = true)
     Long getPersonStatistics(@Param("id") Long id);
 
-    @Query(value = "SELECT COUNT(*) FROM person p WHERE p.hidden = false", nativeQuery = true)
-    Long countAllVisibleEntities();
+    /**
+     * Find a person by their identification number
+     *
+     * @param identificationNumber The identification number of the person
+     * @return The PersonEntity matching the given identification number
+     */
+    PersonEntity findByIdentificationNumber(String identificationNumber);
 }

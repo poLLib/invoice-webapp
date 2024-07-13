@@ -44,13 +44,13 @@ public class PersonController {
     }
 
     @GetMapping("/persons")
-    public List<PersonDTO> getPersons(@RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "10") int size) {
-        return personService.getAllPersonsPages(page, size);
+    public List<PersonDTO> getPeoplePages(@RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size) {
+        return personService.getAllPeoplePageable(page, size);
     }
 
     @GetMapping("/persons/total")
-    public Long getTotalPersons() {
+    public Long getTotalPeople() {
         return personService.getVisiblePersonsCount();
     }
 

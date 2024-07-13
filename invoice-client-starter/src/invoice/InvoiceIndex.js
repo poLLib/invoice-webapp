@@ -24,6 +24,8 @@ import React, { useEffect, useState } from "react";
 import { apiDelete, apiGet } from "../utils/api";
 import InvoiceFilter from "./InvoiceFilter";
 import { InvoiceTable } from "./InvoiceTable";
+import { useNavigate, useParams } from "react-router-dom";
+import { Pagination } from "../components/Pagination";
 
 export function InvoiceIndex() {
 
@@ -40,6 +42,16 @@ export function InvoiceIndex() {
     const [persons, setPersons] = useState([]);
     const [filterState, setFilter] = useState(initialFilterState);
 
+    // Pagination states
+    const [isLoadingCount, setIsLoadingCount] = useState(true);
+    const [totalPages, setTotalPages] = useState(null);
+    const [pageSize, setPageSize] = useState(10);
+    const [totalInvoices, setTotalInvoices] = useState(null);
+
+    const { page = 1 } = useParams();
+    const navigate = useNavigate();
+
+
     async function deleteInvoice(id) {
         try {
             await apiDelete("/api/invoices/" + id);
@@ -48,16 +60,34 @@ export function InvoiceIndex() {
             alert(error.message)
         }
         setInvoices(invoices.filter((item) => item._id !== id));
+
+        if ((totalInvoices - 1) % 10 === 0) {
+            navigate(`/invoices/pages/${page - 1}`)
+        }
+        setTotalInvoices(totalInvoices - 1);
     };
 
     useEffect(() => {
+        async function fetchSumInvoices() {
+            setTotalInvoices(await apiGet("/api/invoices/total"));
+            setTotalPages(Math.ceil(totalInvoices / pageSize));
+            setIsLoadingCount(false);
+        }
+        fetchSumInvoices();
+    }, [totalInvoices, pageSize]);
+
+    useEffect(() => {
         async function fetchInvoices() {
-            setInvoices(await apiGet("/api/invoices"));
+            setInvoices(await apiGet(`/api/invoices?page=${page - 1}&${pageSize}`));
             setPersons(await apiGet("/api/persons"));
             setIsLoading(false);
         }
         fetchInvoices();
-    }, []);
+    }, [page]);
+
+    function handlePageChange(newPage) {
+        navigate(`/invoices/pages/${newPage}`);
+    }
 
     function handleChange(e) {
         if (e.target.value === "false" || e.target.value === "true" || e.target.value === '') {
@@ -70,7 +100,6 @@ export function InvoiceIndex() {
             });
         }
     };
-
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -87,16 +116,19 @@ export function InvoiceIndex() {
     }
 
     function handleReset(e) {
-        console.log(initialFilterState)  
+        console.log(initialFilterState)
         setFilter(initialFilterState);
         handleSubmit(e);
-    
+
     }
 
 
     return (
         <div>
             <h1>Seznam faktur</h1>
+            <p>
+                Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalInvoices}</strong>)}
+            </p>
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-grow my-3" role="status"></div>
@@ -119,6 +151,7 @@ export function InvoiceIndex() {
                         items={invoices}
                         label="Počet zobrazených faktur:"
                     />
+                    <Pagination currentPage={parseInt(page)} totalPages={totalPages} onPageChange={handlePageChange} />
                 </div>
             )}
         </div>
