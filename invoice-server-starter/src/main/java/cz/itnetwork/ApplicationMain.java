@@ -31,3 +31,11 @@ public class ApplicationMain {
         SpringApplication.run(ApplicationMain.class, args);
     }
 }
+// TODO: validace ICO a ostatnich, pri uprave nemenne
+// TODO: FlashMsg, presunout okno na FM.. alert(), setIntervat(), useContext()
+// TODO: klikani na jmena, btn zpet, generovani zaznamu (napriklad smaz vyznacene)
+// TODO: reset btn
+// TODO: osetrit paginaci, vysviceni btn, vratit z prazdne listu po delete na prev page. v pripade 1. uz dal nejde
+// TODO: default pro inputselect buyer, seller
+// TODO: DTO, zjednodusit dotaz query at rovnou vraci do DTO. personDTO vse se rovnou dotazat na DB
+// TODO: statistics FE, zobrazovat jako jednu Table vedle sebe.. pomoci col-x

@@ -70,7 +70,6 @@ export function PersonIndex() {
 
     function handlePageChange(newPage) {
         navigate(`/persons/pages/${newPage}`);
-        setIsLoading(true);
     }
     console.log(page);
 

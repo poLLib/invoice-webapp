@@ -20,12 +20,13 @@ export function PersonStatistics() {
     const midIndex = Math.ceil(statistics.length / 2);
     const firstHalf = statistics.slice(0, midIndex);
     const secondHalf = statistics.slice(midIndex);
-
+    console.log(secondHalf)
+    console.log(persons)
     const renderStatistics = (stats) => (
         <tbody>
             {stats.map((stat) => {
                 const person = persons.find(p => p._id === stat.personId);
-                return person && !person.hidden ? (
+                return person ? (
 
                     <React.Fragment key={stat.personId}>
                         <tr>

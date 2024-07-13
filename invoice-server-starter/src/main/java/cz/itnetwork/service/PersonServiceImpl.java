@@ -96,6 +96,7 @@ public class PersonServiceImpl implements PersonService {
         PersonEntity entity = fetchPersonById(id);
         entity.setHidden(true);
         personRepository.save(entity);
+        data.setId(null);
         return addPerson(data);
     }
 
