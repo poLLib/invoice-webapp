@@ -21,25 +21,24 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
-
 import { apiDelete, apiGet } from "../utils/api";
-
 import InvoiceFilter from "./InvoiceFilter";
 import { InvoiceTable } from "./InvoiceTable";
-import { Pagination } from "../components/Pagination";
 
 export function InvoiceIndex() {
-    const [invoices, setInvoices] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [persons, setPersons] = useState([]);
-    const [filterState, setFilter] = useState({
+
+    const initialFilterState = {
         minPrice: undefined,
         maxPrice: undefined,
         limit: undefined,
         sellerId: undefined,
         buyerId: undefined,
-    });
+    };
+
+    const [invoices, setInvoices] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [persons, setPersons] = useState([]);
+    const [filterState, setFilter] = useState(initialFilterState);
 
     async function deleteInvoice(id) {
         try {
@@ -72,6 +71,7 @@ export function InvoiceIndex() {
         }
     };
 
+
     async function handleSubmit(e) {
         e.preventDefault();
         const params = filterState;
@@ -84,6 +84,13 @@ export function InvoiceIndex() {
         const filteredData = invoices.filter((product) => {
             return product.text.toLowerCase().includes(inputText);
         })
+    }
+
+    function handleReset(e) {
+        console.log(initialFilterState)  
+        setFilter(initialFilterState);
+        handleSubmit(e);
+    
     }
 
 
@@ -100,11 +107,11 @@ export function InvoiceIndex() {
                         handleChange={handleChange}
                         handleSubmit={handleSubmit}
                         handleInput={handleInput}
+                        handleReset={handleReset}
                         sellers={persons}
                         buyers={persons}
                         filter={filterState}
                         confirm="Filtrovat faktury"
-                        reset="Reset"
                     />
                     <hr />
                     <InvoiceTable

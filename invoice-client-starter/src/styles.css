@@ -1,5 +1,7 @@
+/* styles.css */
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
 }
@@ -11,8 +13,24 @@ html, body {
 .person-stats {
     border: 1px solid #bbc7d4;
     padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px
+    border-radius: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.person-stats th,.person-stats td {
+    border: none;
+    padding: 5px;
+}
+
+.person-stats td {
+    text-align: right;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .nav-style {
@@ -21,6 +39,7 @@ html, body {
     text-shadow: 1px 1px 5px #162e80;
     font-size: x-large;
 }
+
 .nav-style .navbar-nav .nav-item .nav-link {
     padding-right: 30px;
     margin-left: 30px;
@@ -54,3 +73,21 @@ footer {
     flex: 1;
 }
 
+.align-right {
+    text-align: right;
+    width: 73%;
+}
+
+.invoice-link {
+    text-decoration: none;
+    font-size: medium;
+}   
+
+.invoice-td {
+    border: none;
+}
+
+.table-person-detail {
+    width: 100%;
+    margin-bottom: 20px;
+}

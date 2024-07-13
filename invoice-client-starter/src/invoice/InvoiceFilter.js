@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import InputField from "../components/InputField"
 import InputSelect from "../components/InputSelect";
 
@@ -15,6 +14,10 @@ function InvoiceFilter(props) {
         return props.handleChange(e);
     }
 
+    function handleReset(e){
+        return props.handleReset(e);
+    }
+
     const filter = props.filter;
 
     return (
@@ -28,7 +31,7 @@ function InvoiceFilter(props) {
                         handleChange={handleChange}
                         label="Minimální cena"
                         prompt="Zadejte cenu"
-                        value={filter.minPice}
+                        value={filter.minPrice}
                     />
                 </div>
 
@@ -101,11 +104,11 @@ function InvoiceFilter(props) {
                         className="btn btn-secondary float-right mt-2"
                         value={props.confirm}
                     />
-                    <input
-                        type="reset"
+                    <button
                         className="btn btn-danger float-right mt-2 ms-3"
                         value={props.reset}
-                    />
+                        onClick={handleReset}
+                    >RESET</button>
                 </div>
             </div>
         </form>

@@ -31,11 +31,11 @@ public class ApplicationMain {
         SpringApplication.run(ApplicationMain.class, args);
     }
 }
-// TODO: ?? zobrazit valid msg do flash msg? validace ICO a ostatnich, pri uprave nemenne??
+// TODO: ?? zobrazit valid msg do flash msg? validace ICO a ostatnich, pri uprave nemenne?? settery, diff apiput apipost
 // TODO: FlashMsg, presunout okno na FM.. alert(), setIntervat(), useContext()
-// TODO: klikani na jmena, btn zpet, generovani zaznamu (napriklad smaz vyznacene)
+// TODO: klikani na jmena, btn zpet, generovani zaznamu (napriklad smaz vyznacene), proklik ze personstat na personu
 // TODO: ?? reset btn, neresetuje vyhledani polozky
-// TODO: DTO, zjednodusit dotaz query at rovnou vraci do DTO. personDTO vse se rovnou dotazat na DB
-// TODO: dynamic searchbar
+// TODO: DTO, zjednodusit dotaz query at rovnou vraci do DTO. personDTO vse se rovnou dotazat na DB.. nova instance InvoiceStatDTO v selectu v repo
+// TODO: dynamic searchbar handle event
 // TODO: statistics FE, zobrazovat jako jednu Table vedle sebe.. pomoci col-x
 // TODO: autentizece

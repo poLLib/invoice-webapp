@@ -28,11 +28,11 @@ export function InvoiceStatistics() {
                     <tr>
                         <th >Celkový příjem za letošní rok:</th>
 
-                        <td className="fw-bold">{statistics.currentYearSum}</td>
+                        <td className="fw-bold">{statistics.currentYearSum} Kč</td>
                     </tr>
                     <tr>
                         <th>Celkový příjem:</th>
-                        <td className="fw-bold">{statistics.allTimeSum}</td>
+                        <td className="fw-bold">{statistics.allTimeSum} Kč</td>
                     </tr>
                     <tr>
                         <th >Celkový počet faktur:</th>

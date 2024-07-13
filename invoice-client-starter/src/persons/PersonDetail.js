@@ -23,7 +23,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import '../styles.css'
 import { apiGet } from "../utils/api";
 import Country from "./Country";
 
@@ -104,7 +104,7 @@ export function PersonDetail() {
                     </div>
 
 
-                    <div className="col-md-6">
+                    <div className="col-md-6 d-flex flex-column">
                         {isLoadingInvoices ? (
                             <div className="text-center">
                                 <div className="spinner-border" role="status"></div>
@@ -123,17 +123,18 @@ export function PersonDetail() {
                                         <tbody>
                                             {soldInvoices.map((i, index) => (
                                                 <tr key={index + 1}>
-                                                    <Link to={`/invoices/show/${i._id}`}>{i.invoiceNumber}</Link>
-                                                    <td>{i.product}</td>
+                                                    <td className="invoice-td"><Link to={`/invoices/show/${i._id}`} className="invoice-link">{i.invoiceNumber}</Link></td>
+                                                    <td className="invoice-td">{i.product}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
                                     </table>
                                 </div>
-                                <hr />
+                                <br />
+                                <br />
                                 <div>
                                     <strong className="fs-4">Proplacené faktury:</strong>
-                                    <table className="table">
+                                    <table className="table table-person-detail">
                                         <thead>
                                             <tr>
                                                 <th>Číslo faktury</th>
@@ -144,8 +145,8 @@ export function PersonDetail() {
                                             {receivedInvoices.map((i, index) => (
                                                 <tr key={index + 1}>
 
-                                                    <Link to={`/invoices/show/${i._id}`}>{i.invoiceNumber}</Link>
-                                                    <td>{i.product}</td>
+                                                    <td className="invoice-td"><Link to={`/invoices/show/${i._id}`} className="invoice-link">{i.invoiceNumber}</Link></td>
+                                                    <td className="invoice-td">{i.product}</td>
                                                 </tr>
                                             ))}
                                         </tbody>

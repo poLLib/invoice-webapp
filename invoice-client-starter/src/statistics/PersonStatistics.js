@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { apiGet } from "../utils/api";
 import '../styles.css'
+import { Link } from "react-router-dom";
 
 export function PersonStatistics() {
     const [isLoading, setIsLoading] = useState();
@@ -14,41 +15,11 @@ export function PersonStatistics() {
             setIsLoading(false);
         }
         fetchStats();
+
     }, []);
 
-
-    const midIndex = Math.ceil(statistics.length / 2);
-    const firstHalf = statistics.slice(0, midIndex);
-    const secondHalf = statistics.slice(midIndex);
-    console.log(secondHalf)
-    console.log(persons)
-    const renderStatistics = (stats) => (
-        <tbody>
-            {stats.map((stat) => {
-                const person = persons.find(p => p._id === stat.personId);
-                return person ? (
-
-                    <React.Fragment key={stat.personId}>
-                        <tr>
-                            <th>Jméno společnosti:</th>
-                            <td className="ps-3 fs-5">{stat.personName}</td>
-                        </tr>
-                        <tr>
-                            <th>IČO:</th>
-                            <td className="ps-3">{person.identificationNumber}</td>
-                        </tr>
-                        <tr>
-                            <th>Celkový příjem:</th>
-                            <td className="ps-3  fs-5 text-primary">{stat.revenue} Kč</td>
-                        </tr>
-                        <br />
-                        <br />
-                    </React.Fragment>
-
-                ) : null;
-            })}
-        </tbody >
-    );
+    // const person = persons.find(p => p._id === stat.personId);
+    // console.log(`${person.name}`)
 
     return (
         <div className="row">
@@ -57,19 +28,29 @@ export function PersonStatistics() {
                     <div className="spinner-border" role="status"></div>
                 </div>
             ) : (
-                <>
-                    <div className="col-md-6">
-                        <table className="table table-bordered">
-                            {renderStatistics(firstHalf)}
-                        </table>
+                <div className="col-12">
+                    <div className="grid-container">
+                        {statistics.map((stat) => (
+                            <div key={stat.personId} className="person-stats">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th>Jméno společnosti:</th>
+                                            <td className="ps-3 fs-5 align-right">
+                                                <Link to={`/persons/show/${stat.personId}`}>{stat.personName}</Link>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Celkový příjem:</th>
+                                            <td className="ps-3 fs-5 text-success align-right">{stat.revenue} Kč</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        ))}
                     </div>
-                    <div className="col-md-6">
-                        <table className="table table-bordered">
-                            {renderStatistics(secondHalf)}
-                        </table>
-                    </div>
-                </>
+                </div>
             )}
         </div>
     );
-};
+}

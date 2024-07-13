@@ -122,7 +122,7 @@ public class PersonServiceImpl implements PersonService {
     public List<PersonStatisticsDTO> getPersonStatistics() {
         List<PersonStatisticsDTO> list = new ArrayList<>();
 
-        for (PersonEntity person : personRepository.findAll()) {
+        for (PersonEntity person : personRepository.findByHidden(false)) {
             PersonStatisticsDTO personStatisticsDTO = new PersonStatisticsDTO();
 
             personStatisticsDTO.setPersonId(person.getId());

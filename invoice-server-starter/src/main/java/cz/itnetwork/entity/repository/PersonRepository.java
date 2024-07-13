@@ -42,6 +42,8 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
      */
     List<PersonEntity> findByHidden(boolean hidden, Pageable pageable);
 
+    List<PersonEntity> findByHidden(boolean hidden);
+
     PersonEntity findByIdentificationNumber(String identificationNumber);
 
     // Method to sum income of all the time of a person by [id]
