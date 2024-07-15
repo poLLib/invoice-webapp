@@ -25,7 +25,7 @@ public class InvoiceController {
 
     @GetMapping({"/invoices", "/invoices/"})
     public List<InvoiceDTO> getPagesInvoices(InvoiceFilter invoiceFilter,
-                                             @RequestParam(defaultValue = "0") int page) {
+                                             @RequestParam(defaultValue = "0") int page){
         return invoiceService.getAllInvoicesPageable(invoiceFilter, page);
     }
 

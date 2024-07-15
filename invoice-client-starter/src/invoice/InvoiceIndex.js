@@ -28,11 +28,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
 
 export function InvoiceIndex() {
+    // Pagination states
+    const [isLoadingCount, setIsLoadingCount] = useState(true);
+    const [totalPages, setTotalPages] = useState(null);
+    const [pageSize, setPageSize] = useState(10);
+    const [totalInvoices, setTotalInvoices] = useState(null);
 
     const initialFilterState = {
         minPrice: undefined,
         maxPrice: undefined,
-        limit: undefined,
+        limit: pageSize,
         sellerId: undefined,
         buyerId: undefined,
     };
@@ -41,12 +46,6 @@ export function InvoiceIndex() {
     const [isLoading, setIsLoading] = useState(true);
     const [persons, setPersons] = useState([]);
     const [filterState, setFilter] = useState(initialFilterState);
-
-    // Pagination states
-    const [isLoadingCount, setIsLoadingCount] = useState(true);
-    const [totalPages, setTotalPages] = useState(null);
-    const [pageSize, setPageSize] = useState(10);
-    const [totalInvoices, setTotalInvoices] = useState(null);
 
     const { page = 1 } = useParams();
     const navigate = useNavigate();
@@ -74,19 +73,22 @@ export function InvoiceIndex() {
             setIsLoadingCount(false);
         }
         fetchSumInvoices();
-    }, [totalInvoices, pageSize]);
+    }, [totalPages, pageSize]);
 
     useEffect(() => {
         async function fetchInvoices() {
-            setInvoices(await apiGet(`/api/invoices?page=${page - 1}&${pageSize}`));
+            const data = await apiGet(`/api/invoices?page=${page - 1}&size=${pageSize}`);
+            setInvoices(data);
             setPersons(await apiGet("/api/persons"));
             setIsLoading(false);
         }
         fetchInvoices();
-    }, [page]);
+    }, [page, pageSize]);
 
     function handlePageChange(newPage) {
         navigate(`/invoices/pages/${newPage}`);
+        console.log(`filter: ${filterState.limit}`);
+        console.log(`PageSize: ${pageSize}`);
     }
 
     function handleChange(e) {
@@ -106,6 +108,7 @@ export function InvoiceIndex() {
         const params = filterState;
         const data = await apiGet("/api/invoices", params);
         setInvoices(data);
+        setPageSize(params.limit);
     }
 
     function handleInput(e) {
@@ -119,9 +122,7 @@ export function InvoiceIndex() {
         console.log(initialFilterState)
         setFilter(initialFilterState);
         handleSubmit(e);
-
     }
-
 
     return (
         <div>
