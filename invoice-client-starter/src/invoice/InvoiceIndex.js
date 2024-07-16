@@ -26,6 +26,7 @@ import InvoiceFilter from "./InvoiceFilter";
 import { InvoiceTable } from "./InvoiceTable";
 import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
+import InputField from "../components/InputField";
 
 export function InvoiceIndex() {
     // Pagination states
@@ -109,20 +110,27 @@ export function InvoiceIndex() {
         const data = await apiGet("/api/invoices", params);
         setInvoices(data);
         setPageSize(params.limit);
-    }
+        setTotalInvoices()
+        navigate("/invoices")
+        console.log(`filter: ${filterState.maxPrice}`)
+    };
 
     function handleInput(e) {
         setInputText(e.target.value.toLowerCase());
         const filteredData = invoices.filter((product) => {
             return product.text.toLowerCase().includes(inputText);
-        })
-    }
+        });
+    };
 
-    function handleReset(e) {
-        console.log(initialFilterState)
+    async function handleReset(e) {
+        e.preventDefault();
         setFilter(initialFilterState);
-        handleSubmit(e);
-    }
+        const data = await apiGet("/api/invoices");
+        setInvoices(data);
+        navigate("/invoices")
+
+        console.log(`filter: ${filterState.maxPrice}`)
+    };
 
     return (
         <div>
@@ -130,6 +138,7 @@ export function InvoiceIndex() {
             <p>
                 Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalInvoices}</strong>)}
             </p>
+            
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-grow my-3" role="status"></div>

@@ -31,17 +31,3 @@ public class ApplicationMain {
         SpringApplication.run(ApplicationMain.class, args);
     }
 }
-// TODO: VALID MSH do flash msg? nezobrazeni nemennych atributu (ico aj.) pri uprave ?? v FE si v tenarni podmince diff apiput apipost pro PUT nevypiseme nemenne pole. na BE pak muzes setnout null pro novou entitu po uprave
-// TODO: FLASHMSH, presunout okno na FM.. alert(), setIntervat(), useContext()
-// TODO: CHECKBOX udelat checkbox pro vyber na promazani
-// TODO: RESET BTN, neresetuje vyhledani polozky !!!!!
-// TODO: JQUERY DTOSTATS, vyrvorit nova instance InvoiceStatDTO v primo v query selectu v repo
-// TODO: SEARCHBAR dynamic = resit pres handle event. pokazde kdyz se zmeni pole tak zmena stavu, use debounced tool?
-// TODO: AUTENTIZACE
-// TODO: PAGINACE pri kliku na jinou page zachovat size. pri submit filtrace zachovat page. limitovat zobrazeni pages (budto par tecek, nebo zobazovat middle active a zbytek posouvat  !!!!!
-// TODO: BACKBUTTON ve forms pri kliknuti validuje nevyplnene pole
-// TODO: snizit responsibilitu
-// TODO:
-
-// TODO:        ?? nechavame si tento projekt do portfolia? ikdyz tam mam licencni komentar u clienta od ITN? Martin Valicek => ??
-// TODO:        ?? testy jen junit

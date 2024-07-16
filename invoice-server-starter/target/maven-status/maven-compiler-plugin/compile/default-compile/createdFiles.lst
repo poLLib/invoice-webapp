@@ -12,10 +12,10 @@ cz/itnetwork/ApplicationMain.class
 cz/itnetwork/dto/mapper/PersonMapper.class
 cz/itnetwork/entity/PersonEntity.class
 cz/itnetwork/service/PersonServiceImpl.class
-cz/itnetwork/controller/PersonController.class
 cz/itnetwork/entity/InvoiceEntity_.class
-cz/itnetwork/dto/InvoiceDTO.class
+cz/itnetwork/controller/PersonController.class
 cz/itnetwork/controller/InvoiceController.class
+cz/itnetwork/dto/InvoiceDTO.class
 cz/itnetwork/entity/repository/specification/InvoiceSpecification.class
 cz/itnetwork/dto/mapper/InvoiceMapper.class
 cz/itnetwork/dto/PersonDTO.class

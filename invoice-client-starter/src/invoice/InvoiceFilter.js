@@ -14,7 +14,7 @@ function InvoiceFilter(props) {
         return props.handleChange(e);
     }
 
-    function handleReset(e){
+    function handleReset(e) {
         return props.handleReset(e);
     }
 
@@ -105,6 +105,7 @@ function InvoiceFilter(props) {
                         value={props.confirm}
                     />
                     <button
+                        type="button"
                         className="btn btn-danger float-right mt-2 ms-3"
                         value={props.reset}
                         onClick={handleReset}
