@@ -31,7 +31,7 @@ function InvoiceFilter(props) {
                         handleChange={handleChange}
                         label="Minimální cena"
                         prompt="Zadejte cenu"
-                        value={filter.minPrice}
+                        value={filter.minPrice ? filter.minPrice : ""}
                     />
                 </div>
 
@@ -43,7 +43,7 @@ function InvoiceFilter(props) {
                         handleChange={handleChange}
                         label="Maximální cena"
                         prompt="Zadejte cenu"
-                        value={filter.maxPrice}
+                        value={filter.maxPrice ? filter.maxPrice : ""}
                     />
                 </div>
 
@@ -54,7 +54,7 @@ function InvoiceFilter(props) {
                         handleChange={handleInput}
                         label="Vyhledat položku"
                         prompt="Zadejte název produktu"
-                        value={filter.product}
+                        value={filter.product ? filter.product : ""}
                     />
                 </div>
 
@@ -65,7 +65,7 @@ function InvoiceFilter(props) {
                             handleChange={handleChange}
                             label="Dodavatel"
                             prompt="Vyberte dodavatele"
-                            value={filter.sellerId}
+                            value={filter.sellerId ? filter.sellerId : ""}
                             items={props.sellers}
                         />
                     </div>
@@ -76,7 +76,7 @@ function InvoiceFilter(props) {
                             handleChange={handleChange}
                             label="Odběratel"
                             prompt="Vyberte odběratele"
-                            value={filter.buyerId}
+                            value={filter.buyerId ? filter.buyerId : ""}
                             items={props.buyers}
                         />
                     </div>

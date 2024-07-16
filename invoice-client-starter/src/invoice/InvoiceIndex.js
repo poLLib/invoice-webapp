@@ -26,7 +26,6 @@ import InvoiceFilter from "./InvoiceFilter";
 import { InvoiceTable } from "./InvoiceTable";
 import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
-import InputField from "../components/InputField";
 
 export function InvoiceIndex() {
     // Pagination states
@@ -67,19 +66,25 @@ export function InvoiceIndex() {
         setTotalInvoices(totalInvoices - 1);
     };
 
-    useEffect(() => {
-        async function fetchSumInvoices() {
-            setTotalInvoices(await apiGet("/api/invoices/total"));
-            setTotalPages(Math.ceil(totalInvoices / pageSize));
-            setIsLoadingCount(false);
-        }
-        fetchSumInvoices();
-    }, [totalPages, pageSize]);
+    // useEffect(() => {
+    //     async function fetchSumInvoices() {
+    //         setTotalInvoices(await apiGet("/api/invoices/total"));
+    //         setTotalPages(Math.ceil(invoices.length / pageSize)); // BE
+    //         setIsLoadingCount(false);
+    //     }
+    //     fetchSumInvoices();
+    // }, [totalPages, pageSize]);
 
     useEffect(() => {
         async function fetchInvoices() {
+            console.log(`page: ${page}`);
+            console.log(`pagesize: ${pageSize}`);
+
             const data = await apiGet(`/api/invoices?page=${page - 1}&size=${pageSize}`);
             setInvoices(data);
+            console.log(`data length: ${data.length}`);
+
+            setTotalPages(Math.ceil(data.length / pageSize));
             setPersons(await apiGet("/api/persons"));
             setIsLoading(false);
         }
@@ -112,7 +117,7 @@ export function InvoiceIndex() {
         setPageSize(params.limit);
         setTotalInvoices()
         navigate("/invoices")
-        console.log(`filter: ${filterState.maxPrice}`)
+        console.log(`filter: ${filterState.limit}`)
     };
 
     function handleInput(e) {
@@ -138,7 +143,7 @@ export function InvoiceIndex() {
             <p>
                 Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalInvoices}</strong>)}
             </p>
-            
+
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-grow my-3" role="status"></div>
