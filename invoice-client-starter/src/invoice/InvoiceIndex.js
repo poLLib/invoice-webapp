@@ -66,18 +66,40 @@ export function InvoiceIndex() {
         setTotalInvoices(totalInvoices - 1);
     };
 
+    // useEffect(() => {
+    //     async function fetchSumInvoices() {
+    //         setTotalInvoices(await apiGet("/api/invoices/total"));
+    //         setTotalPages(Math.ceil(invoices.length / pageSize)); // BE
+    //         setIsLoadingCount(false);
+    //     }
+    //     fetchSumInvoices();
+    // }, [totalPages, pageSize]);
+
     useEffect(() => {
         async function fetchInvoices() {
+            console.log(`page: ${page}`);
+            console.log(`pagesize: ${pageSize}`);
+
             const params = { ...filterState, page: page - 1 };
             const data = await apiGet(`/api/invoices`, params);
             setInvoices(data);
             setTotalInvoices(invoices.length);
-            setTotalPages(Math.ceil(totalInvoices/pageSize))
+            setTotalPages(Math.ceil(data.length / pageSize));
             setPersons(await apiGet("/api/persons"));
             setIsLoading(false);
         }
         fetchInvoices();
     }, [page, filterState.product, pageSize]);
+
+        // useEffect(() => {
+    //     async function fetchSumInvoices() {
+    //         setTotalInvoices(await apiGet("/api/invoices/total"));
+    //         setTotalPages(Math.ceil(invoices.length / pageSize)); // BE
+    //         setIsLoadingCount(false);
+    //     }
+    //     fetchSumInvoices();
+    // }, [totalPages, pageSize]);
+
 
     function handlePageChange(newPage) {
         navigate(`/invoices/pages/${newPage}`);
@@ -100,6 +122,7 @@ export function InvoiceIndex() {
         const params = { ...filterState, page: 0, size: pageSize };
         const data = await apiGet("/api/invoices", params);
         setInvoices(data);
+        setPageSize(params.limit);
         navigate("/invoices/pages/1");
     };
 
@@ -125,6 +148,7 @@ export function InvoiceIndex() {
             <p>
                 Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalInvoices}</strong>)}
             </p>
+
 
             {isLoading ? (
                 <div className="text-center">
