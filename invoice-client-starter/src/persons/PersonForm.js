@@ -100,184 +100,347 @@ export function PersonForm() {
                     text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
                 />
             )}
+
+            {/* controls if user update or create a new person
+                when id=true then hides InputField [identificationNumber, taxNumber] 
+            */}
+
             <form onSubmit={handleSubmit}>
-                <InputField
-                    required={true}
-                    type="text"
-                    name="personName"
-                    min="3"
-                    label="Jméno"
-                    prompt="Zadejte celé jméno"
-                    value={person.name}
-                    handleChange={(e) => {
-                        setPerson({ ...person, name: e.target.value });
-                    }}
-                />
+                {id ? (
+                    <div>
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="personName"
+                            min="3"
+                            label="Jméno"
+                            prompt="Zadejte celé jméno"
+                            value={person.name}
+                            handleChange={(e) => {
+                                setPerson({ ...person, name: e.target.value });
+                            }}
+                        />
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="identificationNumber"
-                    min="3"
-                    label="IČO"
-                    prompt="Zadejte IČO"
-                    value={person.identificationNumber}
-                    handleChange={(e) => {
-                        setPerson({ ...person, identificationNumber: e.target.value });
-                    }}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="accountNumber"
+                            min="3"
+                            label="Číslo bankovního účtu"
+                            prompt="Zadejte číslo bankovního účtu"
+                            value={person.accountNumber}
+                            handleChange={(e) => {
+                                setPerson({ ...person, accountNumber: e.target.value });
+                            }}
+                        />
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="taxNumber"
-                    min="3"
-                    label="DIČ"
-                    prompt="Zadejte DIČ"
-                    value={person.taxNumber}
-                    handleChange={(e) => {
-                        setPerson({ ...person, taxNumber: e.target.value });
-                    }}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="bankCode"
+                            min="3"
+                            label="Kód banky"
+                            prompt="Zadejte kód banky"
+                            value={person.bankCode}
+                            handleChange={(e) => {
+                                setPerson({ ...person, bankCode: e.target.value });
+                            }}
+                        />
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="accountNumber"
-                    min="3"
-                    label="Číslo bankovního účtu"
-                    prompt="Zadejte číslo bankovního účtu"
-                    value={person.accountNumber}
-                    handleChange={(e) => {
-                        setPerson({ ...person, accountNumber: e.target.value });
-                    }}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="IBAN"
+                            min="3"
+                            label="IBAN"
+                            prompt="Zadejte IBAN"
+                            value={person.iban}
+                            handleChange={(e) => {
+                                setPerson({ ...person, iban: e.target.value });
+                            }}
+                        />
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="bankCode"
-                    min="3"
-                    label="Kód banky"
-                    prompt="Zadejte kód banky"
-                    value={person.bankCode}
-                    handleChange={(e) => {
-                        setPerson({ ...person, bankCode: e.target.value });
-                    }}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="telephone"
+                            min="3"
+                            label="Telefon"
+                            prompt="Zadejte Telefon"
+                            value={person.telephone}
+                            handleChange={(e) => {
+                                setPerson({ ...person, telephone: e.target.value });
+                            }}
+                        />
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="IBAN"
-                    min="3"
-                    label="IBAN"
-                    prompt="Zadejte IBAN"
-                    value={person.iban}
-                    handleChange={(e) => {
-                        setPerson({ ...person, iban: e.target.value });
-                    }}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="mail"
+                            min="3"
+                            label="Mail"
+                            prompt="Zadejte mail"
+                            value={person.mail}
+                            handleChange={(e) => {
+                                setPerson({ ...person, mail: e.target.value });
+                            }}
+                        />
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="telephone"
-                    min="3"
-                    label="Telefon"
-                    prompt="Zadejte Telefon"
-                    value={person.telephone}
-                    handleChange={(e) => {
-                        setPerson({ ...person, telephone: e.target.value });
-                    }}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="street"
+                            min="3"
+                            label="Ulice"
+                            prompt="Zadejte ulici"
+                            value={person.street}
+                            handleChange={(e) => {
+                                setPerson({ ...person, street: e.target.value });
+                            }}
+                        />
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="mail"
-                    min="3"
-                    label="Mail"
-                    prompt="Zadejte mail"
-                    value={person.mail}
-                    handleChange={(e) => {
-                        setPerson({ ...person, mail: e.target.value });
-                    }}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="ZIP"
+                            min="3"
+                            label="PSČ"
+                            prompt="Zadejte PSČ"
+                            value={person.zip}
+                            handleChange={(e) => {
+                                setPerson({ ...person, zip: e.target.value });
+                            }}
+                        />
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="street"
-                    min="3"
-                    label="Ulice"
-                    prompt="Zadejte ulici"
-                    value={person.street}
-                    handleChange={(e) => {
-                        setPerson({ ...person, street: e.target.value });
-                    }}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="city"
+                            min="3"
+                            label="Město"
+                            prompt="Zadejte město"
+                            value={person.city}
+                            handleChange={(e) => {
+                                setPerson({ ...person, city: e.target.value });
+                            }}
+                        />
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="ZIP"
-                    min="3"
-                    label="PSČ"
-                    prompt="Zadejte PSČ"
-                    value={person.zip}
-                    handleChange={(e) => {
-                        setPerson({ ...person, zip: e.target.value });
-                    }}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="note"
+                            label="Poznámka"
+                            value={person.note}
+                            handleChange={(e) => {
+                                setPerson({ ...person, note: e.target.value });
+                            }}
+                        />
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="city"
-                    min="3"
-                    label="Město"
-                    prompt="Zadejte město"
-                    value={person.city}
-                    handleChange={(e) => {
-                        setPerson({ ...person, city: e.target.value });
-                    }}
-                />
+                        <h6>Země:</h6>
 
-                <InputField
-                    required={true}
-                    type="text"
-                    name="note"
-                    label="Poznámka"
-                    value={person.note}
-                    handleChange={(e) => {
-                        setPerson({ ...person, note: e.target.value });
-                    }}
-                />
+                        <InputCheck
+                            type="radio"
+                            name="country"
+                            label="Česká republika"
+                            value={Country.CZECHIA}
+                            handleChange={(e) => {
+                                setPerson({ ...person, country: e.target.value });
+                            }}
+                            checked={Country.CZECHIA === person.country}
+                        />
 
-                <h6>Země:</h6>
+                        <InputCheck
+                            type="radio"
+                            name="country"
+                            label="Slovensko"
+                            value={Country.SLOVAKIA}
+                            handleChange={(e) => {
+                                setPerson({ ...person, country: e.target.value });
+                            }}
+                            checked={Country.SLOVAKIA === person.country}
+                        /></div>
+                ) : (
+                    <div>
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="personName"
+                            min="3"
+                            label="Jméno"
+                            prompt="Zadejte celé jméno"
+                            value={person.name}
+                            handleChange={(e) => {
+                                setPerson({ ...person, name: e.target.value });
+                            }}
+                        />
 
-                <InputCheck
-                    type="radio"
-                    name="country"
-                    label="Česká republika"
-                    value={Country.CZECHIA}
-                    handleChange={(e) => {
-                        setPerson({ ...person, country: e.target.value });
-                    }}
-                    checked={Country.CZECHIA === person.country}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="identificationNumber"
+                            min="3"
+                            label="IČO"
+                            prompt="Zadejte IČO"
+                            value={person.identificationNumber}
+                            handleChange={(e) => {
+                                setPerson({ ...person, identificationNumber: e.target.value });
+                            }}
+                        />
 
-                <InputCheck
-                    type="radio"
-                    name="country"
-                    label="Slovensko"
-                    value={Country.SLOVAKIA}
-                    handleChange={(e) => {
-                        setPerson({ ...person, country: e.target.value });
-                    }}
-                    checked={Country.SLOVAKIA === person.country}
-                />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="taxNumber"
+                            min="3"
+                            label="DIČ"
+                            prompt="Zadejte DIČ"
+                            value={person.taxNumber}
+                            handleChange={(e) => {
+                                setPerson({ ...person, taxNumber: e.target.value });
+                            }}
+                        />
+
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="accountNumber"
+                            min="3"
+                            label="Číslo bankovního účtu"
+                            prompt="Zadejte číslo bankovního účtu"
+                            value={person.accountNumber}
+                            handleChange={(e) => {
+                                setPerson({ ...person, accountNumber: e.target.value });
+                            }}
+                        />
+
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="bankCode"
+                            min="3"
+                            label="Kód banky"
+                            prompt="Zadejte kód banky"
+                            value={person.bankCode}
+                            handleChange={(e) => {
+                                setPerson({ ...person, bankCode: e.target.value });
+                            }}
+                        />
+
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="IBAN"
+                            min="3"
+                            label="IBAN"
+                            prompt="Zadejte IBAN"
+                            value={person.iban}
+                            handleChange={(e) => {
+                                setPerson({ ...person, iban: e.target.value });
+                            }}
+                        />
+
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="telephone"
+                            min="3"
+                            label="Telefon"
+                            prompt="Zadejte Telefon"
+                            value={person.telephone}
+                            handleChange={(e) => {
+                                setPerson({ ...person, telephone: e.target.value });
+                            }}
+                        />
+
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="mail"
+                            min="3"
+                            label="Mail"
+                            prompt="Zadejte mail"
+                            value={person.mail}
+                            handleChange={(e) => {
+                                setPerson({ ...person, mail: e.target.value });
+                            }}
+                        />
+
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="street"
+                            min="3"
+                            label="Ulice"
+                            prompt="Zadejte ulici"
+                            value={person.street}
+                            handleChange={(e) => {
+                                setPerson({ ...person, street: e.target.value });
+                            }}
+                        />
+
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="ZIP"
+                            min="3"
+                            label="PSČ"
+                            prompt="Zadejte PSČ"
+                            value={person.zip}
+                            handleChange={(e) => {
+                                setPerson({ ...person, zip: e.target.value });
+                            }}
+                        />
+
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="city"
+                            min="3"
+                            label="Město"
+                            prompt="Zadejte město"
+                            value={person.city}
+                            handleChange={(e) => {
+                                setPerson({ ...person, city: e.target.value });
+                            }}
+                        />
+
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="note"
+                            label="Poznámka"
+                            value={person.note}
+                            handleChange={(e) => {
+                                setPerson({ ...person, note: e.target.value });
+                            }}
+                        />
+
+                        <h6>Země:</h6>
+
+                        <InputCheck
+                            type="radio"
+                            name="country"
+                            label="Česká republika"
+                            value={Country.CZECHIA}
+                            handleChange={(e) => {
+                                setPerson({ ...person, country: e.target.value });
+                            }}
+                            checked={Country.CZECHIA === person.country}
+                        />
+
+                        <InputCheck
+                            type="radio"
+                            name="country"
+                            label="Slovensko"
+                            value={Country.SLOVAKIA}
+                            handleChange={(e) => {
+                                setPerson({ ...person, country: e.target.value });
+                            }}
+                            checked={Country.SLOVAKIA === person.country}
+                        />
+                    </div>
+                )}
+
 
                 <BackButton style="btn btn-success mt-3 ms-3 px-4" />
                 <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value="Uložit" />            </form>

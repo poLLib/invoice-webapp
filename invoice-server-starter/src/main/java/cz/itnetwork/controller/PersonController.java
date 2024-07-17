@@ -39,7 +39,7 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping("/persons")
-    public PersonDTO addPerson(@Valid @RequestBody PersonDTO personDTO) {
+    public PersonDTO addPerson(@RequestBody PersonDTO personDTO) {
         return personService.addPerson(personDTO);
     }
 
@@ -65,7 +65,7 @@ public class PersonController {
     }
 
     @PutMapping("/persons/{personId}")
-    public PersonDTO editPerson(@PathVariable Long personId, @Valid @RequestBody PersonDTO data) {
+    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody PersonDTO data) {
         return personService.editPerson(personId, data);
     }
 

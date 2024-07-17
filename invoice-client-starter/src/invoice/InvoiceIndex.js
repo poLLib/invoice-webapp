@@ -26,7 +26,6 @@ import InvoiceFilter from "./InvoiceFilter";
 import { InvoiceTable } from "./InvoiceTable";
 import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
-import InputField from "../components/InputField";
 
 export function InvoiceIndex() {
     // Pagination states
@@ -38,7 +37,7 @@ export function InvoiceIndex() {
     const initialFilterState = {
         minPrice: undefined,
         maxPrice: undefined,
-        limit: pageSize,
+        limit: undefined,
         sellerId: undefined,
         buyerId: undefined,
     };
@@ -68,28 +67,20 @@ export function InvoiceIndex() {
     };
 
     useEffect(() => {
-        async function fetchSumInvoices() {
-            setTotalInvoices(await apiGet("/api/invoices/total"));
-            setTotalPages(Math.ceil(totalInvoices / pageSize));
-            setIsLoadingCount(false);
-        }
-        fetchSumInvoices();
-    }, [totalPages, pageSize]);
-
-    useEffect(() => {
         async function fetchInvoices() {
-            const data = await apiGet(`/api/invoices?page=${page - 1}&size=${pageSize}`);
+            const params = { ...filterState, page: page - 1 };
+            const data = await apiGet(`/api/invoices`, params);
             setInvoices(data);
+            setTotalInvoices(invoices.length);
+            setTotalPages(Math.ceil(totalInvoices/pageSize))
             setPersons(await apiGet("/api/persons"));
             setIsLoading(false);
         }
         fetchInvoices();
-    }, [page, pageSize]);
+    }, [page, filterState.product, pageSize]);
 
     function handlePageChange(newPage) {
         navigate(`/invoices/pages/${newPage}`);
-        console.log(`filter: ${filterState.limit}`);
-        console.log(`PageSize: ${pageSize}`);
     }
 
     function handleChange(e) {
@@ -106,13 +97,10 @@ export function InvoiceIndex() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const params = filterState;
+        const params = { ...filterState, page: 0, size: pageSize };
         const data = await apiGet("/api/invoices", params);
         setInvoices(data);
-        setPageSize(params.limit);
-        setTotalInvoices()
-        navigate("/invoices")
-        console.log(`filter: ${filterState.maxPrice}`)
+        navigate("/invoices/pages/1");
     };
 
     function handleInput(e) {
@@ -129,7 +117,6 @@ export function InvoiceIndex() {
         setInvoices(data);
         navigate("/invoices")
 
-        console.log(`filter: ${filterState.maxPrice}`)
     };
 
     return (
@@ -138,7 +125,7 @@ export function InvoiceIndex() {
             <p>
                 Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalInvoices}</strong>)}
             </p>
-            
+
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-grow my-3" role="status"></div>
