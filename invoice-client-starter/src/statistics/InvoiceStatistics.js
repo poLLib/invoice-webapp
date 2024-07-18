@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { apiGet } from "../utils/api";
 
 export function InvoiceStatistics() {
@@ -43,4 +43,4 @@ export function InvoiceStatistics() {
 
         </table>
     );
-};
+}

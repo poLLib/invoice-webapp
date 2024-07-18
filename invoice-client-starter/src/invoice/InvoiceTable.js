@@ -77,4 +77,4 @@ export function InvoiceTable({ items, deleteInvoice }) {
             </Link>
         </div>
     );
-};
+}

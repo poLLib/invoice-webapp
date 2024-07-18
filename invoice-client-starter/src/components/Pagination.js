@@ -40,7 +40,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
     }
 
     const pageNumbers = getPageNumbers();
-   
+
     return (
         <nav>
             <ul className="pagination justify-content-center">
@@ -71,4 +71,4 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
             </ul>
         </nav>
     );
-};
+}

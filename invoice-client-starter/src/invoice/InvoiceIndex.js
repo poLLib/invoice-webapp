@@ -20,9 +20,9 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { apiDelete, apiGet } from "../utils/api";
-import InvoiceFilter from "./InvoiceFilter";
+import { InvoiceFilter } from "./InvoiceFilter";
 import { InvoiceTable } from "./InvoiceTable";
 import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
@@ -39,7 +39,7 @@ export function InvoiceIndex() {
     const [filterState, setFilter] = useState({
         minPrice: undefined,
         maxPrice: undefined,
-        limit: 10,
+        limit: pageSize,
         sellerId: undefined,
         buyerId: undefined,
     });
@@ -80,9 +80,9 @@ export function InvoiceIndex() {
         fetchInvoices();
     }, [page, filterState.product]);
 
-        console.log(`tolalInvoices : ${totalInvoices}`)
-        console.log(`totalPages : ${totalPages}`)
-        console.log(`pageSize : ${pageSize}`)
+    console.log(`tolalInvoices : ${totalInvoices}`)
+    console.log(`totalPages : ${totalPages}`)
+    console.log(`pageSize : ${pageSize}`)
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -183,4 +183,4 @@ export function InvoiceIndex() {
             )}
         </div>
     );
-};
+}

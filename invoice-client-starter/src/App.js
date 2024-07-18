@@ -21,7 +21,6 @@
  */
 
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import {
   BrowserRouter as Router,
   Link,
@@ -36,6 +35,7 @@ import { InvoiceForm } from "./invoice/InvoiceForm";
 import { InvoiceDetail } from "./invoice/InvoiceDetail";
 import { InvoiceIndex } from "./invoice/InvoiceIndex";
 import { StatisticsTable } from "./statistics/StatisticsTable";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css"
 
 export function App() {
@@ -109,5 +109,3 @@ export function App() {
     </div>
   );
 }
-
-export default App;

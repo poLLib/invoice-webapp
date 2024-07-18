@@ -20,18 +20,16 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiGet, apiPost, apiPut } from "../utils/api";
 import { BackButton } from "../components/BackButton";
-import InputField from "../components/InputField";
-import InputCheck from "../components/InputCheck";
-import FlashMessage from "../components/FlashMessage";
-import Country from "./Country";
+import { InputCheck } from "../components/InputCheck";
+import { FlashMessage } from "../components/FlashMessage";
+import { InputField } from "../components/InputField";
+import { Country } from "./Country";
 
 export function PersonForm() {
-    const navigate = useNavigate();
-    const { id } = useParams();
     const [person, setPerson] = useState({
         name: "",
         identificationNumber: "",
@@ -51,6 +49,10 @@ export function PersonForm() {
     const [successState, setSuccess] = useState(false);
     const [errorState, setError] = useState(null);
 
+    const UserContext = createContext();
+    const navigate = useNavigate();
+    const { id } = useParams();
+
     useEffect(() => {
         async function fetchPerson() {
             if (id) {
@@ -67,11 +69,8 @@ export function PersonForm() {
             .then((data) => {
                 setSent(true);
                 setSuccess(true);
-                setTimeout(() => {
-                    setSent(false)
-                    navigate("/persons");
-
-                }, 2500);
+                setSent(false);
+                navigate("/persons");
             })
             .catch((error) => {
                 console.log(error.message);
@@ -95,10 +94,12 @@ export function PersonForm() {
                 <div className="alert alert-danger">{errorState}</div>
             ) : null}
             {sent && (
-                <FlashMessage
-                    theme={success ? "success" : ""}
-                    text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
-                />
+                <UserContext.Provider>
+                    <FlashMessage
+                        theme={success ? "success" : ""}
+                        text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
+                    />
+                </UserContext.Provider>
             )}
 
             {/* controls if user update or create a new person
@@ -446,4 +447,4 @@ export function PersonForm() {
                 <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value="Uložit" />            </form>
         </div>
     );
-};
+}

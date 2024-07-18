@@ -64,7 +64,7 @@ export const apiGet = (url, params) => {
 export const apiPost = (url, data) => {
     const requestOptions = {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
     };
 
@@ -74,7 +74,7 @@ export const apiPost = (url, data) => {
 export const apiPut = (url, data) => {
     const requestOptions = {
         method: "PUT",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
     };
 

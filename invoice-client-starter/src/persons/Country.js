@@ -20,9 +20,7 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-const Country = Object.freeze({
+export const Country = Object.freeze({
     CZECHIA: 'CZECHIA',
     SLOVAKIA: 'SLOVAKIA',
 });
-
-export default Country;

@@ -27,5 +27,3 @@ export function InputCheck(props) {
     </div>
   );
 }
-
-export default InputCheck;

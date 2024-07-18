@@ -50,5 +50,3 @@ export function InputField(props) {
     </div>
   );
 }
-
-export default InputField;

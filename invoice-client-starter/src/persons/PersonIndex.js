@@ -20,7 +20,7 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { apiDelete, apiGet, apiGetPage } from "../utils/api";
 import { Pagination } from "../components/Pagination";
 import { PersonTable } from "./PersonTable";
@@ -105,4 +105,4 @@ export function PersonIndex() {
             </div>
         </div>
     );
-};
+}

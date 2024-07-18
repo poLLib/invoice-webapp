@@ -28,3 +28,13 @@ public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, J
             """, nativeQuery = true)
     Object getStats();
 }
+
+/**
+ * custom JPQL query and constructor within
+ */
+/*@Query("SELECT new cz.itnetwork.dto.InvoiceStatisticsDTO(" +
+        "COALESCE(SUM(i.price), 0), " +                                // Total sum of all invoices
+        "COUNT(i), " +                                                 // Count of all invoices
+        "COALESCE(SUM(CASE WHEN FUNCTION('YEAR', i.dueDate) = FUNCTION('YEAR', CURRENT_DATE) THEN i.price ELSE 0 END), 0)) " + // Sum for the current year
+        "FROM invoice i")
+InvoiceStatisticsDTO getStats();*/

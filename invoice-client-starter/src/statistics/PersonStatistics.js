@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { apiGet } from "../utils/api";
-import '../styles.css'
 import { Link } from "react-router-dom";
+import '../styles.css'
 
 export function PersonStatistics() {
     const [isLoading, setIsLoading] = useState();

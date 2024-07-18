@@ -69,5 +69,4 @@ export function PersonTable({ itemsPerPage, deletePerson }) {
 
         </div>
     );
-};
-
+}

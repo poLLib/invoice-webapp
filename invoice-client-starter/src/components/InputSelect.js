@@ -1,6 +1,6 @@
 import React from "react";
 
-function InputSelect(props) {
+export function InputSelect(props) {
   const multiple = props.multiple;
   const required = props.required || false;
 
@@ -49,5 +49,3 @@ function InputSelect(props) {
     </div>
   );
 }
-
-export default InputSelect;

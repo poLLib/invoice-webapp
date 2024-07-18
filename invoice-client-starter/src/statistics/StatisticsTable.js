@@ -2,7 +2,7 @@ import { PersonStatistics } from "./PersonStatistics";
 import { InvoiceStatistics } from "./InvoiceStatistics";
 
 export function StatisticsTable() {
-    
+
     return (
         <div className="pb-5">
             <div className="row table-statistics">
@@ -15,9 +15,9 @@ export function StatisticsTable() {
             <div className="row">
                 <div className="col">
                     <h2 className="p-5 text-center">Výpis společností a jejich zisků</h2>
-                    <PersonStatistics/>
+                    <PersonStatistics />
                 </div>
             </div>
         </div>
     );
-};
+}

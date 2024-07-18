@@ -1,7 +1,7 @@
-import InputField from "../components/InputField"
-import InputSelect from "../components/InputSelect";
+import { InputField } from "../components/InputField";
+import { InputSelect } from "../components/InputSelect";
 
-function InvoiceFilter(props) {
+export function InvoiceFilter(props) {
     function handleChange(e) {
         return props.handleChange(e);
     };
@@ -114,6 +114,4 @@ function InvoiceFilter(props) {
             </div>
         </form>
     );
-};
-
-export default InvoiceFilter;
+}

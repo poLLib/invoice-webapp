@@ -20,7 +20,7 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-export const dateStringFormatter = (str, locale = false) => {
+export function dateStringFormatter(str, locale = false) {
     const d = new Date(str);
 
     if (locale) {
@@ -40,6 +40,4 @@ export const dateStringFormatter = (str, locale = false) => {
         month.length < 2 ? "0" + month : month,
         day.length < 2 ? "0" + day : day,
     ].join("-");
-};
-
-export default dateStringFormatter;
+}

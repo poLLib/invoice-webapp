@@ -20,13 +20,13 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import '../styles.css'
 import { apiGet } from "../utils/api";
-import Country from "./Country";
+import { Country } from "./Country";
 import { BackButton } from "../components/BackButton";
+import '../styles.css'
 
 export function PersonDetail() {
     const { id } = useParams();
@@ -162,4 +162,4 @@ export function PersonDetail() {
             </div>
         </>
     );
-};
+}
