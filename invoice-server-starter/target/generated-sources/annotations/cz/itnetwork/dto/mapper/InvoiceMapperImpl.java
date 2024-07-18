@@ -67,7 +67,6 @@ public class InvoiceMapperImpl implements InvoiceMapper {
         }
 
         target.setId( source.getId() );
-        target.setInvoiceNumber( source.getInvoiceNumber() );
         target.setIssued( source.getIssued() );
         target.setDueDate( source.getDueDate() );
         target.setProduct( source.getProduct() );

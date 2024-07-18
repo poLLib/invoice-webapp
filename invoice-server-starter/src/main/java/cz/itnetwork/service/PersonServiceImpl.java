@@ -93,6 +93,11 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDTO editPerson(Long id, PersonDTO data) {
+        PersonEntity fetchedPerson = fetchPersonById(id);
+        PersonDTO newPerson = new PersonDTO();
+        newPerson.setIdentificationNumber(fetchedPerson.getIdentificationNumber());
+        newPerson.setTaxNumber(fetchedPerson.getTaxNumber());
+
         removePerson(id);
         data.setId(null);
         return addPerson(data);

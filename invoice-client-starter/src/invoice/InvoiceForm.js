@@ -101,6 +101,7 @@ export function InvoiceForm() {
                     text={success ? "Uložení faktury proběhlo úspěšně." : ""}
                 />
             )}
+            
             <form onSubmit={handleSubmit}>
                 <InputSelect
                     name="seller"

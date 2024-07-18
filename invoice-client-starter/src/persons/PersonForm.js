@@ -259,7 +259,8 @@ export function PersonForm() {
                                 setPerson({ ...person, country: e.target.value });
                             }}
                             checked={Country.SLOVAKIA === person.country}
-                        /></div>
+                        />
+                    </div>
                 ) : (
                     <div>
                         <InputField

@@ -50,7 +50,8 @@ public interface PersonService {
     void removePerson(long id);
 
     /**
-     * Edits person by [id]
+     * Edits person by [id], according to low of accountancy the old data must be stored, therefore the person gets hidden
+     * also [identificationNumber, taxNumber] cannot be changed, so updated person sets the values from the previous ones
      *
      * @param id Person to edit
      * @param data Updated data of person to edit
