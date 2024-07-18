@@ -30,22 +30,19 @@ import { Pagination } from "../components/Pagination";
 export function InvoiceIndex() {
     // Pagination states
     const [isLoadingCount, setIsLoadingCount] = useState(true);
-    const [totalPages, setTotalPages] = useState(null);
+    const [totalPages, setTotalPages] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-    const [totalInvoices, setTotalInvoices] = useState(null);
-
-    const initialFilterState = {
-        minPrice: undefined,
-        maxPrice: undefined,
-        limit: undefined,
-        sellerId: undefined,
-        buyerId: undefined,
-    };
-
+    const [totalInvoices, setTotalInvoices] = useState(0);
     const [invoices, setInvoices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [persons, setPersons] = useState([]);
-    const [filterState, setFilter] = useState(initialFilterState);
+    const [filterState, setFilter] = useState({
+        minPrice: undefined,
+        maxPrice: undefined,
+        limit: 10,
+        sellerId: undefined,
+        buyerId: undefined,
+    });
 
     const { page = 1 } = useParams();
     const navigate = useNavigate();
@@ -66,32 +63,44 @@ export function InvoiceIndex() {
         setTotalInvoices(totalInvoices - 1);
     };
 
-    // useEffect(() => {
-    //     async function fetchSumInvoices() {
-    //         setTotalInvoices(await apiGet("/api/invoices/total"));
-    //         setTotalPages(Math.ceil(invoices.length / pageSize)); // BE
-    //         setIsLoadingCount(false);
-    //     }
-    //     fetchSumInvoices();
-    // }, [totalPages, pageSize]);
-
     useEffect(() => {
         async function fetchInvoices() {
-            console.log(`page: ${page}`);
-            console.log(`pagesize: ${pageSize}`);
-
             const params = { ...filterState, page: page - 1 };
             const data = await apiGet(`/api/invoices`, params);
-            setInvoices(data);
-            setTotalInvoices(invoices.length);
-            setTotalPages(Math.ceil(data.length / pageSize));
-            setPersons(await apiGet("/api/persons"));
+            const personsData = await apiGet("/api/persons");
+
+            setInvoices(data.invoices);
+            setTotalInvoices(data.totalElements);
+            setPageSize(params.limit);
+            setPersons(personsData);
+            setTotalPages(Math.ceil(data.totalElements / params.limit));
             setIsLoading(false);
+            setIsLoadingCount(false);
         }
         fetchInvoices();
-    }, [page, filterState.product, pageSize]);
+    }, [page, filterState.product]);
 
-        // useEffect(() => {
+        console.log(`tolalInvoices : ${totalInvoices}`)
+        console.log(`totalPages : ${totalPages}`)
+        console.log(`pageSize : ${pageSize}`)
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const params = { ...filterState, page: 0 };
+        const data = await apiGet("/api/invoices", params);
+        setInvoices(data.invoices);
+        setTotalInvoices(data.totalElements);
+        setPageSize(params.limit);
+        setTotalPages(Math.ceil(data.totalElements / params.limit));
+
+        console.log(`tolalInvoices : ${totalInvoices}`)
+        console.log(`totalPages : ${totalPages}`)
+        console.log(`pageSize : ${pageSize}`)
+
+        navigate("/invoices/pages/1");
+    };
+
+    // useEffect(() => {
     //     async function fetchSumInvoices() {
     //         setTotalInvoices(await apiGet("/api/invoices/total"));
     //         setTotalPages(Math.ceil(invoices.length / pageSize)); // BE
@@ -117,14 +126,6 @@ export function InvoiceIndex() {
         }
     };
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-        const params = { ...filterState, page: 0, size: pageSize };
-        const data = await apiGet("/api/invoices", params);
-        setInvoices(data);
-        setPageSize(params.limit);
-        navigate("/invoices/pages/1");
-    };
 
     function handleInput(e) {
         setInputText(e.target.value.toLowerCase());
@@ -135,9 +136,13 @@ export function InvoiceIndex() {
 
     async function handleReset(e) {
         e.preventDefault();
-        setFilter(initialFilterState);
-        const data = await apiGet("/api/invoices");
-        setInvoices(data);
+        setFilter({
+            minPrice: undefined,
+            maxPrice: undefined,
+            limit: 10,
+            sellerId: undefined,
+            buyerId: undefined,
+        });
         navigate("/invoices")
 
     };
@@ -145,9 +150,7 @@ export function InvoiceIndex() {
     return (
         <div>
             <h1>Seznam faktur</h1>
-            <p>
-                Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalInvoices}</strong>)}
-            </p>
+
 
 
             {isLoading ? (
@@ -167,6 +170,9 @@ export function InvoiceIndex() {
                         confirm="Filtrovat faktury"
                     />
                     <hr />
+                    <p>
+                        Nalezené faktury: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalInvoices}</strong>)}
+                    </p>
                     <InvoiceTable
                         deleteInvoice={deleteInvoice}
                         items={invoices}

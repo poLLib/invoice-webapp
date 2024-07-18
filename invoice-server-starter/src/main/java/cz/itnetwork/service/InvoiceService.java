@@ -1,10 +1,9 @@
 package cz.itnetwork.service;
 
 import cz.itnetwork.dto.InvoiceDTO;
+import cz.itnetwork.dto.InvoicePageDTO;
 import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.entity.filter.InvoiceFilter;
-
-import java.util.List;
 
 public interface InvoiceService {
 
@@ -20,13 +19,11 @@ public interface InvoiceService {
      * Fetches all invoices in database and filter them according to user's parameters and make them pageable
      * The second parameter of the class Pageable which determinate size of page is taken from param [limit] InvoiceFilter
      *
+     * @param invoiceFilter Parameters for filtration [buyerId], [sellerId], [product], [minPrice], [maxPrice], [limit (default value = 10)];
      * @param page Current page
-     * @return List of InvoiceDTO
+     * @return List of InvoiceDTO and count of invoice elements after filtration
      */
-    List<InvoiceDTO> getAllInvoicesPageable(InvoiceFilter invoiceFilter, int page);
-
-
-    Long countAllInvoices();
+    InvoicePageDTO getAllInvoicesPageable(InvoiceFilter invoiceFilter, int page);
 
     /**
      * Look up for a specific invoice by [id]

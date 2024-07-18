@@ -25,7 +25,6 @@ import cz.itnetwork.dto.InvoiceDTO;
 import cz.itnetwork.dto.PersonDTO;
 import cz.itnetwork.dto.PersonStatisticsDTO;
 import cz.itnetwork.service.PersonService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

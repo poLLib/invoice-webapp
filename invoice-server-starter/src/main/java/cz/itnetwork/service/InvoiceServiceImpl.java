@@ -1,6 +1,7 @@
 package cz.itnetwork.service;
 
 import cz.itnetwork.dto.InvoiceDTO;
+import cz.itnetwork.dto.InvoicePageDTO;
 import cz.itnetwork.dto.InvoiceStatisticsDTO;
 import cz.itnetwork.dto.mapper.InvoiceMapper;
 import cz.itnetwork.dto.mapper.PersonMapper;
@@ -17,7 +18,6 @@ import org.webjars.NotFoundException;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
@@ -45,18 +45,18 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<InvoiceDTO> getAllInvoicesPageable(InvoiceFilter invoiceFilter, int page) {
+    public InvoicePageDTO getAllInvoicesPageable(InvoiceFilter invoiceFilter, int page) {
         InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
 
-        return invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.getLimit()))
+        Long count = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.getLimit()))
+                .getTotalElements();
+
+        List<InvoiceDTO> invoices = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.getLimit()))
                 .stream()
                 .map(invoiceMapper::toDTO)
-                .collect(Collectors.toList());
-    }
+                .toList();
 
-    @Override
-    public Long countAllInvoices() {
-        return invoiceRepository.countInvoices();
+        return new InvoicePageDTO(invoices, count);
     }
 
     @Override
