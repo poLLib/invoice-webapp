@@ -29,6 +29,7 @@ Welcome to the Invoice Management Web Application! This project is designed to h
 - **Backend**:
   - JavaSE
   - SpringBoot3
+  - Maven
 - **Database**:
   - MariaDB
 - **Application Server**
