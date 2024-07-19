@@ -85,6 +85,7 @@ export function PersonIndex() {
                 <p>
                     Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalPersons}</strong>)}
                 </p>
+
                 {isLoading ? (
                     <div className="text-center">
                         <div className="spinner-grow my-3" role="status"></div>

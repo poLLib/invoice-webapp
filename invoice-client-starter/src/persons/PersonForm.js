@@ -20,7 +20,7 @@
  * Více informací na http://www.itnetwork.cz/licence
  */
 
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiGet, apiPost, apiPut } from "../utils/api";
 import { BackButton } from "../components/BackButton";
@@ -49,7 +49,6 @@ export function PersonForm() {
     const [successState, setSuccess] = useState(false);
     const [errorState, setError] = useState(null);
 
-    const UserContext = createContext();
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -94,12 +93,10 @@ export function PersonForm() {
                 <div className="alert alert-danger">{errorState}</div>
             ) : null}
             {sent && (
-                <UserContext.Provider>
-                    <FlashMessage
-                        theme={success ? "success" : ""}
-                        text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
-                    />
-                </UserContext.Provider>
+                <FlashMessage
+                    theme={success ? "success" : ""}
+                    text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
+                />
             )}
 
             {/* controls if user update or create a new person
@@ -442,7 +439,6 @@ export function PersonForm() {
                         />
                     </div>
                 )}
-
 
                 <BackButton style="btn btn-success mt-3 ms-3 px-4" />
                 <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value="Uložit" />            </form>
