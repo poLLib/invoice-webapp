@@ -34,7 +34,7 @@ Welcome to the Invoice Management Web Application! This project is designed to h
   - MariaDB
 - **Application Server**
   - Apache
-- **Other Tools**:
+- **VCS**:
   - Git
   - GitHub
 
