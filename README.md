@@ -44,6 +44,8 @@ Welcome to the Invoice Management Web Application! This project is designed to h
 - JDK 18 [Download JDK 18 Temurin](https://adoptium.net/temurin/releases/?os=any&version=18)
 - Node.js (v20.14.0 or later) [Download Node.js](https://nodejs.org/)
 - XAMPP (which includes MariaDB and Apache) [Download XAMPP](https://www.apachefriends.org/index.html)
+- Git [Download Git](https://git-scm.com/downloads)
+- Maven [Download Maven](https://maven.apache.org/download.cgi)
 
 ### Steps
 
@@ -77,13 +79,7 @@ Welcome to the Invoice Management Web Application! This project is designed to h
    
 4. **Start the backend server:**
    ```bash
-   # Compile the Java source files
-   javac -d out  /invoice-webapp/invoice-server-starter/src/main/java/cz/pollib/ApplicationMain.java
-
-   cd out
-   
-   # Run the main class
-   java com.example.YourMainClass
+   mvn spring-boot:run
    ```
    Alternatively, you can use your preferred IDE to run the server.
    
