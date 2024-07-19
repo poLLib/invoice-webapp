@@ -9,9 +9,7 @@ Welcome to the Store and Invoice Management Web Application! This project is des
 3. [Installation](#installation)
 4. [Usage](#usage)
 5. [API Documentation](#api-documentation)
-6. [Contributing](#contributing)
-7. [License](#license)
-8. [Contact](#contact)
+6. [Conclusion](#conclusion)
 
 ## Features
 
@@ -117,14 +115,16 @@ Welcome to the Store and Invoice Management Web Application! This project is des
 
 ## API Documentation
 
-The API provides endpoints for managing companies and invoices. Below is a summary of the available endpoints:
+The API provides endpoints for managing companies and invoices using JSON format. Below is a summary of the available endpoints:
 
 - **Companies**
-  - `GET /api/companies`: Get all companies.
-  - `POST /api/companies`: Create a new company.
-  - `GET /api/companies/:id`: Get a single company by ID.
-  - `PUT /api/companies/:id`: Update a company by ID.
+  - `GET /api/persons`: Get all companies.
+  - `POST /api/persons`: Create a new company.
+  - `GET /api/persons/:id`: Get a single company by ID.
+  - `PUT /api/persons/:id`: Update a company by ID.
   - `DELETE /api/companies/:id`: Delete a company by ID.
+  - `GET /api/persons/statistics` : Get statistics of each company.
+
 
 - **Invoices**
   - `GET /api/invoices`: Get all invoices.
@@ -132,34 +132,12 @@ The API provides endpoints for managing companies and invoices. Below is a summa
   - `GET /api/invoices/:id`: Get a single invoice by ID.
   - `PUT /api/invoices/:id`: Update an invoice by ID.
   - `DELETE /api/invoices/:id`: Delete an invoice by ID.
+  - `GET /api/identification/:identificationNumber/sales`: Get all sold invoices of single company by its identification number.
+  - `GET /api/identification/:identificationNumber/purchases`: Get all received invoices of single company by its identification number.
+  - `GET /api/invoices/statistics` : Get invoice statistics.
 
-For detailed API documentation, refer to the [API Documentation](API_DOCUMENTATION.md) file.
+## Conclusion
 
-## Contributing
+I welcome contributions from the community!
 
-We welcome contributions from the community! To contribute, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -m 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Open a pull request.
-
-Please ensure your code follows the project's coding standards and passes all tests.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For questions or support, please contact:
-
-- **Your Name** - [your.email@example.com](mailto:your.email@example.com)
-- **GitHub Issues** - [https://github.com/your-username/store-invoice-management/issues](https://github.com/your-username/store-invoice-management/issues)
-
-Thank you for using our Store and Invoice Management Web Application!
-
----
-
-Feel free to customize this template to better fit your project and provide more specific details where necessary.
+Thank you for using our Invoice Management Web Application!
