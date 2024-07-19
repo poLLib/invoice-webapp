@@ -9,8 +9,8 @@
         <version>3.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cz.itnetwork</groupId>
-    <artifactId>SpringInvoiceDatabase</artifactId>
+    <groupId>cz.pollib</groupId>
+    <artifactId>SpringInvoiceManager</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
