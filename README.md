@@ -79,6 +79,7 @@ Welcome to the Invoice Management Web Application! This project is designed to h
    
 4. **Start the backend server:**
    ```bash
+   cd ../invoice-server-starter
    mvn spring-boot:run
    ```
    Alternatively, you can use your preferred IDE to run the server.
