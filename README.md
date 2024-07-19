@@ -53,7 +53,7 @@ Welcome to the Invoice Management Web Application! This project is designed to h
    cd invoice-webapp
    ```
 
-2. **Install frontend (Node.js) dependencies:**
+2. **Install frontend dependencies:**
    ```bash
    cd invoice-client-starter
    npm install
