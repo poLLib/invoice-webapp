@@ -23,10 +23,12 @@ Welcome to the Invoice Management Web Application! This project is designed to h
 
 - **Frontend**:
   - React.js
+  - Node.js
   - HTML5
   - CSS3 (Bootstrap)
 - **Backend**:
-  - Node.js
+  - JavaSE
+  - SpringBoot3
 - **Database**:
   - MariaDB
 - **Application Server**
