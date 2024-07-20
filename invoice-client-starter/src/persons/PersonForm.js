@@ -68,7 +68,9 @@ export function PersonForm() {
             .then((data) => {
                 setSent(true);
                 setSuccess(true);
-                setSent(false);
+                setTimeout(() => {
+                    setSent(false)
+                }, 2500);
                 navigate("/persons");
             })
             .catch((error) => {
@@ -93,10 +95,17 @@ export function PersonForm() {
                 <div className="alert alert-danger">{errorState}</div>
             ) : null}
             {sent && (
+<<<<<<< Updated upstream
                 <FlashMessage
                     theme={success ? "success" : ""}
                     text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
                 />
+=======
+                    <FlashMessage
+                        theme={success ? "success" : ""}
+                        text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
+                    />
+>>>>>>> Stashed changes
             )}
 
             {/* controls if user update or create a new person

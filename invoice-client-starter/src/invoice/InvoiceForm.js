@@ -80,7 +80,6 @@ export function InvoiceForm() {
                     setSent(false);
                 }, 2000);
             });
-        console.log(invoice)
     };
 
 

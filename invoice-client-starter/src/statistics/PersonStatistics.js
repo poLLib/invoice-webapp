@@ -18,9 +18,6 @@ export function PersonStatistics() {
 
     }, []);
 
-    // const person = persons.find(p => p._id === stat.personId);
-    // console.log(`${person.name}`)
-
     return (
         <div className="row">
             {isLoading ? (

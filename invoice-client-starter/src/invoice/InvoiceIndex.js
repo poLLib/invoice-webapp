@@ -80,10 +80,6 @@ export function InvoiceIndex() {
         fetchInvoices();
     }, [page, filterState.product]);
 
-    console.log(`tolalInvoices : ${totalInvoices}`)
-    console.log(`totalPages : ${totalPages}`)
-    console.log(`pageSize : ${pageSize}`)
-
     async function handleSubmit(e) {
         e.preventDefault();
         const params = { ...filterState, page: 0 };
@@ -93,22 +89,8 @@ export function InvoiceIndex() {
         setPageSize(params.limit);
         setTotalPages(Math.ceil(data.totalElements / params.limit));
 
-        console.log(`tolalInvoices : ${totalInvoices}`)
-        console.log(`totalPages : ${totalPages}`)
-        console.log(`pageSize : ${pageSize}`)
-
         navigate("/invoices/pages/1");
     };
-
-    // useEffect(() => {
-    //     async function fetchSumInvoices() {
-    //         setTotalInvoices(await apiGet("/api/invoices/total"));
-    //         setTotalPages(Math.ceil(invoices.length / pageSize)); // BE
-    //         setIsLoadingCount(false);
-    //     }
-    //     fetchSumInvoices();
-    // }, [totalPages, pageSize]);
-
 
     function handlePageChange(newPage) {
         navigate(`/invoices/pages/${newPage}`);
