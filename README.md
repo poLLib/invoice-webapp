@@ -1,6 +1,6 @@
-# Invoice Management Web Application
+# Invoice Manager Web Application
 
-Welcome to the Invoice Management Web Application! This project is designed to help users manage companies and their invoices within a database. It provides a user-friendly interface to perform various operations such as adding, viewing, editing, and deleting companies and invoices.
+Welcome to the Invoice Manager Web Application! This project is designed to help users manage companies and their invoices within a database. It provides a user-friendly interface to perform various operations such as adding, viewing, editing, and deleting companies and invoices.
 
 ## Table of Contents
 
