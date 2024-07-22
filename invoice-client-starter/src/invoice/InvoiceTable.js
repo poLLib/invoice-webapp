@@ -22,6 +22,15 @@
 
 import { Link } from "react-router-dom";
 
+/**
+ * InvoiceTable component renders a table of invoice records.
+ * Each record includes options to view, edit, or delete the invoice.
+ * Additionally, it provides a link to create a new invoice.
+ * 
+ * @param {Array} props.items - Array of invoice objects to display in the table.
+ * @param {Function} props.deleteInvoice - Function to call when deleting an invoice.
+ * @returns {JSX.Element} A table displaying the invoice records with action buttons.
+ */
 export function InvoiceTable({ items, deleteInvoice }) {
 
     return (

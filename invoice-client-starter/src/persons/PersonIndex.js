@@ -27,7 +27,13 @@ import { PersonTable } from "./PersonTable";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+/**
+ * PersonIndex component displays a paginated list of persons and provides options to delete persons and navigate between pages.
+ * 
+ * @returns {JSX.Element} The component rendering the person index page with pagination and action buttons.
+ */
 export function PersonIndex() {
+    
     const [persons, setPersons] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -40,6 +46,12 @@ export function PersonIndex() {
     const { page = 1 } = useParams();
     const navigate = useNavigate();
 
+    /**
+     * Handles the deletion of a person.
+     * Updates the state and redirects to the previous page if needed.
+     * 
+     * @param {string} id - The ID of the person to delete.
+     */
     async function deletePerson(id) {
         try {
             await apiDelete(`/api/persons/${id}`);
@@ -55,6 +67,9 @@ export function PersonIndex() {
         setTotalPersons(totalPersons - 1);
     };
 
+    /**
+     * Fetches the total number of persons and updates the pagination state.
+     */
     useEffect(() => {
         async function fetchSumPersons() {
             setTotalPersons(await apiGet("/api/persons/total"));
@@ -64,6 +79,9 @@ export function PersonIndex() {
         fetchSumPersons();
     }, [totalPersons, pageSize]);
 
+    /**
+     * Fetches the persons for the current page.
+     */
     useEffect(() => {
         async function fetchPersons() {
             const data = await apiGetPage(`/api/persons?page=${page - 1}&size=${pageSize}`);
@@ -73,7 +91,11 @@ export function PersonIndex() {
         fetchPersons();
     }, [page]);
 
-
+    /**
+     * Handles page change event.
+     * 
+     * @param {number} newPage - The new page number to navigate to.
+     */
     function handlePageChange(newPage) {
         navigate(`/persons/pages/${newPage}`);
     }

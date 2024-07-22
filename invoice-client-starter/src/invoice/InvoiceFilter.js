@@ -1,28 +1,52 @@
 import { InputField } from "../components/InputField";
 import { InputSelect } from "../components/InputSelect";
 
+/**
+ * InvoiceFilter component provides a form for filtering invoices based on various criteria.
+ * It includes fields for price range, product search, and selectors for sellers and buyers.
+ * 
+ * @param {Object} props - The properties passed to the component.
+ * @param {Function} props.handleChange - Function to handle input changes.
+ * @param {Function} props.handleSubmit - Function to handle form submission.
+ * @param {Function} props.handleReset - Function to handle resetting the filter form.
+ * @param {Object} props.filter - The current filter values.
+ * @param {Array} props.sellers - List of sellers for the select input.
+ * @param {Array} props.buyers - List of buyers for the select input.
+ * @param {string} props.confirm - Text for the submit button.
+ * @param {string} props.reset - Text for the reset button.
+ * 
+ * @returns {JSX.Element} A form element with input fields and buttons for filtering invoices.
+ */
 export function InvoiceFilter(props) {
+
+    // Handle input change events
     function handleChange(e) {
         return props.handleChange(e);
     };
 
+    // Handle form submission
     function handleSubmit(e) {
         return props.handleSubmit(e);
     };
 
+    // Handle input change specifically for the product search field
     function handleInput(e) {
         return props.handleChange(e);
     }
 
+    // Handle reset button click
     function handleReset(e) {
         return props.handleReset(e);
     }
 
+    // Destructure filter values from props
     const filter = props.filter;
 
     return (
         <form onSubmit={handleSubmit}>
+
             <div className="row">
+                {/* Minimum Price Input Field */}
                 <div className="col">
                     <InputField
                         type="number"
@@ -35,6 +59,7 @@ export function InvoiceFilter(props) {
                     />
                 </div>
 
+                {/* Maximum Price Input Field */}
                 <div className="col">
                     <InputField
                         type="number"
@@ -47,6 +72,7 @@ export function InvoiceFilter(props) {
                     />
                 </div>
 
+                {/* Product Search Input Field */}
                 <div className="col">
                     <InputField
                         type="text"
@@ -59,6 +85,7 @@ export function InvoiceFilter(props) {
                 </div>
 
                 <div className="row">
+                    {/* Seller Select Field */}
                     <div className="col">
                         <InputSelect
                             name="sellerId"
@@ -70,6 +97,7 @@ export function InvoiceFilter(props) {
                         />
                     </div>
 
+                    {/* Buyer Select Field */}
                     <div className="col">
                         <InputSelect
                             name="buyerId"
@@ -81,6 +109,7 @@ export function InvoiceFilter(props) {
                         />
                     </div>
 
+                    {/* Limit of Invoices Displayed Input Field */}
                     <div className="col">
                         <InputField
                             type="number"
@@ -99,11 +128,15 @@ export function InvoiceFilter(props) {
 
             <div className="row">
                 <div className="col">
+
+                    {/* Submit Button */}
                     <input
                         type="submit"
                         className="btn btn-secondary float-right mt-2"
                         value={props.confirm}
                     />
+                    
+                    {/* Reset Button */}
                     <button
                         type="button"
                         className="btn btn-danger float-right mt-2 ms-3"

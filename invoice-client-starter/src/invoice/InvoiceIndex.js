@@ -27,12 +27,20 @@ import { InvoiceTable } from "./InvoiceTable";
 import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
 
+/**
+ * InvoiceIndex component displays a list of invoices with options for filtering, pagination, and deletion.
+ * It handles fetching invoices from the API, applying filters, and managing pagination state.
+ * 
+ * @returns {JSX.Element} A component with an invoice list, filter options, and pagination controls.
+ */
 export function InvoiceIndex() {
+
     // Pagination states
     const [isLoadingCount, setIsLoadingCount] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [totalInvoices, setTotalInvoices] = useState(0);
+
     const [invoices, setInvoices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [persons, setPersons] = useState([]);
@@ -47,7 +55,11 @@ export function InvoiceIndex() {
     const { page = 1 } = useParams();
     const navigate = useNavigate();
 
-
+    /**
+    * Deletes an invoice by ID and updates the invoice list and pagination.
+    * 
+    * @param {string} id - The ID of the invoice to delete.
+    */
     async function deleteInvoice(id) {
         try {
             await apiDelete("/api/invoices/" + id);
@@ -80,6 +92,11 @@ export function InvoiceIndex() {
         fetchInvoices();
     }, [page, filterState.product]);
 
+    /**
+     * Handles form submission to apply filters and fetch filtered invoices.
+     * 
+     * @param {Object} e - The form submit event.
+     */
     async function handleSubmit(e) {
         e.preventDefault();
         const params = { ...filterState, page: 0 };
@@ -92,10 +109,20 @@ export function InvoiceIndex() {
         navigate("/invoices/pages/1");
     };
 
+    /**
+    * Handles page change for pagination.
+    * 
+    * @param {number} newPage - The new page number to navigate to.
+    */
     function handlePageChange(newPage) {
         navigate(`/invoices/pages/${newPage}`);
     }
 
+    /**
+    * Updates the filter state based on user input.
+    * 
+    * @param {Object} e - The input change event.
+    */
     function handleChange(e) {
         if (e.target.value === "false" || e.target.value === "true" || e.target.value === '') {
             setFilter(prevState => {
@@ -108,7 +135,11 @@ export function InvoiceIndex() {
         }
     };
 
-
+    /**
+     * Handles input changes for filtering invoices.
+     * 
+     * @param {Object} e - The input change event.
+     */
     function handleInput(e) {
         setInputText(e.target.value.toLowerCase());
         const filteredData = invoices.filter((product) => {
@@ -116,6 +147,10 @@ export function InvoiceIndex() {
         });
     };
 
+    /**
+     * Resets filters and navigates to the invoices page.
+     * @param {Event} e - The form submit event.
+     */
     async function handleReset(e) {
         e.preventDefault();
         setFilter({
@@ -125,7 +160,7 @@ export function InvoiceIndex() {
             sellerId: undefined,
             buyerId: undefined,
         });
-        navigate("/invoices")
+        navigate("/invoices");
 
     };
 

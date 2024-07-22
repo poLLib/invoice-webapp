@@ -38,8 +38,15 @@ import { StatisticsTable } from "./statistics/StatisticsTable";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css"
 
+/**
+ * Main App Component
+ * - Sets up the Router for navigation
+ * - Defines the layout and main routes for the application
+ */
+
 export function App() {
   return (
+    /* { Navigation menu} */
     <div className="wrapper">
       <Router>
         <div className="container content">
@@ -64,6 +71,7 @@ export function App() {
             </ul>
           </nav>
 
+          {/* Person (companies) Routes */}
           <Routes>
             <Route index element={<Navigate to={"/persons/pages/1"} />} />
             <Route path="/persons">
@@ -74,6 +82,7 @@ export function App() {
               <Route path="edit/:id" element={<PersonForm />} />
             </Route>
 
+            {/* Invoice Routes */}
             <Route index element={<Navigate to={"/invoices/pages/1"} />} />
             <Route path="/invoices">
               <Route index element={<InvoiceIndex />} />
@@ -82,11 +91,15 @@ export function App() {
               <Route path="show/:id" element={<InvoiceDetail />} />
               <Route path="edit/:id" element={<InvoiceForm />} />
             </Route>
+
+            {/* Statistics Route */}
             <Route path="statistics" element={<StatisticsTable />} />
           </Routes>
         </div>
 
       </Router>
+      
+      {/* Footer */}
       <footer >
         <div className="container">
           <div className="row">

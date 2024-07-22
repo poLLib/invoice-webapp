@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { apiGet } from "../utils/api";
 
+/**
+ * InvoiceStatistics component fetches and displays invoice statistics,
+ * including current year's revenue, all-time revenue, and the total number of invoices.
+ * 
+ * @returns {JSX.Element} A table displaying invoice statistics or a loading spinner.
+ */
 export function InvoiceStatistics() {
     const [isLoading, setIsLoading] = useState(true);
     const [statistics, setStatistics] = useState({

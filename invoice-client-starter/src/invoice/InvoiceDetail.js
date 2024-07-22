@@ -93,7 +93,9 @@ export function InvoiceDetail() {
                     </p>
                 </div>
                 )}
+
                 <BackButton style="btn btn-success ms-3 px-4 mb-4" />
+
             </div>
         </>
     );

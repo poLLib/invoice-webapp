@@ -28,6 +28,13 @@ import { Country } from "./Country";
 import { BackButton } from "../components/BackButton";
 import '../styles.css'
 
+/**
+ * PersonDetail component fetches and displays detailed information about a person,
+ * including their personal details and associated invoices (both sold and received).
+ * 
+ * @returns {JSX.Element} A detailed view of the person, including personal details
+ * and tables of sold and received invoices.
+ */
 export function PersonDetail() {
     const { id } = useParams();
     const [person, setPerson] = useState({});
@@ -157,7 +164,8 @@ export function PersonDetail() {
                         )}
                     </div>
                 </div>
-                <BackButton style="btn btn-success ms-3 px-4 mb-4"/>
+
+                <BackButton style="btn btn-success ms-3 px-4 mb-4" />
 
             </div>
         </>

@@ -29,6 +29,12 @@ import { FlashMessage } from "../components/FlashMessage";
 import { InputField } from "../components/InputField";
 import { Country } from "./Country";
 
+/**
+ * PersonForm component allows users to create or update a person's details.
+ * It uses form fields to gather data and handles submission with API calls.
+ * 
+ * @returns {JSX.Element} The component rendering the form for creating or updating a person.
+ */
 export function PersonForm() {
     const [person, setPerson] = useState({
         name: "",
@@ -52,6 +58,9 @@ export function PersonForm() {
     const navigate = useNavigate();
     const { id } = useParams();
 
+    /**
+     * Fetches the person's data if an ID is provided (for editing purposes).
+     */
     useEffect(() => {
         async function fetchPerson() {
             if (id) {
@@ -61,6 +70,13 @@ export function PersonForm() {
         fetchPerson();
     }, [id]);
 
+    /**
+     * Handles form submission.
+     * Sends data to the API and updates the state based on the response.
+     * Pops up a flash message of result on top of the page.
+     * 
+     * @param {Event} e - The form submission event.
+     */
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -95,17 +111,10 @@ export function PersonForm() {
                 <div className="alert alert-danger">{errorState}</div>
             ) : null}
             {sent && (
-<<<<<<< Updated upstream
                 <FlashMessage
                     theme={success ? "success" : ""}
                     text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
                 />
-=======
-                    <FlashMessage
-                        theme={success ? "success" : ""}
-                        text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
-                    />
->>>>>>> Stashed changes
             )}
 
             {/* controls if user update or create a new person

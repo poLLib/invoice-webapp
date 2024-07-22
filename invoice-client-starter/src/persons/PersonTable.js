@@ -23,6 +23,14 @@
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css'
 
+/**
+ * PersonTable component renders a table of person records.
+ * Each record includes options to view, edit, or delete the person.
+ * 
+ * @param {Array} props.itemsPerPage - Array of person objects to display in the table.
+ * @param {Function} props.deletePerson - Function to call when deleting a person.
+ * @returns {JSX.Element} A table displaying the person records with action buttons.
+ */
 export function PersonTable({ itemsPerPage, deletePerson }) {
 
     return (

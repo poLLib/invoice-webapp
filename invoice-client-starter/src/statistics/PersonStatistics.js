@@ -3,8 +3,14 @@ import { apiGet } from "../utils/api";
 import { Link } from "react-router-dom";
 import '../styles.css'
 
+/**
+ * PersonStatistics component fetches and displays statistical data 
+ * for persons, including their total revenue and names.
+ * 
+ * @returns {JSX.Element} A div containing a loading spinner or a list of person statistics.
+ */
 export function PersonStatistics() {
-    const [isLoading, setIsLoading] = useState();
+    const [isLoading, setIsLoading] = useState(true);
     const [statistics, setStatistics] = useState([]);
     const [persons, setPersons] = useState([]);
 

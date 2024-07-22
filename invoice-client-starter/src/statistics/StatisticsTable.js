@@ -1,6 +1,17 @@
 import { PersonStatistics } from "./PersonStatistics";
 import { InvoiceStatistics } from "./InvoiceStatistics";
 
+/**
+ * StatisticsTable component that renders two sections of statistics:
+ * - Invoice Statistics
+ * - Person Statistics
+ *
+ * @returns {JSX.Element} A div containing two sections with statistics.
+ *
+ * @example
+ * // Renders a statistics table with invoice and person statistics
+ * <StatisticsTable />
+ */
 export function StatisticsTable() {
 
     return (

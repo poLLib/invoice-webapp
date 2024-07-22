@@ -29,9 +29,18 @@ import { FlashMessage } from "../components/FlashMessage";
 import { dateStringFormatter } from "../utils/dateStringFormatter";
 import { BackButton } from "../components/BackButton";
 
+/**
+ * InvoiceForm component handles the creation and editing of invoices.
+ * It fetches necessary data for the form, handles form submission, and displays success or error messages.
+ * 
+ * @returns {JSX.Element} A component that renders a form for creating or editing invoices.
+ */
 export function InvoiceForm() {
-    const navigate = useNavigate();
-    const { id } = useParams();
+
+    const [sentState, setSent] = useState(false);
+    const [successState, setSuccess] = useState(false);
+    const [errorState, setError] = useState(null);
+    const [persons, setPersons] = useState([]);
     const [invoice, setInvoice] = useState({
         invoiceNumber: "",
         seller: { _id: "" },
@@ -42,13 +51,14 @@ export function InvoiceForm() {
         price: "",
         vat: "",
         note: "",
-
     });
-    const [sentState, setSent] = useState(false);
-    const [successState, setSuccess] = useState(false);
-    const [errorState, setError] = useState(null);
-    const [persons, setPersons] = useState([]);
 
+    const navigate = useNavigate();
+    const { id } = useParams();
+
+    /**
+    * Fetches invoice details (if editing) and the list of persons for select options.
+    */
     useEffect(() => {
         async function fetchInvoices() {
             if (id) {
@@ -59,6 +69,12 @@ export function InvoiceForm() {
         fetchInvoices();
     }, [id]);
 
+    /**
+    * Handles form submission for creating or updating an invoice.
+    * Pops up a flash message of result on top of the page.
+    * 
+    * @param {Event} e - The form submit event.
+    */
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -69,7 +85,7 @@ export function InvoiceForm() {
                 setTimeout(() => {
                     setSent(false);
                     navigate("/invoices");
-                }, 2000);
+                }, 2500);
             })
             .catch((error) => {
                 console.log(error.message);
@@ -78,11 +94,9 @@ export function InvoiceForm() {
                 setSuccess(false);
                 setTimeout(() => {
                     setSent(false);
-                }, 2000);
+                }, 2500);
             });
     };
-
-
 
     const sent = sentState;
     const success = successState;
@@ -100,7 +114,7 @@ export function InvoiceForm() {
                     text={success ? "Uložení faktury proběhlo úspěšně." : ""}
                 />
             )}
-            
+
             <form onSubmit={handleSubmit}>
                 <InputSelect
                     name="seller"
@@ -205,7 +219,7 @@ export function InvoiceForm() {
                     }}
                 />
 
-                <BackButton style="btn btn-success mt-3 ms-3 px-4"/>
+                <BackButton style="btn btn-success mt-3 ms-3 px-4" />
                 <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value="Uložit" />
             </form>
         </div>
