@@ -51,7 +51,7 @@ export function App() {
       <Router>
         <div className="container content">
           <nav className="navbar navbar-expand-lg navbar-light nav-style">
-            <ul className="navbar-nav mr-auto">
+            <ul className="navbar-nav mr-auto d-flex flex-row">
               <li className="nav-item">
                 <Link to={"/persons"} className="nav-link">
                   Společnosti

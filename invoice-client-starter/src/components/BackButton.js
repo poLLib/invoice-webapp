@@ -17,6 +17,6 @@ export function BackButton({ style }) {
 
     return (
         <>
-            <button className={style} onClick={() => navigate(-1)}>Zpět</button></>
+            <button className={style} type="button" onClick={() => navigate(-1)}>Zpět</button></>
     );
 }
