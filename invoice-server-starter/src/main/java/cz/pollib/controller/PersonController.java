@@ -68,17 +68,17 @@ public class PersonController {
         return personService.editPerson(personId, data);
     }
 
-    @GetMapping({"/identification/{identificationNumber}/sales", "/identification/{identificationNumber}/sales/"})
+    @GetMapping({"/identification/{identificationNumber}/sales"})
     public List<InvoiceDTO> getSellerInvoices(@PathVariable String identificationNumber) {
         return personService.getInvoicesBySeller(identificationNumber);
     }
 
-    @GetMapping({"/identification/{identificationNumber}/purchases", "/identification/{identificationNumber}/purchases/"})
+    @GetMapping({"/identification/{identificationNumber}/purchases"})
     public List<InvoiceDTO> getBuyersInvoices(@PathVariable String identificationNumber) {
         return personService.getInvoicesByBuyer(identificationNumber);
     }
 
-    @GetMapping({"/persons/statistics", "/persons/statistics"})
+    @GetMapping({"/persons/statistics"})
     public List<PersonStatisticsDTO> getPersonStatistics() {
         return personService.getPersonStatistics();
     }
