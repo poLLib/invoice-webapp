@@ -47,7 +47,7 @@ public interface PersonService {
      *
      * @param id Person to delete
      */
-    void removePerson(long id);
+    void removePerson(Long id);
 
     /**
      * Edits person by [id], according to low of accountancy the old data must be stored, therefore the person gets hidden
