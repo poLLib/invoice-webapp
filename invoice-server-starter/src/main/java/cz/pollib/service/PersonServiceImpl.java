@@ -64,8 +64,8 @@ public class PersonServiceImpl implements PersonService {
     public List<PersonDTO> getAllPeoplePageable(int page, int size) {
         return personRepository.findByHidden(false, PageRequest.of(page, size))
                 .stream()
-                .map(personMapper::toDTO)
-                .toList();
+                .map(i -> personMapper.toDTO(i))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -80,7 +80,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void removePerson(Long personId) {
+    public void removePerson(long personId) {
         try {
             PersonEntity person = fetchPersonById(personId);
             person.setHidden(true);

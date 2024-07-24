@@ -31,6 +31,7 @@ import java.util.List;
 
 public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
 
+
     /**
      * Look up for hidden entities and make them Pageable
      *
@@ -41,7 +42,7 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
     List<PersonEntity> findByHidden(boolean hidden, Pageable pageable);
 
     /**
-     * Look up for hidden entities
+     * Look up for hidden entities without pagination
      *
      * @param hidden Entity which is hidden in UI, but it is kept in the database according to the law of accountancy
      * @return List of PersonEntities
