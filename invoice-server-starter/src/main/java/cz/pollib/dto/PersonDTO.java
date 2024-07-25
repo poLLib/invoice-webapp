@@ -46,7 +46,6 @@ public class PersonDTO {
     private String identificationNumber;
 
     @NotBlank(message = "Zadejte DIČ")
-    @Positive
     private String taxNumber;
 
     @NotBlank(message = "Zadejte číslo účtu")
@@ -76,7 +75,6 @@ public class PersonDTO {
     @NotBlank(message = "Zadejte obec")
     private String city;
 
-    @NotBlank(message = "Zadejte zemi")
     private Countries country;
 
     private String note;

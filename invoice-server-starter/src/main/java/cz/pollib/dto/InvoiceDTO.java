@@ -45,9 +45,7 @@ public class InvoiceDTO {
 
     private String note;
 
-    @NotBlank(message = "Musíte zvolit dodavatele")
     private PersonDTO buyer;
 
-    @NotBlank(message = "Musíte zvolit odběratele")
     private PersonDTO seller;
 }
