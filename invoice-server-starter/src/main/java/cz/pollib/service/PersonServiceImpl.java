@@ -141,8 +141,8 @@ public class PersonServiceImpl implements PersonService {
     // region: Private methods
 
     /**
-     * <p>Attempts to fetch a person.</p>
-     * <p>In case a person with the passed [id] doesn't exist a [{@link org.webjars.NotFoundException}] is thrown.</p>
+     * Attempts to fetch a person.
+     * In case a person with the passed [id] doesn't exist a [{@link org.webjars.NotFoundException}] is thrown.
      *
      * @param id Person to fetch
      * @return Fetched entity

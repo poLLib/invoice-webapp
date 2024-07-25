@@ -11,6 +11,7 @@ import cz.pollib.entity.filter.InvoiceFilter;
 import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
 import cz.pollib.entity.repository.specification.InvoiceSpecification;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -116,8 +117,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     // region: Private methods
 
     /**
-     * <p>Attempts to fetch an invoice.</p>
-     * <p>In case a invoice with the passed [id] doesn't exist a [{@link org.webjars.NotFoundException}] is thrown.</p>
+     * Attempts to fetch an invoice.
+     * In case a invoice with the passed [id] doesn't exist a [{@link org.webjars.NotFoundException}] is thrown.
      *
      * @param id Invoice to fetch
      * @return Fetched entity
@@ -125,6 +126,6 @@ public class InvoiceServiceImpl implements InvoiceService {
      */
     private InvoiceEntity fetchInvoiceById(long id) {
         return invoiceRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Invoice with id " + id + " wasn't found in the database."));
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
