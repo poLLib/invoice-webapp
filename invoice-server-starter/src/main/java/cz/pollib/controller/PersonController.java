@@ -26,6 +26,7 @@ import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
 import cz.pollib.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,6 +60,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/persons/{personId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePerson(@PathVariable Long personId) {
         personService.removePerson(personId);
     }
@@ -68,17 +70,17 @@ public class PersonController {
         return personService.editPerson(personId, data);
     }
 
-    @GetMapping({"/identification/{identificationNumber}/sales"})
+    @GetMapping("/identification/{identificationNumber}/sales")
     public List<InvoiceDTO> getSellerInvoices(@PathVariable String identificationNumber) {
         return personService.getInvoicesBySeller(identificationNumber);
     }
 
-    @GetMapping({"/identification/{identificationNumber}/purchases"})
+    @GetMapping("/identification/{identificationNumber}/purchases")
     public List<InvoiceDTO> getBuyersInvoices(@PathVariable String identificationNumber) {
         return personService.getInvoicesByBuyer(identificationNumber);
     }
 
-    @GetMapping({"/persons/statistics"})
+    @GetMapping("/persons/statistics")
     public List<PersonStatisticsDTO> getPersonStatistics() {
         return personService.getPersonStatistics();
     }

@@ -108,7 +108,7 @@ public class PersonServiceImpl implements PersonService {
         return invoiceRepository.findAll().stream()
                 .filter(i -> i.getSeller().getIdentificationNumber().equals(identificationNumber))
                 .map(invoiceMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -130,7 +130,7 @@ public class PersonServiceImpl implements PersonService {
 
             personStatisticsDTO.setPersonId(person.getId());
             personStatisticsDTO.setPersonName(person.getName());
-            personStatisticsDTO.setRevenue(personRepository.getPersonStatistics(person.getId()));
+            personStatisticsDTO.setRevenue(personRepository.getTotalIncome(person.getId()));
 
             list.add(personStatisticsDTO);
         }

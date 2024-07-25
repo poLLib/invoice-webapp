@@ -16,34 +16,34 @@ public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
 
-    @PostMapping({"/invoices"})
+    @PostMapping("/invoices")
     public InvoiceDTO createInvoice(@RequestBody InvoiceDTO data) {
         return invoiceService.createInvoice(data);
     }
 
-    @GetMapping({"/invoices"})
+    @GetMapping("/invoices")
     public InvoicePageDTO getPagesInvoices(InvoiceFilter invoiceFilter,
                                            @RequestParam(defaultValue = "0") int page) {
         return invoiceService.getAllInvoicesPageable(invoiceFilter, page);
     }
 
-    @GetMapping({"/invoices/{invoiceId}"})
+    @GetMapping("/invoices/{invoiceId}")
     public InvoiceDTO getInvoiceDetail(@PathVariable Long invoiceId) {
         return invoiceService.detailInvoice(invoiceId);
     }
 
-    @DeleteMapping({"/invoices/{invoiceId}"})
+    @DeleteMapping("/invoices/{invoiceId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteInvoice(@PathVariable Long invoiceId) {
         invoiceService.deleteInvoice(invoiceId);
     }
 
-    @PutMapping({"/invoices/{invoiceId}"})
+    @PutMapping("/invoices/{invoiceId}")
     public InvoiceDTO editInvoice(@PathVariable Long invoiceId, @RequestBody InvoiceDTO data) {
         return invoiceService.editInvoice(invoiceId, data);
     }
 
-    @GetMapping({"/invoices/statistics"})
+    @GetMapping("/invoices/statistics")
     public InvoiceStatisticsDTO getStatistics() {
         return invoiceService.getInvoiceStatistics();
     }

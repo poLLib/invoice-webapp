@@ -64,7 +64,7 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
      * @return The total income of the person
      */
     @Query(value = "SELECT SUM(i.price) FROM invoice i JOIN person p ON i.seller_id = p.id WHERE p.id = :id", nativeQuery = true)
-    Long getPersonStatistics(@Param("id") Long id);
+    Long getTotalIncome(@Param("id") Long id);
 
     /**
      * Find a person by their identification number

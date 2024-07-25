@@ -93,12 +93,22 @@ public class InvoiceServiceImpl implements InvoiceService {
         Object[] stat = (Object[]) values;
 
         if (stat[0] == null) {
-            stat[0] = 0;
+            invoiceStatisticsDTO.setAllTimeSum(BigDecimal.ZERO);
         } else {
             invoiceStatisticsDTO.setAllTimeSum((BigDecimal) stat[0]);
         }
-        invoiceStatisticsDTO.setInvoicesCount((Long) stat[1]);
-        invoiceStatisticsDTO.setCurrentYearSum((BigDecimal) stat[2]);
+
+        if (stat[1] == null) {
+            invoiceStatisticsDTO.setInvoicesCount(0L);
+        } else {
+            invoiceStatisticsDTO.setInvoicesCount((Long) stat[1]);
+        }
+
+        if (stat[2] == null) {
+            invoiceStatisticsDTO.setCurrentYearSum(BigDecimal.ZERO);
+        } else {
+            invoiceStatisticsDTO.setCurrentYearSum((BigDecimal) stat[2]);
+        }
 
         return invoiceStatisticsDTO;
     }
