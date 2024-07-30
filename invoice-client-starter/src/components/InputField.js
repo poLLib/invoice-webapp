@@ -69,8 +69,7 @@ export function InputField(props) {
       {isTextarea ? (
         <textarea
           required={required}
-          className="form-control"
-          placeholder={props.prompt}
+          className={`form-control ${props.isSubmitted ? (props.error ? "is-invalid" : "is-valid") : ""}`}          placeholder={props.prompt}
           rows={props.rows}
           minLength={minlength}
           name={props.name}
@@ -81,8 +80,7 @@ export function InputField(props) {
         <input
           required={required}
           type={type}
-          className={`form-control ${props.error ? "is-invalid" : "is-valid"}`}
-          aria-describedby={props.validationFeedback}
+          className={`form-control ${props.isSubmitted ? (props.error ? "is-invalid" : "is-valid") : ""}`}          aria-describedby={props.validationFeedback}
           placeholder={props.prompt}
           minLength={minlength}
           min={min}

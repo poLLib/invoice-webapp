@@ -41,7 +41,7 @@ const fetchData = (url, requestOptions) => {
         .then((response) => {
             if (!response.ok) {
                 return response.json().then(data => {
-                    const error = new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
+                    const error = new Error();
                     error.data = data;
                     throw error;
                 });

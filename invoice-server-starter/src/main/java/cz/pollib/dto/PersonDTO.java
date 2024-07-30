@@ -23,9 +23,7 @@ package cz.pollib.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.pollib.constant.Countries;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,19 +39,16 @@ public class PersonDTO {
     @NotBlank(message = "Zadejte jméno")
     private String name;
 
-    @NotBlank(message = "Zadejte IČO")
-    @Positive
+    @Positive(message = "Zadejte IČO v absolutním čísle")
     private String identificationNumber;
 
-    @NotBlank(message = "Zadejte DIČ")
+    @Pattern(regexp = "^[A-Z]{2}\\d+$", message = "DIČ musí začínat dvěma velkými písmeny reprezentující zemi")
     private String taxNumber;
 
-    @NotBlank(message = "Zadejte číslo účtu")
-    @Positive
+    @Positive(message = "Zadejte číslo účtu v absolutním čísle")
     private String accountNumber;
 
-    @NotBlank(message = "Zadejte kód banky")
-    @Positive
+    @Positive(message = "Zadejte kód banky v absolutním čísle")
     private String bankCode;
 
     @NotBlank(message = "Zadejte IBAN")
