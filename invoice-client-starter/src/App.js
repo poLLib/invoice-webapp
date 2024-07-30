@@ -63,7 +63,7 @@ export function App() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"statistics"} className="nav-link">
+                <Link to={"/statistics"} className="nav-link">
                   Statistiky
                 </Link>
               </li>
@@ -93,7 +93,7 @@ export function App() {
             </Route>
 
             {/* Statistics Route */}
-            <Route path="statistics" element={<StatisticsTable />} />
+            <Route path="/statistics" element={<StatisticsTable />} />
           </Routes>
         </div>
 

@@ -92,3 +92,12 @@ footer {
     width: 100%;
     margin-bottom: 20px;
 }
+
+.is-invalid {
+    border-color: #dc3545;
+}
+
+.invalid-feedback {
+    display: block;
+    color: #dc3545;
+}

@@ -1,5 +1,4 @@
 import React from "react";
-
 /**
  * InputField component renders an input element or textarea based on the type prop.
  *
@@ -15,6 +14,7 @@ import React from "react";
  * @param {boolean} [props.required] - Whether the input field is required.
  * @param {string} [props.value] - The value of the input field.
  * @param {Function} props.handleChange - The function to call when the input value changes.
+ * @param {string} [props.error] - The error message to display for the input field.
  * @returns {JSX.Element|null} A form group containing the input element or textarea if the type is valid; otherwise, null.
  *
  * @example
@@ -27,6 +27,7 @@ import React from "react";
  *   required={true}
  *   value={username}
  *   handleChange={handleInputChange}
+ *   error={usernameError}
  * />
  *
  * @example
@@ -39,6 +40,7 @@ import React from "react";
  *   rows={5}
  *   value={description}
  *   handleChange={handleInputChange}
+ *   error={descriptionError}
  * />
  */
 export function InputField(props) {
@@ -79,7 +81,8 @@ export function InputField(props) {
         <input
           required={required}
           type={type}
-          className="form-control"
+          className={`form-control ${props.error ? "is-invalid" : "is-valid"}`}
+          aria-describedby={props.validationFeedback}
           placeholder={props.prompt}
           minLength={minlength}
           min={min}
@@ -88,6 +91,9 @@ export function InputField(props) {
           onChange={props.handleChange}
         />
       )}
+
+      {/* Display error message if exists */}
+      {props.error && <small id={props.validationFeedback} className="ms-2 invalid-feedback">{props.error}</small>}
     </div>
   );
 }

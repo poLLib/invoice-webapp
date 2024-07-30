@@ -43,8 +43,8 @@ export function PersonTable({ itemsPerPage, deletePerson }) {
                     <th colSpan={3}></th>
                 </thead>
                 <tbody>
-                    {itemsPerPage.map((item, index) => (
-                        <tr key={index + 1}>
+                    {itemsPerPage.map((item) => (
+                        <tr key={item._id}>
                             <td className="fw-bold">{item.name}</td>
                             <td>{item.identificationNumber}</td>
                             <td>{item.mail}</td>

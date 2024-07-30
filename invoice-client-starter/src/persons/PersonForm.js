@@ -54,6 +54,7 @@ export function PersonForm() {
     const [sentState, setSent] = useState(false);
     const [successState, setSuccess] = useState(false);
     const [errorState, setError] = useState(null);
+    const [fieldErrors, setFieldErrors] = useState({});
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -64,7 +65,12 @@ export function PersonForm() {
     useEffect(() => {
         async function fetchPerson() {
             if (id) {
-                setPerson(await apiGet(`/api/persons/${id}`))
+                try {
+                    const personData = await apiGet(`/api/persons/${id}`);
+                    setPerson(personData);
+                } catch (error) {
+                    console.error("Error fetching person data:", error);
+                }
             }
         }
         fetchPerson();
@@ -77,28 +83,30 @@ export function PersonForm() {
      * 
      * @param {Event} e - The form submission event.
      */
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
 
-        (id ? apiPut("/api/persons/" + id, person) : apiPost("/api/persons", person))
-            .then((data) => {
-                setSent(true);
-                setSuccess(true);
-                setTimeout(() => {
-                    setSent(false)
-                }, 2500);
-                navigate("/persons");
-            })
-            .catch((error) => {
-                console.log(error.message);
-                setError(error.message);
-                setSent(true);
-                setSuccess(false);
-                setTimeout(() => {
-                    setSent(false)
-                }, 2500);
-            });
-    };
+        try {
+            const response = id ? await apiPut(`/api/persons/${id}`, person) : await apiPost("/api/persons", person);
+            setSent(true);
+            setSuccess(true);
+            setTimeout(() => {
+                setSent(false);
+            }, 2500);
+            navigate("/persons");
+        } catch (error) {
+            if (error.data) {
+                setFieldErrors(error.data);
+            } else {
+                console.error("Error submitting form:", error);
+            }
+            setSent(true);
+            setSuccess(false);
+            setTimeout(() => {
+                setSent(false);
+            }, 2500);
+        }
+    }
 
     const sent = sentState;
     const success = successState;
@@ -121,7 +129,7 @@ export function PersonForm() {
                 when id=true then hides InputField [identificationNumber, taxNumber] 
             */}
 
-            <form onSubmit={handleSubmit}>
+            <form noValidate onSubmit={handleSubmit}>
                 {id ? (
                     <div>
                         <InputField
@@ -132,6 +140,7 @@ export function PersonForm() {
                             label="Jméno"
                             prompt="Zadejte celé jméno"
                             value={person.name}
+                            error={fieldErrors.name}
                             handleChange={(e) => {
                                 setPerson({ ...person, name: e.target.value });
                             }}
@@ -145,6 +154,7 @@ export function PersonForm() {
                             label="Číslo bankovního účtu"
                             prompt="Zadejte číslo bankovního účtu"
                             value={person.accountNumber}
+                            error={fieldErrors.accountNumber}
                             handleChange={(e) => {
                                 setPerson({ ...person, accountNumber: e.target.value });
                             }}
@@ -158,6 +168,7 @@ export function PersonForm() {
                             label="Kód banky"
                             prompt="Zadejte kód banky"
                             value={person.bankCode}
+                            error={fieldErrors.bankCode}
                             handleChange={(e) => {
                                 setPerson({ ...person, bankCode: e.target.value });
                             }}
@@ -171,6 +182,7 @@ export function PersonForm() {
                             label="IBAN"
                             prompt="Zadejte IBAN"
                             value={person.iban}
+                            error={fieldErrors.iban}
                             handleChange={(e) => {
                                 setPerson({ ...person, iban: e.target.value });
                             }}
@@ -184,6 +196,7 @@ export function PersonForm() {
                             label="Telefon"
                             prompt="Zadejte Telefon"
                             value={person.telephone}
+                            error={fieldErrors.telephone}
                             handleChange={(e) => {
                                 setPerson({ ...person, telephone: e.target.value });
                             }}
@@ -197,6 +210,7 @@ export function PersonForm() {
                             label="Mail"
                             prompt="Zadejte mail"
                             value={person.mail}
+                            error={fieldErrors.mail}
                             handleChange={(e) => {
                                 setPerson({ ...person, mail: e.target.value });
                             }}
@@ -210,6 +224,7 @@ export function PersonForm() {
                             label="Ulice"
                             prompt="Zadejte ulici"
                             value={person.street}
+                            error={fieldErrors.street}
                             handleChange={(e) => {
                                 setPerson({ ...person, street: e.target.value });
                             }}
@@ -223,6 +238,7 @@ export function PersonForm() {
                             label="PSČ"
                             prompt="Zadejte PSČ"
                             value={person.zip}
+                            error={fieldErrors.zip}
                             handleChange={(e) => {
                                 setPerson({ ...person, zip: e.target.value });
                             }}
@@ -236,17 +252,19 @@ export function PersonForm() {
                             label="Město"
                             prompt="Zadejte město"
                             value={person.city}
+                            error={fieldErrors.city}
                             handleChange={(e) => {
                                 setPerson({ ...person, city: e.target.value });
                             }}
                         />
 
                         <InputField
-                            required={true}
+                            required={false}
                             type="text"
                             name="note"
                             label="Poznámka"
                             value={person.note}
+                            error={fieldErrors.note}
                             handleChange={(e) => {
                                 setPerson({ ...person, note: e.target.value });
                             }}
@@ -286,6 +304,7 @@ export function PersonForm() {
                             label="Jméno"
                             prompt="Zadejte celé jméno"
                             value={person.name}
+                            error={fieldErrors.name}
                             handleChange={(e) => {
                                 setPerson({ ...person, name: e.target.value });
                             }}
@@ -299,6 +318,7 @@ export function PersonForm() {
                             label="IČO"
                             prompt="Zadejte IČO"
                             value={person.identificationNumber}
+                            error={fieldErrors.identificationNumber}
                             handleChange={(e) => {
                                 setPerson({ ...person, identificationNumber: e.target.value });
                             }}
@@ -312,6 +332,7 @@ export function PersonForm() {
                             label="DIČ"
                             prompt="Zadejte DIČ"
                             value={person.taxNumber}
+                            error={fieldErrors.taxNumber}
                             handleChange={(e) => {
                                 setPerson({ ...person, taxNumber: e.target.value });
                             }}
@@ -325,6 +346,7 @@ export function PersonForm() {
                             label="Číslo bankovního účtu"
                             prompt="Zadejte číslo bankovního účtu"
                             value={person.accountNumber}
+                            error={fieldErrors.accountNumber}
                             handleChange={(e) => {
                                 setPerson({ ...person, accountNumber: e.target.value });
                             }}
@@ -338,6 +360,7 @@ export function PersonForm() {
                             label="Kód banky"
                             prompt="Zadejte kód banky"
                             value={person.bankCode}
+                            error={fieldErrors.bankCode}
                             handleChange={(e) => {
                                 setPerson({ ...person, bankCode: e.target.value });
                             }}
@@ -351,6 +374,7 @@ export function PersonForm() {
                             label="IBAN"
                             prompt="Zadejte IBAN"
                             value={person.iban}
+                            error={fieldErrors.iban}
                             handleChange={(e) => {
                                 setPerson({ ...person, iban: e.target.value });
                             }}
@@ -364,6 +388,7 @@ export function PersonForm() {
                             label="Telefon"
                             prompt="Zadejte Telefon"
                             value={person.telephone}
+                            error={fieldErrors.telephone}
                             handleChange={(e) => {
                                 setPerson({ ...person, telephone: e.target.value });
                             }}
@@ -377,6 +402,7 @@ export function PersonForm() {
                             label="Mail"
                             prompt="Zadejte mail"
                             value={person.mail}
+                            error={fieldErrors.mail}
                             handleChange={(e) => {
                                 setPerson({ ...person, mail: e.target.value });
                             }}
@@ -390,6 +416,7 @@ export function PersonForm() {
                             label="Ulice"
                             prompt="Zadejte ulici"
                             value={person.street}
+                            error={fieldErrors.street}
                             handleChange={(e) => {
                                 setPerson({ ...person, street: e.target.value });
                             }}
@@ -403,6 +430,7 @@ export function PersonForm() {
                             label="PSČ"
                             prompt="Zadejte PSČ"
                             value={person.zip}
+                            error={fieldErrors.zip}
                             handleChange={(e) => {
                                 setPerson({ ...person, zip: e.target.value });
                             }}
@@ -416,6 +444,7 @@ export function PersonForm() {
                             label="Město"
                             prompt="Zadejte město"
                             value={person.city}
+                            error={fieldErrors.city}
                             handleChange={(e) => {
                                 setPerson({ ...person, city: e.target.value });
                             }}
@@ -427,6 +456,7 @@ export function PersonForm() {
                             name="note"
                             label="Poznámka"
                             value={person.note}
+                            error={fieldErrors.note}
                             handleChange={(e) => {
                                 setPerson({ ...person, note: e.target.value });
                             }}

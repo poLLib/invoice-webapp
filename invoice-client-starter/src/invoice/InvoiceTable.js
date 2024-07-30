@@ -47,8 +47,8 @@ export function InvoiceTable({ items, deleteInvoice }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map((item, index) => (
-                        <tr key={index + 1}>
+                    {items.map((item) => (
+                        <tr key={item._id}>
                             <td className="fw-bold">{item.invoiceNumber}</td>
                             <td>{item.product}</td>
                             <td>{item.seller.name}</td>

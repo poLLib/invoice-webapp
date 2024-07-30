@@ -25,8 +25,10 @@ import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
 import cz.pollib.service.PersonService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,8 +41,8 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping("/persons")
-    public PersonDTO addPerson(@RequestBody PersonDTO personDTO) {
-        return personService.addPerson(personDTO);
+    public ResponseEntity<PersonDTO> addPerson(@RequestBody @Valid PersonDTO personDTO) {
+        return new ResponseEntity<>(personService.addPerson(personDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/persons")
