@@ -40,6 +40,8 @@ export function InvoiceForm() {
     const [sentState, setSent] = useState(false);
     const [successState, setSuccess] = useState(false);
     const [errorState, setError] = useState(null);
+    const [fieldErrors, setFieldErrors] = useState({});
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [persons, setPersons] = useState([]);
     const [invoice, setInvoice] = useState({
         invoiceNumber: "",
@@ -70,33 +72,37 @@ export function InvoiceForm() {
     }, [id]);
 
     /**
-    * Handles form submission for creating or updating an invoice.
+    * Handles form submission.
+    * Sends data to the API and updates the state based on the response.
     * Pops up a flash message of result on top of the page.
+    * If invalid submit then validation error message is handled.
     * 
     * @param {Event} e - The form submit event.
     */
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
+        setIsSubmitted(true);
 
-        (id ? apiPut("/api/invoices/" + id, invoice) : apiPost("/api/invoices", invoice))
-            .then((data) => {
-                setSent(true);
-                setSuccess(true);
-                setTimeout(() => {
-                    setSent(false);
-                    navigate("/invoices");
-                }, 2500);
-            })
-            .catch((error) => {
-                console.log(error.message);
-                setError(error.message);
-                setSent(true);
-                setSuccess(false);
-                setTimeout(() => {
-                    setSent(false);
-                }, 2500);
-            });
-    };
+        try {
+            const response = id ? await apiPut(`/api/invoices/${id}`, invoice) : await apiPost("/api/invoices", invoice);
+            setSent(true);
+            setError(false);
+            setSuccess(true);
+            setTimeout(() => {
+                setSent(false);
+                navigate("/invoices");
+            }, 2500);
+
+        } catch (error) {
+            if (error.data) {
+                setFieldErrors(error.data);
+                setError("Chyba při odesílání formuláře, zkontrolujte zda-li jsou správně vyplněná pole.");
+            } else {
+                console.error("Vyskytla se chyba při odesílání formuláře:", error);
+            }
+        }
+        console.log(invoice.seller._id)
+    }
 
     const sent = sentState;
     const success = successState;
@@ -115,13 +121,15 @@ export function InvoiceForm() {
                 />
             )}
 
-            <form onSubmit={handleSubmit}>
+            <form noValidate onSubmit={handleSubmit}>
                 <InputSelect
                     name="seller"
                     label="Dodavatel"
                     items={persons}
                     prompt="Vyberte dodavatele"
                     value={invoice.seller._id}
+                    isSubmitted={isSubmitted}
+                    error={fieldErrors.seller}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, seller: { _id: e.target.value } });
                     }}
@@ -132,6 +140,8 @@ export function InvoiceForm() {
                     items={persons}
                     prompt="Vyberte odběratele"
                     value={invoice.buyer._id}
+                    isSubmitted={isSubmitted}
+                    error={fieldErrors.buyer}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, buyer: { _id: e.target.value } });
                     }}
@@ -144,6 +154,8 @@ export function InvoiceForm() {
                     label="Číslo faktury"
                     prompt="Zadejte číslo faktury"
                     value={invoice.invoiceNumber}
+                    isSubmitted={isSubmitted}
+                    error={fieldErrors.invoiceNumber}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, invoiceNumber: e.target.value });
                     }}
@@ -155,6 +167,8 @@ export function InvoiceForm() {
                     label="Datum vystavení"
                     min="0"
                     value={dateStringFormatter(invoice.issued)}
+                    isSubmitted={isSubmitted}
+                    error={fieldErrors.issued}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, issued: e.target.value });
                     }}
@@ -166,6 +180,8 @@ export function InvoiceForm() {
                     label="Datum splatnosti"
                     min="0"
                     value={dateStringFormatter(invoice.dueDate)}
+                    isSubmitted={isSubmitted}
+                    error={fieldErrors.dueDate}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, dueDate: e.target.value });
                     }}
@@ -178,6 +194,8 @@ export function InvoiceForm() {
                     label="Položka"
                     prompt="Zadejte jméno položky"
                     value={invoice.product}
+                    error={fieldErrors.product}
+                    isSubmitted={isSubmitted}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, product: e.target.value });
                     }}
@@ -190,6 +208,8 @@ export function InvoiceForm() {
                     label="Cena"
                     prompt="Zadejte cenu"
                     value={invoice.price}
+                    isSubmitted={isSubmitted}
+                    error={fieldErrors.price}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, price: e.target.value });
                     }}
@@ -202,6 +222,8 @@ export function InvoiceForm() {
                     label="DPH"
                     prompt="Zadejte procentuální DHP"
                     value={invoice.vat}
+                    isSubmitted={isSubmitted}
+                    error={fieldErrors.vat}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, vat: e.target.value });
                     }}
@@ -214,6 +236,8 @@ export function InvoiceForm() {
                     prompt="Napište dodatečný text k položce"
                     minlength={null}
                     value={invoice.note}
+                    isSubmitted={isSubmitted}
+                    error={fieldErrors.note}
                     handleChange={(e) => {
                         setInvoice({ ...invoice, note: e.target.value });
                     }}

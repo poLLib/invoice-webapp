@@ -5,6 +5,7 @@ import cz.pollib.dto.InvoicePageDTO;
 import cz.pollib.dto.InvoiceStatisticsDTO;
 import cz.pollib.entity.filter.InvoiceFilter;
 import cz.pollib.service.InvoiceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class InvoiceController {
     private InvoiceService invoiceService;
 
     @PostMapping("/invoices")
-    public InvoiceDTO createInvoice(@RequestBody InvoiceDTO data) {
+    public InvoiceDTO createInvoice(@RequestBody @Valid InvoiceDTO data) {
         return invoiceService.createInvoice(data);
     }
 
@@ -39,7 +40,7 @@ public class InvoiceController {
     }
 
     @PutMapping("/invoices/{invoiceId}")
-    public InvoiceDTO editInvoice(@PathVariable Long invoiceId, @RequestBody InvoiceDTO data) {
+    public InvoiceDTO editInvoice(@PathVariable Long invoiceId, @RequestBody @Valid InvoiceDTO data) {
         return invoiceService.editInvoice(invoiceId, data);
     }
 

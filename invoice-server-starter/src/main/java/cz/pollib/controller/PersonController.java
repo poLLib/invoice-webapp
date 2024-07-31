@@ -68,7 +68,7 @@ public class PersonController {
     }
 
     @PutMapping("/persons/{personId}")
-    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody PersonDTO data) {
+    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO data) {
         return personService.editPerson(personId, data);
     }
 

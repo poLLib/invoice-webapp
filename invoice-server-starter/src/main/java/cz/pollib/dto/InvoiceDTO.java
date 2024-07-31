@@ -2,9 +2,7 @@ package cz.pollib.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,33 +17,33 @@ public class InvoiceDTO {
     @JsonProperty("_id")
     private Long id;
 
-    @NotBlank(message = "Vyplňte pole IČO")
+    @Positive(message = "Zadejte číslo faktury v absolutním čísle")
     private int invoiceNumber;
 
-    @NotBlank(message = "Zadejte datum vystavení faktury")
+    @NotNull(message = "Zadejte datum vystavení faktury")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate issued;
 
-    @NotBlank(message = "Zadejte datum splatnosti faktury")
+    @NotNull(message = "Zadejte datum splatnosti faktury")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dueDate;
 
     @NotBlank(message = "Vyplňte pole položka")
     private String product;
 
-    @NotBlank(message = "Zadejte cenu")
-    @Positive(message = "Částka může být nejménně 0")
-    @Min(value = 0, message = "Částka může být nejménně 0")
+    @Positive(message = "Zadejte cenu v absolutním čísle")
+    @NotNull
     private Long price;
 
-    @NotBlank(message = "Zadejte DPH")
-    @Positive(message = "Částka může být nejménně 0")
-    @Min(value = 0, message = "Částka může být nejménně 0")
+    @Positive(message = "Zadejte DPH v absolutním čísle")
+    @Max(value = 100, message = "Číslo nemůže být větší než 100")
     private int vat;
 
     private String note;
 
+    @NotNull(message = "Zvolte odběratele")
     private PersonDTO buyer;
 
+    @NotNull(message = "Zvolte dodavatele")
     private PersonDTO seller;
 }

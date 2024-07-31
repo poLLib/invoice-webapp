@@ -57,7 +57,7 @@ export function InputSelect(props) {
       <label>{props.label}:</label>
       <select
         required={required}
-        className="browser-default form-select"
+        className={`browser-default form-select ${props.isSubmitted ? (props.error ? "is-invalid" : "is-valid") : ""}`}
         multiple={multiple}
         name={props.name}
         onChange={props.handleChange}
@@ -89,6 +89,9 @@ export function InputSelect(props) {
             </option>
           ))}
       </select>
-    </div>
+
+      {/* Display error message if exists */}
+      {props.error && <small id={props.validationFeedback} className="ms-2 invalid-feedback">{props.error}</small>}
+    </div >
   );
 }
