@@ -105,7 +105,7 @@ export function App() {
           <div className="row">
             <div className="col-md-6">
               <h4>Fakturační databáze</h4>
-              <p>Tento projekt slouží jako učební.</p>
+              <p>Tento projekt vznikl s pomocí ITnetwork a slouží jako ukázka dovedností.</p>
             </div>
             <div className="col-md-6 text-md-right">
               <ul className="list-unstyled">

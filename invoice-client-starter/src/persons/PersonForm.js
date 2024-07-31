@@ -94,8 +94,9 @@ export function PersonForm() {
             setSuccess(true);
             setTimeout(() => {
                 setSent(false);
+                navigate("/persons");
             }, 2500);
-            navigate("/persons");
+
         } catch (error) {
             if (error.data) {
                 setFieldErrors(error.data);
