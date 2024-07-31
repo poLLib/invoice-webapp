@@ -122,112 +122,119 @@ export function InvoiceForm() {
             )}
 
             <form noValidate onSubmit={handleSubmit}>
-                <InputSelect
-                    name="seller"
-                    label="Dodavatel"
-                    items={persons}
-                    prompt="Vyberte dodavatele"
-                    value={invoice.seller._id}
-                    isSubmitted={isSubmitted}
-                    error={fieldErrors.seller}
-                    handleChange={(e) => {
-                        setInvoice({ ...invoice, seller: { _id: e.target.value } });
-                    }}
-                />
-                <InputSelect
-                    name="buyer"
-                    label="Odběratel"
-                    items={persons}
-                    prompt="Vyberte odběratele"
-                    value={invoice.buyer._id}
-                    isSubmitted={isSubmitted}
-                    error={fieldErrors.buyer}
-                    handleChange={(e) => {
-                        setInvoice({ ...invoice, buyer: { _id: e.target.value } });
-                    }}
-                />
-                <InputField
-                    required={true}
-                    type="number"
-                    name="invoiceNumber"
-                    min="0"
-                    label="Číslo faktury"
-                    prompt="Zadejte číslo faktury"
-                    value={invoice.invoiceNumber}
-                    isSubmitted={isSubmitted}
-                    error={fieldErrors.invoiceNumber}
-                    handleChange={(e) => {
-                        setInvoice({ ...invoice, invoiceNumber: e.target.value });
-                    }}
-                />
-                <InputField
-                    required={true}
-                    type="date"
-                    name="issued"
-                    label="Datum vystavení"
-                    min="0"
-                    value={dateStringFormatter(invoice.issued)}
-                    isSubmitted={isSubmitted}
-                    error={fieldErrors.issued}
-                    handleChange={(e) => {
-                        setInvoice({ ...invoice, issued: e.target.value });
-                    }}
-                />
-                <InputField
-                    required={true}
-                    type="date"
-                    name="dueDate"
-                    label="Datum splatnosti"
-                    min="0"
-                    value={dateStringFormatter(invoice.dueDate)}
-                    isSubmitted={isSubmitted}
-                    error={fieldErrors.dueDate}
-                    handleChange={(e) => {
-                        setInvoice({ ...invoice, dueDate: e.target.value });
-                    }}
-                />
-                <InputField
-                    required={true}
-                    type="text"
-                    name="product"
-                    minlength="3"
-                    label="Položka"
-                    prompt="Zadejte jméno položky"
-                    value={invoice.product}
-                    error={fieldErrors.product}
-                    isSubmitted={isSubmitted}
-                    handleChange={(e) => {
-                        setInvoice({ ...invoice, product: e.target.value });
-                    }}
-                />
-                <InputField
-                    required={true}
-                    type="number"
-                    name="price"
-                    min="0"
-                    label="Cena"
-                    prompt="Zadejte cenu"
-                    value={invoice.price}
-                    isSubmitted={isSubmitted}
-                    error={fieldErrors.price}
-                    handleChange={(e) => {
-                        setInvoice({ ...invoice, price: e.target.value });
-                    }}
-                />
-                <InputField
-                    required={true}
-                    type="number"
-                    name="vat"
-                    min="0"
-                    label="DPH"
-                    prompt="Zadejte procentuální DHP"
-                    value={invoice.vat}
-                    isSubmitted={isSubmitted}
-                    error={fieldErrors.vat}
-                    handleChange={(e) => {
-                        setInvoice({ ...invoice, vat: e.target.value });
-                    }}
-                />
+                <div className="row">
+                    <div className="col">
+                        <InputSelect
+                            name="seller"
+                            label="Dodavatel"
+                            items={persons}
+                            prompt="Vyberte dodavatele"
+                            value={invoice.seller._id}
+                            isSubmitted={isSubmitted}
+                            error={fieldErrors.seller}
+                            handleChange={(e) => {
+                                setInvoice({ ...invoice, seller: { _id: e.target.value } });
+                            }}
+                        />
+                        <InputSelect
+                            name="buyer"
+                            label="Odběratel"
+                            items={persons}
+                            prompt="Vyberte odběratele"
+                            value={invoice.buyer._id}
+                            isSubmitted={isSubmitted}
+                            error={fieldErrors.buyer}
+                            handleChange={(e) => {
+                                setInvoice({ ...invoice, buyer: { _id: e.target.value } });
+                            }}
+                        />
+                        <InputField
+                            required={true}
+                            type="number"
+                            name="invoiceNumber"
+                            min="0"
+                            label="Číslo faktury"
+                            prompt="Zadejte číslo faktury"
+                            value={invoice.invoiceNumber}
+                            isSubmitted={isSubmitted}
+                            error={fieldErrors.invoiceNumber}
+                            handleChange={(e) => {
+                                setInvoice({ ...invoice, invoiceNumber: e.target.value });
+                            }}
+                        />
+                        <InputField
+                            required={true}
+                            type="number"
+                            name="price"
+                            min="0"
+                            label="Cena"
+                            prompt="Zadejte cenu"
+                            value={invoice.price}
+                            isSubmitted={isSubmitted}
+                            error={fieldErrors.price}
+                            handleChange={(e) => {
+                                setInvoice({ ...invoice, price: e.target.value });
+                            }}
+                        />
+                    </div>
+                    <div className="col">
+                        <InputField
+                            required={true}
+                            type="date"
+                            name="issued"
+                            label="Datum vystavení"
+                            min="0"
+                            value={dateStringFormatter(invoice.issued)}
+                            isSubmitted={isSubmitted}
+                            error={fieldErrors.issued}
+                            handleChange={(e) => {
+                                setInvoice({ ...invoice, issued: e.target.value });
+                            }}
+                        />
+                        <InputField
+                            required={true}
+                            type="date"
+                            name="dueDate"
+                            label="Datum splatnosti"
+                            min="0"
+                            value={dateStringFormatter(invoice.dueDate)}
+                            isSubmitted={isSubmitted}
+                            error={fieldErrors.dueDate}
+                            handleChange={(e) => {
+                                setInvoice({ ...invoice, dueDate: e.target.value });
+                            }}
+                        />
+                        <InputField
+                            required={true}
+                            type="text"
+                            name="product"
+                            minlength="3"
+                            label="Položka"
+                            prompt="Zadejte jméno položky"
+                            value={invoice.product}
+                            error={fieldErrors.product}
+                            isSubmitted={isSubmitted}
+                            handleChange={(e) => {
+                                setInvoice({ ...invoice, product: e.target.value });
+                            }}
+                        />
+                        <InputField
+                            required={true}
+                            type="number"
+                            name="vat"
+                            min="0"
+                            label="DPH"
+                            prompt="Zadejte procentuální DHP"
+                            value={invoice.vat}
+                            isSubmitted={isSubmitted}
+                            error={fieldErrors.vat}
+                            handleChange={(e) => {
+                                setInvoice({ ...invoice, vat: e.target.value });
+                            }}
+                        />
+                    </div>
+                </div>
+                <br/>
                 <InputField
                     required={false}
                     type="textarea"
@@ -242,7 +249,6 @@ export function InvoiceForm() {
                         setInvoice({ ...invoice, note: e.target.value });
                     }}
                 />
-
                 <BackButton style="btn btn-success mt-3 ms-3 px-4" />
                 <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value="Uložit" />
             </form>
