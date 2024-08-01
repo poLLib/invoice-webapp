@@ -138,6 +138,8 @@ The API provides endpoints for managing companies and invoices using JSON format
 
 ## Conclusion
 
+This project was founded with the help of ITnetwork.cz.
+
 I welcome contributions from the community!
 
 Thank you for using our Invoice Management Web Application!
