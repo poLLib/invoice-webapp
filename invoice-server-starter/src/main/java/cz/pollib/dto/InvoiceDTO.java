@@ -2,6 +2,7 @@ package cz.pollib.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import cz.pollib.dto.validation.ValidInvoiceDates;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ValidInvoiceDates
 public class InvoiceDTO {
 
     @JsonProperty("_id")
@@ -32,7 +34,6 @@ public class InvoiceDTO {
     private String product;
 
     @Positive(message = "Zadejte cenu v absolutním čísle")
-    @NotNull
     private Long price;
 
     @Positive(message = "Zadejte DPH v absolutním čísle")

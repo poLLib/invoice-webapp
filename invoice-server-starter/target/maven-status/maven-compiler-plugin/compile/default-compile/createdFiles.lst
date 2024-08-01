@@ -7,6 +7,7 @@ cz\pollib\dto\mapper\InvoiceMapper.class
 cz\pollib\dto\PersonStatisticsDTO.class
 cz\pollib\entity\InvoiceEntity.class
 cz\pollib\entity\PersonEntity_.class
+cz\pollib\dto\validation\ValidInvoiceDates.class
 cz\pollib\service\InvoiceServiceImpl.class
 cz\pollib\service\PersonService.class
 cz\pollib\dto\InvoicePageDTO.class
@@ -20,6 +21,7 @@ cz\pollib\service\InvoiceService.class
 cz\pollib\dto\mapper\PersonMapperImpl.class
 cz\pollib\service\PersonServiceImpl.class
 cz\pollib\entity\filter\InvoiceFilter.class
+cz\pollib\dto\validation\DueDateAfterIssuedValidator.class
 cz\pollib\constant\Countries.class
 cz\pollib\entity\repository\InvoiceRepository.class
 cz\pollib\dto\InvoiceDTO.class
