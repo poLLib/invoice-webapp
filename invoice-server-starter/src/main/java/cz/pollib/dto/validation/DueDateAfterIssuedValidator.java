@@ -14,14 +14,18 @@ public class DueDateAfterIssuedValidator implements ConstraintValidator<ValidInv
     @Override
     public boolean isValid(InvoiceDTO invoiceDTO, ConstraintValidatorContext context) {
         if (invoiceDTO == null) {
-            return false;
+            return true;
         }
 
         if (invoiceDTO.getIssued() != null && invoiceDTO.getDueDate() != null) {
-            return invoiceDTO.getDueDate().isAfter(invoiceDTO.getIssued());
+            if (invoiceDTO.getDueDate().isBefore(invoiceDTO.getIssued())) {
+                context.disableDefaultConstraintViolation();
+                context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
+                        .addPropertyNode("dueDate")
+                        .addConstraintViolation();
+                return false;
+            }
         }
-        //TODO: musim odchytnout validaci globalexcephandleru
-
         return true;
     }
 }

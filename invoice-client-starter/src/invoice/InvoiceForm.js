@@ -73,14 +73,15 @@ export function InvoiceForm() {
 
         } catch (error) {
             if (error.data) {
+                console.log(error)
                 setFieldErrors(error.data);
                 setError("Chyba při odesílání formuláře, zkontrolujte zda-li jsou správně vyplněná pole.");
             } else {
                 console.error("Vyskytla se chyba při odesílání formuláře:", error);
             }
         }
-        console.log(invoice.seller._id)
     }
+    console.log("errrrorrr :  ", fieldErrors)
 
     const sent = sentState;
     const success = successState;

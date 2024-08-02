@@ -44,10 +44,9 @@ export function InvoiceFilter(props) {
 
     return (
         <form onSubmit={handleSubmit}>
-
             <div className="row">
                 {/* Minimum Price Input Field */}
-                <div className="col">
+                <div className="col-12 col-md-4 form-group">
                     <InputField
                         type="number"
                         min="0"
@@ -60,7 +59,7 @@ export function InvoiceFilter(props) {
                 </div>
 
                 {/* Maximum Price Input Field */}
-                <div className="col">
+                <div className="col-12 col-md-4 form-group">
                     <InputField
                         type="number"
                         min="0"
@@ -73,7 +72,7 @@ export function InvoiceFilter(props) {
                 </div>
 
                 {/* Product Search Input Field */}
-                <div className="col">
+                <div className="col-12 col-md-4 form-group">
                     <InputField
                         type="text"
                         name="product"
@@ -84,9 +83,9 @@ export function InvoiceFilter(props) {
                     />
                 </div>
 
-                <div className="row">
+                <div className="row mt-2">
                     {/* Seller Select Field */}
-                    <div className="col">
+                    <div className="col-12 col-md-4 form-group">
                         <InputSelect
                             name="sellerId"
                             handleChange={handleChange}
@@ -98,7 +97,7 @@ export function InvoiceFilter(props) {
                     </div>
 
                     {/* Buyer Select Field */}
-                    <div className="col">
+                    <div className="col-12 col-md-4 form-group">
                         <InputSelect
                             name="buyerId"
                             handleChange={handleChange}
@@ -110,7 +109,7 @@ export function InvoiceFilter(props) {
                     </div>
 
                     {/* Limit of Invoices Displayed Input Field */}
-                    <div className="col">
+                    <div className="col-12 col-md-4 form-group">
                         <InputField
                             type="number"
                             name="limit"
@@ -121,12 +120,9 @@ export function InvoiceFilter(props) {
                             value={filter.limit ? filter.limit : ""}
                         />
                     </div>
-
                 </div>
-
             </div>
-
-            <div className="row">
+            <div className="row ms-5 mt-2">
                 <div className="col">
 
                     {/* Submit Button */}

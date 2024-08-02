@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidInvoiceDates {
-    String message() default "Due date must be after the issued date";
+    String message() default "Datum splatnosti nemůže být před datem vystavení faktury";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
