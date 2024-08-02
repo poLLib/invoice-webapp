@@ -5,6 +5,10 @@ import cz.pollib.dto.InvoicePageDTO;
 import cz.pollib.dto.InvoiceStatisticsDTO;
 import cz.pollib.entity.filter.InvoiceFilter;
 
+
+/**
+ * Service interface for managing invoices.
+ */
 public interface InvoiceService {
 
     /**

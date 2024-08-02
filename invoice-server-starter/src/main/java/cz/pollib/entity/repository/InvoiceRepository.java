@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
+/**
+ * Repository interface for managing {@link InvoiceEntity} entities.
+ */
 public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, JpaSpecificationExecutor<InvoiceEntity> {
 
     /**
@@ -16,9 +19,12 @@ public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, J
     Long countInvoices();
 
     /**
-     * JQuery to get values for InvoiceStatisticsDTO [BigDecimal currentYearSum, BigDecimal allTimeSum, Long invoicesCount]
+     * Retrieves statistics for invoices.
      *
-     * @return Object contains array of three indexes
+     * @return An array containing:
+     * - allTimeSum: The total sum of all invoices.
+     * - invoicesCount: The total number of invoices.
+     * - currentYearSum: The sum of invoices for the current year.
      */
     @Query(value = """
             SELECT

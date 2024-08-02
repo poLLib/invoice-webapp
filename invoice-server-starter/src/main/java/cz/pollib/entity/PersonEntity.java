@@ -7,6 +7,28 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Entity class representing a person in the database.
+ * <p>
+ * Attributes:
+ * - id: The unique identifier for the person.
+ * - name: The name of the person.
+ * - identificationNumber: The identification number of the person.
+ * - taxNumber: The tax number.
+ * - accountNumber: The account number.
+ * - bankCode: The bank code.
+ * - iban: The IBAN.
+ * - telephone: The telephone number.
+ * - mail: The email address.
+ * - street: The street address.
+ * - zip: The postal code.
+ * - city: The city.
+ * - country: The country.
+ * - note: Any additional notes.
+ * - hidden: Indicates if the person is hidden (default is false).
+ * - purchases: The list of invoices where the person is the buyer.
+ * - sales: The list of invoices where the person is the seller.
+ */
 @Entity(name = "person")
 @Getter
 @Setter

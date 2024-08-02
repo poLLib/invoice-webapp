@@ -7,6 +7,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Data Transfer Object (DTO) for person details and their and validation constraints.
+ * <p>
+ * Attributes:
+ * - id: The unique identifier for the person.
+ * - name: The name of the person.
+ * - identificationNumber: The identification number of the person.
+ * - taxNumber: The tax number, starting with two uppercase letters.
+ * - accountNumber: The account number.
+ * - bankCode: The bank code.
+ * - iban: The IBAN.
+ * - telephone: The telephone number.
+ * - mail: The email address.
+ * - street: The street address.
+ * - zip: The postal code.
+ * - city: The city.
+ * - country: The country.
+ * - note: Any additional notes.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

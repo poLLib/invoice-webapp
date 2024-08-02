@@ -6,6 +6,9 @@ import cz.pollib.dto.PersonStatisticsDTO;
 
 import java.util.List;
 
+/**
+ * Service interface for managing person-related operations.
+ */
 public interface PersonService {
 
     /**
@@ -53,7 +56,7 @@ public interface PersonService {
      * Edits person by [id], according to low of accountancy the old data must be stored, therefore the person gets hidden
      * also [identificationNumber, taxNumber] cannot be changed, so updated person sets the values from the previous ones
      *
-     * @param id Person to edit
+     * @param id   Person to edit
      * @param data Updated data of person to edit
      * @return Edited PersonDTO
      */
@@ -65,7 +68,7 @@ public interface PersonService {
      * @param identificationNumber The seller
      * @return List of the InvoiceDTO
      */
-    List<InvoiceDTO>getInvoicesBySeller(String identificationNumber);
+    List<InvoiceDTO> getInvoicesBySeller(String identificationNumber);
 
     /**
      * Fetches all invoices by [identificationNumber] of the buyer
@@ -73,7 +76,7 @@ public interface PersonService {
      * @param identificationNumber The buyer
      * @return List of the InvoiceDTO
      */
-    List<InvoiceDTO>getInvoicesByBuyer(String identificationNumber);
+    List<InvoiceDTO> getInvoicesByBuyer(String identificationNumber);
 
     /**
      * Fetches all values of PersonStatisticsDTO [Long personId, String personName, Long revenue]
