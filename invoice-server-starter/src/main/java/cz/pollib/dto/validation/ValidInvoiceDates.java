@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 /**
  * Custom annotation for validating that the due date is after the issued date in an invoice.
  */
-@Constraint(validatedBy = DueDateAfterIssuedValidator.class)
+@Constraint(validatedBy = ValidInvoiceDatesValidator.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidInvoiceDates {

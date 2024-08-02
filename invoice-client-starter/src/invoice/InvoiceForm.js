@@ -23,8 +23,8 @@ export function InvoiceForm() {
     const [persons, setPersons] = useState([]);
     const [invoice, setInvoice] = useState({
         invoiceNumber: "",
-        seller: { _id: "" },
-        buyer: { _id: "" },
+        seller: { _id: null },
+        buyer: { _id: null },
         issued: "",
         dueDate: "",
         product: "",
@@ -73,7 +73,7 @@ export function InvoiceForm() {
 
         } catch (error) {
             if (error.data) {
-                console.log(error)
+                console.log("errorek", error.data["buyer.id"])
                 setFieldErrors(error.data);
                 setError("Chyba při odesílání formuláře, zkontrolujte zda-li jsou správně vyplněná pole.");
             } else {
@@ -81,7 +81,6 @@ export function InvoiceForm() {
             }
         }
     }
-    console.log("errrrorrr :  ", fieldErrors)
 
     const sent = sentState;
     const success = successState;
@@ -110,7 +109,7 @@ export function InvoiceForm() {
                             prompt="Vyberte dodavatele"
                             value={invoice.seller._id}
                             isSubmitted={isSubmitted}
-                            error={fieldErrors.seller}
+                            error={fieldErrors["seller.id"]}
                             handleChange={(e) => {
                                 setInvoice({ ...invoice, seller: { _id: e.target.value } });
                             }}
@@ -122,7 +121,7 @@ export function InvoiceForm() {
                             prompt="Vyberte odběratele"
                             value={invoice.buyer._id}
                             isSubmitted={isSubmitted}
-                            error={fieldErrors.buyer}
+                            error={fieldErrors["buyer.id"]}
                             handleChange={(e) => {
                                 setInvoice({ ...invoice, buyer: { _id: e.target.value } });
                             }}

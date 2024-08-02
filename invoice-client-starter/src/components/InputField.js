@@ -14,6 +14,7 @@ import React from "react";
  * @param {boolean} [props.required] - Whether the input field is required.
  * @param {string} [props.value] - The value of the input field.
  * @param {Function} props.handleChange - The function to call when the input value changes.
+ * @param {boolean} [props.isSubmitted] - Whether the field was already submitted.
  * @param {string} [props.error] - The error message to display for the input field.
  * @returns {JSX.Element|null} A form group containing the input element or textarea if the type is valid; otherwise, null.
  *

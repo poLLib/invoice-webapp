@@ -15,6 +15,8 @@ import React from "react";
  * @param {Array} props.items - The list of items to display in the select options.
  * @param {Object} [props.enum] - An optional object mapping item values to display names (for enum values).
  * @param {any} props.value - The selected value(s) in the select.
+ * @param {boolean} [props.isSubmitted] - Whether the field was already submitted.
+ * @param {string} [props.error] - The error message to display for the input field. 
  * @param {Function} props.handleChange - The function to call when the selection changes.
  * @returns {JSX.Element} A form group containing the select dropdown.
  *
@@ -26,6 +28,8 @@ import React from "react";
  *   prompt="Choose a person"
  *   items={[{ _id: '1', name: 'John Doe' }, { _id: '2', name: 'Jane Smith' }]}
  *   value="1"
+ *   error={fieldError.person}
+ *   isSubmitted={isSubmitted}
  *   handleChange={handleSelectChange}
  * />
  *
@@ -39,6 +43,8 @@ import React from "react";
  *   items={['fiction', 'non-fiction', 'science']}
  *   enum={{ fiction: 'Fiction', 'non-fiction': 'Non-Fiction', science: 'Science' }}
  *   value={['fiction', 'science']}
+ *   error={fieldError.genre}
+ *   isSubmitted={false}
  *   handleChange={handleSelectChange}
  * />
  */

@@ -2,6 +2,7 @@ package cz.pollib.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import cz.pollib.dto.validation.ValidId;
 import cz.pollib.dto.validation.ValidInvoiceDates;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 
 /**
  * Data Transfer Object for an invoice details and their validation constrains.
- *
+ * <p>
  * Attributes:
  * - id: The unique identifier for the invoice.
  * - invoiceNumber: The number of the invoice.
@@ -50,17 +51,18 @@ public class InvoiceDTO {
     private String product;
 
     @Positive(message = "Zadejte cenu v absolutním čísle")
+    @Min(value = 1, message = "Hodnota musí být větší než 0")
     private Long price;
 
     @Positive(message = "Zadejte DPH v absolutním čísle")
-    @Max(value = 100, message = "Číslo nemůže být větší než 100")
+    @Max(value = 100, message = "Hodnota nemůže být větší než 100")
     private int vat;
 
     private String note;
 
-    @NotNull(message = "Zvolte odběratele")
+    @ValidId
     private PersonDTO buyer;
 
-    @NotNull(message = "Zvolte dodavatele")
+    @ValidId
     private PersonDTO seller;
 }
