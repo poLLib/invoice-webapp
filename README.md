@@ -44,7 +44,7 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 
 - JDK 18 [Download JDK 18 Temurin](https://adoptium.net/temurin/releases/?os=any&version=18)
 - Node.js (v20.14.0 or later) [Download Node.js](https://nodejs.org/)
-- XAMPP (which includes MariaDB and Apache) [Download XAMPP](https://www.apachefriends.org/index.html)
+- XAMPP (which includes MariaDB or MySQL) [Download XAMPP](https://www.apachefriends.org/index.html)
 - Git [Download Git](https://git-scm.com/downloads)
 - Maven [Download Maven](https://maven.apache.org/download.cgi)
 
@@ -63,7 +63,7 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
    npm install bootstrap@5.2.3 react-router-dom@6.10.0
    ```
 
-3. **Start the database and the application server on XAMPP**
+3. **Start the database on XAMPP**
    ```bash
    # For Linux
    cd /opt/lampp
@@ -76,7 +76,7 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
    # For Windows Command Prompt or PowerShell
    "C:\xampp\xampp-control.exe"
    ```
-   Alternatively, you can open XAMPP Control Panel and start Apache server and MariaDB/MySQL.
+   Alternatively, you can run as administrator XAMPP Control Panel and start MariaDB/MySQL.
    
 4. **Start the backend server:**
    ```bash
