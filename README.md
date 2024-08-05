@@ -33,7 +33,7 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 - **Database**:
   - MariaDB
 - **Application Server**
-  - Apache
+  - Apache Tomcat
 - **VCS**:
   - Git
   - GitHub
