@@ -8,7 +8,7 @@ import jakarta.validation.ConstraintValidatorContext;
 /**
  * Custom validator to check if the due date is after the issued date in an invoice.
  */
-public class ValidInvoiceDatesValidator implements ConstraintValidator<ValidInvoiceDates, InvoiceDTO> {
+public class InvoiceDatesValidator implements ConstraintValidator<InvoiceDatesValidAnnotation, InvoiceDTO> {
 
     /**
      * Initializes the validator.
@@ -16,7 +16,7 @@ public class ValidInvoiceDatesValidator implements ConstraintValidator<ValidInvo
      * @param constraintAnnotation the annotation instance for a given constraint declaration
      */
     @Override
-    public void initialize(ValidInvoiceDates constraintAnnotation) {
+    public void initialize(InvoiceDatesValidAnnotation constraintAnnotation) {
     }
 
     /**

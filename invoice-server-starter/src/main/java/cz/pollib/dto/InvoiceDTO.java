@@ -2,8 +2,9 @@ package cz.pollib.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import cz.pollib.dto.validation.ValidId;
-import cz.pollib.dto.validation.ValidInvoiceDates;
+import cz.pollib.dto.validation.PersonNotNullValidAnnotation;
+import cz.pollib.dto.validation.InvoiceDatesValidAnnotation;
+import cz.pollib.dto.validation.SellerBuyerNotSameValidAnnotation;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +31,8 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ValidInvoiceDates
+@InvoiceDatesValidAnnotation
+@SellerBuyerNotSameValidAnnotation
 public class InvoiceDTO {
 
     @JsonProperty("_id")
@@ -50,8 +52,7 @@ public class InvoiceDTO {
     @NotBlank(message = "Vyplňte pole položka")
     private String product;
 
-    @Positive(message = "Zadejte cenu v absolutním čísle")
-    @Min(value = 1, message = "Hodnota musí být větší než 0")
+    @NotNull(message = "Hodnota musí být větší než 0")
     private Long price;
 
     @Positive(message = "Zadejte DPH v absolutním čísle")
@@ -60,9 +61,9 @@ public class InvoiceDTO {
 
     private String note;
 
-    @ValidId
+    @PersonNotNullValidAnnotation
     private PersonDTO buyer;
 
-    @ValidId
+    @PersonNotNullValidAnnotation
     private PersonDTO seller;
 }

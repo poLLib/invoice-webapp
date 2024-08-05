@@ -73,14 +73,21 @@ export function InvoiceForm() {
 
         } catch (error) {
             if (error.data) {
-                console.log("errorek", error.data["buyer.id"])
                 setFieldErrors(error.data);
                 setError("Chyba při odesílání formuláře, zkontrolujte zda-li jsou správně vyplněná pole.");
             } else {
                 console.error("Vyskytla se chyba při odesílání formuláře:", error);
             }
         }
+        console.log("OBJEKTTT", invoice)
     }
+
+    function mergeErrors(primaryError, secondaryError) {
+        if (primaryError && secondaryError) {
+            return `${primaryError}. ${secondaryError}`;
+        }
+        return primaryError || secondaryError || null;
+    };
 
     const sent = sentState;
     const success = successState;
@@ -109,9 +116,10 @@ export function InvoiceForm() {
                             prompt="Vyberte dodavatele"
                             value={invoice.seller._id}
                             isSubmitted={isSubmitted}
-                            error={fieldErrors["seller.id"]}
+                            error={mergeErrors(fieldErrors["seller.id"], fieldErrors.seller)}
                             handleChange={(e) => {
-                                setInvoice({ ...invoice, seller: { _id: e.target.value } });
+                                const selectedValue = e.target.value === "false" ? null : e.target.value;
+                                setInvoice({ ...invoice, seller: { _id: selectedValue } });
                             }}
                         />
                         <InputSelect
@@ -121,9 +129,10 @@ export function InvoiceForm() {
                             prompt="Vyberte odběratele"
                             value={invoice.buyer._id}
                             isSubmitted={isSubmitted}
-                            error={fieldErrors["buyer.id"]}
+                            error={mergeErrors(fieldErrors["buyer.id"], fieldErrors.buyer)}
                             handleChange={(e) => {
-                                setInvoice({ ...invoice, buyer: { _id: e.target.value } });
+                                const selectedValue = e.target.value === "false" ? null : e.target.value;
+                                setInvoice({ ...invoice, buyer: { _id: selectedValue } });
                             }}
                         />
                         <InputField
@@ -212,7 +221,7 @@ export function InvoiceForm() {
                         />
                     </div>
                 </div>
-                <br/>
+                <br />
                 <InputField
                     required={false}
                     type="textarea"

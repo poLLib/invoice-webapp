@@ -4,9 +4,9 @@ import cz.pollib.dto.PersonDTO;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class ValidIdValidator implements ConstraintValidator<ValidId, PersonDTO> {
+public class PersonNotNullValidator implements ConstraintValidator<PersonNotNullValidAnnotation, PersonDTO> {
     @Override
-    public void initialize(ValidId constraintAnnotation) {
+    public void initialize(PersonNotNullValidAnnotation constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
@@ -18,7 +18,6 @@ public class ValidIdValidator implements ConstraintValidator<ValidId, PersonDTO>
 
         if (personDTO.getId() == null) {
             context.disableDefaultConstraintViolation();
-
             context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
                     .addPropertyNode("id")
                     .addConstraintViolation();

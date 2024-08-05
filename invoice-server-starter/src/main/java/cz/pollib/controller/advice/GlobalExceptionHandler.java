@@ -47,8 +47,13 @@ public class GlobalExceptionHandler {
     /**
      * Handles runtime exceptions and returns a 500 status.
      */
+
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public void handleRuntimeException() {
+    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
+        // Log the exception details
+        ex.printStackTrace();
+        return new ResponseEntity<>("An unexpected error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-}
+    }
+

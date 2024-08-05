@@ -8,10 +8,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = ValidIdValidator.class)
+@Constraint(validatedBy = PersonNotNullValidator.class)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidId {
+public @interface PersonNotNullValidAnnotation {
     String message() default "Musíte vybrat jedno z možností";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
