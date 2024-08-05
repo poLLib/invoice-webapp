@@ -12,7 +12,8 @@ import cz.pollib.entity.filter.InvoiceFilter;
 public interface InvoiceService {
 
     /**
-     * Creates an invoice and attach it to Person
+     * Creates an invoice and attach it to Person.
+     * Catches duplication of invoiceNumber in database (DataIntegrityViolationException) and @throw DuplicateEntityException.
      *
      * @param data Invoice to create
      * @return Created InvoiceDTO
@@ -20,8 +21,8 @@ public interface InvoiceService {
     InvoiceDTO createInvoice(InvoiceDTO data);
 
     /**
-     * Fetches all invoices in database and filter them according to user's parameters and make them pageable
-     * The second parameter of the class Pageable which determinate size of page is taken from param [limit] InvoiceFilter
+     * Fetches all invoices in database and filter them according to user's parameters and make them pageable.
+     * The second parameter of the class Pageable which determinate size of page is taken from param [limit] InvoiceFilter.
      *
      * @param invoiceFilter Parameters for filtration [buyerId], [sellerId], [product], [minPrice], [maxPrice], [limit (default value = 10)];
      * @param page Current page
