@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.webjars.NotFoundException;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -22,10 +23,10 @@ public class GlobalExceptionHandler {
 
 
     /**
-     * Handles validation errors and returns a response entity with error details.
+     * Handles validation errors.
      *
      * @param ex the MethodArgumentNotValidException thrown when validation fails
-     * @return ResponseEntity containing a map of field errors and 400 status
+     * @return ResponseEntity containing a map of error details and 400 status
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -37,7 +38,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Handles entity not found exceptions and returns a 404 status.
+     * Handles entity not found exceptions and returns 404 status.
      */
     @ExceptionHandler({NotFoundException.class, EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -45,15 +46,28 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Handles runtime exceptions and returns a 500 status.
+     * Handles runtime exceptions.
+     *
+     * @return ResponseEntity with the error message and 500 status.
      */
-
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
-        // Log the exception details
-        ex.printStackTrace();
         return new ResponseEntity<>("An unexpected error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
+    /**
+     * Handles when attempt to create an invoice with already existing invoiceNumber.
+     *
+     * @return ResponseEntity containing error message and 400 status
+     */
+    @ExceptionHandler(DuplicateInvoiceNumberException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Map<String, String>> handleDuplicateInvoiceNumberException() {
+        Map<String, String> responseBody = new HashMap<>();
+        responseBody.put("invoiceNumber", "Faktura s tímto číslem již existuje");
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
+}
 
