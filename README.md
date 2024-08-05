@@ -33,7 +33,7 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 - **Database**:
   - MariaDB
 - **Application Server**
-  - Apache
+  - Apache Tomcat
 - **VCS**:
   - Git
   - GitHub
@@ -138,7 +138,7 @@ The API provides endpoints for managing companies and invoices using JSON format
 
 ## Conclusion
 
-This project was founded with the help of ITnetwork.cz.
+This project was founded with the support of ITnetwork.cz.
 
 I welcome contributions from the community!
 
