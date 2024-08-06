@@ -115,7 +115,7 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 
 ## API Documentation
 
-The API provides endpoints for managing companies and invoices using JSON format. Below is a summary of the available endpoints:
+The API provides endpoints for managing companies and invoices using JSON format. You can also use API tool [Swagger](http://localhost:8080/swagger-ui/index.html#/). Below is a summary of the available endpoints:
 
 - **Companies**
   - `GET /api/persons`: Get all companies.
