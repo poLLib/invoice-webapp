@@ -43,6 +43,7 @@ export function InvoiceIndex() {
     async function deleteInvoice(id) {
         try {
             await apiDelete("/api/invoices/" + id);
+            setFlashMessage("Faktura byla úspěšně odebrána.")
         } catch (error) {
             console.log(error.message);
             alert(error.message)
@@ -156,10 +157,6 @@ export function InvoiceIndex() {
     return (
         <div>
             <h1>Seznam faktur</h1>
-
-            {flashMessage ? (<div className="alert alert-success fw-bold h4 py-4 ps-5"> {flashMessage}</div>) : null}
-
-            <hr />
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-grow my-3" role="status"></div>

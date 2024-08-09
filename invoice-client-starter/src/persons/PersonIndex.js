@@ -35,6 +35,7 @@ export function PersonIndex() {
     async function deletePerson(id) {
         try {
             await apiDelete(`/api/persons/${id}`);
+            setFlashMessage("Společnost byla úspěšně odebrána.")
         } catch (error) {
             console.log(error.message);
             alert(error.message)
@@ -93,10 +94,10 @@ export function PersonIndex() {
         <div className="row">
             <div className="col">
                 <h1>Seznam společností</h1>
+                <hr />
 
                 {flashMessage ? (<div className="alert alert-success fw-bold h4 py-4 ps-5"> {flashMessage}</div>) : null}
 
-                <hr />
                 <p>
                     Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalPersons}</strong>)}
                 </p>
