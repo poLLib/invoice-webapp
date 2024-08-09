@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { apiDelete, apiGet } from "../utils/api";
+import { useNavigate, useParams } from "react-router-dom";
+import { FlashMessageContext } from "../components/FlashMessageContext";
 import { InvoiceFilter } from "./InvoiceFilter";
 import { InvoiceTable } from "./InvoiceTable";
-import { useNavigate, useParams } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
 
 /**
@@ -32,6 +33,7 @@ export function InvoiceIndex() {
 
     const { page = 1 } = useParams();
     const navigate = useNavigate();
+    const { flashMessage, setFlashMessage } = useContext(FlashMessageContext);
 
     /**
     * Deletes an invoice by ID and updates the invoice list and pagination.
@@ -69,6 +71,15 @@ export function InvoiceIndex() {
         }
         fetchInvoices();
     }, [page, filterState.product]);
+
+    /**
+     *  Clears the flash message after change of page if shown 
+     */
+    useEffect(() => {
+        return () => {
+            setFlashMessage(null)
+        }
+    }, [page, setFlashMessage]);
 
     /**
      * Handles form submission to apply filters and fetch filtered invoices.
@@ -146,8 +157,9 @@ export function InvoiceIndex() {
         <div>
             <h1>Seznam faktur</h1>
 
+            {flashMessage ? (<div className="alert alert-success fw-bold h4 py-4 ps-5"> {flashMessage}</div>) : null}
 
-
+            <hr />
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-grow my-3" role="status"></div>
@@ -165,6 +177,9 @@ export function InvoiceIndex() {
                         confirm="Filtrovat faktury"
                     />
                     <hr />
+
+                    {flashMessage ? (<div className="alert alert-success fw-bold h4 py-4 ps-5"> {flashMessage}</div>) : null}
+
                     <p>
                         Nalezené faktury: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalInvoices}</strong>)}
                     </p>

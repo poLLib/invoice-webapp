@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiGet, apiPost, apiPut } from "../utils/api";
 import { BackButton } from "../components/BackButton";
 import { InputCheck } from "../components/InputCheck";
-import { FlashMessage } from "../components/FlashMessage";
+import { FlashMessageContext } from "../components/FlashMessageContext";
 import { InputField } from "../components/InputField";
 import { Country } from "./Country";
 
@@ -29,20 +29,19 @@ export function PersonForm() {
         country: Country.CZECHIA,
         note: ""
     });
-    const [sentState, setSent] = useState(false);
-    const [successState, setSuccess] = useState(false);
     const [errorState, setError] = useState(null);
     const [fieldErrors, setFieldErrors] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
 
     const navigate = useNavigate();
     const { id } = useParams();
+    const { setFlashMessage } = useContext(FlashMessageContext);
 
     /**
      * Fetches the person's data if an ID is provided (for editing purposes).
      */
     useEffect(() => {
-        async function fetchPerson() {
+        async function fetchPersons() {
             if (id) {
                 try {
                     const personData = await apiGet(`/api/persons/${id}`);
@@ -52,7 +51,7 @@ export function PersonForm() {
                 }
             }
         }
-        fetchPerson();
+        fetchPersons();
     }, [id]);
 
     /**
@@ -69,14 +68,9 @@ export function PersonForm() {
 
         try {
             const response = id ? await apiPut(`/api/persons/${id}`, person) : await apiPost("/api/persons", person);
-            setSent(true);
             setError(false);
-            setSuccess(true);
-            setTimeout(() => {
-                setSent(false);
-                navigate("/persons");
-            }, 2500);
-
+            setFlashMessage("Přidání společnosti proběhlo úspěšně.")
+            navigate("/persons");
         } catch (error) {
             if (error.data) {
                 setFieldErrors(error.data);
@@ -87,9 +81,6 @@ export function PersonForm() {
         }
     }
 
-    const sent = sentState;
-    const success = successState;
-
     return (
         <div className="ms-5 px-5 mb-5">
             <h1>{id ? "Upravit" : "Vytvořit"} společnost</h1>
@@ -97,12 +88,6 @@ export function PersonForm() {
             {errorState ? (
                 <div className="alert alert-danger">{errorState}</div>
             ) : null}
-            {sent && (
-                <FlashMessage
-                    theme={success ? "success" : ""}
-                    text={success ? "Uložení osobnosti proběhlo úspěšně." : ""}
-                />
-            )}
 
             {/* controls if user update or create a new person
                 when id=true then hides InputField [identificationNumber, taxNumber] 

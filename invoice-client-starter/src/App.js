@@ -15,6 +15,7 @@ import { InvoiceIndex } from "./invoice/InvoiceIndex";
 import { StatisticsTable } from "./statistics/StatisticsTable";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css"
+import { FlashMessageContextProvider } from "./components/FlashMessageContext";
 
 /**
  * Main App Component
@@ -49,34 +50,36 @@ export function App() {
             </ul>
           </nav>
 
-          {/* Person (companies) Routes */}
-          <Routes>
-            <Route index element={<Navigate to={"/persons/pages/1"} />} />
-            <Route path="/persons">
-              <Route index element={<PersonIndex />} />
-              <Route path="pages/:page" element={<PersonIndex />} />
-              <Route path="show/:id" element={<PersonDetail />} />
-              <Route path="create" element={<PersonForm />} />
-              <Route path="edit/:id" element={<PersonForm />} />
-            </Route>
+          <FlashMessageContextProvider>
+            {/* Person (companies) Routes */}
+            <Routes>
+              <Route index element={<Navigate to={"/persons/pages/1"} />} />
+              <Route path="/persons">
+                <Route index element={<PersonIndex />} />
+                <Route path="pages/:page" element={<PersonIndex />} />
+                <Route path="show/:id" element={<PersonDetail />} />
+                <Route path="create" element={<PersonForm />} />
+                <Route path="edit/:id" element={<PersonForm />} />
+              </Route>
 
-            {/* Invoice Routes */}
-            <Route index element={<Navigate to={"/invoices/pages/1"} />} />
-            <Route path="/invoices">
-              <Route index element={<InvoiceIndex />} />
-              <Route path="pages/:page" element={<InvoiceIndex />} />
-              <Route path="create" element={<InvoiceForm />} />
-              <Route path="show/:id" element={<InvoiceDetail />} />
-              <Route path="edit/:id" element={<InvoiceForm />} />
-            </Route>
+              {/* Invoice Routes */}
+              <Route index element={<Navigate to={"/invoices/pages/1"} />} />
+              <Route path="/invoices">
+                <Route index element={<InvoiceIndex />} />
+                <Route path="pages/:page" element={<InvoiceIndex />} />
+                <Route path="create" element={<InvoiceForm />} />
+                <Route path="edit/:id" element={<InvoiceForm />} />
+                <Route path="show/:id" element={<InvoiceDetail />} />
+              </Route>
 
-            {/* Statistics Route */}
-            <Route path="/statistics" element={<StatisticsTable />} />
-          </Routes>
+              {/* Statistics Route */}
+              <Route path="/statistics" element={<StatisticsTable />} />
+            </Routes>
+          </FlashMessageContextProvider>
         </div>
 
       </Router>
-      
+
       {/* Footer */}
       <footer >
         <div className="container">

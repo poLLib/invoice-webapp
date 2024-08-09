@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { InputSelect } from "../components/InputSelect";
 import { apiGet, apiPost, apiPut } from "../utils/api";
 import { InputField } from "../components/InputField";
-import { FlashMessage } from "../components/FlashMessage";
 import { dateStringFormatter } from "../utils/dateStringFormatter";
 import { BackButton } from "../components/BackButton";
+import { FlashMessageContext } from "../components/FlashMessageContext";
 
 /**
  * InvoiceForm component handles the creation and editing of invoices.
@@ -15,8 +15,6 @@ import { BackButton } from "../components/BackButton";
  */
 export function InvoiceForm() {
 
-    const [sentState, setSent] = useState(false);
-    const [successState, setSuccess] = useState(false);
     const [errorState, setError] = useState(null);
     const [fieldErrors, setFieldErrors] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -35,6 +33,7 @@ export function InvoiceForm() {
 
     const navigate = useNavigate();
     const { id } = useParams();
+    const { setFlashMessage } = useContext(FlashMessageContext);
 
     /**
     * Fetches invoice details (if editing) and the list of persons for select options.
@@ -63,14 +62,9 @@ export function InvoiceForm() {
 
         try {
             const response = id ? await apiPut(`/api/invoices/${id}`, invoice) : await apiPost("/api/invoices", invoice);
-            setSent(true);
             setError(false);
-            setSuccess(true);
-            setTimeout(() => {
-                setSent(false);
-                navigate("/invoices");
-            }, 2500);
-
+            setFlashMessage("Uložení faktury proběhlo úspěšně.")
+            navigate("/invoices")
         } catch (error) {
             if (error.data) {
                 setFieldErrors(error.data);
@@ -79,7 +73,6 @@ export function InvoiceForm() {
                 console.error("Vyskytla se chyba při odesílání formuláře:", error);
             }
         }
-        console.log("OBJEKTTT", invoice)
     }
 
     function mergeErrors(primaryError, secondaryError) {
@@ -89,22 +82,14 @@ export function InvoiceForm() {
         return primaryError || secondaryError || null;
     };
 
-    const sent = sentState;
-    const success = successState;
-
     return (
         <div className="ms-5 px-5 mb-5">
             <h1>{id ? "Upravit" : "Vytvořit"} fakturu</h1>
             <hr />
+            
             {errorState ? (
-                <div className="alert alert-danger">{errorState}</div>
+                <div className="alert alert-danger fw-bold">{errorState}</div>
             ) : null}
-            {sent && (
-                <FlashMessage
-                    theme={success ? "success" : ""}
-                    text={success ? "Uložení faktury proběhlo úspěšně." : ""}
-                />
-            )}
 
             <form noValidate onSubmit={handleSubmit}>
                 <div className="row">

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { apiDelete, apiGet, apiGetPage } from "../utils/api";
 import { Pagination } from "../components/Pagination";
 import { PersonTable } from "./PersonTable";
 import { useNavigate, useParams } from "react-router-dom";
+import { FlashMessageContext } from "../components/FlashMessageContext";
 import { Link } from "react-router-dom";
 
 /**
@@ -11,7 +12,7 @@ import { Link } from "react-router-dom";
  * @returns {JSX.Element} The component rendering the person index page with pagination and action buttons.
  */
 export function PersonIndex() {
-    
+
     const [persons, setPersons] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -23,6 +24,7 @@ export function PersonIndex() {
 
     const { page = 1 } = useParams();
     const navigate = useNavigate();
+    const { flashMessage, setFlashMessage } = useContext(FlashMessageContext);
 
     /**
      * Handles the deletion of a person.
@@ -70,6 +72,15 @@ export function PersonIndex() {
     }, [page]);
 
     /**
+    *  Clears the flash message after change of page if shown 
+    */
+    useEffect(() => {
+        return () => {
+            setFlashMessage(null)
+        }
+    }, [page, setFlashMessage]);
+
+    /**
      * Handles page change event.
      * 
      * @param {number} newPage - The new page number to navigate to.
@@ -82,6 +93,10 @@ export function PersonIndex() {
         <div className="row">
             <div className="col">
                 <h1>Seznam společností</h1>
+
+                {flashMessage ? (<div className="alert alert-success fw-bold h4 py-4 ps-5"> {flashMessage}</div>) : null}
+
+                <hr />
                 <p>
                     Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalPersons}</strong>)}
                 </p>
