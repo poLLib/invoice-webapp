@@ -1,5 +1,6 @@
 package cz.pollib.entity.repository;
 
+import cz.pollib.dto.InvoiceStatisticsDTO;
 import cz.pollib.entity.InvoiceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -27,10 +28,15 @@ public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, J
      * - currentYearSum: The sum of invoices for the current year.
      */
     @Query(value = """
-            SELECT
-                IFNULL((SELECT SUM(IFNULL(price,0)) FROM invoice), 0) AS allTimeSum,
-                IFNULL((SELECT COUNT(*) FROM invoice), 0) AS invoicesCount,
-                IFNULL((SELECT SUM(IFNULL(price,0)) FROM invoice WHERE YEAR(due_date) = YEAR(CURDATE())), 0) AS currentYearSum
-            """, nativeQuery = true)
-    Object getStats();
+            SELECT NEW cz.pollib.dto.InvoiceStatisticsDTO(
+                        SUM(currentYearSum.price),
+                        SUM(allTimeSum.price),
+                        COUNT(*)
+                        )
+                        FROM invoice allTimeSum
+                        LEFT JOIN invoice currentYearSum
+                        ON allTimeSum.id = currentYearSum.id
+                        AND YEAR(currentYearSum.issued) = YEAR(CURRENT_DATE)
+            """)
+    InvoiceStatisticsDTO getStats();
 }

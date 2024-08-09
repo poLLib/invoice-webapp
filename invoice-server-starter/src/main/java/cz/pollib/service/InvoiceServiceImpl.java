@@ -95,29 +95,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public InvoiceStatisticsDTO getInvoiceStatistics() {
-        InvoiceStatisticsDTO invoiceStatisticsDTO = new InvoiceStatisticsDTO();
-        Object values = invoiceRepository.getStats();
-        Object[] stat = (Object[]) values;
-
-        if (stat[0] == null) {
-            invoiceStatisticsDTO.setAllTimeSum(BigDecimal.ZERO);
-        } else {
-            invoiceStatisticsDTO.setAllTimeSum((BigDecimal) stat[0]);
-        }
-
-        if (stat[1] == null) {
-            invoiceStatisticsDTO.setInvoicesCount(0L);
-        } else {
-            invoiceStatisticsDTO.setInvoicesCount((Long) stat[1]);
-        }
-
-        if (stat[2] == null) {
-            invoiceStatisticsDTO.setCurrentYearSum(BigDecimal.ZERO);
-        } else {
-            invoiceStatisticsDTO.setCurrentYearSum((BigDecimal) stat[2]);
-        }
-
-        return invoiceStatisticsDTO;
+        return invoiceRepository.getStats();
     }
 
     // region: Private methods

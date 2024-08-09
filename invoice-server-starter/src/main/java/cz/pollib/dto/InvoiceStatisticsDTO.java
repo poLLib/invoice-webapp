@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class InvoiceStatisticsDTO {
 
-    private BigDecimal allTimeSum;
+    private Long currentYearSum;
+    private Long allTimeSum;
     private Long invoicesCount;
-    private BigDecimal currentYearSum;
 }

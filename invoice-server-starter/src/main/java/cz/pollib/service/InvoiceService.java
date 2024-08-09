@@ -56,7 +56,7 @@ public interface InvoiceService {
     InvoiceDTO editInvoice(Long id, InvoiceDTO data);
 
     /**
-     * Counts the invoices, profit of the invoices current year and in total
+     * Counts the invoices, profit of the invoices in current year and in total
      *
      * @return InvoiceStatisticsDTO with the counted values
      */
