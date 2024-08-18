@@ -8,11 +8,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = PersonNotNullValidator.class)
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+@Constraint(validatedBy = IdentificationNumberNotDuplicateValidator.class)
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PersonNotNullValidAnnotation {
-    String message() default "Musíte vybrat jedno z možností";
+public @interface IdentificationNumberNotDuplicateValidAnnotation {
+    String message() default "Toto IČO již v databázi společností existuje";
 
     Class<?>[] groups() default {};
 

@@ -55,4 +55,6 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
      * @return The {@link PersonEntity} with the given identification number.
      */
     PersonEntity findByIdentificationNumber(String identificationNumber);
+
+    boolean existsByIdentificationNumber(String identificationNumber);
 }

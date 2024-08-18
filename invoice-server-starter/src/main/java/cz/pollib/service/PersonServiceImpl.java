@@ -1,6 +1,5 @@
 package cz.pollib.service;
 
-import cz.pollib.controller.advice.DuplicateIdentificationNumberException;
 import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
@@ -11,7 +10,6 @@ import cz.pollib.entity.PersonEntity;
 import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -36,13 +34,9 @@ public class PersonServiceImpl implements PersonService {
     private InvoiceMapper invoiceMapper;
 
     public PersonDTO addPerson(PersonDTO personDTO) {
-        try {
-            PersonEntity entity = personMapper.toEntity(personDTO);
-            entity = personRepository.saveAndFlush(entity);
-            return personMapper.toDTO(entity);
-        } catch (DataIntegrityViolationException e) {
-            throw new DuplicateIdentificationNumberException();
-        }
+        PersonEntity entity = personMapper.toEntity(personDTO);
+        entity = personRepository.saveAndFlush(entity);
+        return personMapper.toDTO(entity);
     }
 
     @Override

@@ -15,25 +15,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InvoiceDatesValidAnnotation {
-
-    /**
-     * Default error message when validation fails.
-     *
-     * @return the error message
-     */
     String message() default "Datum splatnosti nemůže být před datem vystavení faktury";
 
-    /**
-     * Groups can be used to restrict the set of constraints applied during validation.
-     *
-     * @return array of groups
-     */
     Class<?>[] groups() default {};
 
-    /**
-     * Payload can be used by clients to assign custom payload objects to a constraint.
-     *
-     * @return array of payload classes
-     */
     Class<? extends Payload>[] payload() default {};
 }

@@ -1,6 +1,5 @@
 package cz.pollib.service;
 
-import cz.pollib.controller.advice.DuplicateInvoiceNumberException;
 import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.InvoicePageDTO;
 import cz.pollib.dto.InvoiceStatisticsDTO;
@@ -19,7 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -39,16 +37,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public InvoiceDTO createInvoice(InvoiceDTO data) {
-        try {
-            InvoiceEntity entity = invoiceMapper.toEntity(data);
-            entity.setBuyer(personRepository.getReferenceById(data.getBuyer().getId()));
-            entity.setSeller(personRepository.getReferenceById(data.getSeller().getId()));
-
-            invoiceRepository.saveAndFlush(entity);
-            return invoiceMapper.toDTO(entity);
-        } catch (DataIntegrityViolationException e) {
-            throw new DuplicateInvoiceNumberException();
-        }
+        InvoiceEntity entity = invoiceMapper.toEntity(data);
+        entity.setBuyer(personRepository.getReferenceById(data.getBuyer().getId()));
+        entity.setSeller(personRepository.getReferenceById(data.getSeller().getId()));
+        invoiceRepository.saveAndFlush(entity);
+        return invoiceMapper.toDTO(entity);
     }
 
     @Override

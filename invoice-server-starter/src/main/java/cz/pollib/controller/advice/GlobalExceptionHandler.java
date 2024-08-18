@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.webjars.NotFoundException;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -55,32 +54,4 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
         return new ResponseEntity<>("An unexpected error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    /**
-     * Handles when attempt to create an invoice with already existing invoiceNumber.
-     *
-     * @return ResponseEntity containing error message and 400 status
-     */
-    @ExceptionHandler(DuplicateInvoiceNumberException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Map<String, String>> handleDuplicateInvoiceNumberException() {
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("invoiceNumber", "Faktura s tímto číslem již v databázi existuje");
-        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
-    }
-
-    /**
-     * Handles when attempt to create a person with already existing identificationNumber.
-     *
-     * @return ResponseEntity containing error message and 400 status
-     */
-    @ExceptionHandler(DuplicateIdentificationNumberException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Map<String, String>> handleDuplicateIdentificationNumberException() {
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("identificationNumber", "IČO již v databázi existuje");
-        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
-    }
 }
-//TODO: rozdel response podle toho jestli jej posila person nebo invoice. nechcem v tele obe hlasky.
-
