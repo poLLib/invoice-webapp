@@ -5,7 +5,7 @@ import { apiGet, apiPost, apiPut } from "../utils/api";
 import { InputField } from "../components/InputField";
 import { dateStringFormatter } from "../utils/dateStringFormatter";
 import { BackButton } from "../components/BackButton";
-import { FlashMessageContext } from "../components/FlashMessageContext";
+import { FlashMessageContext } from "../contexts/FlashMessageContext";
 
 /**
  * InvoiceForm component handles the creation and editing of invoices.

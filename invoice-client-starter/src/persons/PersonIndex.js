@@ -3,7 +3,7 @@ import { apiDelete, apiGet, apiGetPage } from "../utils/api";
 import { Pagination } from "../components/Pagination";
 import { PersonTable } from "./PersonTable";
 import { useNavigate, useParams } from "react-router-dom";
-import { FlashMessageContext } from "../components/FlashMessageContext";
+import { FlashMessageContext } from "../contexts/FlashMessageContext";
 import { Link } from "react-router-dom";
 
 /**

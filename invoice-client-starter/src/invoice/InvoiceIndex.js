@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { apiDelete, apiGet } from "../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
-import { FlashMessageContext } from "../components/FlashMessageContext";
+import { FlashMessageContext } from "../contexts/FlashMessageContext";
 import { InvoiceFilter } from "./InvoiceFilter";
 import { InvoiceTable } from "./InvoiceTable";
 import { Pagination } from "../components/Pagination";

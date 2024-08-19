@@ -66,3 +66,5 @@ public class PersonController {
         return personService.getPersonStatistics();
     }
 }
+
+//TODO: vytvoreni auth, dokumentace FE, BE a readme

@@ -15,14 +15,23 @@ import { InvoiceIndex } from "./invoice/InvoiceIndex";
 import { StatisticsTable } from "./statistics/StatisticsTable";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css"
-import { FlashMessageContextProvider } from "./components/FlashMessageContext";
+import { FlashMessageContextProvider } from "./contexts/FlashMessageContext";
+import { useSession } from "./contexts/session";
+import { apiDelete } from "./utils/api";
+import { LoginPage } from "./login/LoginPage";
+import { RegistrationPage } from "./login/RegistrationPage";
+
+const { session, setSession } = useSession;
+
+function handleLogoutClick() {
+  apiDelete("/api/auth").finally(() => setSession({ data: null, status: "unauthorized" }));
+}
 
 /**
  * Main App Component
  * - Sets up the Router for navigation
  * - Defines the layout and main routes for the application
  */
-
 export function App() {
   return (
     /* { Navigation menu} */
@@ -47,6 +56,26 @@ export function App() {
                 </Link>
               </li>
 
+              {session.data ? <>
+                <li className="nav-item">{session.data.email}</li>
+                <li className="nav-item">
+                  <button className="btn btn-sm btn-secondary" onClick={handleLogoutClick}>Odhlásit se</button>
+                </li>
+              </> : session.status === "loading" ?
+                <>
+                  <div className="spinner-border spinner-border-sm" role="status">
+                    <span className="visually-hidden">Načítání...</span>
+                  </div>
+                </>
+                : <>
+                  <li className="nav-item">
+                    <Link to={"/register"}>Registrace</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to={"/login"}>Přihlášení</Link>
+                  </li>
+                </>
+              }
             </ul>
           </nav>
 
@@ -74,6 +103,8 @@ export function App() {
 
               {/* Statistics Route */}
               <Route path="/statistics" element={<StatisticsTable />} />
+              <Route path="/login" element={<LoginPage/>} />
+              <Route path="/register" element={<RegistrationPage/>}/>
             </Routes>
           </FlashMessageContextProvider>
         </div>

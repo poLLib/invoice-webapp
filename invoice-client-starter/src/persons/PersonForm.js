@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { apiGet, apiPost, apiPut } from "../utils/api";
 import { BackButton } from "../components/BackButton";
 import { InputCheck } from "../components/InputCheck";
-import { FlashMessageContext } from "../components/FlashMessageContext";
+import { FlashMessageContext } from "../contexts/FlashMessageContext";
 import { InputField } from "../components/InputField";
 import { Country } from "./Country";
 
