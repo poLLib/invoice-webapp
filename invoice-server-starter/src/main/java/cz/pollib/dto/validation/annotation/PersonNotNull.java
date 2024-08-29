@@ -1,5 +1,6 @@
-package cz.pollib.dto.validation;
+package cz.pollib.dto.validation.annotation;
 
+import cz.pollib.dto.validation.validator.PersonNotNullValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -8,14 +9,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * Custom annotation for validating that the due date is after the issued date in an invoice.
- */
-@Constraint(validatedBy = InvoiceDatesValidator.class)
-@Target({ElementType.TYPE})
+@Constraint(validatedBy = PersonNotNullValidator.class)
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface InvoiceDatesValidAnnotation {
-    String message() default "Datum splatnosti nemůže být před datem vystavení faktury";
+public @interface PersonNotNull {
+    String message() default "Musíte vybrat jedno z možností";
 
     Class<?>[] groups() default {};
 

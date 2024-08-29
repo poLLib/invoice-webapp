@@ -1,12 +1,13 @@
-package cz.pollib.dto.validation;
+package cz.pollib.dto.validation.validator;
 
 import cz.pollib.dto.InvoiceDTO;
+import cz.pollib.dto.validation.annotation.PersonSellerBuyerNotSame;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class SellerBuyerNotSameValidator implements ConstraintValidator<SellerBuyerNotSameValidAnnotation, InvoiceDTO> {
+public class PersonSellerBuyerNotSameValidator implements ConstraintValidator<PersonSellerBuyerNotSame, InvoiceDTO> {
     @Override
-    public void initialize(SellerBuyerNotSameValidAnnotation constraintAnnotation) {
+    public void initialize(PersonSellerBuyerNotSame constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 

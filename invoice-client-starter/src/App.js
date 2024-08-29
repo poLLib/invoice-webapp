@@ -21,8 +21,6 @@ import { apiDelete } from "./utils/api";
 import { LoginPage } from "./login/LoginPage";
 import { RegistrationPage } from "./login/RegistrationPage";
 
-const { session, setSession } = useSession;
-
 function handleLogoutClick() {
   apiDelete("/api/auth").finally(() => setSession({ data: null, status: "unauthorized" }));
 }
@@ -31,8 +29,12 @@ function handleLogoutClick() {
  * Main App Component
  * - Sets up the Router for navigation
  * - Defines the layout and main routes for the application
+ * - Starts the user's session
  */
 export function App() {
+
+  const { session, setSession } = useSession();
+
   return (
     /* { Navigation menu} */
     <div className="wrapper">

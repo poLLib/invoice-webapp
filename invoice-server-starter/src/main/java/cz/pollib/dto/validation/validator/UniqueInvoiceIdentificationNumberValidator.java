@@ -1,16 +1,17 @@
-package cz.pollib.dto.validation;
+package cz.pollib.dto.validation.validator;
 
+import cz.pollib.dto.validation.annotation.UniqueInvoiceIdentificationNumber;
 import cz.pollib.entity.repository.PersonRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class IdentificationNumberNotDuplicateValidator implements ConstraintValidator<IdentificationNumberNotDuplicateValidAnnotation, String> {
+public class UniqueInvoiceIdentificationNumberValidator implements ConstraintValidator<UniqueInvoiceIdentificationNumber, String> {
     @Autowired
     private PersonRepository personRepository;
 
     @Override
-    public void initialize(IdentificationNumberNotDuplicateValidAnnotation constraintAnnotation) {
+    public void initialize(UniqueInvoiceIdentificationNumber constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 

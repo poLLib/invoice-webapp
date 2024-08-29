@@ -1,5 +1,6 @@
-package cz.pollib.dto.validation;
+package cz.pollib.dto.validation.annotation;
 
+import cz.pollib.dto.validation.validator.UniqueUserEmailValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -8,11 +9,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = PersonNotNullValidator.class)
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+@Constraint(validatedBy = UniqueUserEmailValidator.class)
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PersonNotNullValidAnnotation {
-    String message() default "Musíte vybrat jedno z možností";
+public @interface UniqueUserEmail {
+    String message() default "Uživatel s tímto emailem již existuje";
 
     Class<?>[] groups() default {};
 

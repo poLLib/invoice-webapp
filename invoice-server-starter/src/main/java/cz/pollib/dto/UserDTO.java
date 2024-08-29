@@ -1,6 +1,7 @@
 package cz.pollib.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import cz.pollib.dto.validation.annotation.UniqueUserEmail;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -12,6 +13,7 @@ public class UserDTO {
     @JsonProperty("_id")
     private long userId;
 
+    @UniqueUserEmail
     @Email(message = "Vyplňte uživatelský email ve správném formátu (\"@\")")
     private String email;
 

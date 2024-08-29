@@ -1,14 +1,15 @@
-package cz.pollib.dto.validation;
+package cz.pollib.dto.validation.validator;
 
 
 import cz.pollib.dto.InvoiceDTO;
+import cz.pollib.dto.validation.annotation.InvoiceIssuedDateBeforeDueDate;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Custom validator to check if the due date is after the issued date in an invoice.
  */
-public class InvoiceDatesValidator implements ConstraintValidator<InvoiceDatesValidAnnotation, InvoiceDTO> {
+public class InvoiceIssuedDateBeforeDueDateValidator implements ConstraintValidator<InvoiceIssuedDateBeforeDueDate, InvoiceDTO> {
 
     /**
      * Initializes the validator.
@@ -16,7 +17,7 @@ public class InvoiceDatesValidator implements ConstraintValidator<InvoiceDatesVa
      * @param constraintAnnotation the annotation instance for a given constraint declaration
      */
     @Override
-    public void initialize(InvoiceDatesValidAnnotation constraintAnnotation) {
+    public void initialize(InvoiceIssuedDateBeforeDueDate constraintAnnotation) {
     }
 
     /**

@@ -2,9 +2,9 @@ package cz.pollib.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import cz.pollib.dto.validation.PersonNotNullValidAnnotation;
-import cz.pollib.dto.validation.InvoiceDatesValidAnnotation;
-import cz.pollib.dto.validation.SellerBuyerNotSameValidAnnotation;
+import cz.pollib.dto.validation.annotation.PersonNotNull;
+import cz.pollib.dto.validation.annotation.InvoiceIssuedDateBeforeDueDate;
+import cz.pollib.dto.validation.annotation.PersonSellerBuyerNotSame;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,8 +31,8 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@InvoiceDatesValidAnnotation
-@SellerBuyerNotSameValidAnnotation
+@InvoiceIssuedDateBeforeDueDate
+@PersonSellerBuyerNotSame
 public class InvoiceDTO {
 
     @JsonProperty("_id")
@@ -61,9 +61,9 @@ public class InvoiceDTO {
 
     private String note;
 
-    @PersonNotNullValidAnnotation
+    @PersonNotNull
     private PersonDTO buyer;
 
-    @PersonNotNullValidAnnotation
+    @PersonNotNull
     private PersonDTO seller;
 }
