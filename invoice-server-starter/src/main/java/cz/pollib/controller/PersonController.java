@@ -68,3 +68,6 @@ public class PersonController {
 }
 
 //TODO: vytvoreni auth, dokumentace FE, BE a readme
+//TODO: zapnout ochranu csfr v AppSecurityConfig
+//TODO: poresit CORS
+
