@@ -7,8 +7,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.rmi.ServerException;
 
 @RestController
 @RequestMapping("/api")
@@ -41,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/auth")
-    public UserDTO getCurrentUser() throws ServletException{
+    public UserDTO getCurrentUser() throws ServletException {
         try {
             UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -54,4 +57,15 @@ public class UserController {
             throw new ServletException();
         }
     }
+
+    /**
+     * Handles the user's authentication exception if:
+     * - User logins when already login.
+     * - Logout fails
+     */
+    @ExceptionHandler(ServerException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public void handleServletException() {
+    }
+
 }
