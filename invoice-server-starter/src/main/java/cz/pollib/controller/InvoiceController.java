@@ -8,6 +8,7 @@ import cz.pollib.service.InvoiceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
 
+    @Secured("ROLE_ADMIN")
     @PostMapping
     public InvoiceDTO createInvoice(@RequestBody @Valid InvoiceDTO data) {
         return invoiceService.createInvoice(data);
@@ -35,12 +37,14 @@ public class InvoiceController {
         return invoiceService.detailInvoice(invoiceId);
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("{invoiceId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteInvoice(@PathVariable Long invoiceId) {
         invoiceService.deleteInvoice(invoiceId);
     }
 
+    @Secured("ROLE_ADMIN")
     @PutMapping("{invoiceId}")
     public InvoiceDTO editInvoice(@PathVariable Long invoiceId, @RequestBody @Valid InvoiceDTO data) {
         return invoiceService.editInvoice(invoiceId, data);

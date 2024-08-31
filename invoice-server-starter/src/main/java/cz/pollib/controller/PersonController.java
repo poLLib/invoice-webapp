@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/persons")
     public ResponseEntity<PersonDTO> addPerson(@RequestBody @Valid PersonDTO personDTO) {
         return new ResponseEntity<>(personService.addPerson(personDTO), HttpStatus.CREATED);
@@ -40,12 +42,14 @@ public class PersonController {
         return personService.getPerson(personId);
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/persons/{personId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePerson(@PathVariable Long personId) {
         personService.removePerson(personId);
     }
 
+    @Secured("ROLE_ADMIN")
     @PutMapping("/persons/{personId}")
     public PersonDTO editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO data) {
         return personService.editPerson(personId, data);
