@@ -29,7 +29,7 @@ function handleLogoutClick() {
  * Main App Component
  * - Sets up the Router for navigation
  * - Defines the layout and main routes for the application
- * - Starts the user's session
+ * - Starts the user's session 
  */
 export function App() {
 
