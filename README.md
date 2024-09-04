@@ -119,19 +119,19 @@ The API provides endpoints for managing companies and invoices using JSON format
 
 - **Companies**
   - `GET /api/persons`: Get all companies.
-  - `POST /api/persons`: Create a new company.
-  - `GET /api/persons/:id`: Get a single company by ID.
-  - `PUT /api/persons/:id`: Update a company by ID.
-  - `DELETE /api/companies/:id`: Delete a company by ID.
+  - `POST /api/person`: Create a new company.
+  - `GET /api/person/:id`: Get a single company by ID.
+  - `PUT /api/person/:id`: Update a company by ID.
+  - `DELETE /api/person/:id`: Delete a company by ID.
   - `GET /api/persons/statistics` : Get statistics of each company.
 
 
 - **Invoices**
   - `GET /api/invoices`: Get all invoices.
-  - `POST /api/invoices`: Create a new invoice.
-  - `GET /api/invoices/:id`: Get a single invoice by ID.
-  - `PUT /api/invoices/:id`: Update an invoice by ID.
-  - `DELETE /api/invoices/:id`: Delete an invoice by ID.
+  - `POST /api/invoice`: Create a new invoice.
+  - `GET /api/invoice/:id`: Get a single invoice by ID.
+  - `PUT /api/invoice/:id`: Update an invoice by ID.
+  - `DELETE /api/invoice/:id`: Delete an invoice by ID.
   - `GET /api/identification/:identificationNumber/sales`: Get all sold invoices of single company by its identification number.
   - `GET /api/identification/:identificationNumber/purchases`: Get all received invoices of single company by its identification number.
   - `GET /api/invoices/statistics` : Get invoice statistics.
