@@ -3,11 +3,14 @@ package cz.pollib.dto.validation;
 import cz.pollib.entity.repository.PersonRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class IdentificationNumberNotDuplicateValidator implements ConstraintValidator<IdentificationNumberNotDuplicateValidAnnotation, String> {
-    @Autowired
-    private PersonRepository personRepository;
+
+    private final PersonRepository personRepository;
+
+    public IdentificationNumberNotDuplicateValidator(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     @Override
     public void initialize(IdentificationNumberNotDuplicateValidAnnotation constraintAnnotation) {

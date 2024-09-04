@@ -5,7 +5,6 @@ import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
 import cz.pollib.service.PersonService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,11 @@ import java.util.List;
 @RequestMapping("/api")
 public class PersonController {
 
-    @Autowired
-    private PersonService personService;
+    private final PersonService personService;
+
+    public PersonController(PersonService personService) {
+        this.personService = personService;
+    }
 
     @PostMapping("/persons")
     public ResponseEntity<PersonDTO> addPerson(@RequestBody @Valid PersonDTO personDTO) {

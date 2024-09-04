@@ -9,7 +9,6 @@ import cz.pollib.entity.InvoiceEntity;
 import cz.pollib.entity.PersonEntity;
 import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -21,17 +20,20 @@ import java.util.stream.Collectors;
 @Service
 public class PersonServiceImpl implements PersonService {
 
-    @Autowired
-    private PersonMapper personMapper;
+    private final PersonMapper personMapper;
 
-    @Autowired
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    private InvoiceRepository invoiceRepository;
+    private final InvoiceRepository invoiceRepository;
 
-    @Autowired
-    private InvoiceMapper invoiceMapper;
+    private final InvoiceMapper invoiceMapper;
+
+    public PersonServiceImpl(PersonMapper personMapper, PersonRepository personRepository, InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper) {
+        this.personMapper = personMapper;
+        this.personRepository = personRepository;
+        this.invoiceRepository = invoiceRepository;
+        this.invoiceMapper = invoiceMapper;
+    }
 
     public PersonDTO addPerson(PersonDTO personDTO) {
         PersonEntity entity = personMapper.toEntity(personDTO);

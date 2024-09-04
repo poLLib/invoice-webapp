@@ -12,28 +12,28 @@ import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
 import cz.pollib.entity.repository.specification.InvoiceSpecification;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
 
-    @Autowired
-    private InvoiceRepository invoiceRepository;
+    private final InvoiceRepository invoiceRepository;
 
-    @Autowired
-    private InvoiceMapper invoiceMapper;
+    private final InvoiceMapper invoiceMapper;
 
-    @Autowired
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    private PersonMapper personMapper;
+    private final PersonMapper personMapper;
+
+    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper, PersonRepository personRepository, PersonMapper personMapper) {
+        this.invoiceRepository = invoiceRepository;
+        this.invoiceMapper = invoiceMapper;
+        this.personRepository = personRepository;
+        this.personMapper = personMapper;
+    }
 
     @Override
     public InvoiceDTO createInvoice(InvoiceDTO data) {
