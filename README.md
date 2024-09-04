@@ -118,23 +118,25 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 The API provides endpoints for managing companies and invoices using JSON format. You can also use API tool [Swagger](http://localhost:8080/swagger-ui/index.html#/). Below is a summary of the available endpoints:
 
 - **Companies**
-  - `GET /api/persons`: Get all companies.
-  - `POST /api/person`: Create a new company.
-  - `GET /api/person/:id`: Get a single company by ID.
-  - `PUT /api/person/:id`: Update a company by ID.
-  - `DELETE /api/person/:id`: Delete a company by ID.
+  - `GET /api/persons` : Get all companies.
+  - `POST /api/person` : Create a new company.
+  - `GET /api/person/:id` : Get a single company by ID.
+  - `PUT /api/person/:id` : Update a company by ID.
+  - `DELETE /api/person/:id` : Delete a company by ID.
   - `GET /api/persons/statistics` : Get statistics of each company.
+  - `GET /api/persons/total` : Get total number of companies.
+  - `GET /api/identification/:identificationNumber/sales` : Get all sold invoices of single company by its identification number.
+  - `GET /api/identification/:identificationNumber/purchases` : Get all received invoices of single company by its identification number.
 
-
+    
 - **Invoices**
-  - `GET /api/invoices`: Get all invoices.
-  - `POST /api/invoice`: Create a new invoice.
-  - `GET /api/invoice/:id`: Get a single invoice by ID.
-  - `PUT /api/invoice/:id`: Update an invoice by ID.
-  - `DELETE /api/invoice/:id`: Delete an invoice by ID.
-  - `GET /api/identification/:identificationNumber/sales`: Get all sold invoices of single company by its identification number.
-  - `GET /api/identification/:identificationNumber/purchases`: Get all received invoices of single company by its identification number.
+  - `GET /api/invoices` : Get all invoices.
+  - `POST /api/invoice` : Create a new invoice.
+  - `GET /api/invoice/:id` : Get a single invoice by ID.
+  - `PUT /api/invoice/:id` : Update an invoice by ID.
+  - `DELETE /api/invoice/:id` : Delete an invoice by ID.
   - `GET /api/invoices/statistics` : Get invoice statistics.
+
 
 ## Conclusion
 
