@@ -41,7 +41,7 @@ export function InvoiceForm() {
     useEffect(() => {
         async function fetchInvoices() {
             if (id) {
-                setInvoice(await apiGet("/api/invoices/" + id));
+                setInvoice(await apiGet("/api/invoice/" + id));
             }
             setPersons(await apiGet("/api/persons"));
         }
@@ -61,7 +61,7 @@ export function InvoiceForm() {
         setIsSubmitted(true);
 
         try {
-            const response = id ? await apiPut(`/api/invoices/${id}`, invoice) : await apiPost("/api/invoices", invoice);
+            const response = id ? await apiPut(`/api/invoice/${id}`, invoice) : await apiPost("/api/invoice", invoice);
             setError(false);
             setFlashMessage("Uložení faktury proběhlo úspěšně.")
             navigate("/invoices")

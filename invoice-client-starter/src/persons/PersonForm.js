@@ -44,7 +44,7 @@ export function PersonForm() {
         async function fetchPersons() {
             if (id) {
                 try {
-                    const personData = await apiGet(`/api/persons/${id}`);
+                    const personData = await apiGet(`/api/person/${id}`);
                     setPerson(personData);
                 } catch (error) {
                     console.error("Vyskytla se chyba při stahování dat ze serveru:", error);
@@ -67,7 +67,7 @@ export function PersonForm() {
         setIsSubmitted(true);
 
         try {
-            const response = id ? await apiPut(`/api/persons/${id}`, person) : await apiPost("/api/persons", person);
+            const response = id ? await apiPut(`/api/person/${id}`, person) : await apiPost("/api/person", person);
             setError(false);
             setFlashMessage("Přidání společnosti proběhlo úspěšně.")
             navigate("/persons");

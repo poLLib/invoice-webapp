@@ -42,7 +42,7 @@ export function InvoiceIndex() {
     */
     async function deleteInvoice(id) {
         try {
-            await apiDelete("/api/invoices/" + id);
+            await apiDelete("/api/invoice/" + id);
             setFlashMessage("Faktura byla úspěšně odebrána.")
         } catch (error) {
             console.log(error.message);

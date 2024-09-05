@@ -34,7 +34,7 @@ export function PersonIndex() {
      */
     async function deletePerson(id) {
         try {
-            await apiDelete(`/api/persons/${id}`);
+            await apiDelete(`/api/person/${id}`);
             setFlashMessage("Společnost byla úspěšně odebrána.")
         } catch (error) {
             console.log(error.message);

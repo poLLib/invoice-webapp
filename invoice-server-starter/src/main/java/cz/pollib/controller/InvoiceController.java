@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/invoices")
+@RequestMapping("/api")
 @Validated
 public class InvoiceController {
 
@@ -21,34 +21,34 @@ public class InvoiceController {
         this.invoiceService = invoiceService;
     }
 
-    @PostMapping
+    @PostMapping("/invoice")
     public InvoiceDTO createInvoice(@RequestBody @Valid InvoiceDTO data) {
         return invoiceService.createInvoice(data);
     }
 
-    @GetMapping
+    @GetMapping("/invoices")
     public InvoicePageDTO getPagesInvoices(InvoiceFilter invoiceFilter,
                                            @RequestParam(defaultValue = "0") int page) {
         return invoiceService.getAllInvoicesPageable(invoiceFilter, page);
     }
 
-    @GetMapping("{invoiceId}")
+    @GetMapping("/invoice/{invoiceId}")
     public InvoiceDTO getInvoiceDetail(@PathVariable Long invoiceId) {
         return invoiceService.detailInvoice(invoiceId);
     }
 
-    @DeleteMapping("{invoiceId}")
+    @DeleteMapping("/invoice/{invoiceId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteInvoice(@PathVariable Long invoiceId) {
         invoiceService.deleteInvoice(invoiceId);
     }
 
-    @PutMapping("{invoiceId}")
+    @PutMapping("/invoice/{invoiceId}")
     public InvoiceDTO editInvoice(@PathVariable Long invoiceId, @RequestBody @Valid InvoiceDTO data) {
         return invoiceService.editInvoice(invoiceId, data);
     }
 
-    @GetMapping("statistics")
+    @GetMapping("/invoices/statistics")
     public InvoiceStatisticsDTO getStatistics() {
         return invoiceService.getInvoiceStatistics();
     }

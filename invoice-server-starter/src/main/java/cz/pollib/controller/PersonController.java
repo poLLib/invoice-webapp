@@ -21,7 +21,7 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @PostMapping("/persons")
+    @PostMapping("/person")
     public ResponseEntity<PersonDTO> addPerson(@RequestBody @Valid PersonDTO personDTO) {
         return new ResponseEntity<>(personService.addPerson(personDTO), HttpStatus.CREATED);
     }
@@ -37,18 +37,18 @@ public class PersonController {
         return personService.getVisiblePersonsCount();
     }
 
-    @GetMapping("/persons/{personId}")
+    @GetMapping("/person/{personId}")
     public PersonDTO getPerson(@PathVariable Long personId) {
         return personService.getPerson(personId);
     }
 
-    @DeleteMapping("/persons/{personId}")
+    @DeleteMapping("/person/{personId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePerson(@PathVariable Long personId) {
         personService.removePerson(personId);
     }
 
-    @PutMapping("/persons/{personId}")
+    @PutMapping("/person/{personId}")
     public PersonDTO editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO data) {
         return personService.editPerson(personId, data);
     }
