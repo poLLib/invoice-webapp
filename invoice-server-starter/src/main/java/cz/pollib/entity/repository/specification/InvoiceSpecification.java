@@ -6,7 +6,6 @@ import cz.pollib.entity.PersonEntity;
 import cz.pollib.entity.PersonEntity_;
 import cz.pollib.entity.filter.InvoiceFilter;
 import jakarta.persistence.criteria.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
@@ -18,10 +17,13 @@ import java.util.List;
  * This class constructs JPA criteria queries based on the provided {@link InvoiceFilter} to filter invoices
  * by various criteria including price range, seller, buyer, and product description.
  */
-@RequiredArgsConstructor
 public class InvoiceSpecification implements Specification<InvoiceEntity> {
 
     private final InvoiceFilter invoiceFilter;
+
+    public InvoiceSpecification(InvoiceFilter invoiceFilter) {
+        this.invoiceFilter = invoiceFilter;
+    }
 
     /**
      * Constructs the {@link Predicate} for the JPA criteria query based on the given filter criteria.
