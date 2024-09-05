@@ -1,5 +1,0 @@
-spring.datasource:
-  url: jdbc:mariadb://localhost/InvoiceDatabase?createDatabaseIfNotExist=true
-  username: admintest
-  password: admintest
-  driver-class-name: org.mariadb.jdbc.Driver

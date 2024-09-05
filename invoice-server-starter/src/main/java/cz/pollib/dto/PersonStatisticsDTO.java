@@ -1,7 +1,5 @@
 package cz.pollib.dto;
 
-import lombok.Data;
-
 /**
  * Contains statistics for a person.
  * <p>
@@ -10,10 +8,45 @@ import lombok.Data;
  * - personName: The name of the person.
  * - revenue: The total revenue associated with the person.
  */
-@Data
 public class PersonStatisticsDTO {
 
     private Long personId;
     private String personName;
     private Long revenue;
+
+    public PersonStatisticsDTO() {
+    }
+
+    public PersonStatisticsDTO(Long personId, String personName, Long revenue) {
+        this.personId = personId;
+        this.personName = personName;
+        this.revenue = revenue;
+    }
+
+    // GETTERs and SETTERs block
+
+
+    public Long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
+    public Long getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(Long revenue) {
+        this.revenue = revenue;
+    }
 }

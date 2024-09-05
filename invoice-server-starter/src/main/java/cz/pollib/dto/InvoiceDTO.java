@@ -2,13 +2,13 @@ package cz.pollib.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import cz.pollib.dto.validation.PersonNotNullValidAnnotation;
 import cz.pollib.dto.validation.InvoiceDatesValidAnnotation;
+import cz.pollib.dto.validation.PersonNotNullValidAnnotation;
 import cz.pollib.dto.validation.SellerBuyerNotSameValidAnnotation;
-import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDate;
 
@@ -28,9 +28,6 @@ import java.time.LocalDate;
  * - buyer: The person or entity buying the product or service.
  * - seller: The person or entity selling the product or service.
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @InvoiceDatesValidAnnotation
 @SellerBuyerNotSameValidAnnotation
 public class InvoiceDTO {
@@ -66,4 +63,105 @@ public class InvoiceDTO {
 
     @PersonNotNullValidAnnotation
     private PersonDTO seller;
+
+    public InvoiceDTO() {
+    }
+
+    public InvoiceDTO(Long id, int invoiceNumber, LocalDate issued, LocalDate dueDate, String product, Long price, int vat, String note, PersonDTO buyer, PersonDTO seller) {
+        this.id = id;
+        this.invoiceNumber = invoiceNumber;
+        this.issued = issued;
+        this.dueDate = dueDate;
+        this.product = product;
+        this.price = price;
+        this.vat = vat;
+        this.note = note;
+        this.buyer = buyer;
+        this.seller = seller;
+    }
+
+    // GETTERs and SETTERs block
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Positive(message = "Zadejte číslo faktury v absolutním čísle")
+    public int getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(int invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public @NotNull(message = "Zadejte datum vystavení faktury") LocalDate getIssued() {
+        return issued;
+    }
+
+    public void setIssued(LocalDate issued) {
+        this.issued = issued;
+    }
+
+    public @NotNull(message = "Zadejte datum splatnosti faktury") LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public @NotBlank(message = "Vyplňte pole položka") String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public @NotNull(message = "Hodnota musí být větší než 0") Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    @Positive(message = "Zadejte DPH v absolutním čísle")
+    @Max(value = 100, message = "Hodnota nemůže být větší než 100")
+    public int getVat() {
+        return vat;
+    }
+
+    public void setVat(int vat) {
+        this.vat = vat;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public PersonDTO getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(PersonDTO buyer) {
+        this.buyer = buyer;
+    }
+
+    public PersonDTO getSeller() {
+        return seller;
+    }
+
+    public void setSeller(PersonDTO seller) {
+        this.seller = seller;
+    }
 }

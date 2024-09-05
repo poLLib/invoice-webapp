@@ -14,12 +14,45 @@ import java.math.BigDecimal;
  * - invoicesCount: The total number of invoices.
  * - currentYearSum: The sum of invoices issued in the current year.
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class InvoiceStatisticsDTO {
 
     private Long currentYearSum;
     private Long allTimeSum;
     private Long invoicesCount;
+
+    public InvoiceStatisticsDTO() {
+    }
+
+    public InvoiceStatisticsDTO(Long currentYearSum, Long allTimeSum, Long invoicesCount) {
+        this.currentYearSum = currentYearSum;
+        this.allTimeSum = allTimeSum;
+        this.invoicesCount = invoicesCount;
+    }
+
+    // GETTERs and SETTERs block
+
+
+    public Long getCurrentYearSum() {
+        return currentYearSum;
+    }
+
+    public void setCurrentYearSum(Long currentYearSum) {
+        this.currentYearSum = currentYearSum;
+    }
+
+    public Long getAllTimeSum() {
+        return allTimeSum;
+    }
+
+    public void setAllTimeSum(Long allTimeSum) {
+        this.allTimeSum = allTimeSum;
+    }
+
+    public Long getInvoicesCount() {
+        return invoicesCount;
+    }
+
+    public void setInvoicesCount(Long invoicesCount) {
+        this.invoicesCount = invoicesCount;
+    }
 }

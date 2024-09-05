@@ -1,8 +1,6 @@
 package cz.pollib.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -22,8 +20,6 @@ import java.time.LocalDate;
  * - seller: The person or entity selling the product or service.
  */
 @Entity(name = "invoice")
-@Getter
-@Setter
 public class InvoiceEntity {
 
     @Id
@@ -57,4 +53,85 @@ public class InvoiceEntity {
     @ManyToOne
     private PersonEntity seller;
 
+    // GETTERs and SETTERs block
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(int invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    public LocalDate getIssued() {
+        return issued;
+    }
+
+    public void setIssued(LocalDate issued) {
+        this.issued = issued;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    public int getVat() {
+        return vat;
+    }
+
+    public void setVat(int vat) {
+        this.vat = vat;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public PersonEntity getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(PersonEntity buyer) {
+        this.buyer = buyer;
+    }
+
+    public PersonEntity getSeller() {
+        return seller;
+    }
+
+    public void setSeller(PersonEntity seller) {
+        this.seller = seller;
+    }
 }
