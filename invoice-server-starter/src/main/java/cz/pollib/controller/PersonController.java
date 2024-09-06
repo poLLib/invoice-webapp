@@ -3,6 +3,7 @@ package cz.pollib.controller;
 import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
+import cz.pollib.entity.PersonEntity;
 import cz.pollib.service.PersonService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -22,12 +23,12 @@ public class PersonController {
     }
 
     @PostMapping("/person")
-    public ResponseEntity<PersonDTO> addPerson(@RequestBody @Valid PersonDTO personDTO) {
+    public ResponseEntity<PersonEntity> addPerson(@RequestBody @Valid PersonDTO personDTO) {
         return new ResponseEntity<>(personService.addPerson(personDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/persons")
-    public List<PersonDTO> getPeoplePages(@RequestParam(defaultValue = "0") int page,
+    public List<PersonEntity> getPeoplePages(@RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "10") int size) {
         return personService.getAllPeoplePageable(page, size);
     }
@@ -38,7 +39,7 @@ public class PersonController {
     }
 
     @GetMapping("/person/{personId}")
-    public PersonDTO getPerson(@PathVariable Long personId) {
+    public PersonEntity getPerson(@PathVariable Long personId) {
         return personService.getPerson(personId);
     }
 
@@ -49,7 +50,7 @@ public class PersonController {
     }
 
     @PutMapping("/person/{personId}")
-    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO data) {
+    public PersonEntity editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO data) {
         return personService.editPerson(personId, data);
     }
 

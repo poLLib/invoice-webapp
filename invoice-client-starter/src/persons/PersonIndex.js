@@ -35,16 +35,19 @@ export function PersonIndex() {
     async function deletePerson(id) {
         try {
             await apiDelete(`/api/person/${id}`);
-            setFlashMessage("Společnost byla úspěšně odebrána.")
+            setFlashMessage("Společnost byla úspěšně odebrána.");
         } catch (error) {
             console.log(error.message);
             alert(error.message)
         }
         setPersons(persons.filter((item) => item._id !== id));
 
-        if ((totalPersons - 1) % 10 === 0) {
-            navigate(`/persons/pages/${page - 1}`)
+        if ((totalPersons - 1) % 10 === 0 && page > 1) {
+            navigate(`/persons/pages/${page - 1}`);
+        } else {
+            navigate(`/persons/pages/${page}`);
         }
+
         setTotalPersons(totalPersons - 1);
     };
 
@@ -53,8 +56,9 @@ export function PersonIndex() {
      */
     useEffect(() => {
         async function fetchSumPersons() {
-            setTotalPersons(await apiGet("/api/persons/total"));
-            setTotalPages(Math.ceil(totalPersons / pageSize));
+            const total = await apiGet("/api/persons/total");
+            setTotalPersons(total);
+            setTotalPages(Math.ceil(total / pageSize));
             setIsLoadingCount(false);
         }
         fetchSumPersons();
@@ -70,7 +74,7 @@ export function PersonIndex() {
             setIsLoading(false);
         }
         fetchPersons();
-    }, [page]);
+    }, [page, persons]);
 
     /**
     *  Clears the flash message after change of page if shown 

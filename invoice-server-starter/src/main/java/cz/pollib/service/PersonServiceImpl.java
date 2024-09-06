@@ -35,18 +35,15 @@ public class PersonServiceImpl implements PersonService {
         this.invoiceMapper = invoiceMapper;
     }
 
-    public PersonDTO addPerson(PersonDTO personDTO) {
+    public PersonEntity addPerson(PersonDTO personDTO) {
         PersonEntity entity = personMapper.toEntity(personDTO);
         entity = personRepository.saveAndFlush(entity);
-        return personMapper.toDTO(entity);
+        return entity;
     }
 
     @Override
-    public List<PersonDTO> getAllPeoplePageable(int page, int size) {
-        return personRepository.findByHidden(false, PageRequest.of(page, size))
-                .stream()
-                .map(i -> personMapper.toDTO(i))
-                .collect(Collectors.toList());
+    public List<PersonEntity> getAllPeoplePageable(int page, int size) {
+        return new ArrayList<>(personRepository.findByHidden(false, PageRequest.of(page, size)));
     }
 
     @Override
@@ -55,9 +52,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDTO getPerson(Long id) {
-        PersonEntity person = fetchPersonById(id);
-        return personMapper.toDTO(person);
+    public PersonEntity getPerson(Long id) {
+        return fetchPersonById(id);
     }
 
     @Override
@@ -73,7 +69,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDTO editPerson(Long id, PersonDTO data) {
+    public PersonEntity editPerson(Long id, PersonDTO data) {
         PersonEntity fetchedPerson = fetchPersonById(id);
         PersonDTO newPerson = new PersonDTO();
         newPerson.setIdentificationNumber(fetchedPerson.getIdentificationNumber());
