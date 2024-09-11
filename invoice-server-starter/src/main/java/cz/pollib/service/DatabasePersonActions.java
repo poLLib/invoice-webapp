@@ -15,10 +15,9 @@ import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class PersonServiceImpl implements PersonService {
+public class DatabasePersonActions implements PersonOperations {
 
     private final PersonMapper personMapper;
 
@@ -28,7 +27,7 @@ public class PersonServiceImpl implements PersonService {
 
     private final InvoiceMapper invoiceMapper;
 
-    public PersonServiceImpl(PersonMapper personMapper, PersonRepository personRepository, InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper) {
+    public DatabasePersonActions(PersonMapper personMapper, PersonRepository personRepository, InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper) {
         this.personMapper = personMapper;
         this.personRepository = personRepository;
         this.invoiceRepository = invoiceRepository;

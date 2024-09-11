@@ -9,7 +9,7 @@ import cz.pollib.entity.filter.InvoiceFilter;
 /**
  * Service interface for managing invoices.
  */
-public interface InvoiceService {
+public interface InvoiceOperations {
 
     /**
      * Creates an invoice and attach it to Person.

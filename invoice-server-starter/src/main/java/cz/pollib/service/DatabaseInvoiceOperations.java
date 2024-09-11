@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class InvoiceServiceImpl implements InvoiceService {
+public class DatabaseInvoiceOperations implements InvoiceOperations {
 
     private final InvoiceRepository invoiceRepository;
 
@@ -28,7 +28,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     private final PersonMapper personMapper;
 
-    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper, PersonRepository personRepository, PersonMapper personMapper) {
+    public DatabaseInvoiceOperations(InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper, PersonRepository personRepository, PersonMapper personMapper) {
         this.invoiceRepository = invoiceRepository;
         this.invoiceMapper = invoiceMapper;
         this.personRepository = personRepository;

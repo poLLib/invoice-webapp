@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Service interface for managing person-related operations.
  */
-public interface PersonService {
+public interface PersonOperations {
 
     /**
      * Creates a new person

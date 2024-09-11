@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Positive;
  * Attributes:
  * - id: The unique identifier for the person.
  * - name: The name of the person.
- * - identificationNumber: The identification number of the person.
+ * - identificationNumber: The identification number of the person. The number must be unique in database.
  * - taxNumber: The tax number, starting with two uppercase letters.
  * - accountNumber: The account number.
  * - bankCode: The bank code.

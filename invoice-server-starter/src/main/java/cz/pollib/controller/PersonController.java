@@ -4,7 +4,7 @@ import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
 import cz.pollib.entity.PersonEntity;
-import cz.pollib.service.PersonService;
+import cz.pollib.service.PersonOperations;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,56 +16,56 @@ import java.util.List;
 @RequestMapping("/api")
 public class PersonController {
 
-    private final PersonService personService;
+    private final PersonOperations personOperations;
 
-    public PersonController(PersonService personService) {
-        this.personService = personService;
+    public PersonController(PersonOperations personOperations) {
+        this.personOperations = personOperations;
     }
 
     @PostMapping("/person")
     public ResponseEntity<PersonEntity> addPerson(@RequestBody @Valid PersonDTO personDTO) {
-        return new ResponseEntity<>(personService.addPerson(personDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(personOperations.addPerson(personDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/persons")
     public List<PersonEntity> getPeoplePages(@RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "10") int size) {
-        return personService.getAllPeoplePageable(page, size);
+        return personOperations.getAllPeoplePageable(page, size);
     }
 
     @GetMapping("/persons/total")
     public Long getTotalPeople() {
-        return personService.getVisiblePersonsCount();
+        return personOperations.getVisiblePersonsCount();
     }
 
     @GetMapping("/person/{personId}")
     public PersonEntity getPerson(@PathVariable Long personId) {
-        return personService.getPerson(personId);
+        return personOperations.getPerson(personId);
     }
 
     @DeleteMapping("/person/{personId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePerson(@PathVariable Long personId) {
-        personService.removePerson(personId);
+        personOperations.removePerson(personId);
     }
 
     @PutMapping("/person/{personId}")
     public PersonEntity editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO data) {
-        return personService.editPerson(personId, data);
+        return personOperations.editPerson(personId, data);
     }
 
     @GetMapping("/identification/{identificationNumber}/sales")
     public List<InvoiceDTO> getSellerInvoices(@PathVariable String identificationNumber) {
-        return personService.getInvoicesBySeller(identificationNumber);
+        return personOperations.getInvoicesBySeller(identificationNumber);
     }
 
     @GetMapping("/identification/{identificationNumber}/purchases")
     public List<InvoiceDTO> getBuyersInvoices(@PathVariable String identificationNumber) {
-        return personService.getInvoicesByBuyer(identificationNumber);
+        return personOperations.getInvoicesByBuyer(identificationNumber);
     }
 
     @GetMapping("/persons/statistics")
     public List<PersonStatisticsDTO> getPersonStatistics() {
-        return personService.getPersonStatistics();
+        return personOperations.getPersonStatistics();
     }
 }
