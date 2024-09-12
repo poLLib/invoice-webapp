@@ -12,36 +12,36 @@ import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
 import cz.pollib.entity.repository.specification.InvoiceSpecification;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 
 @Service
-public class InvoiceServiceImpl implements InvoiceService {
+public class DatabaseInvoiceOperations implements InvoiceOperations {
 
-    @Autowired
-    private InvoiceRepository invoiceRepository;
+    private final InvoiceRepository invoiceRepository;
 
-    @Autowired
-    private InvoiceMapper invoiceMapper;
+    private final InvoiceMapper invoiceMapper;
 
-    @Autowired
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    private PersonMapper personMapper;
+    private final PersonMapper personMapper;
+
+    public DatabaseInvoiceOperations(InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper, PersonRepository personRepository, PersonMapper personMapper) {
+        this.invoiceRepository = invoiceRepository;
+        this.invoiceMapper = invoiceMapper;
+        this.personRepository = personRepository;
+        this.personMapper = personMapper;
+    }
 
     @Override
-    public InvoiceDTO createInvoice(InvoiceDTO data) {
+    public InvoiceEntity createInvoice(InvoiceDTO data) {
         InvoiceEntity entity = invoiceMapper.toEntity(data);
         entity.setBuyer(personRepository.getReferenceById(data.getBuyer().getId()));
         entity.setSeller(personRepository.getReferenceById(data.getSeller().getId()));
         invoiceRepository.saveAndFlush(entity);
-        return invoiceMapper.toDTO(entity);
+        return entity;
     }
 
     @Override
@@ -60,8 +60,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public InvoiceDTO detailInvoice(Long id) {
-        return invoiceMapper.toDTO(invoiceRepository.getReferenceById(id));
+    public InvoiceEntity detailInvoice(Long id) {
+        return invoiceRepository.getReferenceById(id);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public InvoiceDTO editInvoice(Long id, InvoiceDTO data) {
+    public InvoiceEntity editInvoice(Long id, InvoiceDTO data) {
         InvoiceEntity invoice = fetchInvoiceById(id);
         invoiceMapper.updateEntity(data, invoice);
 
@@ -82,8 +82,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         invoice.setId(id);
 
         invoiceRepository.saveAndFlush(invoice);
-
-        return invoiceMapper.toDTO(invoice);
+        return invoice;
     }
 
     @Override

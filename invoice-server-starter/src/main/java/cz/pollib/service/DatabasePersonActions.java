@@ -9,42 +9,40 @@ import cz.pollib.entity.InvoiceEntity;
 import cz.pollib.entity.PersonEntity;
 import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class PersonServiceImpl implements PersonService {
+public class DatabasePersonActions implements PersonOperations {
 
-    @Autowired
-    private PersonMapper personMapper;
+    private final PersonMapper personMapper;
 
-    @Autowired
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    private InvoiceRepository invoiceRepository;
+    private final InvoiceRepository invoiceRepository;
 
-    @Autowired
-    private InvoiceMapper invoiceMapper;
+    private final InvoiceMapper invoiceMapper;
 
-    public PersonDTO addPerson(PersonDTO personDTO) {
+    public DatabasePersonActions(PersonMapper personMapper, PersonRepository personRepository, InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper) {
+        this.personMapper = personMapper;
+        this.personRepository = personRepository;
+        this.invoiceRepository = invoiceRepository;
+        this.invoiceMapper = invoiceMapper;
+    }
+
+    public PersonEntity addPerson(PersonDTO personDTO) {
         PersonEntity entity = personMapper.toEntity(personDTO);
         entity = personRepository.saveAndFlush(entity);
-        return personMapper.toDTO(entity);
+        return entity;
     }
 
     @Override
-    public List<PersonDTO> getAllPeoplePageable(int page, int size) {
-        return personRepository.findByHidden(false, PageRequest.of(page, size))
-                .stream()
-                .map(i -> personMapper.toDTO(i))
-                .collect(Collectors.toList());
+    public List<PersonEntity> getAllPeoplePageable(int page, int size) {
+        return new ArrayList<>(personRepository.findByHidden(false, PageRequest.of(page, size)));
     }
 
     @Override
@@ -53,9 +51,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDTO getPerson(Long id) {
-        PersonEntity person = fetchPersonById(id);
-        return personMapper.toDTO(person);
+    public PersonEntity getPerson(Long id) {
+        return fetchPersonById(id);
     }
 
     @Override
@@ -71,7 +68,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDTO editPerson(Long id, PersonDTO data) {
+    public PersonEntity editPerson(Long id, PersonDTO data) {
         PersonEntity fetchedPerson = fetchPersonById(id);
         PersonDTO newPerson = new PersonDTO();
         newPerson.setIdentificationNumber(fetchedPerson.getIdentificationNumber());
@@ -83,19 +80,18 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<InvoiceDTO> getInvoicesBySeller(String identificationNumber) {
+    public List<InvoiceEntity> getInvoicesBySeller(String identificationNumber) {
         return invoiceRepository.findAll().stream()
                 .filter(i -> i.getSeller().getIdentificationNumber().equals(identificationNumber))
-                .map(invoiceMapper::toDTO)
                 .toList();
     }
 
     @Override
-    public List<InvoiceDTO> getInvoicesByBuyer(String identificationNumber) {
-        List<InvoiceDTO> list = new ArrayList<>();
+    public List<InvoiceEntity> getInvoicesByBuyer(String identificationNumber) {
+        List<InvoiceEntity> list = new ArrayList<>();
         for (InvoiceEntity i : invoiceRepository.findAll()) {
             if (i.getBuyer().getIdentificationNumber().equals(identificationNumber))
-                list.add(invoiceMapper.toDTO(i));
+                list.add(i);
         }
         return list;
     }
@@ -131,5 +127,5 @@ public class PersonServiceImpl implements PersonService {
         return personRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Person with id " + id + " wasn't found in the database."));
     }
-    // endregion
+
 }

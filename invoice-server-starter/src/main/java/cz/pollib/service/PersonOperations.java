@@ -3,30 +3,32 @@ package cz.pollib.service;
 import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
+import cz.pollib.entity.InvoiceEntity;
+import cz.pollib.entity.PersonEntity;
 
 import java.util.List;
 
 /**
  * Service interface for managing person-related operations.
  */
-public interface PersonService {
+public interface PersonOperations {
 
     /**
      * Creates a new person
      *
      * @param personDTO Person to create
-     * @return Newly created PersonDTO
+     * @return Newly created PersonEntity
      */
-    PersonDTO addPerson(PersonDTO personDTO);
+    PersonEntity addPerson(PersonDTO personDTO);
 
     /**
      * Fetches all non-hidden persons and page them in lists
      *
      * @param page Current page
      * @param size Number of pages
-     * @return List of PersonDTO of current page
+     * @return List of PersonEntity of current page
      */
-    List<PersonDTO> getAllPeoplePageable(int page, int size);
+    List<PersonEntity> getAllPeoplePageable(int page, int size);
 
     /**
      * Counts all visible persons
@@ -40,9 +42,9 @@ public interface PersonService {
      * In case a person with the passed [id] isn't found, the method silently fails
      *
      * @param id Person to look up
-     * @return Found PersonDTO
+     * @return Found PersonEntity
      */
-    PersonDTO getPerson(Long id);
+    PersonEntity getPerson(Long id);
 
     /**
      * <p>Sets hidden flag to true for the person with the matching [id]</p>
@@ -58,25 +60,25 @@ public interface PersonService {
      *
      * @param id   Person to edit
      * @param data Updated data of person to edit
-     * @return Edited PersonDTO
+     * @return Edited PersonEntity
      */
-    PersonDTO editPerson(Long id, PersonDTO data);
+    PersonEntity editPerson(Long id, PersonDTO data);
 
     /**
      * Fetches all invoices by [identificationNumber] of the seller
      *
      * @param identificationNumber The seller
-     * @return List of the InvoiceDTO
+     * @return List of the InvoiceEntity
      */
-    List<InvoiceDTO> getInvoicesBySeller(String identificationNumber);
+    List<InvoiceEntity> getInvoicesBySeller(String identificationNumber);
 
     /**
      * Fetches all invoices by [identificationNumber] of the buyer
      *
      * @param identificationNumber The buyer
-     * @return List of the InvoiceDTO
+     * @return List of the InvoiceEntity
      */
-    List<InvoiceDTO> getInvoicesByBuyer(String identificationNumber);
+    List<InvoiceEntity> getInvoicesByBuyer(String identificationNumber);
 
     /**
      * Fetches all values of PersonStatisticsDTO [Long personId, String personName, Long revenue]
@@ -84,4 +86,5 @@ public interface PersonService {
      * @return List of statistics of each person
      */
     List<PersonStatisticsDTO> getPersonStatistics();
+
 }

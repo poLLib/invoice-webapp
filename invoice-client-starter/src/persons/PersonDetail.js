@@ -24,7 +24,7 @@ export function PersonDetail() {
 
     useEffect(() => {
         async function fetchPerson() {
-            setPerson(await apiGet(`/api/persons/${id}`))
+            setPerson(await apiGet(`/api/person/${id}`))
             setIsLoadingPersons(false);
         }
         fetchPerson();
