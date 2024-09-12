@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { apiGet, apiPost, apiPut } from "../utils/api";
 import { BackButton } from "../components/BackButton";
 import { InputCheck } from "../components/InputCheck";
-import { FlashMessageContext } from "../components/FlashMessageContext";
+import { FlashMessageContext } from "../contexts/FlashMessageContext";
 import { InputField } from "../components/InputField";
 import { Country } from "./Country";
 
@@ -44,7 +44,7 @@ export function PersonForm() {
         async function fetchPersons() {
             if (id) {
                 try {
-                    const personData = await apiGet(`/api/person/${id}`);
+                    const personData = await apiGet(`/api/persons/${id}`);
                     setPerson(personData);
                 } catch (error) {
                     console.error("Vyskytla se chyba při stahování dat ze serveru:", error);
@@ -67,7 +67,7 @@ export function PersonForm() {
         setIsSubmitted(true);
 
         try {
-            const response = id ? await apiPut(`/api/person/${id}`, person) : await apiPost("/api/person", person);
+            const response = id ? await apiPut(`/api/persons/${id}`, person) : await apiPost("/api/persons", person);
             setError(false);
             setFlashMessage("Přidání společnosti proběhlo úspěšně.")
             navigate("/persons");

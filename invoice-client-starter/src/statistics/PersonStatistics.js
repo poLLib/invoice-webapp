@@ -45,7 +45,7 @@ export function PersonStatistics() {
                                         </tr>
                                         <tr>
                                             <th>Celkový příjem:</th>
-                                            <td className="ps-3 fs-5 text-success align-right">{stat.revenue ? stat.revenue : 0} Kč</td>
+                                            <td className="ps-3 fs-5 text-success align-right">{stat.revenue} Kč</td>
                                         </tr>
                                     </tbody>
                                 </table>

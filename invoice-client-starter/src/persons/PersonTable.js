@@ -29,19 +29,19 @@ export function PersonTable({ itemsPerPage, deletePerson }) {
                             <td className="text-end">
                                 <div className="btn-group">
                                     <Link
-                                        to={"/persons/show/" + item.id}
+                                        to={"/persons/show/" + item._id}
                                         className="btn btn-sm btn-info"
                                     >
                                         Zobrazit
                                     </Link>
                                     <Link
-                                        to={"/persons/edit/" + item.id}
+                                        to={"/persons/edit/" + item._id}
                                         className="btn btn-sm btn-warning"
                                     >
                                         Upravit
                                     </Link>
                                     <button
-                                        onClick={() => deletePerson(item.id)}
+                                        onClick={() => deletePerson(item._id)}
                                         className="btn btn-sm btn-danger"
                                     >
                                         Odstranit

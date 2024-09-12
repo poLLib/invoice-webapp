@@ -5,7 +5,7 @@ import { apiGet, apiPost, apiPut } from "../utils/api";
 import { InputField } from "../components/InputField";
 import { dateStringFormatter } from "../utils/dateStringFormatter";
 import { BackButton } from "../components/BackButton";
-import { FlashMessageContext } from "../components/FlashMessageContext";
+import { FlashMessageContext } from "../contexts/FlashMessageContext";
 
 /**
  * InvoiceForm component handles the creation and editing of invoices.
@@ -41,7 +41,7 @@ export function InvoiceForm() {
     useEffect(() => {
         async function fetchInvoices() {
             if (id) {
-                setInvoice(await apiGet("/api/invoice/" + id));
+                setInvoice(await apiGet("/api/invoices/" + id));
             }
             setPersons(await apiGet("/api/persons"));
         }
@@ -61,7 +61,7 @@ export function InvoiceForm() {
         setIsSubmitted(true);
 
         try {
-            const response = id ? await apiPut(`/api/invoice/${id}`, invoice) : await apiPost("/api/invoice", invoice);
+            const response = id ? await apiPut(`/api/invoices/${id}`, invoice) : await apiPost("/api/invoices", invoice);
             setError(false);
             setFlashMessage("Uložení faktury proběhlo úspěšně.")
             navigate("/invoices")
