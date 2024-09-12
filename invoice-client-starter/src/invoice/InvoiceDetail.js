@@ -14,7 +14,7 @@ export function InvoiceDetail() {
 
     useEffect(() => {
         async function fetchInvoices() {
-            const data = await apiGet(`/api/invoice/${id}`);
+            const data = await apiGet(`/api/invoices/${id}`);
             setInvoice(data);
             setSeller(data.seller);
             setBuyer(data.buyer);
