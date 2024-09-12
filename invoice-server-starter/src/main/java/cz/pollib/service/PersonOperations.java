@@ -3,6 +3,7 @@ package cz.pollib.service;
 import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
+import cz.pollib.entity.InvoiceEntity;
 import cz.pollib.entity.PersonEntity;
 
 import java.util.List;
@@ -67,17 +68,17 @@ public interface PersonOperations {
      * Fetches all invoices by [identificationNumber] of the seller
      *
      * @param identificationNumber The seller
-     * @return List of the InvoiceDTO
+     * @return List of the InvoiceEntity
      */
-    List<InvoiceDTO> getInvoicesBySeller(String identificationNumber);
+    List<InvoiceEntity> getInvoicesBySeller(String identificationNumber);
 
     /**
      * Fetches all invoices by [identificationNumber] of the buyer
      *
      * @param identificationNumber The buyer
-     * @return List of the InvoiceDTO
+     * @return List of the InvoiceEntity
      */
-    List<InvoiceDTO> getInvoicesByBuyer(String identificationNumber);
+    List<InvoiceEntity> getInvoicesByBuyer(String identificationNumber);
 
     /**
      * Fetches all values of PersonStatisticsDTO [Long personId, String personName, Long revenue]
@@ -85,4 +86,5 @@ public interface PersonOperations {
      * @return List of statistics of each person
      */
     List<PersonStatisticsDTO> getPersonStatistics();
+
 }

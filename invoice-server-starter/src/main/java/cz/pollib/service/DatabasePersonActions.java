@@ -80,19 +80,18 @@ public class DatabasePersonActions implements PersonOperations {
     }
 
     @Override
-    public List<InvoiceDTO> getInvoicesBySeller(String identificationNumber) {
+    public List<InvoiceEntity> getInvoicesBySeller(String identificationNumber) {
         return invoiceRepository.findAll().stream()
                 .filter(i -> i.getSeller().getIdentificationNumber().equals(identificationNumber))
-                .map(invoiceMapper::toDTO)
                 .toList();
     }
 
     @Override
-    public List<InvoiceDTO> getInvoicesByBuyer(String identificationNumber) {
-        List<InvoiceDTO> list = new ArrayList<>();
+    public List<InvoiceEntity> getInvoicesByBuyer(String identificationNumber) {
+        List<InvoiceEntity> list = new ArrayList<>();
         for (InvoiceEntity i : invoiceRepository.findAll()) {
             if (i.getBuyer().getIdentificationNumber().equals(identificationNumber))
-                list.add(invoiceMapper.toDTO(i));
+                list.add(i);
         }
         return list;
     }
@@ -128,5 +127,5 @@ public class DatabasePersonActions implements PersonOperations {
         return personRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Person with id " + id + " wasn't found in the database."));
     }
-    // endregion
+
 }

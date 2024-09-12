@@ -3,6 +3,9 @@ package cz.pollib.controller;
 import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
+import cz.pollib.dto.mapper.InvoiceMapper;
+import cz.pollib.dto.mapper.PersonMapper;
+import cz.pollib.entity.InvoiceEntity;
 import cz.pollib.entity.PersonEntity;
 import cz.pollib.service.PersonOperations;
 import jakarta.validation.Valid;
@@ -18,19 +21,28 @@ public class PersonController {
 
     private final PersonOperations personOperations;
 
-    public PersonController(PersonOperations personOperations) {
+    private final PersonMapper personMapper;
+
+    private final InvoiceMapper invoiceMapper;
+
+    public PersonController(PersonOperations personOperations, PersonMapper personMapper, InvoiceMapper invoiceMapper) {
         this.personOperations = personOperations;
+        this.personMapper = personMapper;
+        this.invoiceMapper = invoiceMapper;
     }
 
     @PostMapping("/person")
-    public ResponseEntity<PersonEntity> addPerson(@RequestBody @Valid PersonDTO personDTO) {
-        return new ResponseEntity<>(personOperations.addPerson(personDTO), HttpStatus.CREATED);
+    public ResponseEntity<PersonDTO> addPerson(@RequestBody @Valid PersonDTO personDTO) {
+        return new ResponseEntity<>(personMapper.toDTO(personOperations.addPerson(personDTO)), HttpStatus.CREATED);
     }
 
     @GetMapping("/persons")
-    public List<PersonEntity> getPeoplePages(@RequestParam(defaultValue = "0") int page,
+    public List<PersonDTO> getPeoplePages(@RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "10") int size) {
-        return personOperations.getAllPeoplePageable(page, size);
+        List<PersonEntity> people = personOperations.getAllPeoplePageable(page, size);
+        return people.stream()
+                .map(personMapper::toDTO)
+                .toList();
     }
 
     @GetMapping("/persons/total")
@@ -39,8 +51,8 @@ public class PersonController {
     }
 
     @GetMapping("/person/{personId}")
-    public PersonEntity getPerson(@PathVariable Long personId) {
-        return personOperations.getPerson(personId);
+    public PersonDTO getPerson(@PathVariable Long personId) {
+        return personMapper.toDTO(personOperations.getPerson(personId));
     }
 
     @DeleteMapping("/person/{personId}")
@@ -50,22 +62,39 @@ public class PersonController {
     }
 
     @PutMapping("/person/{personId}")
-    public PersonEntity editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO data) {
-        return personOperations.editPerson(personId, data);
+    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO data) {
+        return personMapper.toDTO(personOperations.editPerson(personId, data));
     }
 
     @GetMapping("/identification/{identificationNumber}/sales")
     public List<InvoiceDTO> getSellerInvoices(@PathVariable String identificationNumber) {
-        return personOperations.getInvoicesBySeller(identificationNumber);
+        return listToDTO(personOperations.getInvoicesBySeller(identificationNumber));
     }
 
     @GetMapping("/identification/{identificationNumber}/purchases")
     public List<InvoiceDTO> getBuyersInvoices(@PathVariable String identificationNumber) {
-        return personOperations.getInvoicesByBuyer(identificationNumber);
+        return listToDTO(personOperations.getInvoicesByBuyer(identificationNumber));
     }
 
     @GetMapping("/persons/statistics")
     public List<PersonStatisticsDTO> getPersonStatistics() {
         return personOperations.getPersonStatistics();
     }
+
+    // region: Private methods
+
+    /**
+     * Converts the list of entities into the list of DTO's
+     *
+     * @param entities The list of InvoiceEntity
+     * @return list of InvoiceDTO
+     */
+    private List<InvoiceDTO> listToDTO(List<InvoiceEntity> entities) {
+        return entities.stream()
+                .map(invoiceMapper::toDTO)
+                .toList();
+    }
+
 }
+
+

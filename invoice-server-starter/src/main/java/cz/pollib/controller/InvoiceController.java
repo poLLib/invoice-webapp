@@ -3,6 +3,7 @@ package cz.pollib.controller;
 import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.InvoicePageDTO;
 import cz.pollib.dto.InvoiceStatisticsDTO;
+import cz.pollib.dto.mapper.InvoiceMapper;
 import cz.pollib.entity.filter.InvoiceFilter;
 import cz.pollib.service.InvoiceOperations;
 import jakarta.validation.Valid;
@@ -17,13 +18,16 @@ public class InvoiceController {
 
     private final InvoiceOperations invoiceOperations;
 
-    public InvoiceController(InvoiceOperations invoiceOperations) {
+    private final InvoiceMapper invoiceMapper;
+
+    public InvoiceController(InvoiceOperations invoiceOperations, InvoiceMapper invoiceMapper) {
         this.invoiceOperations = invoiceOperations;
+        this.invoiceMapper = invoiceMapper;
     }
 
     @PostMapping("/invoice")
     public InvoiceDTO createInvoice(@RequestBody @Valid InvoiceDTO data) {
-        return invoiceOperations.createInvoice(data);
+        return invoiceMapper.toDTO(invoiceOperations.createInvoice(data));
     }
 
     @GetMapping("/invoices")
@@ -34,7 +38,7 @@ public class InvoiceController {
 
     @GetMapping("/invoice/{invoiceId}")
     public InvoiceDTO getInvoiceDetail(@PathVariable Long invoiceId) {
-        return invoiceOperations.detailInvoice(invoiceId);
+        return invoiceMapper.toDTO(invoiceOperations.detailInvoice(invoiceId));
     }
 
     @DeleteMapping("/invoice/{invoiceId}")
@@ -45,7 +49,7 @@ public class InvoiceController {
 
     @PutMapping("/invoice/{invoiceId}")
     public InvoiceDTO editInvoice(@PathVariable Long invoiceId, @RequestBody @Valid InvoiceDTO data) {
-        return invoiceOperations.editInvoice(invoiceId, data);
+        return invoiceMapper.toDTO(invoiceOperations.editInvoice(invoiceId, data));
     }
 
     @GetMapping("/invoices/statistics")

@@ -36,12 +36,12 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
     }
 
     @Override
-    public InvoiceDTO createInvoice(InvoiceDTO data) {
+    public InvoiceEntity createInvoice(InvoiceDTO data) {
         InvoiceEntity entity = invoiceMapper.toEntity(data);
         entity.setBuyer(personRepository.getReferenceById(data.getBuyer().getId()));
         entity.setSeller(personRepository.getReferenceById(data.getSeller().getId()));
         invoiceRepository.saveAndFlush(entity);
-        return invoiceMapper.toDTO(entity);
+        return entity;
     }
 
     @Override
@@ -60,8 +60,8 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
     }
 
     @Override
-    public InvoiceDTO detailInvoice(Long id) {
-        return invoiceMapper.toDTO(invoiceRepository.getReferenceById(id));
+    public InvoiceEntity detailInvoice(Long id) {
+        return invoiceRepository.getReferenceById(id);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
     }
 
     @Override
-    public InvoiceDTO editInvoice(Long id, InvoiceDTO data) {
+    public InvoiceEntity editInvoice(Long id, InvoiceDTO data) {
         InvoiceEntity invoice = fetchInvoiceById(id);
         invoiceMapper.updateEntity(data, invoice);
 
@@ -82,8 +82,7 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
         invoice.setId(id);
 
         invoiceRepository.saveAndFlush(invoice);
-
-        return invoiceMapper.toDTO(invoice);
+        return invoice;
     }
 
     @Override

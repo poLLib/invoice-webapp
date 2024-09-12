@@ -3,6 +3,7 @@ package cz.pollib.service;
 import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.InvoicePageDTO;
 import cz.pollib.dto.InvoiceStatisticsDTO;
+import cz.pollib.entity.InvoiceEntity;
 import cz.pollib.entity.filter.InvoiceFilter;
 
 
@@ -16,9 +17,9 @@ public interface InvoiceOperations {
      * Catches duplication of invoiceNumber in database (DataIntegrityViolationException) and @throw DuplicateEntityException.
      *
      * @param data Invoice to create
-     * @return Created InvoiceDTO
+     * @return Created InvoiceEntity
      */
-    InvoiceDTO createInvoice(InvoiceDTO data);
+    InvoiceEntity createInvoice(InvoiceDTO data);
 
     /**
      * Fetches all invoices in database and filter them according to user's parameters and make them pageable.
@@ -34,9 +35,9 @@ public interface InvoiceOperations {
      * Look up for a specific invoice by [id]
      *
      * @param id Person we look for
-     * @return Fetched InvoiceDTO
+     * @return Fetched InvoiceEntity
      */
-    InvoiceDTO detailInvoice(Long id);
+    InvoiceEntity detailInvoice(Long id);
 
     /**
      * <p>Sets hidden flag to true for the person with the matching [id]</p>
@@ -51,9 +52,9 @@ public interface InvoiceOperations {
      *
      * @param id   Invoice to be edited
      * @param data New source of data for update invoice
-     * @return Edited InvoiceDTO
+     * @return Edited InvoiceEntity
      */
-    InvoiceDTO editInvoice(Long id, InvoiceDTO data);
+    InvoiceEntity editInvoice(Long id, InvoiceDTO data);
 
     /**
      * Counts the invoices, profit of the invoices in current year and in total
