@@ -20,7 +20,7 @@ import java.time.LocalDate;
  * - seller: The person or entity selling the product or service.
  */
 @Entity(name = "invoice")
-public class InvoiceEntity {
+public class Invoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,10 +48,10 @@ public class InvoiceEntity {
     private String note;
 
     @ManyToOne
-    private PersonEntity buyer;
+    private Person buyer;
 
     @ManyToOne
-    private PersonEntity seller;
+    private Person seller;
 
     // GETTERs and SETTERs block
 
@@ -119,19 +119,19 @@ public class InvoiceEntity {
         this.note = note;
     }
 
-    public PersonEntity getBuyer() {
+    public Person getBuyer() {
         return buyer;
     }
 
-    public void setBuyer(PersonEntity buyer) {
+    public void setBuyer(Person buyer) {
         this.buyer = buyer;
     }
 
-    public PersonEntity getSeller() {
+    public Person getSeller() {
         return seller;
     }
 
-    public void setSeller(PersonEntity seller) {
+    public void setSeller(Person seller) {
         this.seller = seller;
     }
 }

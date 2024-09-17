@@ -1,38 +1,38 @@
 package cz.pollib.dto.mapper;
 
 import cz.pollib.dto.PersonDTO;
-import cz.pollib.entity.PersonEntity;
+import cz.pollib.entity.Person;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 /**
- * Mapper interface for converting between {@link PersonEntity} and {@link PersonDTO}.
+ * Mapper interface for converting between {@link Person} and {@link PersonDTO}.
  * Utilizes MapStruct for generating the implementation.
  */
 @Mapper(componentModel = "spring")
 public interface PersonMapper {
 
     /**
-     * Converts a {@link PersonDTO} to a {@link PersonEntity}.
+     * Converts a {@link PersonDTO} to a {@link Person}.
      *
      * @param source the source {@link PersonDTO}
-     * @return the converted {@link PersonEntity}
+     * @return the converted {@link Person}
      */
-    PersonEntity toEntity(PersonDTO source);
+    Person toEntity(PersonDTO source);
 
     /**
-     * Converts a {@link PersonEntity} to a {@link PersonDTO}.
+     * Converts a {@link Person} to a {@link PersonDTO}.
      *
-     * @param source the source {@link PersonEntity}
+     * @param source the source {@link Person}
      * @return the converted {@link PersonDTO}
      */
-    PersonDTO toDTO(PersonEntity source);
+    PersonDTO toDTO(Person source);
 
     /**
-     * Updates an existing {@link PersonDTO} with values from a {@link PersonEntity}.
+     * Updates an existing {@link PersonDTO} with values from a {@link Person}.
      *
-     * @param source the source {@link PersonEntity}
+     * @param source the source {@link Person}
      * @param target the target {@link PersonDTO} to be updated
      */
-    void updateDTO(PersonEntity source, @MappingTarget PersonDTO target);
+    void updateDTO(Person source, @MappingTarget PersonDTO target);
 }

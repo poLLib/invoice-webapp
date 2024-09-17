@@ -1,7 +1,7 @@
 package cz.pollib.dto.mapper;
 
 import cz.pollib.dto.PersonDTO;
-import cz.pollib.entity.PersonEntity;
+import cz.pollib.entity.Person;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
@@ -13,35 +13,35 @@ import org.springframework.stereotype.Component;
 public class PersonMapperImpl implements PersonMapper {
 
     @Override
-    public PersonEntity toEntity(PersonDTO source) {
+    public Person toEntity(PersonDTO source) {
         if ( source == null ) {
             return null;
         }
 
-        PersonEntity personEntity = new PersonEntity();
+        Person person = new Person();
 
         if ( source.getId() != null ) {
-            personEntity.setId( source.getId() );
+            person.setId( source.getId() );
         }
-        personEntity.setName( source.getName() );
-        personEntity.setIdentificationNumber( source.getIdentificationNumber() );
-        personEntity.setTaxNumber( source.getTaxNumber() );
-        personEntity.setAccountNumber( source.getAccountNumber() );
-        personEntity.setBankCode( source.getBankCode() );
-        personEntity.setIban( source.getIban() );
-        personEntity.setTelephone( source.getTelephone() );
-        personEntity.setMail( source.getMail() );
-        personEntity.setStreet( source.getStreet() );
-        personEntity.setZip( source.getZip() );
-        personEntity.setCity( source.getCity() );
-        personEntity.setCountry( source.getCountry() );
-        personEntity.setNote( source.getNote() );
+        person.setName( source.getName() );
+        person.setIdentificationNumber( source.getIdentificationNumber() );
+        person.setTaxNumber( source.getTaxNumber() );
+        person.setAccountNumber( source.getAccountNumber() );
+        person.setBankCode( source.getBankCode() );
+        person.setIban( source.getIban() );
+        person.setTelephone( source.getTelephone() );
+        person.setMail( source.getMail() );
+        person.setStreet( source.getStreet() );
+        person.setZip( source.getZip() );
+        person.setCity( source.getCity() );
+        person.setCountry( source.getCountry() );
+        person.setNote( source.getNote() );
 
-        return personEntity;
+        return person;
     }
 
     @Override
-    public PersonDTO toDTO(PersonEntity source) {
+    public PersonDTO toDTO(Person source) {
         if ( source == null ) {
             return null;
         }
@@ -67,7 +67,7 @@ public class PersonMapperImpl implements PersonMapper {
     }
 
     @Override
-    public void updateDTO(PersonEntity source, PersonDTO target) {
+    public void updateDTO(Person source, PersonDTO target) {
         if ( source == null ) {
             return;
         }

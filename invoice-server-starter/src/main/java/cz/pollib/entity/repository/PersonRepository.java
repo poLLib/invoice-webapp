@@ -1,6 +1,6 @@
 package cz.pollib.entity.repository;
 
-import cz.pollib.entity.PersonEntity;
+import cz.pollib.entity.Person;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 /**
- * Repository interface for managing {@link PersonEntity} entities.
+ * Repository interface for managing {@link Person} entities.
  */
-public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
+public interface PersonRepository extends JpaRepository<Person, Long> {
 
 
     /**
@@ -19,17 +19,17 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
      *
      * @param hidden   Indicates whether the entities are hidden.
      * @param pageable Pagination information.
-     * @return A list of hidden {@link PersonEntity} entities.
+     * @return A list of hidden {@link Person} entities.
      */
-    List<PersonEntity> findByHidden(boolean hidden, Pageable pageable);
+    List<Person> findByHidden(boolean hidden, Pageable pageable);
 
     /**
      * Finds hidden entities without pagination.
      *
      * @param hidden Indicates whether the entities are hidden.
-     * @return A list of hidden {@link PersonEntity} entities.
+     * @return A list of hidden {@link Person} entities.
      */
-    List<PersonEntity> findByHidden(boolean hidden);
+    List<Person> findByHidden(boolean hidden);
 
     /**
      * Counts all non-hidden people.
@@ -52,9 +52,9 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
      * Finds a person by their identification number.
      *
      * @param identificationNumber The identification number of the person.
-     * @return The {@link PersonEntity} with the given identification number.
+     * @return The {@link Person} with the given identification number.
      */
-    PersonEntity findByIdentificationNumber(String identificationNumber);
+    Person findByIdentificationNumber(String identificationNumber);
 
     boolean existsByIdentificationNumber(String identificationNumber);
 }

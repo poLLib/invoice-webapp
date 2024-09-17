@@ -5,8 +5,8 @@ import cz.pollib.dto.InvoicePageDTO;
 import cz.pollib.dto.InvoiceStatisticsDTO;
 import cz.pollib.dto.mapper.InvoiceMapper;
 import cz.pollib.dto.mapper.PersonMapper;
-import cz.pollib.entity.InvoiceEntity;
-import cz.pollib.entity.PersonEntity;
+import cz.pollib.entity.Invoice;
+import cz.pollib.entity.Person;
 import cz.pollib.entity.filter.InvoiceFilter;
 import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
@@ -36,8 +36,8 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
     }
 
     @Override
-    public InvoiceEntity createInvoice(InvoiceDTO data) {
-        InvoiceEntity entity = invoiceMapper.toEntity(data);
+    public Invoice createInvoice(InvoiceDTO data) {
+        Invoice entity = invoiceMapper.toEntity(data);
         entity.setBuyer(personRepository.getReferenceById(data.getBuyer().getId()));
         entity.setSeller(personRepository.getReferenceById(data.getSeller().getId()));
         invoiceRepository.saveAndFlush(entity);
@@ -60,7 +60,7 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
     }
 
     @Override
-    public InvoiceEntity detailInvoice(Long id) {
+    public Invoice detailInvoice(Long id) {
         return invoiceRepository.getReferenceById(id);
     }
 
@@ -70,12 +70,12 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
     }
 
     @Override
-    public InvoiceEntity editInvoice(Long id, InvoiceDTO data) {
-        InvoiceEntity invoice = fetchInvoiceById(id);
+    public Invoice editInvoice(Long id, InvoiceDTO data) {
+        Invoice invoice = fetchInvoiceById(id);
         invoiceMapper.updateEntity(data, invoice);
 
-        PersonEntity seller = personRepository.getReferenceById(data.getSeller().getId());
-        PersonEntity buyer = personRepository.getReferenceById(data.getBuyer().getId());
+        Person seller = personRepository.getReferenceById(data.getSeller().getId());
+        Person buyer = personRepository.getReferenceById(data.getBuyer().getId());
 
         invoice.setSeller(seller);
         invoice.setBuyer(buyer);
@@ -100,7 +100,7 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
      * @return Fetched entity
      * @throws org.webjars.NotFoundException In case the invoice with the passed [id] isn't found
      */
-    private InvoiceEntity fetchInvoiceById(long id) {
+    private Invoice fetchInvoiceById(long id) {
         return invoiceRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }

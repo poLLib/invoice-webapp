@@ -1,15 +1,15 @@
 package cz.pollib.entity.repository;
 
 import cz.pollib.dto.InvoiceStatisticsDTO;
-import cz.pollib.entity.InvoiceEntity;
+import cz.pollib.entity.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 /**
- * Repository interface for managing {@link InvoiceEntity} entities.
+ * Repository interface for managing {@link Invoice} entities.
  */
-public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, JpaSpecificationExecutor<InvoiceEntity> {
+public interface InvoiceRepository extends JpaRepository<Invoice, Long>, JpaSpecificationExecutor<Invoice> {
 
     /**
      * Count all invoices

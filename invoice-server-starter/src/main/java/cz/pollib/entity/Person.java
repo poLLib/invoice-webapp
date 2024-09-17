@@ -28,7 +28,7 @@ import java.util.List;
  * - sales: The list of invoices where the person is the seller.
  */
 @Entity(name = "person")
-public class PersonEntity {
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,10 +75,10 @@ public class PersonEntity {
     private boolean hidden = false;
 
     @OneToMany(mappedBy = "buyer")
-    private List<InvoiceEntity> purchases;
+    private List<Invoice> purchases;
 
     @OneToMany(mappedBy = "seller")
-    private List<InvoiceEntity> sales;
+    private List<Invoice> sales;
 
     // GETTERs and SETTERs block
 

@@ -1,7 +1,7 @@
 package cz.pollib.dto.mapper;
 
 import cz.pollib.dto.InvoiceDTO;
-import cz.pollib.entity.InvoiceEntity;
+import cz.pollib.entity.Invoice;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class InvoiceMapperImpl implements InvoiceMapper {
     private PersonMapper personMapper;
 
     @Override
-    public InvoiceDTO toDTO(InvoiceEntity source) {
+    public InvoiceDTO toDTO(Invoice source) {
         if ( source == null ) {
             return null;
         }
@@ -39,29 +39,29 @@ public class InvoiceMapperImpl implements InvoiceMapper {
     }
 
     @Override
-    public InvoiceEntity toEntity(InvoiceDTO source) {
+    public Invoice toEntity(InvoiceDTO source) {
         if ( source == null ) {
             return null;
         }
 
-        InvoiceEntity invoiceEntity = new InvoiceEntity();
+        Invoice invoice = new Invoice();
 
-        invoiceEntity.setId( source.getId() );
-        invoiceEntity.setInvoiceNumber( source.getInvoiceNumber() );
-        invoiceEntity.setIssued( source.getIssued() );
-        invoiceEntity.setDueDate( source.getDueDate() );
-        invoiceEntity.setProduct( source.getProduct() );
-        invoiceEntity.setPrice( source.getPrice() );
-        invoiceEntity.setVat( source.getVat() );
-        invoiceEntity.setNote( source.getNote() );
-        invoiceEntity.setBuyer( personMapper.toEntity( source.getBuyer() ) );
-        invoiceEntity.setSeller( personMapper.toEntity( source.getSeller() ) );
+        invoice.setId( source.getId() );
+        invoice.setInvoiceNumber( source.getInvoiceNumber() );
+        invoice.setIssued( source.getIssued() );
+        invoice.setDueDate( source.getDueDate() );
+        invoice.setProduct( source.getProduct() );
+        invoice.setPrice( source.getPrice() );
+        invoice.setVat( source.getVat() );
+        invoice.setNote( source.getNote() );
+        invoice.setBuyer( personMapper.toEntity( source.getBuyer() ) );
+        invoice.setSeller( personMapper.toEntity( source.getSeller() ) );
 
-        return invoiceEntity;
+        return invoice;
     }
 
     @Override
-    public void updateEntity(InvoiceDTO source, InvoiceEntity target) {
+    public void updateEntity(InvoiceDTO source, Invoice target) {
         if ( source == null ) {
             return;
         }

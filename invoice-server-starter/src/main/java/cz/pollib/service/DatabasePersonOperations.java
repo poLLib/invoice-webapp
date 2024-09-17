@@ -1,12 +1,11 @@
 package cz.pollib.service;
 
-import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
 import cz.pollib.dto.mapper.InvoiceMapper;
 import cz.pollib.dto.mapper.PersonMapper;
-import cz.pollib.entity.InvoiceEntity;
-import cz.pollib.entity.PersonEntity;
+import cz.pollib.entity.Invoice;
+import cz.pollib.entity.Person;
 import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DatabasePersonActions implements PersonOperations {
+public class DatabasePersonOperations implements PersonOperations {
 
     private final PersonMapper personMapper;
 
@@ -27,21 +26,21 @@ public class DatabasePersonActions implements PersonOperations {
 
     private final InvoiceMapper invoiceMapper;
 
-    public DatabasePersonActions(PersonMapper personMapper, PersonRepository personRepository, InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper) {
+    public DatabasePersonOperations(PersonMapper personMapper, PersonRepository personRepository, InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper) {
         this.personMapper = personMapper;
         this.personRepository = personRepository;
         this.invoiceRepository = invoiceRepository;
         this.invoiceMapper = invoiceMapper;
     }
 
-    public PersonEntity addPerson(PersonDTO personDTO) {
-        PersonEntity entity = personMapper.toEntity(personDTO);
+    public Person addPerson(PersonDTO personDTO) {
+        Person entity = personMapper.toEntity(personDTO);
         entity = personRepository.saveAndFlush(entity);
         return entity;
     }
 
     @Override
-    public List<PersonEntity> getAllPeoplePageable(int page, int size) {
+    public List<Person> getAllPeoplePageable(int page, int size) {
         return new ArrayList<>(personRepository.findByHidden(false, PageRequest.of(page, size)));
     }
 
@@ -51,14 +50,14 @@ public class DatabasePersonActions implements PersonOperations {
     }
 
     @Override
-    public PersonEntity getPerson(Long id) {
+    public Person getPerson(Long id) {
         return fetchPersonById(id);
     }
 
     @Override
     public void removePerson(long personId) {
         try {
-            PersonEntity person = fetchPersonById(personId);
+            Person person = fetchPersonById(personId);
             person.setHidden(true);
 
             personRepository.saveAndFlush(person);
@@ -68,8 +67,8 @@ public class DatabasePersonActions implements PersonOperations {
     }
 
     @Override
-    public PersonEntity editPerson(Long id, PersonDTO data) {
-        PersonEntity fetchedPerson = fetchPersonById(id);
+    public Person editPerson(Long id, PersonDTO data) {
+        Person fetchedPerson = fetchPersonById(id);
         PersonDTO newPerson = new PersonDTO();
         newPerson.setIdentificationNumber(fetchedPerson.getIdentificationNumber());
         newPerson.setTaxNumber(fetchedPerson.getTaxNumber());
@@ -80,16 +79,16 @@ public class DatabasePersonActions implements PersonOperations {
     }
 
     @Override
-    public List<InvoiceEntity> getInvoicesBySeller(String identificationNumber) {
+    public List<Invoice> getInvoicesBySeller(String identificationNumber) {
         return invoiceRepository.findAll().stream()
                 .filter(i -> i.getSeller().getIdentificationNumber().equals(identificationNumber))
                 .toList();
     }
 
     @Override
-    public List<InvoiceEntity> getInvoicesByBuyer(String identificationNumber) {
-        List<InvoiceEntity> list = new ArrayList<>();
-        for (InvoiceEntity i : invoiceRepository.findAll()) {
+    public List<Invoice> getInvoicesByBuyer(String identificationNumber) {
+        List<Invoice> list = new ArrayList<>();
+        for (Invoice i : invoiceRepository.findAll()) {
             if (i.getBuyer().getIdentificationNumber().equals(identificationNumber))
                 list.add(i);
         }
@@ -100,7 +99,7 @@ public class DatabasePersonActions implements PersonOperations {
     public List<PersonStatisticsDTO> getPersonStatistics() {
         List<PersonStatisticsDTO> list = new ArrayList<>();
 
-        for (PersonEntity person : personRepository.findByHidden(false)) {
+        for (Person person : personRepository.findByHidden(false)) {
             PersonStatisticsDTO personStatisticsDTO = new PersonStatisticsDTO();
 
             personStatisticsDTO.setPersonId(person.getId());
@@ -123,7 +122,7 @@ public class DatabasePersonActions implements PersonOperations {
      * @return Fetched entity
      * @throws org.webjars.NotFoundException In case a person with the passed [id] isn't found
      */
-    private PersonEntity fetchPersonById(Long id) {
+    private Person fetchPersonById(Long id) {
         return personRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Person with id " + id + " wasn't found in the database."));
     }
