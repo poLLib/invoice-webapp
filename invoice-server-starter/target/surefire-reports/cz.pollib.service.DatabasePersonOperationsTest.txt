@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: cz.pollib.service.DatabasePersonOperationsTest
+-------------------------------------------------------------------------------
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.443 s -- in cz.pollib.service.DatabasePersonOperationsTest
