@@ -7,7 +7,7 @@ springdoc:
 spring:
   application:
     name: "invoice-webapp"
-    
+
   jpa:
     open-in-view: true
     hibernate:

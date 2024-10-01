@@ -74,7 +74,7 @@ export function PersonIndex() {
             setIsLoading(false);
         }
         fetchPersons();
-    }, [page, persons]);
+    }, [page]);
 
     /**
     *  Clears the flash message after change of page if shown 

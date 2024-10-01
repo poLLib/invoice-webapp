@@ -29,7 +29,7 @@ export function PersonTable({ itemsPerPage, deletePerson }) {
                             <td className="text-end">
                                 <div className="btn-group">
                                     <Link
-                                        to={"/persons/show/" + item.id}
+                                        to={"/persons/show/" + item._id}
                                         className="btn btn-sm btn-info"
                                     >
                                         Zobrazit
