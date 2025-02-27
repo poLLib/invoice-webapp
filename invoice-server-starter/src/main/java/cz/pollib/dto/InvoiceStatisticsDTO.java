@@ -25,7 +25,6 @@ public class InvoiceStatisticsDTO {
 
     // GETTERs and SETTERs block
 
-
     public Long getCurrentYearSum() {
         return currentYearSum;
     }
