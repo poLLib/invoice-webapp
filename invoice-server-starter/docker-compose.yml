@@ -1,0 +1,29 @@
+services:
+  mariadb:
+    image: mariadb:11.8.2
+    container_name: mariadb-compose
+    environment:
+      MYSQL_ROOT_PASSWORD: invoiceapp
+      MYSQL_DATABASE: invoiceapp
+      MYSQL_USER: invoiceapp_user
+      MYSQL_PASSWORD: invoiceapp_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - mariadb_network
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  mariadb_data:
+
+networks:
+  mariadb_network:
+    driver: bridge
