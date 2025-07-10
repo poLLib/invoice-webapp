@@ -62,33 +62,20 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
    npm install
    npm install bootstrap@5.2.3 react-router-dom@6.10.0
    ```
-
-3. **Start the database on XAMPP**
+3. **Start the frontend server:**
    ```bash
-   # For Linux
-   cd /opt/lampp
-   sudo ./xampp start
-
-   # For macOS
-   cd /Applications/XAMPP
-   sudo ./xampp start
-
-   # For Windows Command Prompt or PowerShell
-   "C:\xampp\xampp-control.exe"
+   npm start
    ```
-   Alternatively, you can run as administrator XAMPP Control Panel and start MariaDB/MySQL.
-   
-4. **Start the backend server:**
+
+4. **Start the database in docker**
    ```bash
    cd ../invoice-server-starter
-   mvn spring-boot:run
+   docker compose up
    ```
-   Alternatively, you can use your preferred IDE to run the server.
    
-5. **Start the frontend server:**
+5. **Start the backend server:**
    ```bash
-   cd ../invoice-client-starter
-   npm start
+   mvn spring-boot:run
    ```
 
 6. **Open your browser and navigate to:**
