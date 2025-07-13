@@ -4,9 +4,9 @@ import cz.pollib.dto.InvoiceDTO;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class SellerBuyerNotSameValidator implements ConstraintValidator<SellerBuyerNotSameValidAnnotation, InvoiceDTO> {
+public class SellerAndBuyerNotSameValidator implements ConstraintValidator<SellerAndBuyerNotSame, InvoiceDTO> {
     @Override
-    public void initialize(SellerBuyerNotSameValidAnnotation constraintAnnotation) {
+    public void initialize(SellerAndBuyerNotSame constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 

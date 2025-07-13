@@ -32,9 +32,8 @@ public class InvoiceController {
     }
 
     @GetMapping("/invoices")
-    public InvoicePageDTO getPagesInvoices(InvoiceFilter invoiceFilter,
-                                           @RequestParam(defaultValue = "0") int page) {
-        return invoiceOperations.getAllInvoicesPageable(invoiceFilter, page);
+    public InvoicePageDTO searchInvoices(InvoiceFilter invoiceFilter, @RequestParam(defaultValue = "0") int page) {
+        return invoiceOperations.searchInvoices(invoiceFilter, page);
     }
 
     @GetMapping("/invoice/{invoiceId}")

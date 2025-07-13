@@ -4,7 +4,7 @@ import cz.pollib.entity.repository.PersonRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class IdentificationNumberNotDuplicateValidator implements ConstraintValidator<IdentificationNumberNotDuplicateValidAnnotation, String> {
+public class IdentificationNumberNotDuplicateValidator implements ConstraintValidator<IdentificationNumberNotDuplicate, String> {
 
     private final PersonRepository personRepository;
 
@@ -13,7 +13,7 @@ public class IdentificationNumberNotDuplicateValidator implements ConstraintVali
     }
 
     @Override
-    public void initialize(IdentificationNumberNotDuplicateValidAnnotation constraintAnnotation) {
+    public void initialize(IdentificationNumberNotDuplicate constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 

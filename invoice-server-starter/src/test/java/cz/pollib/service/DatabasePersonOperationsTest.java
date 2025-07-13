@@ -2,21 +2,21 @@ package cz.pollib.service;
 
 import cz.pollib.constant.Countries;
 import cz.pollib.dto.PersonDTO;
-import cz.pollib.dto.mapper.InvoiceMapper;
 import cz.pollib.dto.mapper.PersonMapper;
 import cz.pollib.entity.Person;
 import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
-import org.hibernate.exception.ConstraintViolationException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class DatabasePersonOperationsTest {
@@ -28,16 +28,13 @@ class DatabasePersonOperationsTest {
     PersonRepository personRepository;
 
     @Mock
-    InvoiceMapper invoiceMapper;
-
-    @Mock
     InvoiceRepository invoiceRepository;
 
     PersonOperations database;
 
     @BeforeEach
     void beforeEach() {
-        database = new DatabasePersonOperations(personMapper, personRepository, invoiceRepository, invoiceMapper);
+        database = new DatabasePersonOperations(personMapper, personRepository, invoiceRepository);
     }
 
     @Nested

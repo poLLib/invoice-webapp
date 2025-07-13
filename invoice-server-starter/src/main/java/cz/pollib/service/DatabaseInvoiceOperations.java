@@ -4,7 +4,6 @@ import cz.pollib.dto.InvoiceDTO;
 import cz.pollib.dto.InvoicePageDTO;
 import cz.pollib.dto.InvoiceStatisticsDTO;
 import cz.pollib.dto.mapper.InvoiceMapper;
-import cz.pollib.dto.mapper.PersonMapper;
 import cz.pollib.entity.Invoice;
 import cz.pollib.entity.Person;
 import cz.pollib.entity.filter.InvoiceFilter;
@@ -26,13 +25,10 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
 
     private final PersonRepository personRepository;
 
-    private final PersonMapper personMapper;
-
-    public DatabaseInvoiceOperations(InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper, PersonRepository personRepository, PersonMapper personMapper) {
+    public DatabaseInvoiceOperations(InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper, PersonRepository personRepository) {
         this.invoiceRepository = invoiceRepository;
         this.invoiceMapper = invoiceMapper;
         this.personRepository = personRepository;
-        this.personMapper = personMapper;
     }
 
     @Override
@@ -45,10 +41,10 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
     }
 
     @Override
-    public InvoicePageDTO getAllInvoicesPageable(InvoiceFilter invoiceFilter, int page) {
+    public InvoicePageDTO searchInvoices(InvoiceFilter invoiceFilter, int page) {
         InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
 
-        Long count = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.getLimit()))
+        Long totalElements = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.getLimit()))
                 .getTotalElements();
 
         List<InvoiceDTO> invoices = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.getLimit()))
@@ -56,7 +52,7 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
                 .map(invoiceMapper::toDTO)
                 .toList();
 
-        return new InvoicePageDTO(invoices, count);
+        return new InvoicePageDTO(invoices, totalElements);
     }
 
     @Override
@@ -94,11 +90,11 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
 
     /**
      * Attempts to fetch an invoice.
-     * In case a invoice with the passed [id] doesn't exist a [{@link org.webjars.NotFoundException}] is thrown.
+     * In case an invoice with the passed [id] doesn't exist a [{@link EntityNotFoundException}] is thrown.
      *
      * @param id Invoice to fetch
      * @return Fetched entity
-     * @throws org.webjars.NotFoundException In case the invoice with the passed [id] isn't found
+     * @throws EntityNotFoundException In case the invoice with the passed [id] isn't found
      */
     private Invoice fetchInvoiceById(long id) {
         return invoiceRepository.findById(id)

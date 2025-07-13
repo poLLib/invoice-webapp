@@ -29,7 +29,7 @@ public interface InvoiceOperations {
      * @param page Current page
      * @return List of InvoiceDTO and count of invoice elements after filtration
      */
-    InvoicePageDTO getAllInvoicesPageable(InvoiceFilter invoiceFilter, int page);
+    InvoicePageDTO searchInvoices(InvoiceFilter invoiceFilter, int page);
 
     /**
      * Look up for a specific invoice by [id]

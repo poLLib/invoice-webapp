@@ -2,7 +2,7 @@ package cz.pollib.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.pollib.constant.Countries;
-import cz.pollib.dto.validation.IdentificationNumberNotDuplicateValidAnnotation;
+import cz.pollib.dto.validation.IdentificationNumberNotDuplicate;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -35,7 +35,7 @@ public class PersonDTO {
     @NotBlank(message = "Zadejte jméno")
     private String name;
 
-    @IdentificationNumberNotDuplicateValidAnnotation
+    @IdentificationNumberNotDuplicate
     @Positive(message = "Zadejte IČO v absolutním čísle")
     private String identificationNumber;
 

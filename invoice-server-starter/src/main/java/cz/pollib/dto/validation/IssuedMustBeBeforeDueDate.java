@@ -8,11 +8,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = IdentificationNumberNotDuplicateValidator.class)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+/**
+ * Custom annotation for validating that the due date is after the issued date in an invoice.
+ */
+@Constraint(validatedBy = IssuedMustBeBeforeDueDateValidator.class)
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface IdentificationNumberNotDuplicateValidAnnotation {
-    String message() default "Toto IČO již v databázi společností existuje";
+public @interface IssuedMustBeBeforeDueDate {
+    String message() default "Datum splatnosti nemůže být před datem vystavení faktury";
 
     Class<?>[] groups() default {};
 
