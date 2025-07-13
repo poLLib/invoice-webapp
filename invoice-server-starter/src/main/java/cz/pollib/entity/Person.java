@@ -3,6 +3,7 @@ package cz.pollib.entity;
 import cz.pollib.constant.Countries;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,8 @@ import java.util.List;
  * - purchases: The list of invoices where the person is the buyer.
  * - sales: The list of invoices where the person is the seller.
  */
-@Entity(name = "person")
+@Entity
+@Table(name = "person")
 public class Person {
 
     @Id
@@ -74,11 +76,11 @@ public class Person {
 
     private boolean hidden = false;
 
-    @OneToMany(mappedBy = "buyer")
-    private List<Invoice> purchases;
+    @OneToMany(mappedBy = "buyer", cascade = CascadeType.REMOVE)
+    private List<Invoice> purchases = new ArrayList<>();
 
-    @OneToMany(mappedBy = "seller")
-    private List<Invoice> sales;
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.REMOVE)
+    private List<Invoice> sales =  new ArrayList<>();
 
     // GETTERs and SETTERs block
 

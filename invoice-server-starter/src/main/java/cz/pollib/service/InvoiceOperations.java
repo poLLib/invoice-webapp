@@ -16,10 +16,10 @@ public interface InvoiceOperations {
      * Creates an invoice and attach it to Person.
      * Catches duplication of invoiceNumber in database (DataIntegrityViolationException) and @throw DuplicateEntityException.
      *
-     * @param data Invoice to create
+     * @param request Invoice to create
      * @return Created Invoice
      */
-    Invoice createInvoice(InvoiceDTO data);
+    Invoice createInvoice(InvoiceDTO request);
 
     /**
      * Fetches all invoices in database and filter them according to user's parameters and make them pageable.
@@ -51,10 +51,10 @@ public interface InvoiceOperations {
      * Edit invoice by [id] if exists
      *
      * @param id   Invoice to be edited
-     * @param data New source of data for update invoice
+     * @param request New source of data for update invoice
      * @return Edited Invoice
      */
-    Invoice editInvoice(Long id, InvoiceDTO data);
+    Invoice editInvoice(Long id, InvoiceDTO request);
 
     /**
      * Counts the invoices, profit of the invoices in current year and in total

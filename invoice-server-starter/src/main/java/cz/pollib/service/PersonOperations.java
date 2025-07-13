@@ -15,10 +15,10 @@ public interface PersonOperations {
     /**
      * Creates a new person
      *
-     * @param personDTO Person to create
+     * @param request Person to create
      * @return Newly created Person
      */
-    Person addPerson(PersonDTO personDTO);
+    Person createPerson(PersonDTO request);
 
     /**
      * Fetches all non-hidden persons and page them in lists
@@ -27,7 +27,7 @@ public interface PersonOperations {
      * @param size Number of pages
      * @return List of Person of current page
      */
-    List<Person> getAllPeoplePageable(int page, int size);
+    List<Person> getPersons(int page, int size);
 
     /**
      * Counts all visible persons
@@ -58,10 +58,10 @@ public interface PersonOperations {
      * also [identificationNumber, taxNumber] cannot be changed, so updated person sets the values from the previous ones
      *
      * @param id   Person to edit
-     * @param data Updated data of person to edit
+     * @param request Updated data of person to edit
      * @return Edited Person
      */
-    Person editPerson(Long id, PersonDTO data);
+    Person editPerson(Long id, PersonDTO request);
 
     /**
      * Fetches all invoices by [identificationNumber] of the seller

@@ -1,0 +1,105 @@
+import person.http
+
+### Create Person
+run #Create Person
+
+### Create Invoice
+POST {{hostname}}/api/invoice
+Accept: application/json
+Content-Type: application/json
+
+{
+  "invoiceNumber": {{$random.integer(100000000, 999999999)}},
+  "issued": "1999-01-01",
+  "dueDate": "2035-10-10",
+  "product": "doprava",
+  "price": {{$random.integer(10000,99999)}},
+  "vat": {{$random.integer(1, 100)}},
+  "note": "note",
+  "buyer": {
+    "_id": 18
+  },
+  "seller": {
+    "_id": 2
+  }
+}
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 201, "Response status should be 201");
+        client.log("id: " + response.body._id);
+        client.global.set("invoiceId", response.body._id)
+    });
+%}
+
+### Get Invoice detail
+GET {{hostname}}/api/invoice/{{invoiceId}}
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+### Search Invoices
+GET {{hostname}}/api/invoices
+    ?page=0
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+### Update Invoice
+PUT {{hostname}}/api/invoice/{{invoiceId}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "invoiceNumber": {{$random.integer(100000000, 999999999)}},
+  "issued": "1999-01-01",
+  "dueDate": "2035-10-10",
+  "product": "dopravaaa",
+  "price": {{$random.integer(10000,99999)}},
+  "vat": {{$random.integer(1, 100)}},
+  "note": "noteee",
+  "buyer": {
+    "_id": 3
+  },
+  "seller": {
+    "_id": 2
+  }
+}
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+### Delete Invoice
+DELETE {{hostname}}/api/invoice/{{invoiceId}}
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 204, "Response status should be 204");
+    });
+%}
+
+### Get invoice statistics
+GET {{hostname}}/api/invoices/statistics
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+###

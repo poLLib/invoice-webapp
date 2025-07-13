@@ -32,10 +32,10 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
     }
 
     @Override
-    public Invoice createInvoice(InvoiceDTO data) {
-        Invoice entity = invoiceMapper.toEntity(data);
-        entity.setBuyer(personRepository.getReferenceById(data.getBuyer().getId()));
-        entity.setSeller(personRepository.getReferenceById(data.getSeller().getId()));
+    public Invoice createInvoice(InvoiceDTO request) {
+        Invoice entity = invoiceMapper.toEntity(request);
+        entity.setBuyer(personRepository.getReferenceById(request.getBuyer().getId()));
+        entity.setSeller(personRepository.getReferenceById(request.getSeller().getId()));
         invoiceRepository.saveAndFlush(entity);
         return entity;
     }
@@ -66,19 +66,19 @@ public class DatabaseInvoiceOperations implements InvoiceOperations {
     }
 
     @Override
-    public Invoice editInvoice(Long id, InvoiceDTO data) {
-        Invoice invoice = fetchInvoiceById(id);
-        invoiceMapper.updateEntity(data, invoice);
+    public Invoice editInvoice(Long id, InvoiceDTO request) {
+        Invoice existingInvoice = fetchInvoiceById(id);
+        invoiceMapper.updateEntity(request, existingInvoice);
 
-        Person seller = personRepository.getReferenceById(data.getSeller().getId());
-        Person buyer = personRepository.getReferenceById(data.getBuyer().getId());
+        Person seller = personRepository.getReferenceById(request.getSeller().getId());
+        Person buyer = personRepository.getReferenceById(request.getBuyer().getId());
 
-        invoice.setSeller(seller);
-        invoice.setBuyer(buyer);
-        invoice.setId(id);
+        existingInvoice.setSeller(seller);
+        existingInvoice.setBuyer(buyer);
+        existingInvoice.setId(id);
 
-        invoiceRepository.saveAndFlush(invoice);
-        return invoice;
+        invoiceRepository.saveAndFlush(existingInvoice);
+        return existingInvoice;
     }
 
     @Override

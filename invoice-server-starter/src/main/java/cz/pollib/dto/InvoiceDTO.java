@@ -54,7 +54,7 @@ public class InvoiceDTO {
 
     @Positive(message = "Zadejte DPH v absolutním čísle")
     @Max(value = 100, message = "Hodnota nemůže být větší než 100")
-    private int vat;
+    private byte vat;
 
     private String note;
 
@@ -67,7 +67,7 @@ public class InvoiceDTO {
     public InvoiceDTO() {
     }
 
-    public InvoiceDTO(Long id, int invoiceNumber, LocalDate issued, LocalDate dueDate, String product, Long price, int vat, String note, PersonDTO buyer, PersonDTO seller) {
+    public InvoiceDTO(Long id, int invoiceNumber, LocalDate issued, LocalDate dueDate, String product, Long price, byte vat, String note, PersonDTO buyer, PersonDTO seller) {
         this.id = id;
         this.invoiceNumber = invoiceNumber;
         this.issued = issued;
@@ -137,7 +137,7 @@ public class InvoiceDTO {
         return vat;
     }
 
-    public void setVat(int vat) {
+    public void setVat(byte vat) {
         this.vat = vat;
     }
 

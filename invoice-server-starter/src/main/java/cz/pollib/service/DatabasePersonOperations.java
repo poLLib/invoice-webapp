@@ -29,14 +29,14 @@ public class DatabasePersonOperations implements PersonOperations {
         this.invoiceRepository = invoiceRepository;
     }
 
-    public Person addPerson(PersonDTO personDTO) {
-        Person entity = personMapper.toEntity(personDTO);
+    public Person createPerson(PersonDTO request) {
+        Person entity = personMapper.toEntity(request);
         entity = personRepository.saveAndFlush(entity);
         return entity;
     }
 
     @Override
-    public List<Person> getAllPeoplePageable(int page, int size) {
+    public List<Person> getPersons(int page, int size) {
         return new ArrayList<>(personRepository.findByHidden(false, PageRequest.of(page, size)));
     }
 
@@ -58,20 +58,14 @@ public class DatabasePersonOperations implements PersonOperations {
 
             personRepository.saveAndFlush(person);
         } catch (EntityNotFoundException ignored) {
-            // The contract in the interface states, that no exception is thrown, if the entity is not found.
         }
     }
 
     @Override
-    public Person editPerson(Long id, PersonDTO updatedPerson) {
-        Person fetchedPerson = fetchPersonById(id);
+    public Person editPerson(Long id, PersonDTO request) {
+        Person existingPerson = updatePerson(id, request);
 
-        updatedPerson.setIdentificationNumber(fetchedPerson.getIdentificationNumber());
-        updatedPerson.setTaxNumber(fetchedPerson.getTaxNumber());
-
-        removePerson(id);
-        updatedPerson.setId(null);
-        return addPerson(updatedPerson);
+        return personRepository.save(existingPerson);
     }
 
     @Override
@@ -123,4 +117,29 @@ public class DatabasePersonOperations implements PersonOperations {
                 .orElseThrow(() -> new EntityNotFoundException("Person with id " + id + " wasn't found in the database."));
     }
 
+    /**
+     * Updates a person.
+     *
+     * @param id Existing person
+     * @param updatedPerson New data of the person to be updated
+     * @return Updated entity
+     */
+
+    private Person updatePerson(Long id, PersonDTO updatedPerson) {
+        Person existingPerson = fetchPersonById(id);
+
+        existingPerson.setName(updatedPerson.getName());
+        existingPerson.setAccountNumber(updatedPerson.getAccountNumber());
+        existingPerson.setBankCode(updatedPerson.getBankCode());
+        existingPerson.setIban(updatedPerson.getIban());
+        existingPerson.setTelephone(updatedPerson.getTelephone());
+        existingPerson.setMail(updatedPerson.getMail());
+        existingPerson.setStreet(updatedPerson.getStreet());
+        existingPerson.setZip(updatedPerson.getZip());
+        existingPerson.setCity(updatedPerson.getCity());
+        existingPerson.setCountry(updatedPerson.getCountry());
+        existingPerson.setNote(updatedPerson.getNote());
+
+        return existingPerson;
+    }
 }

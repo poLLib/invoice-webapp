@@ -77,7 +77,7 @@ class DatabasePersonOperationsTest {
             when(personMapper.toEntity(any(PersonDTO.class))).thenReturn(person);
             when(personRepository.saveAndFlush(any(Person.class))).thenReturn(person);
 
-            Person resultPerson = database.addPerson(personDTO);
+            Person resultPerson = database.createPerson(personDTO);
 
             assertNotNull(resultPerson);
             assertEquals(1, resultPerson.getId());

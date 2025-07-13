@@ -8,6 +8,7 @@ import cz.pollib.entity.filter.InvoiceFilter;
 import cz.pollib.service.InvoiceOperations;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +28,8 @@ public class InvoiceController {
     }
 
     @PostMapping("/invoice")
-    public InvoiceDTO createInvoice(@RequestBody @Valid InvoiceDTO data) {
-        return invoiceMapper.toDTO(invoiceOperations.createInvoice(data));
+    public ResponseEntity<InvoiceDTO> createInvoice(@RequestBody @Valid InvoiceDTO request) {
+        return new ResponseEntity<>(invoiceMapper.toDTO(invoiceOperations.createInvoice(request)), HttpStatus.CREATED);
     }
 
     @GetMapping("/invoices")
@@ -48,8 +49,8 @@ public class InvoiceController {
     }
 
     @PutMapping("/invoice/{invoiceId}")
-    public InvoiceDTO editInvoice(@PathVariable Long invoiceId, @RequestBody @Valid InvoiceDTO data) {
-        return invoiceMapper.toDTO(invoiceOperations.editInvoice(invoiceId, data));
+    public InvoiceDTO editInvoice(@PathVariable Long invoiceId, @RequestBody @Valid InvoiceDTO request) {
+        return invoiceMapper.toDTO(invoiceOperations.editInvoice(invoiceId, request));
     }
 
     @GetMapping("/invoices/statistics")
