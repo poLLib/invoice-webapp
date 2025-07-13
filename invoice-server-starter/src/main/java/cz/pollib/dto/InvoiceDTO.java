@@ -2,9 +2,9 @@ package cz.pollib.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import cz.pollib.dto.validation.InvoiceDatesValidAnnotation;
-import cz.pollib.dto.validation.PersonNotNullValidAnnotation;
-import cz.pollib.dto.validation.SellerBuyerNotSameValidAnnotation;
+import cz.pollib.dto.validation.IssuedMustBeBeforeDueDate;
+import cz.pollib.dto.validation.PersonNotNull;
+import cz.pollib.dto.validation.SellerAndBuyerNotSame;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,8 +28,8 @@ import java.time.LocalDate;
  * - buyer: The person or entity buying the product or service. Must be different from seller.
  * - seller: The person or entity selling the product or service. Must be different from buyer.
  */
-@InvoiceDatesValidAnnotation
-@SellerBuyerNotSameValidAnnotation
+@IssuedMustBeBeforeDueDate
+@SellerAndBuyerNotSame
 public class InvoiceDTO {
 
     @JsonProperty("_id")
@@ -58,10 +58,10 @@ public class InvoiceDTO {
 
     private String note;
 
-    @PersonNotNullValidAnnotation
+    @PersonNotNull
     private PersonDTO buyer;
 
-    @PersonNotNullValidAnnotation
+    @PersonNotNull
     private PersonDTO seller;
 
     public InvoiceDTO() {

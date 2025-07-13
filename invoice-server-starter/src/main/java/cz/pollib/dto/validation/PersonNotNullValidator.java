@@ -4,9 +4,9 @@ import cz.pollib.dto.PersonDTO;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class PersonNotNullValidator implements ConstraintValidator<PersonNotNullValidAnnotation, PersonDTO> {
+public class PersonNotNullValidator implements ConstraintValidator<PersonNotNull, PersonDTO> {
     @Override
-    public void initialize(PersonNotNullValidAnnotation constraintAnnotation) {
+    public void initialize(PersonNotNull constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 

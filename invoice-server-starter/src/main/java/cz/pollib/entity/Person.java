@@ -69,7 +69,7 @@ public class Person {
     @Enumerated(EnumType.STRING)
     private Countries country;
 
-    @Column(nullable = true)
+    @Column
     private String note;
 
     private boolean hidden = false;

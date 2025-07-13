@@ -9,7 +9,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.webjars.NotFoundException;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,14 +30,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
         Map<String, String> errors = ex.getBindingResult().getFieldErrors()
                 .stream()
-                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+                .collect(Collectors.toMap(FieldError::getField, error -> error.getDefaultMessage() != null ? error.getDefaultMessage() : "Validation failed"));
         return new ResponseEntity<>(errors, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
     /**
      * Handles entity not found exceptions and returns 404 status.
      */
-    @ExceptionHandler({NotFoundException.class, EntityNotFoundException.class})
+    @ExceptionHandler({EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public void handleEntityNotFoundException() {
     }

@@ -2,15 +2,14 @@ package cz.pollib.service;
 
 import cz.pollib.dto.PersonDTO;
 import cz.pollib.dto.PersonStatisticsDTO;
-import cz.pollib.dto.mapper.InvoiceMapper;
 import cz.pollib.dto.mapper.PersonMapper;
 import cz.pollib.entity.Invoice;
 import cz.pollib.entity.Person;
 import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +23,10 @@ public class DatabasePersonOperations implements PersonOperations {
 
     private final InvoiceRepository invoiceRepository;
 
-    private final InvoiceMapper invoiceMapper;
-
-    public DatabasePersonOperations(PersonMapper personMapper, PersonRepository personRepository, InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper) {
+    public DatabasePersonOperations(PersonMapper personMapper, PersonRepository personRepository, InvoiceRepository invoiceRepository) {
         this.personMapper = personMapper;
         this.personRepository = personRepository;
         this.invoiceRepository = invoiceRepository;
-        this.invoiceMapper = invoiceMapper;
     }
 
     public Person addPerson(PersonDTO personDTO) {
@@ -61,21 +57,21 @@ public class DatabasePersonOperations implements PersonOperations {
             person.setHidden(true);
 
             personRepository.saveAndFlush(person);
-        } catch (NotFoundException ignored) {
+        } catch (EntityNotFoundException ignored) {
             // The contract in the interface states, that no exception is thrown, if the entity is not found.
         }
     }
 
     @Override
-    public Person editPerson(Long id, PersonDTO data) {
+    public Person editPerson(Long id, PersonDTO updatedPerson) {
         Person fetchedPerson = fetchPersonById(id);
-        PersonDTO newPerson = new PersonDTO();
-        newPerson.setIdentificationNumber(fetchedPerson.getIdentificationNumber());
-        newPerson.setTaxNumber(fetchedPerson.getTaxNumber());
+
+        updatedPerson.setIdentificationNumber(fetchedPerson.getIdentificationNumber());
+        updatedPerson.setTaxNumber(fetchedPerson.getTaxNumber());
 
         removePerson(id);
-        data.setId(null);
-        return addPerson(data);
+        updatedPerson.setId(null);
+        return addPerson(updatedPerson);
     }
 
     @Override
@@ -116,15 +112,15 @@ public class DatabasePersonOperations implements PersonOperations {
 
     /**
      * Attempts to fetch a person.
-     * In case a person with the passed [id] doesn't exist a [{@link org.webjars.NotFoundException}] is thrown.
+     * In case a person with the passed [id] doesn't exist a [{@link EntityNotFoundException}] is thrown.
      *
      * @param id Person to fetch
      * @return Fetched entity
-     * @throws org.webjars.NotFoundException In case a person with the passed [id] isn't found
+     * @throws EntityNotFoundException In case a person with the passed [id] isn't found
      */
     private Person fetchPersonById(Long id) {
         return personRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Person with id " + id + " wasn't found in the database."));
+                .orElseThrow(() -> new EntityNotFoundException("Person with id " + id + " wasn't found in the database."));
     }
 
 }

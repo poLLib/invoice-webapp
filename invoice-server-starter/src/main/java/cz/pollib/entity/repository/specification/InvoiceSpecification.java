@@ -7,6 +7,7 @@ import cz.pollib.entity.Person_;
 import cz.pollib.entity.filter.InvoiceFilter;
 import jakarta.persistence.criteria.*;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class InvoiceSpecification implements Specification<Invoice> {
      * @return The combined {@link Predicate} based on the filter criteria.
      */
     @Override
-    public Predicate toPredicate(Root<Invoice> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(@NonNull Root<Invoice> root, CriteriaQuery<?> query, @NonNull CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
 
         if (invoiceFilter.getMinPrice() != null) {
@@ -46,16 +47,16 @@ public class InvoiceSpecification implements Specification<Invoice> {
         }
 
         if (invoiceFilter.getSellerId() != null) {
-            Join<Person, Invoice> sellerJoin = root.join(Invoice_.SELLER);
-            predicates.add(criteriaBuilder.equal(sellerJoin.get(Person_.ID), invoiceFilter.getSellerId()));
+            Join<Person, Invoice> seller = root.join(Invoice_.SELLER);
+            predicates.add(criteriaBuilder.equal(seller.get(Person_.ID), invoiceFilter.getSellerId()));
         }
 
         if (invoiceFilter.getBuyerId() != null) {
-            Join<Person, Invoice> buyerJoin = root.join(Invoice_.BUYER);
-            predicates.add(criteriaBuilder.equal(buyerJoin.get(Person_.ID), invoiceFilter.getBuyerId()));
+            Join<Person, Invoice> buyer = root.join(Invoice_.BUYER);
+            predicates.add(criteriaBuilder.equal(buyer.get(Person_.ID), invoiceFilter.getBuyerId()));
         }
         if (invoiceFilter.getProduct() != null) {
-            predicates.add(criteriaBuilder.like(root.get(Invoice_.PRODUCT.toLowerCase()), "%" + invoiceFilter.getProduct().toLowerCase() + "%"));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get(Invoice_.PRODUCT)), "%" + invoiceFilter.getProduct().toLowerCase() + "%"));
         }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
