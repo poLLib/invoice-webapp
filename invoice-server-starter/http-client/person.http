@@ -1,0 +1,125 @@
+### Create Person
+POST {{hostname}}/api/person
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Strejc Pompo",
+  "identificationNumber": "{{$random.integer(100000000, 999999999)}}",
+  "taxNumber": "CZ{{$random.integer(100000,999999)}}",
+  "accountNumber": "{{$random.integer(100000000,999999999)}}",
+  "bankCode": "{{$random.integer(1000,9999)}}",
+  "iban": "CZ{{$random.integer(100000000, 999999999)}}",
+  "telephone": "{{$random.integer(100000000,999999999)}}",
+  "mail": "{{$random.email}}",
+  "street": "{{$random.address.streetName}}",
+  "zip": "{{$random.address.zipCode}}",
+  "city": "{{$random.address.cityName}}",
+  "country": "CZECHIA"
+}
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 201, "Response status should be 201");
+        client.log("id: " + response.body._id);
+        client.global.set("personId", response.body._id);
+        client.global.set("identificationNumber", response.body.identificationNumber);
+    });
+%}
+
+### Get Person
+GET {{hostname}}/api/person/{{personId}}
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+### Get total count of Persons
+GET {{hostname}}/api/persons/total
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+### Search Persons
+GET {{hostname}}/api/persons
+    ?page=0
+    &size=2
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+### Update Person
+PUT {{hostname}}/api/person/{{personId}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Rumburak",
+  "accountNumber": "{{$random.integer(100000000,999999999)}}",
+  "bankCode": "{{$random.integer(1000,9999)}}",
+  "iban": "CZ{{$random.integer(100000000, 999999999)}}",
+  "telephone": "{{$random.integer(100000000,999999999)}}",
+  "mail": "{{$random.email}}",
+  "street": "{{$random.address.streetName}}",
+  "zip": "{{$random.address.zipCode}}",
+  "city": "{{$random.address.cityName}}",
+  "country": "SLOVAKIA"
+}
+
+### Delete Person
+DELETE {{hostname}}/api/person/{{personId}}
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 204, "Response status should be 204");
+    });
+%}
+
+### Get all invoices of seller by identificationNumber
+GET {{hostname}}/api/identification/{{identificationNumber}}/sales
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+### Get all invoices of buyer by identificationNumber
+GET {{hostname}}/api/identification/{{identificationNumber}}/purchases
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+### Get person statistics
+GET {{hostname}}/api/persons/statistics
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+###

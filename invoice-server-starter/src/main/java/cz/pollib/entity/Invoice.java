@@ -19,7 +19,8 @@ import java.time.LocalDate;
  * - buyer: The person or entity buying the product or service.
  * - seller: The person or entity selling the product or service.
  */
-@Entity(name = "invoice")
+@Entity
+@Table(name = "invoice")
 public class Invoice {
 
     @Id
@@ -47,10 +48,12 @@ public class Invoice {
     @Column
     private String note;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "buyer_id", nullable = false)
     private Person buyer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id", nullable = false)
     private Person seller;
 
     // GETTERs and SETTERs block

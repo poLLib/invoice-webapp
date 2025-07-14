@@ -33,21 +33,21 @@ public class PersonController {
     }
 
     @PostMapping("/person")
-    public ResponseEntity<PersonDTO> addPerson(@RequestBody @Valid PersonDTO personDTO) {
-        return new ResponseEntity<>(personMapper.toDTO(personOperations.addPerson(personDTO)), HttpStatus.CREATED);
+    public ResponseEntity<PersonDTO> createPerson(@RequestBody @Valid PersonDTO request) {
+        return new ResponseEntity<>(personMapper.toDTO(personOperations.createPerson(request)), HttpStatus.CREATED);
     }
 
     @GetMapping("/persons")
-    public List<PersonDTO> getPeoplePages(@RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size) {
-        List<Person> people = personOperations.getAllPeoplePageable(page, size);
+    public List<PersonDTO> getPersons(@RequestParam(defaultValue = "0") int page,
+                                      @RequestParam(defaultValue = "10") int size) {
+        List<Person> people = personOperations.getPersons(page, size);
         return people.stream()
                 .map(personMapper::toDTO)
                 .toList();
     }
 
     @GetMapping("/persons/total")
-    public Long getTotalPeople() {
+    public Long getAllPersons() {
         return personOperations.getVisiblePersonsCount();
     }
 
@@ -63,8 +63,8 @@ public class PersonController {
     }
 
     @PutMapping("/person/{personId}")
-    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO data) {
-        return personMapper.toDTO(personOperations.editPerson(personId, data));
+    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO request) {
+        return personMapper.toDTO(personOperations.editPerson(personId, request));
     }
 
     @GetMapping("/identification/{identificationNumber}/sales")

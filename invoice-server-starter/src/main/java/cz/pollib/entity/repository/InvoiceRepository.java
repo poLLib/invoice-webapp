@@ -33,8 +33,8 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long>, JpaSpec
                         SUM(allTimeSum.price),
                         COUNT(*)
                         )
-                        FROM invoice allTimeSum
-                        LEFT JOIN invoice currentYearSum
+                        FROM Invoice allTimeSum
+                        LEFT JOIN Invoice currentYearSum
                         ON allTimeSum.id = currentYearSum.id
                         AND YEAR(currentYearSum.issued) = YEAR(CURRENT_DATE)
             """)
