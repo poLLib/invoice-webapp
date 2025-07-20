@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Person Response Schema",
+  "description": "Schema for Person API response",
+  "properties": {
+    "_id": {
+      "type": "integer",
+      "description": "Unique identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "identificationNumber": {
+      "type": "string",
+      "pattern": "^[0-9]{8}$"
+    },
+    "taxNumber": {
+      "type": ["string", "null"],
+      "pattern": "^[A-Z]{2}[0-9]+$"
+    },
+    "accountNumber": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bankCode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "iban": {
+      "type": ["string", "null"]
+    },
+    "telephone": {
+      "type": "string",
+      "pattern": "^\\+(420|421)[0-9]{9}$"
+    },
+    "mail": {
+      "type": "string",
+      "format": "email"
+    },
+    "street": {
+      "type": "string",
+      "minLength": 1
+    },
+    "zip": {
+      "type": "string",
+      "pattern": "^[0-9]{5}$"
+    },
+    "city": {
+      "type": "string",
+      "minLength": 1
+    },
+    "country": {
+      "type": "string",
+      "enum": ["CZECHIA", "SLOVAKIA"]
+    },
+    "note": {
+      "type": ["string", "null"]
+    }
+  },
+  "required": [
+    "_id",
+    "name",
+    "identificationNumber",
+    "accountNumber",
+    "bankCode",
+    "telephone",
+    "mail",
+    "street",
+    "zip",
+    "city",
+    "country"
+  ],
+  "additionalProperties": false
+}

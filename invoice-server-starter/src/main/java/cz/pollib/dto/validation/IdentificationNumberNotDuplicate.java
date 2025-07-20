@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IdentificationNumberNotDuplicate {
-    String message() default "Toto IČO již v databázi společností existuje";
+    String message() default "Identification number already exists";
 
     Class<?>[] groups() default {};
 

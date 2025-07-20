@@ -47,7 +47,11 @@ public class DatabasePersonOperations implements PersonOperations {
 
     @Override
     public Person getPerson(Long id) {
-        return fetchPersonById(id);
+        Person person = fetchPersonById(id);
+        if (person.isHidden()) {
+            throw new EntityNotFoundException("Person with id " + id + " wasn't found in the database.");
+        }
+        return person;
     }
 
     @Override

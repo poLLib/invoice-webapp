@@ -24,12 +24,10 @@ public class PersonController {
 
     private final PersonMapper personMapper;
 
-    private final InvoiceMapper invoiceMapper;
-
-    public PersonController(PersonOperations personOperations, PersonMapper personMapper, InvoiceMapper invoiceMapper) {
+    public PersonController(PersonOperations personOperations, PersonMapper personMapper) {
         this.personOperations = personOperations;
         this.personMapper = personMapper;
-        this.invoiceMapper = invoiceMapper;
+
     }
 
     @PostMapping("/person")
@@ -37,11 +35,27 @@ public class PersonController {
         return new ResponseEntity<>(personMapper.toDTO(personOperations.createPerson(request)), HttpStatus.CREATED);
     }
 
+    @GetMapping("/person/{personId}") // TODO: 20.07.2025 nesmi nalezat hidden true. i ostatni metody!!!
+    public PersonDTO getPerson(@PathVariable Long personId) {
+        return personMapper.toDTO(personOperations.getPerson(personId));
+    }
+
+    @PutMapping("/person/{personId}")
+    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO request) {
+        return personMapper.toDTO(personOperations.editPerson(personId, request));
+    }
+
+    @DeleteMapping("/person/{personId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePerson(@PathVariable Long personId) {
+        personOperations.removePerson(personId);
+    }
+
     @GetMapping("/persons")
     public List<PersonDTO> getPersons(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "10") int size) {
-        List<Person> people = personOperations.getPersons(page, size);
-        return people.stream()
+        List<Person> persons = personOperations.getPersons(page, size);
+        return persons.stream()
                 .map(personMapper::toDTO)
                 .toList();
     }
@@ -51,51 +65,10 @@ public class PersonController {
         return personOperations.getVisiblePersonsCount();
     }
 
-    @GetMapping("/person/{personId}")
-    public PersonDTO getPerson(@PathVariable Long personId) {
-        return personMapper.toDTO(personOperations.getPerson(personId));
-    }
-
-    @DeleteMapping("/person/{personId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePerson(@PathVariable Long personId) {
-        personOperations.removePerson(personId);
-    }
-
-    @PutMapping("/person/{personId}")
-    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO request) {
-        return personMapper.toDTO(personOperations.editPerson(personId, request));
-    }
-
-    @GetMapping("/identification/{identificationNumber}/sales")
-    public List<InvoiceDTO> getSellerInvoices(@PathVariable String identificationNumber) {
-        return listToDTO(personOperations.getInvoicesBySeller(identificationNumber));
-    }
-
-    @GetMapping("/identification/{identificationNumber}/purchases")
-    public List<InvoiceDTO> getBuyersInvoices(@PathVariable String identificationNumber) {
-        return listToDTO(personOperations.getInvoicesByBuyer(identificationNumber));
-    }
-
     @GetMapping("/persons/statistics")
     public List<PersonStatisticsDTO> getPersonStatistics() {
         return personOperations.getPersonStatistics();
     }
-
-    // region: Private methods
-
-    /**
-     * Converts the list of entities into the list of DTO's
-     *
-     * @param entities The list of Invoice
-     * @return list of InvoiceDTO
-     */
-    private List<InvoiceDTO> listToDTO(List<Invoice> entities) {
-        return entities.stream()
-                .map(invoiceMapper::toDTO)
-                .toList();
-    }
-
 }
 
 
