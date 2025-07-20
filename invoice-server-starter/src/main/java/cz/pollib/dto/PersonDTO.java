@@ -14,15 +14,15 @@ import jakarta.validation.constraints.Positive;
  * Attributes:
  * - id: The unique identifier for the person.
  * - name: The name of the person.
- * - identificationNumber: The identification number of the person. The number must be unique in database.
+ * - identificationNumber: The identification number of the person. The number must be 8 digits and unique.
  * - taxNumber: The tax number, starting with two uppercase letters.
  * - accountNumber: The account number.
  * - bankCode: The bank code.
  * - iban: The IBAN.
- * - telephone: The telephone number.
- * - mail: The email address.
+ * - telephone: The telephone number. Starts with +421 or +420 and 9 digits following.
+ * - mail: The email address. Must be in email format.
  * - street: The street address.
- * - zip: The postal code.
+ * - zip: The postal code. Must be 5 digits.
  * - city: The city.
  * - country: The country.
  * - note: Any additional notes.
@@ -32,39 +32,42 @@ public class PersonDTO {
     @JsonProperty("_id")
     private Long id;
 
-    @NotBlank(message = "Zadejte jméno")
+    @NotBlank(message = "Type name")
     private String name;
 
     @IdentificationNumberNotDuplicate
-    @Positive(message = "Zadejte IČO v absolutním čísle")
+    @Positive(message = "Identification number must be positive number")
+    @Pattern(regexp = "^[0-9]{8}$", message = "Identification number must be 8 digits")
     private String identificationNumber;
 
-    @Pattern(regexp = "^[A-Z]{2}\\d+$", message = "DIČ musí začínat dvěma velkými písmeny reprezentující zemi")
+    @Pattern(regexp = "^[A-Z]{2}\\d+$", message = "Tax number must start with two uppercase letters")
     private String taxNumber;
 
-    @Positive(message = "Zadejte číslo účtu v absolutním čísle")
+    @Positive(message = "Account number must be positive number")
     private String accountNumber;
 
-    @Positive(message = "Zadejte kód banky v absolutním čísle")
+    @Positive(message = "Bank code must be positive number")
     private String bankCode;
 
-    @NotBlank(message = "Zadejte IBAN")
+    @NotBlank(message = "Type IBAN")
     private String iban;
 
-    @NotBlank(message = "Zadejte telefoní číslo")
+    @NotBlank(message = "Type phone number")
+    @Pattern(regexp = "^\\+(420|421)[0-9]{9}$")
     private String telephone;
 
-    @NotBlank(message = "Zadejte email")
-    @Email(message = "Zadejte email ve správném tvaru")
+    @NotBlank(message = "Type email")
+    @Email(message = "Incorrect format")
     private String mail;
 
-    @NotBlank(message = "Zadejte ulici a č.p")
+    @NotBlank(message = "Type street")
     private String street;
 
-    @NotBlank(message = "Zadejte PSČ")
+    @NotBlank(message = "Typer ZIP")
+    @Pattern(regexp = "^[0-9]{5}$", message = "ZIP must be 5 digits")
     private String zip;
 
-    @NotBlank(message = "Zadejte obec")
+    @NotBlank(message = "Type city")
     private String city;
 
     private Countries country;
@@ -101,7 +104,8 @@ public class PersonDTO {
         this.id = id;
     }
 
-    public @NotBlank(message = "Zadejte jméno") String getName() {
+    public @NotBlank(message = "Type name")
+    String getName() {
         return name;
     }
 
@@ -109,7 +113,7 @@ public class PersonDTO {
         this.name = name;
     }
 
-    public @Positive(message = "Zadejte IČO v absolutním čísle") String getIdentificationNumber() {
+    public String getIdentificationNumber() {
         return identificationNumber;
     }
 
@@ -117,7 +121,7 @@ public class PersonDTO {
         this.identificationNumber = identificationNumber;
     }
 
-    public @Pattern(regexp = "^[A-Z]{2}\\d+$", message = "DIČ musí začínat dvěma velkými písmeny reprezentující zemi") String getTaxNumber() {
+    public String getTaxNumber() {
         return taxNumber;
     }
 
@@ -125,7 +129,7 @@ public class PersonDTO {
         this.taxNumber = taxNumber;
     }
 
-    public @Positive(message = "Zadejte číslo účtu v absolutním čísle") String getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
@@ -133,7 +137,7 @@ public class PersonDTO {
         this.accountNumber = accountNumber;
     }
 
-    public @Positive(message = "Zadejte kód banky v absolutním čísle") String getBankCode() {
+    public String getBankCode() {
         return bankCode;
     }
 
@@ -141,7 +145,7 @@ public class PersonDTO {
         this.bankCode = bankCode;
     }
 
-    public @NotBlank(message = "Zadejte IBAN") String getIban() {
+    public String getIban() {
         return iban;
     }
 
@@ -149,7 +153,7 @@ public class PersonDTO {
         this.iban = iban;
     }
 
-    public @NotBlank(message = "Zadejte telefoní číslo") String getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
@@ -157,7 +161,7 @@ public class PersonDTO {
         this.telephone = telephone;
     }
 
-    public @NotBlank(message = "Zadejte email") @Email(message = "Zadejte email ve správném tvaru") String getMail() {
+    public String getMail() {
         return mail;
     }
 
@@ -165,7 +169,7 @@ public class PersonDTO {
         this.mail = mail;
     }
 
-    public @NotBlank(message = "Zadejte ulici a č.p") String getStreet() {
+    public String getStreet() {
         return street;
     }
 
@@ -173,7 +177,7 @@ public class PersonDTO {
         this.street = street;
     }
 
-    public @NotBlank(message = "Zadejte PSČ") String getZip() {
+    public String getZip() {
         return zip;
     }
 
@@ -181,7 +185,7 @@ public class PersonDTO {
         this.zip = zip;
     }
 
-    public @NotBlank(message = "Zadejte obec") String getCity() {
+    public String getCity() {
         return city;
     }
 
