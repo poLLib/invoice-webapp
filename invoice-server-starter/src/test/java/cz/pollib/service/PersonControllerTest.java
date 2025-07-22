@@ -1,43 +1,31 @@
 package cz.pollib.service;
 
-import cz.pollib.common.BaseIntegrationTest;
+import cz.pollib.common.BaseControllerTest;
 import cz.pollib.dto.PersonDTO;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static cz.pollib.constant.Countries.*;
 import static io.restassured.RestAssured.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
-import static org.hamcrest.Matchers.*;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PersonControllerTest extends BaseIntegrationTest {
-    @LocalServerPort
-    private int port;
+class PersonControllerTest extends BaseControllerTest {
 
-    @BeforeEach
-    void setUp() {
-        RestAssured.port = port;
-        RestAssured.baseURI = "http://localhost";
-        RestAssured.basePath = "/api";
-    }
-
-    static Long personId;
+    private Long personId;
 
     @Order(1)
     @Test
     @DisplayName("Should create a person")
     void shouldCreatePerson() {
-        PersonDTO createdPerson = given()
+        PersonDTO result = given()
                 .log().all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -60,33 +48,36 @@ class PersonControllerTest extends BaseIntegrationTest {
                 .when()
                 .post("/person")
                 .then()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-schema.json"))
                 .log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-schema.json"))
                 .statusCode(201)
-                .body("name", equalTo("John Doe"))
-                .body("identificationNumber", equalTo("11111111"))
-                .body("taxNumber", equalTo("CZ65487"))
-                .body("accountNumber", equalTo("654654654"))
-                .body("bankCode", equalTo("5464"))
-                .body("iban", equalTo("CZ564896"))
-                .body("telephone", equalTo("+420705489657"))
-                .body("mail", equalTo("john@doe.org"))
-                .body("street", equalTo("Studena"))
-                .body("zip", equalTo("10000"))
-                .body("city", equalTo("Praha"))
-                .body("country", equalTo("CZECHIA"))
-                .body("note", equalTo(null))
                 .extract()
                 .as(PersonDTO.class);
 
-        personId = createdPerson.getId();
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isNotNull().isPositive();
+        assertThat(result.getName()).isEqualTo("John Doe");
+        assertThat(result.getIdentificationNumber()).isEqualTo("11111111");
+        assertThat(result.getTaxNumber()).isEqualTo("CZ65487");
+        assertThat(result.getAccountNumber()).isEqualTo("654654654");
+        assertThat(result.getBankCode()).isEqualTo("5464");
+        assertThat(result.getIban()).isEqualTo("CZ564896");
+        assertThat(result.getTelephone()).isEqualTo("+420705489657");
+        assertThat(result.getMail()).isEqualTo("john@doe.org");
+        assertThat(result.getStreet()).isEqualTo("Studena");
+        assertThat(result.getZip()).isEqualTo("10000");
+        assertThat(result.getCity()).isEqualTo("Praha");
+        assertThat(result.getCountry()).isEqualTo(CZECHIA);
+        assertThat(result.getNote()).isNull();
+
+        personId = result.getId();
     }
 
     @Order(2)
     @Test
     @DisplayName("Should return person")
     void shouldReturnPerson() {
-        given()
+        PersonDTO result = given()
                 .log().all()
                 .accept(ContentType.JSON)
                 .pathParam("personId", personId)
@@ -94,28 +85,33 @@ class PersonControllerTest extends BaseIntegrationTest {
                 .get("/person/{personId}")
                 .then()
                 .log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-schema.json"))
                 .statusCode(200)
-                .body("_id", equalTo(personId.intValue()))
-                .body("name", equalTo("John Doe"))
-                .body("identificationNumber", equalTo("11111111"))
-                .body("taxNumber", equalTo("CZ65487"))
-                .body("accountNumber", equalTo("654654654"))
-                .body("bankCode", equalTo("5464"))
-                .body("iban", equalTo("CZ564896"))
-                .body("telephone", equalTo("+420705489657"))
-                .body("mail", equalTo("john@doe.org"))
-                .body("street", equalTo("Studena"))
-                .body("zip", equalTo("10000"))
-                .body("city", equalTo("Praha"))
-                .body("country", equalTo("CZECHIA"))
-                .body("note", equalTo(null));
+                .extract()
+                .as(PersonDTO.class);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isNotNull().isPositive();
+        assertThat(result.getName()).isEqualTo("John Doe");
+        assertThat(result.getIdentificationNumber()).isEqualTo("11111111");
+        assertThat(result.getTaxNumber()).isEqualTo("CZ65487");
+        assertThat(result.getAccountNumber()).isEqualTo("654654654");
+        assertThat(result.getBankCode()).isEqualTo("5464");
+        assertThat(result.getIban()).isEqualTo("CZ564896");
+        assertThat(result.getTelephone()).isEqualTo("+420705489657");
+        assertThat(result.getMail()).isEqualTo("john@doe.org");
+        assertThat(result.getStreet()).isEqualTo("Studena");
+        assertThat(result.getZip()).isEqualTo("10000");
+        assertThat(result.getCity()).isEqualTo("Praha");
+        assertThat(result.getCountry()).isEqualTo(CZECHIA);
+        assertThat(result.getNote()).isNull();
     }
 
     @Order(3)
     @Test
     @DisplayName("Should edit person")
     void shouldEditPerson() {
-        given()
+        PersonDTO result = given()
                 .log().all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -139,31 +135,36 @@ class PersonControllerTest extends BaseIntegrationTest {
                 .when()
                 .put("/person/{personId}")
                 .then()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-schema.json"))
                 .log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-schema.json"))
                 .statusCode(200)
-                .body("name", equalTo("Rumburak"))
-                .body("identificationNumber", equalTo("11111111"))
-                .body("taxNumber", equalTo("CZ65487"))
-                .body("accountNumber", equalTo("98745385"))
-                .body("bankCode", equalTo("6454"))
-                .body("iban", equalTo("SK98745385"))
-                .body("telephone", equalTo("+421708489657"))
-                .body("mail", equalTo("rumbu@rak.sk"))
-                .body("street", equalTo("Zlova"))
-                .body("zip", equalTo("20065"))
-                .body("city", equalTo("Blava"))
-                .body("country", equalTo("SLOVAKIA"))
-                .body("note", equalTo("neviditelny"))
                 .extract()
                 .as(PersonDTO.class);
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(personId);
+        assertThat(result.getName()).isEqualTo("Rumburak");
+
+        assertThat(result.getIdentificationNumber()).isEqualTo("11111111");
+        assertThat(result.getTaxNumber()).isEqualTo("CZ65487");
+
+        assertThat(result.getAccountNumber()).isEqualTo("98745385");
+        assertThat(result.getBankCode()).isEqualTo("6454");
+        assertThat(result.getIban()).isEqualTo("SK98745385");
+        assertThat(result.getTelephone()).isEqualTo("+421708489657");
+        assertThat(result.getMail()).isEqualTo("rumbu@rak.sk");
+        assertThat(result.getStreet()).isEqualTo("Zlova");
+        assertThat(result.getZip()).isEqualTo("20065");
+        assertThat(result.getCity()).isEqualTo("Blava");
+        assertThat(result.getCountry()).isEqualTo(SLOVAKIA);
+        assertThat(result.getNote()).isEqualTo("neviditelny");
     }
 
     @Order(4)
     @Test
     @DisplayName("Should return persons")
     void shouldReturnPersons() {
-        given()
+        PersonDTO[] results = given()
                 .log().all()
                 .accept(ContentType.JSON)
                 .param("page", "0")
@@ -173,20 +174,14 @@ class PersonControllerTest extends BaseIntegrationTest {
                 .then()
                 .log().all()
                 .statusCode(200)
-                .body("size()", equalTo(1))
-                .body("[0].name", equalTo("Rumburak"))
-                .body("[0].identificationNumber", equalTo("11111111"))
-                .body("[0].taxNumber", equalTo("CZ65487"))
-                .body("[0].accountNumber", equalTo("98745385"))
-                .body("[0].bankCode", equalTo("6454"))
-                .body("[0].iban", equalTo("SK98745385"))
-                .body("[0].telephone", equalTo("+421708489657"))
-                .body("[0].mail", equalTo("rumbu@rak.sk"))
-                .body("[0].street", equalTo("Zlova"))
-                .body("[0].zip", equalTo("20065"))
-                .body("[0].city", equalTo("Blava"))
-                .body("[0].country", equalTo("SLOVAKIA"))
-                .body("[0].note", equalTo("neviditelny"));
+                .extract()
+                .as(PersonDTO[].class);
+
+        assertThat(results).isNotEmpty();
+
+        assertThat(results)
+                .extracting(PersonDTO::getId)
+                .contains(personId);
     }
 
     @Order(5)

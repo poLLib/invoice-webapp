@@ -8,10 +8,11 @@ spring:
   application:
     name: "invoice-webapp"
 
+
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
 
   datasource:
@@ -27,3 +28,14 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
+
+  flyway:
+    enabled: true
+    url: jdbc:mariadb://localhost:3306/invoiceapp
+    user: invoiceapp_user
+    password: invoiceapp_pass
+    locations:
+      - classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+    validate-on-migrate: true
