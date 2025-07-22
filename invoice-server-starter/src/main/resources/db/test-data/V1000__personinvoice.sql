@@ -50,7 +50,7 @@ insert into invoice (due_date,
                      vat,
                      buyer_id,
                      seller_id)
-    value ('2020-01-01',
+    values ('2020-01-01',
               '123456',
               '2019-10-01',
               100,

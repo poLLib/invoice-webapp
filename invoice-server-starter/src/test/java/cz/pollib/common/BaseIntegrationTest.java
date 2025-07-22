@@ -1,34 +1,40 @@
 package cz.pollib.common;
 
-import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
+import groovy.util.logging.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MariaDBContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@SpringBootTest
 @Testcontainers
-@Transactional
-@Rollback
+@ActiveProfiles("test")
+@Slf4j
 public abstract class BaseIntegrationTest {
 
-    @Container
-    static MariaDBContainer<?> mariaDB = new MariaDBContainer<>("mariadb:11.8.2")
+    static final MariaDBContainer<?> mariaDB = new MariaDBContainer<>("mariadb:10.8.2")
             .withDatabaseName("invoiceapp_test")
             .withUsername("test")
-            .withPassword("test");
+            .withPassword("test")
+            .withUrlParam("useSSL", "false");
+    private static final Logger log = LoggerFactory.getLogger(BaseIntegrationTest.class);
+
+    static {
+        mariaDB.start();
+        log.info("MariaDB container started");
+    }
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", mariaDB::getJdbcUrl);
         registry.add("spring.datasource.username", mariaDB::getUsername);
         registry.add("spring.datasource.password", mariaDB::getPassword);
-        registry.add("spring.datasource.driver-class-name", () -> "org.mariadb.jdbc.Driver");
-        registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
+
+        registry.add("spring.flyway.url", mariaDB::getJdbcUrl);
+        registry.add("spring.flyway.user", mariaDB::getUsername);
+        registry.add("spring.flyway.password", mariaDB::getPassword);
+        registry.add("spring.flyway.locations", () -> "classpath:db/migration,classpath:db/test-data");
     }
 }
