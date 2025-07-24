@@ -5,15 +5,15 @@ Content-Type: application/json
 
 {
   "name": "Strejc Pompo",
-  "identificationNumber": "{{$random.integer(100000000, 999999999)}}",
+  "identificationNumber": "{{$random.integer(10000000, 99999999)}}",
   "taxNumber": "CZ{{$random.integer(100000,999999)}}",
   "accountNumber": "{{$random.integer(100000000,999999999)}}",
   "bankCode": "{{$random.integer(1000,9999)}}",
   "iban": "CZ{{$random.integer(100000000, 999999999)}}",
-  "telephone": "{{$random.integer(100000000,999999999)}}",
+  "telephone": "+420{{$random.integer(100000000,999999999)}}",
   "mail": "{{$random.email}}",
   "street": "{{$random.address.streetName}}",
-  "zip": "{{$random.address.zipCode}}",
+  "zip": "{{$random.integer(10000,99999)}}",
   "city": "{{$random.address.cityName}}",
   "country": "CZECHIA"
 }
@@ -72,10 +72,10 @@ Content-Type: application/json
   "accountNumber": "{{$random.integer(100000000,999999999)}}",
   "bankCode": "{{$random.integer(1000,9999)}}",
   "iban": "CZ{{$random.integer(100000000, 999999999)}}",
-  "telephone": "{{$random.integer(100000000,999999999)}}",
+  "telephone": "+421{{$random.integer(100000000,999999999)}}",
   "mail": "{{$random.email}}",
   "street": "{{$random.address.streetName}}",
-  "zip": "{{$random.address.zipCode}}",
+  "zip": "{{$random.integer(10000,99999)}}",
   "city": "{{$random.address.cityName}}",
   "country": "SLOVAKIA"
 }
