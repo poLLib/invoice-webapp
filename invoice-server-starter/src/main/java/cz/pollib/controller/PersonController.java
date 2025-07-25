@@ -1,73 +1,75 @@
 package cz.pollib.controller;
 
-import cz.pollib.dto.InvoiceDTO;
-import cz.pollib.dto.PersonDTO;
-import cz.pollib.dto.PersonStatisticsDTO;
-import cz.pollib.dto.mapper.InvoiceMapper;
-import cz.pollib.dto.mapper.PersonMapper;
-import cz.pollib.entity.Invoice;
-import cz.pollib.entity.Person;
-import cz.pollib.service.PersonOperations;
+import cz.pollib.service.PersonServices;
+import cz.pollib.service.model.CreatePersonRequest;
+import cz.pollib.service.model.PersonResponse;
+import cz.pollib.service.model.PersonStatisticsResponse;
+import cz.pollib.service.model.UpdatePersonRequest;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
 public class PersonController {
 
-    private final PersonOperations personOperations;
+    private final PersonServices personServices;
 
-    private final PersonMapper personMapper;
-
-    public PersonController(PersonOperations personOperations, PersonMapper personMapper) {
-        this.personOperations = personOperations;
-        this.personMapper = personMapper;
+    public PersonController(PersonServices personServices) {
+        this.personServices = personServices;
 
     }
 
     @PostMapping("/person")
-    public ResponseEntity<PersonDTO> createPerson(@RequestBody @Valid PersonDTO request) {
-        return new ResponseEntity<>(personMapper.toDTO(personOperations.createPerson(request)), HttpStatus.CREATED);
+    public ResponseEntity<PersonResponse> createPerson(@RequestBody @Valid CreatePersonRequest request) {
+        return new ResponseEntity<>(personServices.createPerson(request), CREATED);
     }
 
-    @GetMapping("/person/{personId}") // TODO: 20.07.2025 nesmi nalezat hidden true. i ostatni metody!!!
-    public PersonDTO getPerson(@PathVariable Long personId) {
-        return personMapper.toDTO(personOperations.getPerson(personId));
+    @GetMapping("/person/{personId}")
+    public ResponseEntity<PersonResponse> getPerson(@PathVariable Long personId) {
+        return new ResponseEntity<>(personServices.getPerson(personId), OK);
     }
 
     @PutMapping("/person/{personId}")
-    public PersonDTO editPerson(@PathVariable Long personId, @RequestBody @Valid PersonDTO request) {
-        return personMapper.toDTO(personOperations.editPerson(personId, request));
+    public ResponseEntity<PersonResponse> updatePerson(@PathVariable Long personId, @RequestBody @Valid UpdatePersonRequest request) {
+        return new ResponseEntity<>(personServices.updatePerson(personId, request), OK);
     }
 
     @DeleteMapping("/person/{personId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(NO_CONTENT)
     public void deletePerson(@PathVariable Long personId) {
-        personOperations.removePerson(personId);
+        personServices.removePerson(personId);
     }
 
     @GetMapping("/persons")
-    public List<PersonDTO> getPersons(@RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "10") int size) {
-        List<Person> persons = personOperations.getPersons(page, size);
-        return persons.stream()
-                .map(personMapper::toDTO)
-                .toList();
+    public ResponseEntity<List<PersonResponse>> getPersons(@RequestParam(defaultValue = "0") int page,
+                                                           @RequestParam(defaultValue = "10") int size) {
+        return new ResponseEntity<>(personServices.getPersons(page, size), OK);
     }
 
     @GetMapping("/persons/total")
-    public Long getAllPersons() {
-        return personOperations.getVisiblePersonsCount();
+    public ResponseEntity<Long> getAllPersons() {
+        return new ResponseEntity<>(personServices.getVisiblePersonsCount(), OK);
     }
 
-    @GetMapping("/persons/statistics")
-    public List<PersonStatisticsDTO> getPersonStatistics() {
-        return personOperations.getPersonStatistics();
+    @GetMapping("/person/statistics")
+    public ResponseEntity<List<PersonStatisticsResponse>> getPersonStatistics() {
+        return new ResponseEntity<>(personServices.getPersonStatistics(), OK);
     }
 }
 

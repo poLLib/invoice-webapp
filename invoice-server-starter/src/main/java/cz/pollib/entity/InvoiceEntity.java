@@ -1,6 +1,14 @@
 package cz.pollib.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
@@ -19,9 +27,9 @@ import java.time.LocalDate;
  * - buyer: The person or entity buying the product or service.
  * - seller: The person or entity selling the product or service.
  */
-@Entity
+@Entity (name = "Invoice")
 @Table(name = "invoice")
-public class Invoice {
+public class InvoiceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,18 +51,33 @@ public class Invoice {
     private Long price;
 
     @Column(nullable = false)
-    private int vat;
+    private byte vat;
 
     @Column
     private String note;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buyer_id", nullable = false)
-    private Person buyer;
+    private PersonEntity buyer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id", nullable = false)
-    private Person seller;
+    private PersonEntity seller;
+
+    public InvoiceEntity(int invoiceNumber, LocalDate issued, LocalDate dueDate, String product, Long price, byte vat, String note, PersonEntity buyer, PersonEntity seller) {
+        this.invoiceNumber = invoiceNumber;
+        this.issued = issued;
+        this.dueDate = dueDate;
+        this.product = product;
+        this.price = price;
+        this.vat = vat;
+        this.note = note;
+        this.buyer = buyer;
+        this.seller = seller;
+    }
+
+    public InvoiceEntity() {
+    }
 
     // GETTERs and SETTERs block
 
@@ -106,13 +129,11 @@ public class Invoice {
         this.price = price;
     }
 
-    public int getVat() {
+    public byte getVat() {
         return vat;
     }
 
-    public void setVat(int vat) {
-        this.vat = vat;
-    }
+    public void setVat(byte vat) { this.vat = vat; }
 
     public String getNote() {
         return note;
@@ -122,19 +143,19 @@ public class Invoice {
         this.note = note;
     }
 
-    public Person getBuyer() {
+    public PersonEntity getBuyer() {
         return buyer;
     }
 
-    public void setBuyer(Person buyer) {
+    public void setBuyer(PersonEntity buyer) {
         this.buyer = buyer;
     }
 
-    public Person getSeller() {
+    public PersonEntity getSeller() {
         return seller;
     }
 
-    public void setSeller(Person seller) {
+    public void setSeller(PersonEntity seller) {
         this.seller = seller;
     }
 }

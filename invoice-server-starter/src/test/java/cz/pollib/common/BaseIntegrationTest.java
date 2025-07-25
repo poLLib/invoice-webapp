@@ -12,7 +12,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @ActiveProfiles("test")
 @Slf4j
-public abstract class BaseIntegrationTest {
+public abstract class  BaseIntegrationTest {
 
     static final MariaDBContainer<?> mariaDB = new MariaDBContainer<>("mariadb:10.8.2")
             .withDatabaseName("invoiceapp_test")

@@ -1,4 +1,4 @@
-package cz.pollib.dto;
+package cz.pollib.service.model;
 
 /**
  * Data Transfer Object for invoice statistics.
@@ -8,16 +8,16 @@ package cz.pollib.dto;
  * - invoicesCount: The total number of invoices.
  * - currentYearSum: The sum of invoices issued in the current year.
  */
-public class InvoiceStatisticsDTO {
+public class InvoiceStatisticsResponse {
 
     private Long currentYearSum;
     private Long allTimeSum;
     private Long invoicesCount;
 
-    public InvoiceStatisticsDTO() {
+    public InvoiceStatisticsResponse() {
     }
 
-    public InvoiceStatisticsDTO(Long currentYearSum, Long allTimeSum, Long invoicesCount) {
+    public InvoiceStatisticsResponse(Long currentYearSum, Long allTimeSum, Long invoicesCount) {
         this.currentYearSum = currentYearSum;
         this.allTimeSum = allTimeSum;
         this.invoicesCount = invoicesCount;

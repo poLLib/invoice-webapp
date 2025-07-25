@@ -1,7 +1,16 @@
 package cz.pollib.entity;
 
 import cz.pollib.constant.Countries;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +37,9 @@ import java.util.List;
  * - purchases: The list of invoices where the person is the buyer.
  * - sales: The list of invoices where the person is the seller.
  */
-@Entity
+@Entity(name = "Person")
 @Table(name = "person")
-public class Person {
+public class PersonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,10 +86,30 @@ public class Person {
     private boolean hidden = false;
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.REMOVE)
-    private List<Invoice> purchases = new ArrayList<>();
+    private List<InvoiceEntity> purchases = new ArrayList<>();
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.REMOVE)
-    private List<Invoice> sales =  new ArrayList<>();
+    private List<InvoiceEntity> sales = new ArrayList<>();
+
+    public PersonEntity(String name, String identificationNumber, String taxNumber, String accountNumber, String bankCode, String iban, String telephone, String mail, String street, String zip, String city, Countries country, String note) {
+        this.name = name;
+        this.identificationNumber = identificationNumber;
+        this.taxNumber = taxNumber;
+        this.accountNumber = accountNumber;
+        this.bankCode = bankCode;
+        this.iban = iban;
+        this.telephone = telephone;
+        this.mail = mail;
+        this.street = street;
+        this.zip = zip;
+        this.city = city;
+        this.country = country;
+        this.note = note;
+    }
+
+    public PersonEntity() {
+
+    }
 
     // GETTERs and SETTERs block
 

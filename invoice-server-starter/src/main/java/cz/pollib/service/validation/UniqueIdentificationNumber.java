@@ -1,4 +1,4 @@
-package cz.pollib.dto.validation;
+package cz.pollib.service.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -8,11 +8,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = PersonNotNullValidator.class)
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+/**
+ * Custom validation controlling that the identification number is unique
+ */
+@Constraint(validatedBy = UniqueIdentificationNumberValidator.class)
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PersonNotNull {
-    String message() default "Musíte vybrat jedno z možností";
+public @interface UniqueIdentificationNumber {
+    String message() default "IdentificationNumberIsNotUnique";
 
     Class<?>[] groups() default {};
 

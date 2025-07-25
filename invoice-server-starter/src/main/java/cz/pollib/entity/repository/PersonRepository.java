@@ -1,6 +1,6 @@
 package cz.pollib.entity.repository;
 
-import cz.pollib.entity.Person;
+import cz.pollib.entity.PersonEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 /**
- * Repository interface for managing {@link Person} entities.
+ * Repository interface for managing {@link PersonEntity} entities.
  */
-public interface PersonRepository extends JpaRepository<Person, Long> {
+public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
 
 
     /**
@@ -19,24 +19,28 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
      *
      * @param hidden   Indicates whether the entities are hidden.
      * @param pageable Pagination information.
-     * @return A list of hidden {@link Person} entities.
+     * @return A list of hidden {@link PersonEntity} entities.
      */
-    List<Person> findByHidden(boolean hidden, Pageable pageable);
+    List<PersonEntity> findByHidden(boolean hidden, Pageable pageable);
 
     /**
      * Finds hidden entities without pagination.
      *
      * @param hidden Indicates whether the entities are hidden.
-     * @return A list of hidden {@link Person} entities.
+     * @return A list of hidden {@link PersonEntity} entities.
      */
-    List<Person> findByHidden(boolean hidden);
+    List<PersonEntity> findByHidden(boolean hidden);
 
     /**
      * Counts all non-hidden people.
      *
      * @return The total number of non-hidden people.
      */
-    @Query(value = "SELECT COUNT(*) FROM person p WHERE p.hidden = false", nativeQuery = true)
+    @Query(value = """
+            SELECT COUNT(*)
+            FROM Person p
+            WHERE p.hidden = false
+            """)
     Long countAllVisiblePeople();
 
     /**
@@ -45,16 +49,19 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
      * @param id The ID of the person.
      * @return The total income for the person.
      */
-    @Query(value = "SELECT SUM(i.price) FROM invoice i JOIN person p ON i.seller_id = p.id WHERE p.id = :id", nativeQuery = true)
+    @Query(value = """
+            SELECT SUM(i.price)
+            FROM Invoice i
+                JOIN FETCH Person p ON i.seller.id = p.id
+            WHERE p.id = :id
+            """)
     Long getTotalIncome(@Param("id") Long id);
 
     /**
-     * Finds a person by their identification number.
+     * Checks if a person exists by their identification number.
      *
      * @param identificationNumber The identification number of the person.
-     * @return The {@link Person} with the given identification number.
+     * @return True if exists.
      */
-    Person findByIdentificationNumber(String identificationNumber);
-
     boolean existsByIdentificationNumber(String identificationNumber);
 }

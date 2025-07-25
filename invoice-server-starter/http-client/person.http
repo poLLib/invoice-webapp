@@ -90,28 +90,6 @@ Content-Type: application/json
     });
 %}
 
-### Get all invoices of seller by identificationNumber
-GET {{hostname}}/api/identification/{{identificationNumber}}/sales
-Accept: application/json
-Content-Type: application/json
-
-> {%
-    client.test("Request was successful", function () {
-        client.assert(response.status === 200, "Response status should be 200");
-    });
-%}
-
-### Get all invoices of buyer by identificationNumber
-GET {{hostname}}/api/identification/{{identificationNumber}}/purchases
-Accept: application/json
-Content-Type: application/json
-
-> {%
-    client.test("Request was successful", function () {
-        client.assert(response.status === 200, "Response status should be 200");
-    });
-%}
-
 ### Get person statistics
 GET {{hostname}}/api/persons/statistics
 Accept: application/json

@@ -1,7 +1,10 @@
 package cz.pollib.service;
 
 import cz.pollib.common.BaseControllerTest;
-import cz.pollib.dto.PersonDTO;
+import cz.pollib.service.model.CreatePersonRequest;
+import cz.pollib.service.model.PersonResponse;
+import cz.pollib.service.model.PersonStatisticsResponse;
+import cz.pollib.service.model.UpdatePersonRequest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -17,7 +20,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PersonControllerTest extends BaseControllerTest {
+public class PersonControllerTest extends BaseControllerTest {
 
     private Long personId;
 
@@ -25,34 +28,34 @@ class PersonControllerTest extends BaseControllerTest {
     @Test
     @DisplayName("Should create a person")
     void shouldCreatePerson() {
-        PersonDTO result = given()
+        PersonResponse result = given()
                 .log().all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .body(new PersonDTO(
-                        null,
-                        "John Doe",
-                        "11111111",
-                        "CZ65487",
-                        "654654654",
-                        "5464",
-                        "CZ564896",
-                        "+420705489657",
-                        "john@doe.org",
-                        "Studena",
-                        "10000",
-                        "Praha",
-                        CZECHIA,
-                        null
-                ))
+                .body(new CreatePersonRequest(
+                                "John Doe",
+                                "11111111",
+                                "CZ65487",
+                                "654654654",
+                                "5464",
+                                "CZ564896",
+                                "+420705489657",
+                                "john@doe.org",
+                                "Studena",
+                                "10000",
+                                "Praha",
+                                CZECHIA,
+                                null
+                        )
+                )
                 .when()
                 .post("/person")
                 .then()
                 .log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-schema.json"))
+                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
                 .statusCode(201)
                 .extract()
-                .as(PersonDTO.class);
+                .as(PersonResponse.class);
 
         assertThat(result).isNotNull();
         assertThat(result.getId()).isNotNull().isPositive();
@@ -77,7 +80,7 @@ class PersonControllerTest extends BaseControllerTest {
     @Test
     @DisplayName("Should return person")
     void shouldReturnPerson() {
-        PersonDTO result = given()
+        PersonResponse result = given()
                 .log().all()
                 .accept(ContentType.JSON)
                 .pathParam("personId", personId)
@@ -85,10 +88,10 @@ class PersonControllerTest extends BaseControllerTest {
                 .get("/person/{personId}")
                 .then()
                 .log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-schema.json"))
+                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
                 .statusCode(200)
                 .extract()
-                .as(PersonDTO.class);
+                .as(PersonResponse.class);
 
         assertThat(result).isNotNull();
         assertThat(result.getId()).isNotNull().isPositive();
@@ -109,44 +112,43 @@ class PersonControllerTest extends BaseControllerTest {
 
     @Order(3)
     @Test
-    @DisplayName("Should edit person")
-    void shouldEditPerson() {
-        PersonDTO result = given()
+    @DisplayName("Should update person")
+    void shouldUpdatePerson() {
+        PersonResponse result = given()
                 .log().all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .body(new PersonDTO(
-                        null,
-                        "Rumburak",
-                        null,
-                        null,
-                        "98745385",
-                        "6454",
-                        "SK98745385",
-                        "+421708489657",
-                        "rumbu@rak.sk",
-                        "Zlova",
-                        "20065",
-                        "Blava",
-                        SLOVAKIA,
-                        "neviditelny"
-                ))
+                .body(new UpdatePersonRequest(
+                                "Rumburak",
+                                null,
+                                "98745385",
+                                "6454",
+                                "SK98745385",
+                                "+421708489657",
+                                "rumbu@rak.sk",
+                                "Zlova",
+                                "20065",
+                                "Blava",
+                                SLOVAKIA,
+                                "neviditelny"
+                        )
+                )
                 .pathParam("personId", personId)
                 .when()
                 .put("/person/{personId}")
                 .then()
                 .log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-schema.json"))
+                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
                 .statusCode(200)
                 .extract()
-                .as(PersonDTO.class);
+                .as(PersonResponse.class);
 
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(personId);
         assertThat(result.getName()).isEqualTo("Rumburak");
 
         assertThat(result.getIdentificationNumber()).isEqualTo("11111111");
-        assertThat(result.getTaxNumber()).isEqualTo("CZ65487");
+        assertThat(result.getTaxNumber()).isNull();
 
         assertThat(result.getAccountNumber()).isEqualTo("98745385");
         assertThat(result.getBankCode()).isEqualTo("6454");
@@ -164,7 +166,7 @@ class PersonControllerTest extends BaseControllerTest {
     @Test
     @DisplayName("Should return persons")
     void shouldReturnPersons() {
-        PersonDTO[] results = given()
+        PersonResponse[] results = given()
                 .log().all()
                 .accept(ContentType.JSON)
                 .param("page", "0")
@@ -175,12 +177,12 @@ class PersonControllerTest extends BaseControllerTest {
                 .log().all()
                 .statusCode(200)
                 .extract()
-                .as(PersonDTO[].class);
+                .as(PersonResponse[].class);
 
         assertThat(results).isNotEmpty();
 
         assertThat(results)
-                .extracting(PersonDTO::getId)
+                .extracting(PersonResponse::getId)
                 .contains(personId);
     }
 
@@ -211,5 +213,22 @@ class PersonControllerTest extends BaseControllerTest {
                 .then()
                 .log().all()
                 .statusCode(404);
+    }
+
+    @Order(7)
+    @Test
+    @DisplayName("Should return person statistics")
+    void shouldReturnPersonStatistics() {
+        given()
+                .log().all()
+                .accept(ContentType.JSON)
+                .when()
+                .get("/person/statistics")
+                .then()
+                .log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-statistics-response.json"))
+                .statusCode(200)
+                .extract()
+                .as(PersonStatisticsResponse[].class);
     }
 }

@@ -1,18 +1,16 @@
-package cz.pollib.dto;
+package cz.pollib.service.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.pollib.constant.Countries;
-import cz.pollib.dto.validation.IdentificationNumberNotDuplicate;
+import cz.pollib.service.validation.UniqueIdentificationNumber;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
 /**
- * Data Transfer Object (DTO) for person details and their and validation constraints.
+ * Request for creating person values and their validation constraints.
  * <p>
  * Attributes:
- * - id: The unique identifier for the person.
  * - name: The name of the person.
  * - identificationNumber: The identification number of the person. The number must be 8 digits and unique.
  * - taxNumber: The tax number, starting with two uppercase letters.
@@ -27,15 +25,12 @@ import jakarta.validation.constraints.Positive;
  * - country: The country.
  * - note: Any additional notes.
  */
-public class PersonDTO {
+public class CreatePersonRequest {
 
-    @JsonProperty("_id")
-    private Long id;
-
-    @NotBlank(message = "Type name")
+    @NotBlank(message = "Name cannot be blank")
     private String name;
 
-    @IdentificationNumberNotDuplicate
+    @UniqueIdentificationNumber
     @Positive(message = "Identification number must be positive number")
     @Pattern(regexp = "^[0-9]{8}$", message = "Identification number must be 8 digits")
     private String identificationNumber;
@@ -49,36 +44,36 @@ public class PersonDTO {
     @Positive(message = "Bank code must be positive number")
     private String bankCode;
 
-    @NotBlank(message = "Type IBAN")
+    @NotBlank(message = "IBAN cannot be blank")
     private String iban;
 
-    @NotBlank(message = "Type phone number")
+    @NotBlank(message = "Phone number cannot be blank")
     @Pattern(regexp = "^\\+(420|421)[0-9]{9}$")
     private String telephone;
 
-    @NotBlank(message = "Type email")
-    @Email(message = "Incorrect format")
+    @NotBlank(message = "Email cannot be blank")
+    @Email(message = "Incorrect email format")
     private String mail;
 
-    @NotBlank(message = "Type street")
+    @NotBlank(message = "Street cannot be blank")
     private String street;
 
-    @NotBlank(message = "Typer ZIP")
+    @NotBlank(message = "ZIP cannot be blank")
     @Pattern(regexp = "^[0-9]{5}$", message = "ZIP must be 5 digits")
     private String zip;
 
-    @NotBlank(message = "Type city")
+    @NotBlank(message = "City cannot be blank")
     private String city;
 
     private Countries country;
 
     private String note;
 
-    public PersonDTO() {
+    public CreatePersonRequest() {
+
     }
 
-    public PersonDTO(Long id, String name, String identificationNumber, String taxNumber, String accountNumber, String bankCode, String iban, String telephone, String mail, String street, String zip, String city, Countries country, String note) {
-        this.id = id;
+    public CreatePersonRequest(String name, String identificationNumber, String taxNumber, String accountNumber, String bankCode, String iban, String telephone, String mail, String street, String zip, String city, Countries country, String note) {
         this.name = name;
         this.identificationNumber = identificationNumber;
         this.taxNumber = taxNumber;
@@ -96,16 +91,7 @@ public class PersonDTO {
 
     // GETTERs and SETTERs block
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public @NotBlank(message = "Type name")
-    String getName() {
+    public String getName() {
         return name;
     }
 

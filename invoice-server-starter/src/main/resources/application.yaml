@@ -36,6 +36,7 @@ spring:
     password: invoiceapp_pass
     locations:
       - classpath:db/migration
+      - classpath:db/test-data
     baseline-on-migrate: true
     baseline-version: 0
     validate-on-migrate: true

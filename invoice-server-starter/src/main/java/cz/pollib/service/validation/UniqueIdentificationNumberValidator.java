@@ -1,19 +1,19 @@
-package cz.pollib.dto.validation;
+package cz.pollib.service.validation;
 
 import cz.pollib.entity.repository.PersonRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class IdentificationNumberNotDuplicateValidator implements ConstraintValidator<IdentificationNumberNotDuplicate, String> {
+public class UniqueIdentificationNumberValidator implements ConstraintValidator<UniqueIdentificationNumber, String> {
 
     private final PersonRepository personRepository;
 
-    public IdentificationNumberNotDuplicateValidator(PersonRepository personRepository) {
+    public UniqueIdentificationNumberValidator(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
     @Override
-    public void initialize(IdentificationNumberNotDuplicate constraintAnnotation) {
+    public void initialize(UniqueIdentificationNumber constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 

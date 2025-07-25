@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "title": "PersonStatisticsResponse Schema",
+  "description": "Schema for Person Statistics API response",
+  "items": {
+    "type": "object",
+    "properties": {
+      "personId": {
+        "type": "integer",
+        "description": "Unique identifier",
+        "minimum": 1
+      },
+      "personName": {
+        "type": "string",
+        "minLength": 1
+      },
+      "revenue": {
+        "oneOf": [
+          {"type": "integer", "minimum": 0},
+          {"type": "null"}
+        ]
+      }
+    },
+    "required": ["personId", "personName"],
+    "additionalProperties": false
+  }
+}

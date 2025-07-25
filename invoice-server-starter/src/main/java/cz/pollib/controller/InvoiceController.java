@@ -1,16 +1,27 @@
 package cz.pollib.controller;
 
-import cz.pollib.dto.InvoiceDTO;
-import cz.pollib.dto.InvoicePageDTO;
-import cz.pollib.dto.InvoiceStatisticsDTO;
-import cz.pollib.dto.mapper.InvoiceMapper;
 import cz.pollib.entity.filter.InvoiceFilter;
-import cz.pollib.service.InvoiceOperations;
+import cz.pollib.service.InvoiceServices;
+import cz.pollib.service.model.InvoicePageResponse;
+import cz.pollib.service.model.InvoiceRequest;
+import cz.pollib.service.model.InvoiceResponse;
+import cz.pollib.service.model.InvoiceStatisticsResponse;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @CrossOrigin
@@ -18,43 +29,40 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class InvoiceController {
 
-    private final InvoiceOperations invoiceOperations;
+    private final InvoiceServices invoiceServices;
 
-    private final InvoiceMapper invoiceMapper;
-
-    public InvoiceController(InvoiceOperations invoiceOperations, InvoiceMapper invoiceMapper) {
-        this.invoiceOperations = invoiceOperations;
-        this.invoiceMapper = invoiceMapper;
+    public InvoiceController(InvoiceServices invoiceServices) {
+        this.invoiceServices = invoiceServices;
     }
 
     @PostMapping("/invoice")
-    public ResponseEntity<InvoiceDTO> createInvoice(@RequestBody @Valid InvoiceDTO request) {
-        return new ResponseEntity<>(invoiceMapper.toDTO(invoiceOperations.createInvoice(request)), HttpStatus.CREATED);
+    public ResponseEntity<InvoiceResponse> createInvoice(@RequestBody @Valid InvoiceRequest request) {
+        return new ResponseEntity<>(invoiceServices.createInvoice(request), CREATED);
     }
 
     @GetMapping("/invoices")
-    public InvoicePageDTO searchInvoices(InvoiceFilter invoiceFilter, @RequestParam(defaultValue = "0") int page) {
-        return invoiceOperations.searchInvoices(invoiceFilter, page);
+    public ResponseEntity<InvoicePageResponse> searchInvoices(InvoiceFilter invoiceFilter, @RequestParam(defaultValue = "0") int page) {
+        return new ResponseEntity<>(invoiceServices.searchInvoices(invoiceFilter, page), OK);
     }
 
     @GetMapping("/invoice/{invoiceId}")
-    public InvoiceDTO getInvoiceDetail(@PathVariable Long invoiceId) {
-        return invoiceMapper.toDTO(invoiceOperations.detailInvoice(invoiceId));
+    public ResponseEntity<InvoiceResponse> getInvoiceDetail(@PathVariable Long invoiceId) {
+        return new ResponseEntity<>(invoiceServices.getInvoice(invoiceId), OK);
     }
 
     @DeleteMapping("/invoice/{invoiceId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(NO_CONTENT)
     public void deleteInvoice(@PathVariable Long invoiceId) {
-        invoiceOperations.deleteInvoice(invoiceId);
+        invoiceServices.deleteInvoice(invoiceId);
     }
 
     @PutMapping("/invoice/{invoiceId}")
-    public InvoiceDTO editInvoice(@PathVariable Long invoiceId, @RequestBody @Valid InvoiceDTO request) {
-        return invoiceMapper.toDTO(invoiceOperations.editInvoice(invoiceId, request));
+    public ResponseEntity<InvoiceResponse> updateInvoice(@PathVariable Long invoiceId, @RequestBody @Valid InvoiceRequest request) {
+        return new ResponseEntity<>(invoiceServices.updateInvoice(invoiceId, request), OK);
     }
 
     @GetMapping("/invoices/statistics")
-    public InvoiceStatisticsDTO getStatistics() {
-        return invoiceOperations.getInvoiceStatistics();
+    public ResponseEntity<InvoiceStatisticsResponse> getStatistics() {
+        return new ResponseEntity<>(invoiceServices.getInvoiceStatistics(), OK);
     }
 }
