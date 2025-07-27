@@ -13,22 +13,18 @@ Content-Type: application/json
   "issued": "1999-01-01",
   "dueDate": "2035-10-10",
   "product": "doprava",
-  "price": {{$random.integer(10000,99999)}},
-  "vat": {{$random.integer(1, 100)}},
+  "price": 2500,
+  "vat": "21",
   "note": "note",
-  "buyer": {
-    "_id": 18
-  },
-  "seller": {
-    "_id": 2
-  }
+  "buyerId": 1,
+  "sellerId": 2
 }
 
 > {%
     client.test("Request was successful", function () {
         client.assert(response.status === 201, "Response status should be 201");
-        client.log("id: " + response.body._id);
-        client.global.set("invoiceId", response.body._id)
+        client.log("id: " + response.body.id);
+        client.global.set("invoiceId", response.body.id)
     });
 %}
 
@@ -65,15 +61,11 @@ Content-Type: application/json
   "issued": "1999-01-01",
   "dueDate": "2035-10-10",
   "product": "dopravaaa",
-  "price": {{$random.integer(10000,99999)}},
-  "vat": {{$random.integer(1, 100)}},
+  "price": 650,
+  "vat": "16",
   "note": "noteee",
-  "buyer": {
-    "_id": 3
-  },
-  "seller": {
-    "_id": 2
-  }
+  "buyerId": 1,
+  "sellerId": 2
 }
 
 > {%
@@ -94,6 +86,29 @@ Content-Type: application/json
 
 ### Get invoice statistics
 GET {{hostname}}/api/invoices/statistics
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+
+### Get all invoices of seller by identificationNumber
+GET {{hostname}}/api/identification/{{identificationNumber}}/sales
+Accept: application/json
+Content-Type: application/json
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+### Get all invoices of buyer by identificationNumber
+GET {{hostname}}/api/identification/{{identificationNumber}}/purchases
 Accept: application/json
 Content-Type: application/json
 

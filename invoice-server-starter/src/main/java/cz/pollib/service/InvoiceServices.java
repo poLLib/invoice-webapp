@@ -1,25 +1,25 @@
 package cz.pollib.service;
 
-import cz.pollib.dto.InvoiceDTO;
-import cz.pollib.dto.InvoicePageDTO;
-import cz.pollib.dto.InvoiceStatisticsDTO;
-import cz.pollib.entity.Invoice;
+import cz.pollib.service.model.InvoicePageResponse;
+import cz.pollib.service.model.InvoiceRequest;
+import cz.pollib.service.model.InvoiceResponse;
+import cz.pollib.service.model.InvoiceStatisticsResponse;
 import cz.pollib.entity.filter.InvoiceFilter;
 
 
 /**
  * Service interface for managing invoices.
  */
-public interface InvoiceOperations {
+public interface InvoiceServices {
 
     /**
-     * Creates an invoice and attach it to Person.
-     * Catches duplication of invoiceNumber in database (DataIntegrityViolationException) and @throw DuplicateEntityException.
+     * Creates an invoice and attach it to a Person.
+     * Catches duplication of invoiceNumber in a database (DataIntegrityViolationException) and @throw DuplicateEntityException.
      *
      * @param request Invoice to create
      * @return Created Invoice
      */
-    Invoice createInvoice(InvoiceDTO request);
+    InvoiceResponse createInvoice(InvoiceRequest request);
 
     /**
      * Fetches all invoices in database and filter them according to user's parameters and make them pageable.
@@ -29,7 +29,7 @@ public interface InvoiceOperations {
      * @param page Current page
      * @return List of InvoiceDTO and count of invoice elements after filtration
      */
-    InvoicePageDTO searchInvoices(InvoiceFilter invoiceFilter, int page);
+    InvoicePageResponse searchInvoices(InvoiceFilter invoiceFilter, int page);
 
     /**
      * Look up for a specific invoice by [id]
@@ -37,7 +37,7 @@ public interface InvoiceOperations {
      * @param id Person we look for
      * @return Fetched Invoice
      */
-    Invoice detailInvoice(Long id);
+    InvoiceResponse getInvoice(Long id);
 
     /**
      * <p>Sets hidden flag to true for the person with the matching [id]</p>
@@ -54,12 +54,12 @@ public interface InvoiceOperations {
      * @param request New source of data for update invoice
      * @return Edited Invoice
      */
-    Invoice editInvoice(Long id, InvoiceDTO request);
+    InvoiceResponse updateInvoice(Long id, InvoiceRequest request);
 
     /**
      * Counts the invoices, profit of the invoices in current year and in total
      *
      * @return InvoiceStatisticsDTO with the counted values
      */
-    InvoiceStatisticsDTO getInvoiceStatistics();
+    InvoiceStatisticsResponse getInvoiceStatistics();
 }

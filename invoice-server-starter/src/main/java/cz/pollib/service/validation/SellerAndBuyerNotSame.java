@@ -1,18 +1,23 @@
-package cz.pollib.dto.validation;
+package cz.pollib.service.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = IdentificationNumberNotDuplicateValidator.class)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+/**
+ * Custom validation controlling that the seller and the buyer are not same
+ */
+@Documented
+@Constraint(validatedBy = SellerAndBuyerNotSameValidator.class)
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface IdentificationNumberNotDuplicate {
-    String message() default "Identification number already exists";
+public @interface SellerAndBuyerNotSame {
+    String message() default "BuyerAndSellerNotSame";
 
     Class<?>[] groups() default {};
 

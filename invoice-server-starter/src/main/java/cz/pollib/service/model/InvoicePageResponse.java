@@ -1,4 +1,4 @@
-package cz.pollib.dto;
+package cz.pollib.service.model;
 
 import java.util.List;
 
@@ -9,14 +9,14 @@ import java.util.List;
  * - invoices: The list of invoices for the current page.
  * - totalElements: The total number of invoices available.
  */
-public class InvoicePageDTO {
-    private List<InvoiceDTO> invoices;
+public class InvoicePageResponse {
+    private List<InvoiceResponse> invoices;
     private Long totalElements;
 
-    public InvoicePageDTO() {
+    public InvoicePageResponse() {
     }
 
-    public InvoicePageDTO(List<InvoiceDTO> invoices, Long totalElements) {
+    public InvoicePageResponse(List<InvoiceResponse> invoices, Long totalElements) {
         this.invoices = invoices;
         this.totalElements = totalElements;
     }
@@ -24,11 +24,11 @@ public class InvoicePageDTO {
     // GETTERs and SETTERs block
 
 
-    public List<InvoiceDTO> getInvoices() {
+    public List<InvoiceResponse> getInvoices() {
         return invoices;
     }
 
-    public void setInvoices(List<InvoiceDTO> invoices) {
+    public void setInvoices(List<InvoiceResponse> invoices) {
         this.invoices = invoices;
     }
 

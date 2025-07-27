@@ -1,23 +1,15 @@
 package cz.pollib.entity.repository;
 
-import cz.pollib.dto.InvoiceStatisticsDTO;
-import cz.pollib.entity.Invoice;
+import cz.pollib.service.model.InvoiceStatisticsResponse;
+import cz.pollib.entity.InvoiceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 /**
- * Repository interface for managing {@link Invoice} entities.
+ * Repository interface for managing {@link InvoiceEntity} entities.
  */
-public interface InvoiceRepository extends JpaRepository<Invoice, Long>, JpaSpecificationExecutor<Invoice> {
-
-    /**
-     * Count all invoices
-     *
-     * @return The count of all invoices
-     */
-    @Query(value = "SELECT COUNT(*) FROM invoice i", nativeQuery = true)
-    Long countInvoices();
+public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, JpaSpecificationExecutor<InvoiceEntity> {
 
     /**
      * Retrieves statistics for invoices.
@@ -28,15 +20,13 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long>, JpaSpec
      * - currentYearSum: The sum of invoices for the current year.
      */
     @Query(value = """
-            SELECT NEW cz.pollib.dto.InvoiceStatisticsDTO(
+            SELECT NEW cz.pollib.service.model.InvoiceStatisticsResponse(
                         SUM(currentYearSum.price),
                         SUM(allTimeSum.price),
                         COUNT(*)
                         )
-                        FROM Invoice allTimeSum
-                        LEFT JOIN Invoice currentYearSum
-                        ON allTimeSum.id = currentYearSum.id
-                        AND YEAR(currentYearSum.issued) = YEAR(CURRENT_DATE)
+            FROM Invoice allTimeSum
+                LEFT OUTER JOIN FETCH Invoice currentYearSum ON allTimeSum.id = currentYearSum.id AND YEAR(currentYearSum.issued) = YEAR(CURRENT_DATE)
             """)
-    InvoiceStatisticsDTO getStats();
+    InvoiceStatisticsResponse getStats();
 }

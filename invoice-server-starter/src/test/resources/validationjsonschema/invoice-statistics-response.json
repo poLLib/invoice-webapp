@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "InvoiceStatisticsResponse Schema",
+  "description": "Schema for Invoice Statistics API response",
+  "properties": {
+    "currentYearSum": {
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Sum of the year"
+    },
+    "allTimeSum": {
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Total invoices"
+    },
+    "invoicesCount": {
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Total sum of issued"
+    }
+  },
+  "additionalProperties": false
+}

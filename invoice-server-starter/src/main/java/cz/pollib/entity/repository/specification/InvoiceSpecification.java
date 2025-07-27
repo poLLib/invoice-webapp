@@ -1,9 +1,9 @@
 package cz.pollib.entity.repository.specification;
 
-import cz.pollib.entity.Invoice;
-import cz.pollib.entity.Invoice_;
-import cz.pollib.entity.Person;
-import cz.pollib.entity.Person_;
+import cz.pollib.entity.InvoiceEntity;
+import cz.pollib.entity.InvoiceEntity_;
+import cz.pollib.entity.PersonEntity;
+import cz.pollib.entity.PersonEntity_;
 import cz.pollib.entity.filter.InvoiceFilter;
 import jakarta.persistence.criteria.*;
 import org.springframework.data.jpa.domain.Specification;
@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Specification for filtering {@link Invoice} instances.
+ * Specification for filtering {@link InvoiceEntity} instances.
  * <p>
  * This class constructs JPA criteria queries based on the provided {@link InvoiceFilter} to filter invoices
  * by various criteria including price range, seller, buyer, and product description.
  */
-public class InvoiceSpecification implements Specification<Invoice> {
+public class InvoiceSpecification implements Specification<InvoiceEntity> {
 
     private final InvoiceFilter invoiceFilter;
 
@@ -35,28 +35,28 @@ public class InvoiceSpecification implements Specification<Invoice> {
      * @return The combined {@link Predicate} based on the filter criteria.
      */
     @Override
-    public Predicate toPredicate(@NonNull Root<Invoice> root, CriteriaQuery<?> query, @NonNull CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(@NonNull Root<InvoiceEntity> root, CriteriaQuery<?> query, @NonNull CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
 
         if (invoiceFilter.getMinPrice() != null) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(Invoice_.PRICE), invoiceFilter.getMinPrice()));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(InvoiceEntity_.PRICE), invoiceFilter.getMinPrice()));
         }
 
         if (invoiceFilter.getMaxPrice() != null) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(Invoice_.PRICE), invoiceFilter.getMaxPrice()));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(InvoiceEntity_.PRICE), invoiceFilter.getMaxPrice()));
         }
 
         if (invoiceFilter.getSellerId() != null) {
-            Join<Person, Invoice> seller = root.join(Invoice_.SELLER);
-            predicates.add(criteriaBuilder.equal(seller.get(Person_.ID), invoiceFilter.getSellerId()));
+            Join<PersonEntity, InvoiceEntity> seller = root.join(InvoiceEntity_.SELLER);
+            predicates.add(criteriaBuilder.equal(seller.get(PersonEntity_.ID), invoiceFilter.getSellerId()));
         }
 
         if (invoiceFilter.getBuyerId() != null) {
-            Join<Person, Invoice> buyer = root.join(Invoice_.BUYER);
-            predicates.add(criteriaBuilder.equal(buyer.get(Person_.ID), invoiceFilter.getBuyerId()));
+            Join<PersonEntity, InvoiceEntity> buyer = root.join(InvoiceEntity_.BUYER);
+            predicates.add(criteriaBuilder.equal(buyer.get(PersonEntity_.ID), invoiceFilter.getBuyerId()));
         }
         if (invoiceFilter.getProduct() != null) {
-            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get(Invoice_.PRODUCT)), "%" + invoiceFilter.getProduct().toLowerCase() + "%"));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get(InvoiceEntity_.PRODUCT)), "%" + invoiceFilter.getProduct().toLowerCase() + "%"));
         }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

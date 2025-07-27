@@ -1,4 +1,4 @@
-package cz.pollib.dto;
+package cz.pollib.service.model;
 
 /**
  * Contains statistics for a person.
@@ -8,16 +8,16 @@ package cz.pollib.dto;
  * - personName: The name of the person.
  * - revenue: The total revenue associated with the person.
  */
-public class PersonStatisticsDTO {
+public class PersonStatisticsResponse {
 
     private Long personId;
     private String personName;
     private Long revenue;
 
-    public PersonStatisticsDTO() {
+    public PersonStatisticsResponse() {
     }
 
-    public PersonStatisticsDTO(Long personId, String personName, Long revenue) {
+    public PersonStatisticsResponse(Long personId, String personName, Long revenue) {
         this.personId = personId;
         this.personName = personName;
         this.revenue = revenue;

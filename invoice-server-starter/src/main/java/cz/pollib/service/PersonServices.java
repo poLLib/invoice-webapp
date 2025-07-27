@@ -1,16 +1,16 @@
 package cz.pollib.service;
 
-import cz.pollib.dto.PersonDTO;
-import cz.pollib.dto.PersonStatisticsDTO;
-import cz.pollib.entity.Invoice;
-import cz.pollib.entity.Person;
+import cz.pollib.service.model.CreatePersonRequest;
+import cz.pollib.service.model.PersonResponse;
+import cz.pollib.service.model.PersonStatisticsResponse;
+import cz.pollib.service.model.UpdatePersonRequest;
 
 import java.util.List;
 
 /**
  * Service interface for managing person-related operations.
  */
-public interface PersonOperations {
+public interface PersonServices {
 
     /**
      * Creates a new person
@@ -18,7 +18,7 @@ public interface PersonOperations {
      * @param request Person to create
      * @return Newly created Person
      */
-    Person createPerson(PersonDTO request);
+    PersonResponse createPerson(CreatePersonRequest request);
 
     /**
      * Fetches all non-hidden persons and page them in lists
@@ -27,7 +27,7 @@ public interface PersonOperations {
      * @param size Number of pages
      * @return List of Person of current page
      */
-    List<Person> getPersons(int page, int size);
+    List<PersonResponse> getPersons(int page, int size);
 
     /**
      * Counts all visible persons
@@ -43,10 +43,10 @@ public interface PersonOperations {
      * @param id Person to look up
      * @return Found Person
      */
-    Person getPerson(Long id);
+    PersonResponse getPerson(Long id);
 
     /**
-     * <p>Sets hidden flag to true for the person with the matching [id]</p>
+     * <p>Sets a hidden flag to true for the person with the matching [id]</p>
      * <p>In case a person with the passed [id] isn't found, the method <b>silently fails</b></p>
      *
      * @param id Person to delete
@@ -61,29 +61,13 @@ public interface PersonOperations {
      * @param request Updated data of person to edit
      * @return Edited Person
      */
-    Person editPerson(Long id, PersonDTO request);
+    PersonResponse updatePerson(Long id, UpdatePersonRequest request);
 
     /**
-     * Fetches all invoices by [identificationNumber] of the seller
-     *
-     * @param identificationNumber The seller
-     * @return List of the Invoice
-     */
-    List<Invoice> getInvoicesBySeller(String identificationNumber);
-
-    /**
-     * Fetches all invoices by [identificationNumber] of the buyer
-     *
-     * @param identificationNumber The buyer
-     * @return List of the Invoice
-     */
-    List<Invoice> getInvoicesByBuyer(String identificationNumber);
-
-    /**
-     * Fetches all values of PersonStatisticsDTO [Long personId, String personName, Long revenue]
+     * Fetches all values of {@link PersonStatisticsResponse} [Long personId, String personName, Long revenue]
      *
      * @return List of statistics of each person
      */
-    List<PersonStatisticsDTO> getPersonStatistics();
+    List<PersonStatisticsResponse> getPersonStatistics();
 
 }
