@@ -51,12 +51,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>1.5.3.Final</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <version>6.6.0.Final</version>
@@ -65,7 +59,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.2.0</version>
+            <version>2.8.9</version>
         </dependency>
 
         <dependency>
@@ -164,6 +158,18 @@
                 <version>11.10.3</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.18.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -182,16 +188,7 @@
                             <artifactId>hibernate-jpamodelgen</artifactId>
                             <version>6.6.0.Final</version>
                         </path>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>1.5.3.Final</version>
-                        </path>
                     </annotationProcessorPaths>
-                    <compilerArgs>
-                        <arg>-Amapstruct.suppressGeneratorTimestamp=true</arg>
-                        <arg>-Amapstruct.defaultComponentModel=spring</arg>
-                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -204,6 +201,27 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>11.10.3</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <apiDocsUrl>http://localhost:8080/v3/api-docs</apiDocsUrl>
+                    <outputFileName>openapi.yaml</outputFileName>
+                    <outputDir>${project.build.directory}/docs</outputDir>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>
