@@ -1,7 +1,6 @@
 package cz.pollib.service;
 
 import cz.pollib.entity.PersonEntity;
-import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.entity.repository.PersonRepository;
 import cz.pollib.service.common.PersonEntityProvider;
 import cz.pollib.service.mapper.PersonMapper;
@@ -10,6 +9,8 @@ import cz.pollib.service.model.PersonResponse;
 import cz.pollib.service.model.PersonStatisticsResponse;
 import cz.pollib.service.model.UpdatePersonRequest;
 import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -20,21 +21,22 @@ import java.util.List;
 public class PersonServicesImpl implements PersonServices {
 
     private final PersonRepository personRepository;
-    private final InvoiceRepository invoiceRepository;
     private final PersonEntityProvider personEntityProvider;
 
     private final PersonMapper personMapper;
 
-    public PersonServicesImpl(PersonMapper personMapper, PersonRepository personRepository, InvoiceRepository invoiceRepository, PersonEntityProvider personEntityProvider) {
+    private static final Logger logger = LoggerFactory.getLogger(PersonServicesImpl.class);
+
+    public PersonServicesImpl(PersonMapper personMapper, PersonRepository personRepository, PersonEntityProvider personEntityProvider) {
         this.personMapper = personMapper;
         this.personRepository = personRepository;
-        this.invoiceRepository = invoiceRepository;
         this.personEntityProvider = personEntityProvider;
     }
 
     public PersonResponse createPerson(CreatePersonRequest request) {
         PersonEntity entity = personMapper.toEntity(request);
         entity = personRepository.saveAndFlush(entity);
+        logger.info("Person was created id:{}", entity.getId());
 
         return personMapper.toModel(entity);
     }
@@ -42,6 +44,7 @@ public class PersonServicesImpl implements PersonServices {
     @Override
     public List<PersonResponse> getPersons(int page, int size) {
         List<PersonEntity> persons = new ArrayList<>(personRepository.findByHidden(false, PageRequest.of(page, size)));
+        logger.info("Found {} persons", persons.size());
 
         return persons
                 .stream()
@@ -70,6 +73,8 @@ public class PersonServicesImpl implements PersonServices {
             person.setHidden(true);
 
             personRepository.saveAndFlush(person);
+            logger.info("Person was deleted id:{}", personId);
+
         } catch (EntityNotFoundException ignored) {
         }
     }
@@ -80,6 +85,7 @@ public class PersonServicesImpl implements PersonServices {
         PersonEntity updatedPerson = personMapper.merge(fetchedPerson, request);
 
         personRepository.saveAndFlush(updatedPerson);
+        logger.info("Person updated id:{}", id);
 
         return personMapper.toModel(updatedPerson);
     }
@@ -97,7 +103,6 @@ public class PersonServicesImpl implements PersonServices {
 
             list.add(personStatisticsResponse);
         }
-
         return list;
     }
 }

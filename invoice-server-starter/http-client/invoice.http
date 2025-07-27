@@ -13,8 +13,8 @@ Content-Type: application/json
   "issued": "1999-01-01",
   "dueDate": "2035-10-10",
   "product": "doprava",
-  "price": {{$random.integer(10000,99999)}},
-  "vat": {{$random.integer(1, 100)}},
+  "price": 2500,
+  "vat": "21",
   "note": "note",
   "buyerId": 1,
   "sellerId": 2
@@ -61,8 +61,8 @@ Content-Type: application/json
   "issued": "1999-01-01",
   "dueDate": "2035-10-10",
   "product": "dopravaaa",
-  "price": {{$random.integer(10000,99999)}},
-  "vat": {{$random.integer(1, 100)}},
+  "price": 650,
+  "vat": "16",
   "note": "noteee",
   "buyerId": 1,
   "sellerId": 2

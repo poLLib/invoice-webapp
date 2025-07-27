@@ -10,6 +10,8 @@ import cz.pollib.service.model.InvoicePageResponse;
 import cz.pollib.service.model.InvoiceRequest;
 import cz.pollib.service.model.InvoiceResponse;
 import cz.pollib.service.model.InvoiceStatisticsResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ public class InvoiceServicesImpl implements InvoiceServices {
 
     private final InvoiceMapper invoiceMapper;
 
+    private static final Logger logger = LoggerFactory.getLogger(InvoiceServicesImpl.class);
+
     public InvoiceServicesImpl(InvoiceRepository invoiceRepository, InvoiceEntityProvider invoiceEntityProvider, InvoiceMapper invoiceMapper) {
         this.invoiceRepository = invoiceRepository;
         this.invoiceEntityProvider = invoiceEntityProvider;
@@ -33,6 +37,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
     public InvoiceResponse createInvoice(InvoiceRequest request) {
         InvoiceEntity entity = invoiceMapper.toEntity(request);
         invoiceRepository.saveAndFlush(entity);
+        logger.info("Invoice was created id:{}", entity.getId());
 
         return invoiceMapper.toModel(entity);
     }
@@ -49,6 +54,8 @@ public class InvoiceServicesImpl implements InvoiceServices {
                 .map(invoiceMapper::toModel)
                 .toList();
 
+        logger.info("Search found {} invoices", totalElements);
+
         return new InvoicePageResponse(invoices, totalElements);
     }
 
@@ -60,6 +67,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
     @Override
     public void deleteInvoice(Long id) {
         invoiceRepository.delete(invoiceEntityProvider.getEntity(id));
+        logger.info("Invoice was deleted id:{}", id);
     }
 
     public InvoiceResponse updateInvoice(Long id, InvoiceRequest request) {
@@ -67,6 +75,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
         InvoiceEntity updatedInvoice = invoiceMapper.merge(fetchedInvoice, request);
 
         invoiceRepository.saveAndFlush(updatedInvoice);
+        logger.info("Invoice updated id:{}", id);
 
         return invoiceMapper.toModel(updatedInvoice);
     }
