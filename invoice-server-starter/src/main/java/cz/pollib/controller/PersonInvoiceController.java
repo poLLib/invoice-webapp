@@ -3,11 +3,13 @@ package cz.pollib.controller;
 import cz.pollib.service.PersonInvoiceServices;
 import cz.pollib.service.model.InvoiceResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
@@ -24,6 +26,7 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
+@Tag(name = "PersonInvoice", description = "Management between sellers and buyers")
 public class PersonInvoiceController {
     private final PersonInvoiceServices personInvoiceServices;
 
@@ -59,7 +62,13 @@ public class PersonInvoiceController {
             value = "/identification/{identificationNumber}/sales",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<InvoiceResponse>> getSellerInvoices(@PathVariable String identificationNumber) {
+    public ResponseEntity<List<InvoiceResponse>> getSellerInvoices(
+            @Parameter(
+                    description = "Unique identification number of seller",
+                    required = true
+            )
+            @PathVariable String identificationNumber
+    ) {
         return new ResponseEntity<>(personInvoiceServices.getInvoicesBySeller(identificationNumber), OK);
     }
 
@@ -91,7 +100,13 @@ public class PersonInvoiceController {
             value = "/identification/{identificationNumber}/purchases",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<InvoiceResponse>> getBuyersInvoices(@PathVariable String identificationNumber) {
+    public ResponseEntity<List<InvoiceResponse>> getBuyersInvoices(
+            @Parameter(
+                    description = "Unique identification number of buyer",
+                    required = true
+            )
+            @PathVariable String identificationNumber
+    ) {
         return new ResponseEntity<>(personInvoiceServices.getInvoicesByBuyer(identificationNumber), OK);
     }
 }

@@ -39,7 +39,7 @@ public class OpenApiConfig {
     public GroupedOpenApi invoiceApi() {
         return GroupedOpenApi
                 .builder()
-                .group("invoice")
+                .group("Invoice API")
                 .pathsToMatch(
                         "/api/invoice",
                         "/api/invoice/**",

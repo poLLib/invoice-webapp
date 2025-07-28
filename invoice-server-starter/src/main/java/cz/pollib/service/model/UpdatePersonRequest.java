@@ -1,6 +1,7 @@
 package cz.pollib.service.model;
 
 import cz.pollib.constant.Countries;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -23,6 +24,7 @@ import jakarta.validation.constraints.Positive;
  * - country: The country.
  * - note: Any additional notes.
  */
+@Schema(name = "UpdatePersonRequest")
 public class UpdatePersonRequest {
 
     @NotBlank(message = "Name cannot be blank")
@@ -44,7 +46,6 @@ public class UpdatePersonRequest {
     @Pattern(regexp = "^\\+(420|421)[0-9]{9}$")
     private String telephone;
 
-    @NotBlank(message = "Email cannot be blank")
     @Email(message = "Incorrect email format")
     private String mail;
 

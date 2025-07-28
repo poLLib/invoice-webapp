@@ -3,6 +3,8 @@ package cz.pollib.service.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import cz.pollib.service.validation.IssuedMustBeBeforeDueDate;
 import cz.pollib.service.validation.SellerAndBuyerNotSame;
+import cz.pollib.service.validation.Unique;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -27,9 +29,11 @@ import java.time.LocalDate;
  */
 @IssuedMustBeBeforeDueDate
 @SellerAndBuyerNotSame
-public class InvoiceRequest {
+@Schema(name = "CreateOrUpdateInvoiceRequest")
+public class CreateOrUpdateInvoiceRequest {
 
     @Positive(message = "Invoice number must be positive number")
+    @Unique(entity = "invoice", field = "invoiceNumber", message = "Invoice number must be unique")
     private int invoiceNumber;
 
     @NotNull(message = "Issued date cannot be null")
@@ -59,10 +63,10 @@ public class InvoiceRequest {
     @NotNull(message = "Seller ID cannot be null")
     private Long sellerId;
 
-    public InvoiceRequest() {
+    public CreateOrUpdateInvoiceRequest() {
     }
 
-    public InvoiceRequest(int invoiceNumber, LocalDate issued, LocalDate dueDate, String product, Long price, byte vat, String note, Long buyer, Long seller) {
+    public CreateOrUpdateInvoiceRequest(int invoiceNumber, LocalDate issued, LocalDate dueDate, String product, Long price, byte vat, String note, Long buyer, Long seller) {
         this.invoiceNumber = invoiceNumber;
         this.issued = issued;
         this.dueDate = dueDate;

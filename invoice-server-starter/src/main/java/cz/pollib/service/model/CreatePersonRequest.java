@@ -1,7 +1,8 @@
 package cz.pollib.service.model;
 
 import cz.pollib.constant.Countries;
-import cz.pollib.service.validation.UniqueIdentificationNumber;
+import cz.pollib.service.validation.Unique;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -25,12 +26,13 @@ import jakarta.validation.constraints.Positive;
  * - country: The country.
  * - note: Any additional notes.
  */
+@Schema(name = "CreatePersonRequest")
 public class CreatePersonRequest {
 
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
-    @UniqueIdentificationNumber
+    @Unique(entity = "person", field = "identificationNumber", message = "Identification number must be unique")
     @Positive(message = "Identification number must be positive number")
     @Pattern(regexp = "^[0-9]{8}$", message = "Identification number must be 8 digits")
     private String identificationNumber;
@@ -51,7 +53,6 @@ public class CreatePersonRequest {
     @Pattern(regexp = "^\\+(420|421)[0-9]{9}$")
     private String telephone;
 
-    @NotBlank(message = "Email cannot be blank")
     @Email(message = "Incorrect email format")
     private String mail;
 
