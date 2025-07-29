@@ -4,7 +4,7 @@
   "title": "PersonResponse Schema",
   "description": "Schema for Person API response",
   "properties": {
-    "_id": {
+    "id": {
       "type": "integer",
       "description": "Unique identifier"
     },
@@ -82,7 +82,7 @@
     }
   },
   "required": [
-    "_id",
+    "id",
     "name",
     "identificationNumber",
     "accountNumber",

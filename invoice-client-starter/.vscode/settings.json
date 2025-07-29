@@ -1,3 +1,6 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "workbench.colorTheme": "Cursor Dark",
+    "workbench.preferredDarkColorTheme": "Cursor Dark",
+    "workbench.preferredHighContrastColorTheme": "Abyss"
 }

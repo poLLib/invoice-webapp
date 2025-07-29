@@ -119,6 +119,22 @@ export function InvoiceForm() {
                                 setInvoice({ ...invoice, buyerId: selectedValue });
                             }}
                         />
+                        {id ? null : (
+                            <InputField
+                                required={true}
+                                type="number"
+                                name="invoiceNumber"
+                                min="0"
+                                label="Číslo faktury"
+                                prompt="Zadejte číslo faktury"
+                                value={invoice.invoiceNumber}
+                                isSubmitted={isSubmitted}
+                                error={fieldErrors.invoiceNumber}
+                                handleChange={(e) => {
+                                    setInvoice({ ...invoice, invoiceNumber: e.target.value });
+                                }}
+                            />
+                        )}
                         <InputField
                             required={true}
                             type="number"

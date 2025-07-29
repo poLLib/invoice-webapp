@@ -1,8 +1,10 @@
 package cz.pollib.service.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import cz.pollib.service.validation.InvoiceDateValidatable;
 import cz.pollib.service.validation.IssuedMustBeBeforeDueDate;
 import cz.pollib.service.validation.SellerAndBuyerNotSame;
+import cz.pollib.service.validation.SellerAndBuyerValidatable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -29,7 +31,7 @@ import java.time.LocalDate;
 @IssuedMustBeBeforeDueDate
 @SellerAndBuyerNotSame
 @Schema(name = "UpdateInvoiceRequest")
-public class UpdateInvoiceRequest {
+public class UpdateInvoiceRequest implements InvoiceDateValidatable, SellerAndBuyerValidatable {
 
     @NotNull(message = "Issued date cannot be null")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -74,6 +76,7 @@ public class UpdateInvoiceRequest {
 
     // GETTERs and SETTERs block
 
+    @Override
     public LocalDate getIssued() {
         return issued;
     }
@@ -82,6 +85,7 @@ public class UpdateInvoiceRequest {
         this.issued = issued;
     }
 
+    @Override
     public LocalDate getDueDate() {
         return dueDate;
     }
@@ -122,6 +126,7 @@ public class UpdateInvoiceRequest {
         this.note = note;
     }
 
+    @Override
     public Long getBuyerId() {
         return buyerId;
     }
@@ -130,6 +135,7 @@ public class UpdateInvoiceRequest {
         this.buyerId = buyerId;
     }
 
+    @Override
     public Long getSellerId() {
         return sellerId;
     }
