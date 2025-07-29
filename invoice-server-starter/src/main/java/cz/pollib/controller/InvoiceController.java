@@ -2,6 +2,7 @@ package cz.pollib.controller;
 
 import cz.pollib.entity.filter.InvoiceFilter;
 import cz.pollib.service.InvoiceServices;
+import cz.pollib.service.common.model.ErrorResponse;
 import cz.pollib.service.model.InvoicePageResponse;
 import cz.pollib.service.model.CreateOrUpdateInvoiceRequest;
 import cz.pollib.service.model.InvoiceResponse;
@@ -18,7 +19,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

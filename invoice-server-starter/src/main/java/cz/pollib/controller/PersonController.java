@@ -1,6 +1,7 @@
 package cz.pollib.controller;
 
 import cz.pollib.service.PersonServices;
+import cz.pollib.service.common.model.ErrorResponse;
 import cz.pollib.service.model.CreatePersonRequest;
 import cz.pollib.service.model.PersonResponse;
 import cz.pollib.service.model.PersonStatisticsResponse;
@@ -16,7 +17,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
