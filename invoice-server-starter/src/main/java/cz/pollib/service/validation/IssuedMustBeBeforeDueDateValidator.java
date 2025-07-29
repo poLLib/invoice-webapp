@@ -1,17 +1,17 @@
 package cz.pollib.service.validation;
 
-import cz.pollib.service.model.CreateOrUpdateInvoiceRequest;
+import cz.pollib.service.model.CreateInvoiceRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class IssuedMustBeBeforeDueDateValidator implements ConstraintValidator<IssuedMustBeBeforeDueDate, CreateOrUpdateInvoiceRequest> {
+public class IssuedMustBeBeforeDueDateValidator implements ConstraintValidator<IssuedMustBeBeforeDueDate, CreateInvoiceRequest> {
 
     @Override
     public void initialize(IssuedMustBeBeforeDueDate constraintAnnotation) {
     }
 
     @Override
-    public boolean isValid(CreateOrUpdateInvoiceRequest invoiceRequest, ConstraintValidatorContext context) {
+    public boolean isValid(CreateInvoiceRequest invoiceRequest, ConstraintValidatorContext context) {
         if (invoiceRequest == null) {
             return true;
         }

@@ -24,7 +24,6 @@ import cz.pollib.constant.Countries;
  */
 public class PersonResponse {
 
-    @JsonProperty("_id")
     private Long id;
 
     private String name;

@@ -3,10 +3,11 @@ package cz.pollib.controller;
 import cz.pollib.entity.filter.InvoiceFilter;
 import cz.pollib.service.InvoiceServices;
 import cz.pollib.service.common.model.ErrorResponse;
+import cz.pollib.service.model.CreateInvoiceRequest;
 import cz.pollib.service.model.InvoicePageResponse;
-import cz.pollib.service.model.CreateOrUpdateInvoiceRequest;
 import cz.pollib.service.model.InvoiceResponse;
 import cz.pollib.service.model.InvoiceStatisticsResponse;
+import cz.pollib.service.model.UpdateInvoiceRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -70,7 +71,7 @@ public class InvoiceController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<InvoiceResponse> createInvoice(@RequestBody @Valid CreateOrUpdateInvoiceRequest request) {
+    public ResponseEntity<InvoiceResponse> createInvoice(@RequestBody @Valid CreateInvoiceRequest request) {
         return new ResponseEntity<>(invoiceServices.createInvoice(request), CREATED);
     }
 
@@ -216,7 +217,7 @@ public class InvoiceController {
                     required = true
             )
             @PathVariable Long invoiceId,
-            @RequestBody @Valid CreateOrUpdateInvoiceRequest request
+            @RequestBody @Valid UpdateInvoiceRequest request
     ) {
         return new ResponseEntity<>(invoiceServices.updateInvoice(invoiceId, request), OK);
     }

@@ -48,7 +48,7 @@ export function InvoiceIndex() {
             console.log(error.message);
             alert(error.message)
         }
-        setInvoices(invoices.filter((item) => item._id !== id));
+        setInvoices(invoices.filter((item) => item.id !== id));
 
         if ((totalInvoices - 1) % 10 === 0) {
             navigate(`/invoices/pages/${page - 1}`)

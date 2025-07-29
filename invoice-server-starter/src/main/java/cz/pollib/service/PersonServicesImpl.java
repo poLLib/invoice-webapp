@@ -99,7 +99,7 @@ public class PersonServicesImpl implements PersonServices {
 
             personStatisticsResponse.setPersonId(person.getId());
             personStatisticsResponse.setPersonName(person.getName());
-            personStatisticsResponse.setRevenue(personRepository.getTotalIncome(person.getId()));
+            personStatisticsResponse.setRevenue(personRepository.sumAllPrice(person.getId()));
 
             list.add(personStatisticsResponse);
         }

@@ -20,9 +20,8 @@ export function InvoiceForm() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [persons, setPersons] = useState([]);
     const [invoice, setInvoice] = useState({
-        invoiceNumber: "",
-        seller: { _id: null },
-        buyer: { _id: null },
+        sellerId: null,
+        buyerId: null,
         issued: "",
         dueDate: "",
         product: "",
@@ -99,12 +98,12 @@ export function InvoiceForm() {
                             label="Dodavatel"
                             items={persons}
                             prompt="Vyberte dodavatele"
-                            value={invoice.seller._id}
+                            value={invoice.sellerId}
                             isSubmitted={isSubmitted}
                             error={mergeErrors(fieldErrors["seller.id"], fieldErrors.seller)}
                             handleChange={(e) => {
                                 const selectedValue = e.target.value === "false" ? null : e.target.value;
-                                setInvoice({ ...invoice, seller: { _id: selectedValue } });
+                                setInvoice({ ...invoice, sellerId: selectedValue });
                             }}
                         />
                         <InputSelect
@@ -112,26 +111,12 @@ export function InvoiceForm() {
                             label="Odběratel"
                             items={persons}
                             prompt="Vyberte odběratele"
-                            value={invoice.buyer._id}
+                            value={invoice.buyerId}
                             isSubmitted={isSubmitted}
                             error={mergeErrors(fieldErrors["buyer.id"], fieldErrors.buyer)}
                             handleChange={(e) => {
                                 const selectedValue = e.target.value === "false" ? null : e.target.value;
-                                setInvoice({ ...invoice, buyer: { _id: selectedValue } });
-                            }}
-                        />
-                        <InputField
-                            required={true}
-                            type="number"
-                            name="invoiceNumber"
-                            min="0"
-                            label="Číslo faktury"
-                            prompt="Zadejte číslo faktury"
-                            value={invoice.invoiceNumber}
-                            isSubmitted={isSubmitted}
-                            error={fieldErrors.invoiceNumber}
-                            handleChange={(e) => {
-                                setInvoice({ ...invoice, invoiceNumber: e.target.value });
+                                setInvoice({ ...invoice, buyerId: selectedValue });
                             }}
                         />
                         <InputField

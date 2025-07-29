@@ -91,7 +91,7 @@ Content-Type: application/json
 %}
 
 ### Get person statistics
-GET {{hostname}}/api/persons/statistics
+GET {{hostname}}/api/person/statistics
 Accept: application/json
 Content-Type: application/json
 

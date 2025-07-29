@@ -22,14 +22,14 @@ export function PersonTable({ itemsPerPage, deletePerson }) {
                 </thead>
                 <tbody>
                     {itemsPerPage.map((item) => (
-                        <tr key={item._id}>
+                        <tr key={item.id}>
                             <td className="fw-bold">{item.name}</td>
                             <td>{item.identificationNumber}</td>
                             <td>{item.mail}</td>
                             <td className="text-end">
                                 <div className="btn-group">
                                     <Link
-                                        to={"/persons/show/" + item._id}
+                                        to={"/persons/show/" + item.id}
                                         className="btn btn-sm btn-info"
                                     >
                                         Zobrazit

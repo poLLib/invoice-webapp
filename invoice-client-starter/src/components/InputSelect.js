@@ -26,7 +26,7 @@ import React from "react";
  *   name="person"
  *   label="Select Person"
  *   prompt="Choose a person"
- *   items={[{ _id: '1', name: 'John Doe' }, { _id: '2', name: 'Jane Smith' }]}
+ *   items={[{ id: '1', name: 'John Doe' }, { id: '2', name: 'Jane Smith' }]}
  *   value="1"
  *   error={fieldError.person}
  *   isSubmitted={isSubmitted}
@@ -84,7 +84,7 @@ export function InputSelect(props) {
         {objectItems
           ? /* Render options as objects (e.g., database records) */
           props.items.map((item, index) => (
-            <option key={required ? index : index + 1} value={item._id}>
+            <option key={required ? index : index + 1} value={item.id}>
               {item.name}
             </option>
           ))
