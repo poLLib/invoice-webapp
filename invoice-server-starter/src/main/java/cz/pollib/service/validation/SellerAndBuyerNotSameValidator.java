@@ -1,17 +1,16 @@
 package cz.pollib.service.validation;
 
-import cz.pollib.service.model.CreateInvoiceRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class SellerAndBuyerNotSameValidator implements ConstraintValidator<SellerAndBuyerNotSame, CreateInvoiceRequest> {
+public class SellerAndBuyerNotSameValidator implements ConstraintValidator<SellerAndBuyerNotSame, SellerAndBuyerValidatable> {
     @Override
     public void initialize(SellerAndBuyerNotSame constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
-    public boolean isValid(CreateInvoiceRequest InvoiceRequest, ConstraintValidatorContext context) {
+    public boolean isValid(SellerAndBuyerValidatable InvoiceRequest, ConstraintValidatorContext context) {
         if (InvoiceRequest == null) {
             return true;
         }
@@ -20,7 +19,7 @@ public class SellerAndBuyerNotSameValidator implements ConstraintValidator<Selle
         Long sellerId = InvoiceRequest.getSellerId() != null ? InvoiceRequest.getSellerId() : null;
 
         if (buyerId == null || sellerId == null) {
-            return true; // Return true if either ID is null or handle as needed
+            return true;
         }
 
         boolean isValid = !buyerId.equals(sellerId);

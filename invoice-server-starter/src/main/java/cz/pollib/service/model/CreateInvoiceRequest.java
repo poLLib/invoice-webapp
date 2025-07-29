@@ -1,8 +1,10 @@
 package cz.pollib.service.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import cz.pollib.service.validation.InvoiceDateValidatable;
 import cz.pollib.service.validation.IssuedMustBeBeforeDueDate;
 import cz.pollib.service.validation.SellerAndBuyerNotSame;
+import cz.pollib.service.validation.SellerAndBuyerValidatable;
 import cz.pollib.service.validation.Unique;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
@@ -30,7 +32,7 @@ import java.time.LocalDate;
 @IssuedMustBeBeforeDueDate
 @SellerAndBuyerNotSame
 @Schema(name = "CreateOrUpdateInvoiceRequest")
-public class CreateInvoiceRequest {
+public class CreateInvoiceRequest implements InvoiceDateValidatable, SellerAndBuyerValidatable {
 
     @Positive(message = "Invoice number must be positive number")
     @Unique(entity = "invoice", field = "invoiceNumber", message = "Invoice number must be unique")
@@ -88,6 +90,7 @@ public class CreateInvoiceRequest {
         this.invoiceNumber = invoiceNumber;
     }
 
+    @Override
     public LocalDate getIssued() {
         return issued;
     }
@@ -96,6 +99,7 @@ public class CreateInvoiceRequest {
         this.issued = issued;
     }
 
+    @Override
     public LocalDate getDueDate() {
         return dueDate;
     }
@@ -136,6 +140,7 @@ public class CreateInvoiceRequest {
         this.note = note;
     }
 
+    @Override
     public Long getBuyerId() {
         return buyerId;
     }
@@ -144,6 +149,7 @@ public class CreateInvoiceRequest {
         this.buyerId = buyerId;
     }
 
+    @Override
     public Long getSellerId() {
         return sellerId;
     }
