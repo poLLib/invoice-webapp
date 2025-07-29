@@ -2,14 +2,15 @@ package cz.pollib.service.mapper;
 
 import cz.pollib.entity.InvoiceEntity;
 import cz.pollib.service.common.PersonEntityProvider;
-import cz.pollib.service.model.CreateOrUpdateInvoiceRequest;
+import cz.pollib.service.model.CreateInvoiceRequest;
 import cz.pollib.service.model.InvoiceResponse;
+import cz.pollib.service.model.UpdateInvoiceRequest;
 import org.springframework.stereotype.Component;
 
 /**
  * Mapper to:
- * - convert from request to new entity {@link CreateOrUpdateInvoiceRequest} and {@link InvoiceEntity}.
- * - convert merge from request to entity {@link CreateOrUpdateInvoiceRequest} and {@link InvoiceEntity}.
+ * - convert from request to new entity {@link CreateInvoiceRequest} and {@link InvoiceEntity}.
+ * - convert merge from request to entity {@link CreateInvoiceRequest} and {@link InvoiceEntity}.
  * - convert from entity to response {@link InvoiceEntity} and {@link InvoiceResponse}.
  */
 @Component
@@ -25,12 +26,12 @@ public class InvoiceMapper {
     }
 
     /**
-     * Converts an {@link CreateOrUpdateInvoiceRequest} to an {@link InvoiceEntity}.
+     * Converts an {@link CreateInvoiceRequest} to an {@link InvoiceEntity}.
      *
-     * @param model the source {@link CreateOrUpdateInvoiceRequest}
+     * @param model the source {@link CreateInvoiceRequest}
      * @return the converted {@link InvoiceEntity}
      */
-    public InvoiceEntity toEntity(CreateOrUpdateInvoiceRequest model) {
+    public InvoiceEntity toEntity(CreateInvoiceRequest model) {
         return new InvoiceEntity(
                 model.getInvoiceNumber(),
                 model.getIssued(),
@@ -45,13 +46,12 @@ public class InvoiceMapper {
     }
 
     /**
-     * Updates an existing {@link InvoiceEntity} with values from {@link CreateOrUpdateInvoiceRequest}.
+     * Updates an existing {@link InvoiceEntity} with values from {@link UpdateInvoiceRequest}.
      *
-     * @param model  the source {@link CreateOrUpdateInvoiceRequest}
+     * @param model  the source {@link UpdateInvoiceRequest}
      * @param entity the target {@link InvoiceEntity} to be updated
      */
-    public InvoiceEntity merge(InvoiceEntity entity, CreateOrUpdateInvoiceRequest model) {
-        entity.setInvoiceNumber(model.getInvoiceNumber());
+    public InvoiceEntity merge(InvoiceEntity entity, UpdateInvoiceRequest model) {
         entity.setIssued(model.getIssued());
         entity.setDueDate(model.getDueDate());
         entity.setProduct(model.getProduct());

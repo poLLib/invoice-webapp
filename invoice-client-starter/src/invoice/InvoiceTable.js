@@ -26,7 +26,7 @@ export function InvoiceTable({ items, deleteInvoice }) {
                 </thead>
                 <tbody>
                     {items.map((item) => (
-                        <tr key={item._id}>
+                        <tr key={item.id}>
                             <td className="fw-bold">{item.invoiceNumber}</td>
                             <td>{item.product}</td>
                             <td>{item.seller.name}</td>
@@ -35,19 +35,19 @@ export function InvoiceTable({ items, deleteInvoice }) {
                             <td>
                                 <div className="btn-group">
                                     <Link
-                                        to={"/invoices/show/" + item._id}
+                                        to={"/invoices/show/" + item.id}
                                         className="btn btn-sm btn-info"
                                     >
                                         Zobrazit
                                     </Link>
                                     <Link
-                                        to={"/invoices/edit/" + item._id}
+                                        to={"/invoices/edit/" + item.id}
                                         className="btn btn-sm btn-warning"
                                     >
                                         Upravit
                                     </Link>
                                     <button
-                                        onClick={() => deleteInvoice(item._id)}
+                                        onClick={() => deleteInvoice(item.id)}
                                         className="btn btn-sm btn-danger"
                                     >
                                         Odstranit

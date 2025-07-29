@@ -3,7 +3,6 @@ package cz.pollib.service.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import cz.pollib.service.validation.IssuedMustBeBeforeDueDate;
 import cz.pollib.service.validation.SellerAndBuyerNotSame;
-import cz.pollib.service.validation.Unique;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -14,7 +13,7 @@ import jakarta.validation.constraints.Positive;
 import java.time.LocalDate;
 
 /**
- * Request for an invoice values and their validation constraints.
+ * Request to create an invoice values and their validation constraints.
  * <p>
  * Attributes:
  * - invoiceNumber: The number of the invoice.
@@ -29,12 +28,8 @@ import java.time.LocalDate;
  */
 @IssuedMustBeBeforeDueDate
 @SellerAndBuyerNotSame
-@Schema(name = "CreateOrUpdateInvoiceRequest")
-public class CreateOrUpdateInvoiceRequest {
-
-    @Positive(message = "Invoice number must be positive number")
-    @Unique(entity = "invoice", field = "invoiceNumber", message = "Invoice number must be unique")
-    private int invoiceNumber;
+@Schema(name = "UpdateInvoiceRequest")
+public class UpdateInvoiceRequest {
 
     @NotNull(message = "Issued date cannot be null")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -63,11 +58,10 @@ public class CreateOrUpdateInvoiceRequest {
     @NotNull(message = "Seller ID cannot be null")
     private Long sellerId;
 
-    public CreateOrUpdateInvoiceRequest() {
+    public UpdateInvoiceRequest() {
     }
 
-    public CreateOrUpdateInvoiceRequest(int invoiceNumber, LocalDate issued, LocalDate dueDate, String product, Long price, byte vat, String note, Long buyer, Long seller) {
-        this.invoiceNumber = invoiceNumber;
+    public UpdateInvoiceRequest(LocalDate issued, LocalDate dueDate, String product, Long price, byte vat, String note, Long buyer, Long seller) {
         this.issued = issued;
         this.dueDate = dueDate;
         this.product = product;
@@ -79,14 +73,6 @@ public class CreateOrUpdateInvoiceRequest {
     }
 
     // GETTERs and SETTERs block
-
-    public int getInvoiceNumber() {
-        return invoiceNumber;
-    }
-
-    public void setInvoiceNumber(int invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
 
     public LocalDate getIssued() {
         return issued;

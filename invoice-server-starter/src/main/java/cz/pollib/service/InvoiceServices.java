@@ -1,11 +1,11 @@
 package cz.pollib.service;
 
+import cz.pollib.entity.filter.InvoiceFilter;
+import cz.pollib.service.model.CreateInvoiceRequest;
 import cz.pollib.service.model.InvoicePageResponse;
-import cz.pollib.service.model.CreateOrUpdateInvoiceRequest;
 import cz.pollib.service.model.InvoiceResponse;
 import cz.pollib.service.model.InvoiceStatisticsResponse;
-import cz.pollib.entity.filter.InvoiceFilter;
-
+import cz.pollib.service.model.UpdateInvoiceRequest;
 
 /**
  * Service interface for managing invoices.
@@ -19,14 +19,14 @@ public interface InvoiceServices {
      * @param request Invoice to create
      * @return Created Invoice
      */
-    InvoiceResponse createInvoice(CreateOrUpdateInvoiceRequest request);
+    InvoiceResponse createInvoice(CreateInvoiceRequest request);
 
     /**
      * Fetches all invoices in database and filter them according to user's parameters and make them pageable.
      * The second parameter of the class Pageable which determinate size of page is taken from param [limit] InvoiceFilter.
      *
      * @param invoiceFilter Parameters for filtration [buyerId], [sellerId], [product], [minPrice], [maxPrice], [limit (default value = 10)];
-     * @param page Current page
+     * @param page          Current page
      * @return List of InvoiceDTO and count of invoice elements after filtration
      */
     InvoicePageResponse searchInvoices(InvoiceFilter invoiceFilter, int page);
@@ -50,14 +50,14 @@ public interface InvoiceServices {
     /**
      * Edit invoice by [id] if exists
      *
-     * @param id   Invoice to be edited
+     * @param id      Invoice to be edited
      * @param request New source of data for update invoice
      * @return Edited Invoice
      */
-    InvoiceResponse updateInvoice(Long id, CreateOrUpdateInvoiceRequest request);
+    InvoiceResponse updateInvoice(Long id, UpdateInvoiceRequest request);
 
     /**
-     * Counts the invoices, profit of the invoices in current year and in total
+     * Counts the invoices, profit of the invoices in the current year and in total
      *
      * @return InvoiceStatisticsDTO with the counted values
      */

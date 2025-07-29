@@ -40,7 +40,7 @@ export function PersonIndex() {
             console.log(error.message);
             alert(error.message)
         }
-        setPersons(persons.filter((item) => item._id !== id));
+        setPersons(persons.filter((item) => item.id !== id));
 
         if ((totalPersons - 1) % 10 === 0 && page > 1) {
             navigate(`/persons/pages/${page - 1}`);

@@ -55,7 +55,7 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
                 JOIN FETCH Person p ON i.seller.id = p.id
             WHERE p.id = :id
             """)
-    Long getTotalIncome(@Param("id") Long id);
+    Long sumAllPrice(@Param("id") Long id);
 
     /**
      * Checks if a person exists by their identification number.

@@ -109,7 +109,7 @@ export function PersonDetail() {
                                         <tbody>
                                             {soldInvoices.map((i, index) => (
                                                 <tr key={index + 1}>
-                                                    <td className="invoice-td"><Link to={`/invoices/show/${i._id}`} className="invoice-link">{i.invoiceNumber}</Link></td>
+                                                    <td className="invoice-td"><Link to={`/invoices/show/${i.id}`} className="invoice-link">{i.invoiceNumber}</Link></td>
                                                     <td className="invoice-td">{i.product}</td>
                                                 </tr>
                                             ))}
@@ -131,7 +131,7 @@ export function PersonDetail() {
                                             {receivedInvoices.map((i, index) => (
                                                 <tr key={index + 1}>
 
-                                                    <td className="invoice-td"><Link to={`/invoices/show/${i._id}`} className="invoice-link">{i.invoiceNumber}</Link></td>
+                                                    <td className="invoice-td"><Link to={`/invoices/show/${i.id}`} className="invoice-link">{i.invoiceNumber}</Link></td>
                                                     <td className="invoice-td">{i.product}</td>
                                                 </tr>
                                             ))}
