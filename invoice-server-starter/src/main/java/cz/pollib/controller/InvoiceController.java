@@ -3,15 +3,17 @@ package cz.pollib.controller;
 import cz.pollib.entity.filter.InvoiceFilter;
 import cz.pollib.service.InvoiceServices;
 import cz.pollib.service.model.InvoicePageResponse;
-import cz.pollib.service.model.InvoiceRequest;
+import cz.pollib.service.model.CreateOrUpdateInvoiceRequest;
 import cz.pollib.service.model.InvoiceResponse;
 import cz.pollib.service.model.InvoiceStatisticsResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.HttpStatus.*;
@@ -34,6 +37,7 @@ import static org.springframework.http.HttpStatus.*;
 @CrossOrigin
 @RequestMapping("/api")
 @Validated
+@Tag(name = "Invoice", description = "Invoice management")
 public class InvoiceController {
 
     private final InvoiceServices invoiceServices;
@@ -66,7 +70,7 @@ public class InvoiceController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<InvoiceResponse> createInvoice(@RequestBody @Valid InvoiceRequest request) {
+    public ResponseEntity<InvoiceResponse> createInvoice(@RequestBody @Valid CreateOrUpdateInvoiceRequest request) {
         return new ResponseEntity<>(invoiceServices.createInvoice(request), CREATED);
     }
 
@@ -93,7 +97,14 @@ public class InvoiceController {
             value = "/invoices",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<InvoicePageResponse> searchInvoices(InvoiceFilter invoiceFilter, @RequestParam(defaultValue = "0") int page) {
+    public ResponseEntity<InvoicePageResponse> searchInvoices(
+            InvoiceFilter invoiceFilter, // TODO: 28.07.2025 query params as input for controller
+            @Parameter(
+                    description = "Page",
+                    schema = @Schema(defaultValue = "0")
+            )
+            @RequestParam(defaultValue = "0") int page
+    ) {
         return new ResponseEntity<>(invoiceServices.searchInvoices(invoiceFilter, page), OK);
     }
 
@@ -125,7 +136,13 @@ public class InvoiceController {
             value = "/invoice/{invoiceId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<InvoiceResponse> getInvoice(@PathVariable Long invoiceId) {
+    public ResponseEntity<InvoiceResponse> getInvoice(
+            @Parameter(
+                    description = "Unique identifier",
+                    required = true
+            )
+            @PathVariable Long invoiceId
+    ) {
         return new ResponseEntity<>(invoiceServices.getInvoice(invoiceId), OK);
     }
 
@@ -152,8 +169,15 @@ public class InvoiceController {
                     )
             }
     )
+    @ResponseStatus(NO_CONTENT)
     @DeleteMapping(value = "/invoice/{invoiceId}")
-    public void deleteInvoice(@PathVariable Long invoiceId) {
+    public void deleteInvoice(
+            @Parameter(
+                    description = "Unique identifier",
+                    required = true
+            )
+            @PathVariable Long invoiceId
+    ) {
         invoiceServices.deleteInvoice(invoiceId);
     }
 
@@ -186,7 +210,14 @@ public class InvoiceController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<InvoiceResponse> updateInvoice(@PathVariable Long invoiceId, @RequestBody @Valid InvoiceRequest request) {
+    public ResponseEntity<InvoiceResponse> updateInvoice(
+            @Parameter(
+                    description = "Unique identifier",
+                    required = true
+            )
+            @PathVariable Long invoiceId,
+            @RequestBody @Valid CreateOrUpdateInvoiceRequest request
+    ) {
         return new ResponseEntity<>(invoiceServices.updateInvoice(invoiceId, request), OK);
     }
 

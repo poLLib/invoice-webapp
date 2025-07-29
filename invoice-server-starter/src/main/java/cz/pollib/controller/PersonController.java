@@ -6,11 +6,13 @@ import cz.pollib.service.model.PersonResponse;
 import cz.pollib.service.model.PersonStatisticsResponse;
 import cz.pollib.service.model.UpdatePersonRequest;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,6 +36,7 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
+@Tag(name = "Person", description = "Person management")
 public class PersonController {
 
     private final PersonServices personServices;
@@ -98,7 +102,13 @@ public class PersonController {
             value = "/person/{personId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<PersonResponse> getPerson(@PathVariable Long personId) {
+    public ResponseEntity<PersonResponse> getPerson(
+            @Parameter(
+                    description = "Unique identifier",
+                    required = true
+            )
+            @PathVariable Long personId
+    ) {
         return new ResponseEntity<>(personServices.getPerson(personId), OK);
     }
 
@@ -131,7 +141,14 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<PersonResponse> updatePerson(@PathVariable Long personId, @RequestBody @Valid UpdatePersonRequest request) {
+    public ResponseEntity<PersonResponse> updatePerson(
+            @Parameter(
+                    description = "Unique identifier",
+                    required = true
+            )
+            @PathVariable Long personId,
+            @RequestBody @Valid UpdatePersonRequest request
+    ) {
         return new ResponseEntity<>(personServices.updatePerson(personId, request), OK);
     }
 
@@ -158,8 +175,15 @@ public class PersonController {
                     )
             }
     )
+    @ResponseStatus(NO_CONTENT)
     @DeleteMapping(value = "/person/{personId}")
-    public void deletePerson(@PathVariable Long personId) {
+    public void deletePerson(
+            @Parameter(
+                    description = "Unique identifier",
+                    required = true
+            )
+            @PathVariable Long personId
+    ) {
         personServices.removePerson(personId);
     }
 
@@ -186,8 +210,18 @@ public class PersonController {
             value = "/persons",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<PersonResponse>> getPersons(@RequestParam(defaultValue = "0") int page,
-                                                           @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<List<PersonResponse>> getPersons(
+            @Parameter(
+                    description = "Page",
+                    schema = @Schema(defaultValue = "0")
+            )
+            @RequestParam(defaultValue = "0") int page,
+            @Parameter(
+                    description = "Page size",
+                    schema = @Schema(defaultValue = "10")
+            )
+            @RequestParam(defaultValue = "10") int size
+    ) {
         return new ResponseEntity<>(personServices.getPersons(page, size), OK);
     }
 

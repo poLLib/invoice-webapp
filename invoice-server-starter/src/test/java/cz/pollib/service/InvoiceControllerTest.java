@@ -1,7 +1,7 @@
 package cz.pollib.service;
 
 import cz.pollib.common.BaseControllerTest;
-import cz.pollib.service.model.InvoiceRequest;
+import cz.pollib.service.model.CreateOrUpdateInvoiceRequest;
 import cz.pollib.service.model.InvoiceResponse;
 import cz.pollib.service.model.CreatePersonRequest;
 import cz.pollib.service.model.InvoiceStatisticsResponse;
@@ -102,7 +102,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .log().all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .body(new InvoiceRequest(
+                .body(new CreateOrUpdateInvoiceRequest(
                                 666555444,
                                 LocalDate.parse("2020-01-01"),
                                 LocalDate.parse("2020-03-01"),
@@ -186,7 +186,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .log().all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .body(new InvoiceRequest(
+                .body(new CreateOrUpdateInvoiceRequest(
                                 68453215,
                                 LocalDate.parse("2021-01-01"),
                                 LocalDate.parse("2021-01-01"),

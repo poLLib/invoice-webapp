@@ -1,7 +1,7 @@
 package cz.pollib.service;
 
 import cz.pollib.service.model.InvoicePageResponse;
-import cz.pollib.service.model.InvoiceRequest;
+import cz.pollib.service.model.CreateOrUpdateInvoiceRequest;
 import cz.pollib.service.model.InvoiceResponse;
 import cz.pollib.service.model.InvoiceStatisticsResponse;
 import cz.pollib.entity.filter.InvoiceFilter;
@@ -19,7 +19,7 @@ public interface InvoiceServices {
      * @param request Invoice to create
      * @return Created Invoice
      */
-    InvoiceResponse createInvoice(InvoiceRequest request);
+    InvoiceResponse createInvoice(CreateOrUpdateInvoiceRequest request);
 
     /**
      * Fetches all invoices in database and filter them according to user's parameters and make them pageable.
@@ -54,7 +54,7 @@ public interface InvoiceServices {
      * @param request New source of data for update invoice
      * @return Edited Invoice
      */
-    InvoiceResponse updateInvoice(Long id, InvoiceRequest request);
+    InvoiceResponse updateInvoice(Long id, CreateOrUpdateInvoiceRequest request);
 
     /**
      * Counts the invoices, profit of the invoices in current year and in total

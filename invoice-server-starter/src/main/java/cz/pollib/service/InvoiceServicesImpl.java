@@ -7,7 +7,7 @@ import cz.pollib.entity.repository.specification.InvoiceSpecification;
 import cz.pollib.service.common.InvoiceEntityProvider;
 import cz.pollib.service.mapper.InvoiceMapper;
 import cz.pollib.service.model.InvoicePageResponse;
-import cz.pollib.service.model.InvoiceRequest;
+import cz.pollib.service.model.CreateOrUpdateInvoiceRequest;
 import cz.pollib.service.model.InvoiceResponse;
 import cz.pollib.service.model.InvoiceStatisticsResponse;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
     }
 
     @Override
-    public InvoiceResponse createInvoice(InvoiceRequest request) {
+    public InvoiceResponse createInvoice(CreateOrUpdateInvoiceRequest request) {
         InvoiceEntity entity = invoiceMapper.toEntity(request);
         invoiceRepository.saveAndFlush(entity);
         logger.info("Invoice was created id:{}", entity.getId());
@@ -70,7 +70,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
         logger.info("Invoice was deleted id:{}", id);
     }
 
-    public InvoiceResponse updateInvoice(Long id, InvoiceRequest request) {
+    public InvoiceResponse updateInvoice(Long id, CreateOrUpdateInvoiceRequest request) {
         InvoiceEntity fetchedInvoice = invoiceEntityProvider.getEntity(id);
         InvoiceEntity updatedInvoice = invoiceMapper.merge(fetchedInvoice, request);
 

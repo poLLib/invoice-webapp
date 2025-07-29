@@ -29,4 +29,12 @@ public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, J
                 LEFT OUTER JOIN FETCH Invoice currentYearSum ON allTimeSum.id = currentYearSum.id AND YEAR(currentYearSum.issued) = YEAR(CURRENT_DATE)
             """)
     InvoiceStatisticsResponse getStats();
+    
+    /**
+     * Checks if an invoice exists by its invoice number.
+     *
+     * @param invoiceNumber The invoice number to check.
+     * @return True if exists.
+     */
+    boolean existsByInvoiceNumber(int invoiceNumber);
 }
