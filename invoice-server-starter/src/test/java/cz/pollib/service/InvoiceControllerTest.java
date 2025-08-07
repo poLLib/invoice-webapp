@@ -6,6 +6,7 @@ import cz.pollib.service.model.InvoiceResponse;
 import cz.pollib.service.model.CreatePersonRequest;
 import cz.pollib.service.model.InvoiceStatisticsResponse;
 import cz.pollib.service.model.PersonResponse;
+import cz.pollib.service.model.UpdateInvoiceRequest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -186,8 +187,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .log().all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .body(new CreateInvoiceRequest(
-                                68453215,
+                .body(new UpdateInvoiceRequest(
                                 LocalDate.parse("2021-01-01"),
                                 LocalDate.parse("2021-01-01"),
                                 "item",
@@ -209,7 +209,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .as(InvoiceResponse.class);
 
         assertThat(result.getId()).isNotNull();
-        assertThat(result.getInvoiceNumber()).isEqualTo(68453215);
+        assertThat(result.getInvoiceNumber()).isEqualTo(666555444);
         assertThat(result.getIssued()).isEqualTo(LocalDate.parse("2021-01-01"));
         assertThat(result.getDueDate()).isEqualTo(LocalDate.parse("2021-01-01"));
         assertThat(result.getProduct()).isEqualTo("item");

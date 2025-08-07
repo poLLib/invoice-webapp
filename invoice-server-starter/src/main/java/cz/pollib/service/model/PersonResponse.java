@@ -1,6 +1,5 @@
 package cz.pollib.service.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.pollib.constant.Countries;
 
 /**

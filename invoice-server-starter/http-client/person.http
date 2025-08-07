@@ -21,8 +21,8 @@ Content-Type: application/json
 > {%
     client.test("Request was successful", function () {
         client.assert(response.status === 201, "Response status should be 201");
-        client.log("id: " + response.body._id);
-        client.global.set("personId", response.body._id);
+        client.log("id: " + response.body.id);
+        client.global.set("personId", response.body.id);
         client.global.set("identificationNumber", response.body.identificationNumber);
     });
 %}

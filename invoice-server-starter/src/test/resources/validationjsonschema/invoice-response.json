@@ -49,7 +49,7 @@
     "buyer": {
       "type": "object",
       "properties": {
-        "_id": {
+        "id": {
           "type": "integer"
         },
         "identificationNumber": {
@@ -57,13 +57,13 @@
           "pattern": "^[0-9]{8}$"
         }
       },
-      "required": ["_id", "identificationNumber"],
+      "required": ["id", "identificationNumber"],
       "additionalProperties": true
     },
     "seller": {
       "type": "object",
       "properties": {
-        "_id": {
+        "id": {
           "type": "integer"
         },
         "identificationNumber": {
@@ -71,7 +71,7 @@
           "pattern": "^[0-9]{8}$"
         }
       },
-      "required": ["_id", "identificationNumber"],
+      "required": ["id", "identificationNumber"],
       "additionalProperties": true
     }
   },
