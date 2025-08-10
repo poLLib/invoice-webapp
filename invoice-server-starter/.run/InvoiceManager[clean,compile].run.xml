@@ -1,0 +1,21 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="InvoiceManager[clean,compile]" type="MavenRunConfiguration" factoryName="Maven">
+    <MavenSettings>
+      <option name="myRunnerParameters">
+        <MavenRunnerParameters>
+          <option name="workingDirPath" value="$PROJECT_DIR$/invoice-server-starter" />
+          <option name="pomFileName" value="pom.xml" />
+          <option name="goals">
+            <list>
+              <option value="clean" />
+              <option value="compile" />
+            </list>
+          </option>
+        </MavenRunnerParameters>
+      </option>
+    </MavenSettings>
+    <method v="2">
+      <option name="Make" enabled="false" />
+    </method>
+  </configuration>
+</component>

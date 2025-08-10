@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/invoice-server-starter/SpringInvoiceManager.iml" filepath="$PROJECT_DIR$/invoice-server-starter/SpringInvoiceManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/invoice-server-starter/InvoiceManager.iml" filepath="$PROJECT_DIR$/invoice-server-starter/InvoiceManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/invoice-webapp.iml" filepath="$PROJECT_DIR$/.idea/invoice-webapp.iml" />
     </modules>
   </component>
