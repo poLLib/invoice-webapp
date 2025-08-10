@@ -84,6 +84,7 @@ jspm_packages/
 
 # IDE
 /.idea
+# Default ignored files from .idea directories
 .idea/shelf/
 .idea/workspace.xml
 
