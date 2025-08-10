@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * </p>
  */
 @SpringBootApplication
-public class ApplicationMain {
+public class InvoiceManagerMain {
 
     public static void main(String[] args) {
-        SpringApplication.run(ApplicationMain.class, args);
+        SpringApplication.run(InvoiceManagerMain.class, args);
     }
 }
