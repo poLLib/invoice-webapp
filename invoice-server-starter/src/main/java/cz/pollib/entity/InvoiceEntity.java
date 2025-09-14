@@ -51,7 +51,7 @@ public class InvoiceEntity {
     private Long price;
 
     @Column(nullable = false)
-    private byte vat;
+    private int vat;
 
     @Column
     private String note;
@@ -64,7 +64,7 @@ public class InvoiceEntity {
     @JoinColumn(name = "seller_id", nullable = false)
     private PersonEntity seller;
 
-    public InvoiceEntity(int invoiceNumber, LocalDate issued, LocalDate dueDate, String product, Long price, byte vat, String note, PersonEntity buyer, PersonEntity seller) {
+    public InvoiceEntity(int invoiceNumber, LocalDate issued, LocalDate dueDate, String product, Long price, int vat, String note, PersonEntity buyer, PersonEntity seller) {
         this.invoiceNumber = invoiceNumber;
         this.issued = issued;
         this.dueDate = dueDate;
@@ -129,11 +129,11 @@ public class InvoiceEntity {
         this.price = price;
     }
 
-    public byte getVat() {
+    public int getVat() {
         return vat;
     }
 
-    public void setVat(byte vat) { this.vat = vat; }
+    public void setVat(int vat) { this.vat = vat; }
 
     public String getNote() {
         return note;

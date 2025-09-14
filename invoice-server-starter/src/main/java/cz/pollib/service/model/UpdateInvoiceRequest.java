@@ -31,58 +31,39 @@ import java.time.LocalDate;
 @IssuedMustBeBeforeDueDate
 @SellerAndBuyerNotSame
 @Schema(name = "UpdateInvoiceRequest")
-public class UpdateInvoiceRequest implements InvoiceDateValidatable, SellerAndBuyerValidatable {
+public record UpdateInvoiceRequest(
 
-    @NotNull(message = "Issued date cannot be null")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate issued;
+        @NotNull(message = "Issued date cannot be null")
+        @JsonFormat(pattern = "yyyy-MM-dd")
+        LocalDate issued,
 
-    @NotNull(message = "Due date cannot be null")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dueDate;
+        @NotNull(message = "Due date cannot be null")
+        @JsonFormat(pattern = "yyyy-MM-dd")
+        LocalDate dueDate,
 
-    @NotBlank(message = "Product cannot be blank")
-    private String product;
+        @NotBlank(message = "Product cannot be blank")
+        String product,
 
-    @NotNull(message = "Price cannot be null")
-    @Min(value = 1, message = "Price has minimal value 1")
-    private Long price;
+        @NotNull(message = "Price cannot be null")
+        @Min(value = 1, message = "Price has minimal value 1")
+        Long price,
 
-    @Positive(message = "VAT must be positive number")
-    @Max(value = 100, message = "VAT must be less than 100")
-    private byte vat;
+        @Positive(message = "VAT must be positive number")
+        @Max(value = 100, message = "VAT must be less than 100")
+        Integer vat,
 
-    private String note;
+        String note,
 
-    @NotNull(message = "Buyer ID cannot be null")
-    private Long buyerId;
+        @NotNull(message = "Buyer ID cannot be null")
+        Long buyerId,
 
-    @NotNull(message = "Seller ID cannot be null")
-    private Long sellerId;
-
-    public UpdateInvoiceRequest() {
-    }
-
-    public UpdateInvoiceRequest(LocalDate issued, LocalDate dueDate, String product, Long price, byte vat, String note, Long buyer, Long seller) {
-        this.issued = issued;
-        this.dueDate = dueDate;
-        this.product = product;
-        this.price = price;
-        this.vat = vat;
-        this.note = note;
-        this.buyerId = buyer;
-        this.sellerId = seller;
-    }
-
-    // GETTERs and SETTERs block
+        @NotNull(message = "Seller ID cannot be null")
+        Long sellerId
+) implements InvoiceDateValidatable, SellerAndBuyerValidatable {
 
     @Override
     public LocalDate getIssued() {
         return issued;
-    }
-
-    public void setIssued(LocalDate issued) {
-        this.issued = issued;
     }
 
     @Override
@@ -90,57 +71,13 @@ public class UpdateInvoiceRequest implements InvoiceDateValidatable, SellerAndBu
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public void setProduct(String product) {
-        this.product = product;
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
-    }
-
-    public byte getVat() {
-        return vat;
-    }
-
-    public void setVat(byte vat) {
-        this.vat = vat;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    @Override
-    public Long getBuyerId() {
-        return buyerId;
-    }
-
-    public void setBuyerId(Long buyerId) {
-        this.buyerId = buyerId;
-    }
-
     @Override
     public Long getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(Long sellerId) {
-        this.sellerId = sellerId;
+    @Override
+    public Long getBuyerId() {
+        return buyerId;
     }
 }

@@ -33,13 +33,13 @@ public class InvoiceMapper {
      */
     public InvoiceEntity toEntity(CreateInvoiceRequest model) {
         return new InvoiceEntity(
-                model.getInvoiceNumber(),
+                model.invoiceNumber(),
                 model.getIssued(),
                 model.getDueDate(),
-                model.getProduct(),
-                model.getPrice(),
-                model.getVat(),
-                model.getNote(),
+                model.product(),
+                model.price(),
+                model.vat(),
+                model.note(),
                 personEntityProvider.getEntity(model.getBuyerId()),
                 personEntityProvider.getEntity(model.getSellerId())
         );
@@ -54,10 +54,10 @@ public class InvoiceMapper {
     public InvoiceEntity merge(InvoiceEntity entity, UpdateInvoiceRequest model) {
         entity.setIssued(model.getIssued());
         entity.setDueDate(model.getDueDate());
-        entity.setProduct(model.getProduct());
-        entity.setPrice(model.getPrice());
-        entity.setVat(model.getVat());
-        entity.setNote(model.getNote());
+        entity.setProduct(model.product());
+        entity.setPrice(model.price());
+        entity.setVat(model.vat());
+        entity.setNote(model.note());
         entity.setBuyer(personEntityProvider.getEntity(model.getBuyerId()));
         entity.setSeller(personEntityProvider.getEntity(model.getSellerId()));
 

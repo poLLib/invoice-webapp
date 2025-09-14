@@ -8,45 +8,9 @@ package cz.pollib.service.model;
  * - personName: The name of the person.
  * - revenue: The total revenue associated with the person.
  */
-public class PersonStatisticsResponse {
-
-    private Long personId;
-    private String personName;
-    private Long revenue;
-
-    public PersonStatisticsResponse() {
-    }
-
-    public PersonStatisticsResponse(Long personId, String personName, Long revenue) {
-        this.personId = personId;
-        this.personName = personName;
-        this.revenue = revenue;
-    }
-
-    // GETTERs and SETTERs block
-
-
-    public Long getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Long personId) {
-        this.personId = personId;
-    }
-
-    public String getPersonName() {
-        return personName;
-    }
-
-    public void setPersonName(String personName) {
-        this.personName = personName;
-    }
-
-    public Long getRevenue() {
-        return revenue;
-    }
-
-    public void setRevenue(Long revenue) {
-        this.revenue = revenue;
-    }
+public record PersonStatisticsResponse(
+        long personId,
+        String personName,
+        Long revenue
+) {
 }

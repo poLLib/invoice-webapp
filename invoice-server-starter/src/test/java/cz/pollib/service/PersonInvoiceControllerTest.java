@@ -32,22 +32,22 @@ public class PersonInvoiceControllerTest extends BaseControllerTest {
 
         InvoiceResponse invoice = results[0];
 
-        assertThat(invoice.getId()).isNotNull();
-        assertThat(invoice.getInvoiceNumber()).isEqualTo(123456);
-        assertThat(invoice.getIssued()).isEqualTo(LocalDate.of(2019, 10, 1));
-        assertThat(invoice.getDueDate()).isEqualTo(LocalDate.of(2020, 1, 1));
-        assertThat(invoice.getProduct()).isEqualTo("product");
-        assertThat(invoice.getPrice()).isEqualTo(100L);
-        assertThat(invoice.getVat()).isEqualTo((byte) 21);
-        assertThat(invoice.getNote()).isNull();
+        assertThat(invoice.id()).isNotNull();
+        assertThat(invoice.invoiceNumber()).isEqualTo(123456);
+        assertThat(invoice.issued()).isEqualTo(LocalDate.of(2019, 10, 1));
+        assertThat(invoice.dueDate()).isEqualTo(LocalDate.of(2020, 1, 1));
+        assertThat(invoice.product()).isEqualTo("product");
+        assertThat(invoice.price()).isEqualTo(100L);
+        assertThat(invoice.vat()).isEqualTo((byte) 21);
+        assertThat(invoice.note()).isNull();
 
-        assertThat(invoice.getSeller()).isNotNull();
-        assertThat(invoice.getSeller().getIdentificationNumber()).isEqualTo("987654321");
-        assertThat(invoice.getSeller().getName()).isEqualTo("pompo");
+        assertThat(invoice.seller()).isNotNull();
+        assertThat(invoice.seller().identificationNumber()).isEqualTo("987654321");
+        assertThat(invoice.seller().name()).isEqualTo("pompo");
 
-        assertThat(invoice.getBuyer()).isNotNull();
-        assertThat(invoice.getBuyer().getIdentificationNumber()).isEqualTo("123456789");
-        assertThat(invoice.getBuyer().getName()).isEqualTo("arabela");
+        assertThat(invoice.buyer()).isNotNull();
+        assertThat(invoice.buyer().identificationNumber()).isEqualTo("123456789");
+        assertThat(invoice.buyer().name()).isEqualTo("arabela");
     }
 
     @Test
@@ -69,21 +69,21 @@ public class PersonInvoiceControllerTest extends BaseControllerTest {
 
         InvoiceResponse invoice = results[0];
 
-        assertThat(invoice.getId()).isNotNull();
-        assertThat(invoice.getInvoiceNumber()).isEqualTo(123456);
-        assertThat(invoice.getIssued()).isEqualTo(LocalDate.of(2019, 10, 1));
-        assertThat(invoice.getDueDate()).isEqualTo(LocalDate.of(2020, 1, 1));
-        assertThat(invoice.getProduct()).isEqualTo("product");
-        assertThat(invoice.getPrice()).isEqualTo(100L);
-        assertThat(invoice.getVat()).isEqualTo((byte) 21);
-        assertThat(invoice.getNote()).isNull();
+        assertThat(invoice.id()).isNotNull();
+        assertThat(invoice.invoiceNumber()).isEqualTo(123456);
+        assertThat(invoice.issued()).isEqualTo(LocalDate.of(2019, 10, 1));
+        assertThat(invoice.dueDate()).isEqualTo(LocalDate.of(2020, 1, 1));
+        assertThat(invoice.product()).isEqualTo("product");
+        assertThat(invoice.price()).isEqualTo(100L);
+        assertThat(invoice.vat()).isEqualTo((byte) 21);
+        assertThat(invoice.note()).isNull();
 
-        assertThat(invoice.getSeller()).isNotNull();
-        assertThat(invoice.getSeller().getIdentificationNumber()).isEqualTo("987654321");
-        assertThat(invoice.getSeller().getName()).isEqualTo("pompo");
+        assertThat(invoice.seller()).isNotNull();
+        assertThat(invoice.seller().identificationNumber()).isEqualTo("987654321");
+        assertThat(invoice.seller().name()).isEqualTo("pompo");
 
-        assertThat(invoice.getBuyer()).isNotNull();
-        assertThat(invoice.getBuyer().getIdentificationNumber()).isEqualTo("123456789");
-        assertThat(invoice.getBuyer().getName()).isEqualTo("arabela");
+        assertThat(invoice.buyer()).isNotNull();
+        assertThat(invoice.buyer().identificationNumber()).isEqualTo("123456789");
+        assertThat(invoice.buyer().name()).isEqualTo("arabela");
     }
 }

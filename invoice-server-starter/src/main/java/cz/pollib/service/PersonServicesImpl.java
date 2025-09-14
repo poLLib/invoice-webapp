@@ -95,11 +95,11 @@ public class PersonServicesImpl implements PersonServices {
         List<PersonStatisticsResponse> list = new ArrayList<>();
 
         for (PersonEntity person : personRepository.findByHidden(false)) {
-            PersonStatisticsResponse personStatisticsResponse = new PersonStatisticsResponse();
-
-            personStatisticsResponse.setPersonId(person.getId());
-            personStatisticsResponse.setPersonName(person.getName());
-            personStatisticsResponse.setRevenue(personRepository.sumAllPrice(person.getId()));
+            PersonStatisticsResponse personStatisticsResponse = new PersonStatisticsResponse(
+                    person.getId(),
+                    person.getName(),
+                    personRepository.sumAllPrice(person.getId())
+            );
 
             list.add(personStatisticsResponse);
         }

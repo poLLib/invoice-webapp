@@ -47,10 +47,10 @@ public class InvoiceServicesImpl implements InvoiceServices {
     public InvoicePageResponse searchInvoices(InvoiceFilter invoiceFilter, int page) {
         InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
 
-        Long totalElements = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.getLimit()))
+        long totalElements = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.limit()))
                 .getTotalElements();
 
-        List<InvoiceResponse> invoices = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.getLimit()))
+        List<InvoiceResponse> invoices = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.limit()))
                 .stream()
                 .map(invoiceMapper::toModel)
                 .toList();

@@ -23,19 +23,19 @@ public class PersonMapper {
      */
     public PersonEntity toEntity(CreatePersonRequest source) {
         return new PersonEntity(
-                source.getName(),
-                source.getIdentificationNumber(),
-                source.getTaxNumber(),
-                source.getAccountNumber(),
-                source.getBankCode(),
-                source.getIban(),
-                source.getTelephone(),
-                source.getMail(),
-                source.getStreet(),
-                source.getZip(),
-                source.getCity(),
-                source.getCountry(),
-                source.getNote()
+                source.name(),
+                source.identificationNumber(),
+                source.taxNumber(),
+                source.accountNumber(),
+                source.bankCode(),
+                source.iban(),
+                source.telephone(),
+                source.mail(),
+                source.street(),
+                source.zip(),
+                source.city(),
+                source.country(),
+                source.note()
         );
     }
 
@@ -46,18 +46,18 @@ public class PersonMapper {
      * @param entity the target {@link PersonEntity} to be updated
      */
     public PersonEntity merge(PersonEntity entity, UpdatePersonRequest model) {
-        entity.setName(model.getName());
-        entity.setTaxNumber(model.getTaxNumber());
-        entity.setAccountNumber(model.getAccountNumber());
-        entity.setBankCode(model.getBankCode());
-        entity.setIban(model.getIban());
-        entity.setTelephone(model.getTelephone());
-        entity.setMail(model.getMail());
-        entity.setStreet(model.getStreet());
-        entity.setZip(model.getZip());
-        entity.setCity(model.getCity());
-        entity.setCountry(model.getCountry());
-        entity.setNote(model.getNote());
+        entity.setName(model.name());
+        entity.setTaxNumber(model.taxNumber());
+        entity.setAccountNumber(model.accountNumber());
+        entity.setBankCode(model.bankCode());
+        entity.setIban(model.iban());
+        entity.setTelephone(model.telephone());
+        entity.setMail(model.mail());
+        entity.setStreet(model.street());
+        entity.setZip(model.zip());
+        entity.setCity(model.city());
+        entity.setCountry(model.country());
+        entity.setNote(model.note());
 
         return entity;
     }

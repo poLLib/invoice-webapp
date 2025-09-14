@@ -2,8 +2,8 @@ package cz.pollib.service;
 
 import cz.pollib.common.BaseControllerTest;
 import cz.pollib.service.model.CreateInvoiceRequest;
-import cz.pollib.service.model.InvoiceResponse;
 import cz.pollib.service.model.CreatePersonRequest;
+import cz.pollib.service.model.InvoiceResponse;
 import cz.pollib.service.model.InvoiceStatisticsResponse;
 import cz.pollib.service.model.PersonResponse;
 import cz.pollib.service.model.UpdateInvoiceRequest;
@@ -62,7 +62,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .statusCode(201)
                 .extract()
                 .as(PersonResponse.class)
-                .getId();
+                .id();
 
         buyerId = given()
                 .log().all()
@@ -92,7 +92,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .statusCode(201)
                 .extract()
                 .as(PersonResponse.class)
-                .getId();
+                .id();
     }
 
     @Order(2)
@@ -109,7 +109,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                                 LocalDate.parse("2020-03-01"),
                                 "product",
                                 23000L,
-                                (byte) 21,
+                                21,
                                 null,
                                 buyerId,
                                 sellerId
@@ -124,24 +124,24 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .extract()
                 .as(InvoiceResponse.class);
 
-        assertThat(result.getId()).isNotNull();
-        assertThat(result.getInvoiceNumber()).isEqualTo(666555444);
-        assertThat(result.getIssued()).isEqualTo(LocalDate.parse("2020-01-01"));
-        assertThat(result.getDueDate()).isEqualTo(LocalDate.parse("2020-03-01"));
-        assertThat(result.getProduct()).isEqualTo("product");
-        assertThat(result.getPrice()).isEqualTo(23000L);
-        assertThat(result.getVat()).isEqualTo((byte) 21);
-        assertThat(result.getNote()).isNull();
+        assertThat(result.id()).isNotNull();
+        assertThat(result.invoiceNumber()).isEqualTo(666555444);
+        assertThat(result.issued()).isEqualTo(LocalDate.parse("2020-01-01"));
+        assertThat(result.dueDate()).isEqualTo(LocalDate.parse("2020-03-01"));
+        assertThat(result.product()).isEqualTo("product");
+        assertThat(result.price()).isEqualTo(23000L);
+        assertThat(result.vat()).isEqualTo(21);
+        assertThat(result.note()).isNull();
 
-        assertThat(result.getSeller()).isNotNull();
-        assertThat(result.getSeller().getId()).isEqualTo(sellerId);
-        assertThat(result.getSeller().getIdentificationNumber()).isEqualTo("11122223");
+        assertThat(result.seller()).isNotNull();
+        assertThat(result.seller().id()).isEqualTo(sellerId);
+        assertThat(result.seller().identificationNumber()).isEqualTo("11122223");
 
-        assertThat(result.getBuyer()).isNotNull();
-        assertThat(result.getBuyer().getId()).isEqualTo(buyerId);
-        assertThat(result.getBuyer().getIdentificationNumber()).isEqualTo("33322221");
+        assertThat(result.buyer()).isNotNull();
+        assertThat(result.buyer().id()).isEqualTo(buyerId);
+        assertThat(result.buyer().identificationNumber()).isEqualTo("33322221");
 
-        invoiceId = result.getId();
+        invoiceId = result.id();
     }
 
     @Order(3)
@@ -161,22 +161,22 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .extract()
                 .as(InvoiceResponse.class);
 
-        assertThat(result.getId()).isNotNull();
-        assertThat(result.getInvoiceNumber()).isEqualTo(666555444);
-        assertThat(result.getIssued()).isEqualTo(LocalDate.parse("2020-01-01"));
-        assertThat(result.getDueDate()).isEqualTo(LocalDate.parse("2020-03-01"));
-        assertThat(result.getProduct()).isEqualTo("product");
-        assertThat(result.getPrice()).isEqualTo(23000L);
-        assertThat(result.getVat()).isEqualTo(Byte.parseByte("21"));
-        assertThat(result.getNote()).isNull();
+        assertThat(result.id()).isNotNull();
+        assertThat(result.invoiceNumber()).isEqualTo(666555444);
+        assertThat(result.issued()).isEqualTo(LocalDate.parse("2020-01-01"));
+        assertThat(result.dueDate()).isEqualTo(LocalDate.parse("2020-03-01"));
+        assertThat(result.product()).isEqualTo("product");
+        assertThat(result.price()).isEqualTo(23000L);
+        assertThat(result.vat()).isEqualTo(Byte.parseByte("21"));
+        assertThat(result.note()).isNull();
 
-        assertThat(result.getSeller()).isNotNull();
-        assertThat(result.getSeller().getId()).isEqualTo(sellerId);
-        assertThat(result.getSeller().getIdentificationNumber()).isEqualTo("11122223");
+        assertThat(result.seller()).isNotNull();
+        assertThat(result.seller().id()).isEqualTo(sellerId);
+        assertThat(result.seller().identificationNumber()).isEqualTo("11122223");
 
-        assertThat(result.getBuyer()).isNotNull();
-        assertThat(result.getBuyer().getId()).isEqualTo(buyerId);
-        assertThat(result.getBuyer().getIdentificationNumber()).isEqualTo("33322221");
+        assertThat(result.buyer()).isNotNull();
+        assertThat(result.buyer().id()).isEqualTo(buyerId);
+        assertThat(result.buyer().identificationNumber()).isEqualTo("33322221");
     }
 
     @Order(4)
@@ -192,7 +192,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                                 LocalDate.parse("2021-01-01"),
                                 "item",
                                 100L,
-                                (byte) 16,
+                                16,
                                 "note",
                                 sellerId,
                                 buyerId
@@ -208,22 +208,22 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .extract()
                 .as(InvoiceResponse.class);
 
-        assertThat(result.getId()).isNotNull();
-        assertThat(result.getInvoiceNumber()).isEqualTo(666555444);
-        assertThat(result.getIssued()).isEqualTo(LocalDate.parse("2021-01-01"));
-        assertThat(result.getDueDate()).isEqualTo(LocalDate.parse("2021-01-01"));
-        assertThat(result.getProduct()).isEqualTo("item");
-        assertThat(result.getPrice()).isEqualTo(100L);
-        assertThat(result.getVat()).isEqualTo((byte) 16);
-        assertThat(result.getNote()).isEqualTo("note");
+        assertThat(result.id()).isNotNull();
+        assertThat(result.invoiceNumber()).isEqualTo(666555444);
+        assertThat(result.issued()).isEqualTo(LocalDate.parse("2021-01-01"));
+        assertThat(result.dueDate()).isEqualTo(LocalDate.parse("2021-01-01"));
+        assertThat(result.product()).isEqualTo("item");
+        assertThat(result.price()).isEqualTo(100L);
+        assertThat(result.vat()).isEqualTo(16);
+        assertThat(result.note()).isEqualTo("note");
 
-        assertThat(result.getBuyer()).isNotNull();
-        assertThat(result.getBuyer().getId()).isEqualTo(sellerId);
-        assertThat(result.getBuyer().getIdentificationNumber()).isEqualTo("11122223");
+        assertThat(result.buyer()).isNotNull();
+        assertThat(result.buyer().id()).isEqualTo(sellerId);
+        assertThat(result.buyer().identificationNumber()).isEqualTo("11122223");
 
-        assertThat(result.getSeller()).isNotNull();
-        assertThat(result.getSeller().getId()).isEqualTo(buyerId);
-        assertThat(result.getSeller().getIdentificationNumber()).isEqualTo("33322221");
+        assertThat(result.seller()).isNotNull();
+        assertThat(result.seller().id()).isEqualTo(buyerId);
+        assertThat(result.seller().identificationNumber()).isEqualTo("33322221");
     }
 
     @Order(5)
@@ -247,7 +247,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
         assertThat(results).isNotEmpty();
 
         assertThat(results)
-                .extracting(InvoiceResponse::getId)
+                .extracting(InvoiceResponse::id)
                 .contains(invoiceId);
     }
 

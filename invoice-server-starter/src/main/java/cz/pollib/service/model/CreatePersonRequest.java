@@ -27,172 +27,47 @@ import jakarta.validation.constraints.Positive;
  * - note: Any additional notes.
  */
 @Schema(name = "CreatePersonRequest")
-public class CreatePersonRequest {
+public record CreatePersonRequest(
 
-    @NotBlank(message = "Name cannot be blank")
-    private String name;
+        @NotBlank(message = "Name cannot be blank")
+        String name,
 
-    @Unique(entity = "person", field = "identificationNumber", message = "Identification number must be unique")
-    @Positive(message = "Identification number must be positive number")
-    @Pattern(regexp = "^[0-9]{8}$", message = "Identification number must be 8 digits")
-    private String identificationNumber;
+        @Unique(entity = "person", field = "identificationNumber", message = "Identification number must be unique")
+        @Positive(message = "Identification number must be positive number")
+        @Pattern(regexp = "^[0-9]{8}$", message = "Identification number must be 8 digits")
+        String identificationNumber,
 
-    @Pattern(regexp = "^[A-Z]{2}\\d+$", message = "Tax number must start with two uppercase letters")
-    private String taxNumber;
+        @Pattern(regexp = "^[A-Z]{2}\\d+$", message = "Tax number must start with two uppercase letters")
+        String taxNumber,
 
-    @Positive(message = "Account number must be positive number")
-    private String accountNumber;
+        @Positive(message = "Account number must be positive number")
+        String accountNumber,
 
-    @Positive(message = "Bank code must be positive number")
-    private String bankCode;
+        @Positive(message = "Bank code must be positive number")
+        String bankCode,
 
-    @NotBlank(message = "IBAN cannot be blank")
-    private String iban;
+        @NotBlank(message = "IBAN cannot be blank")
+        String iban,
 
-    @NotBlank(message = "Phone number cannot be blank")
-    @Pattern(regexp = "^\\+(420|421)[0-9]{9}$")
-    private String telephone;
+        @NotBlank(message = "Phone number cannot be blank")
+        @Pattern(regexp = "^\\+(420|421)[0-9]{9}$")
+        String telephone,
 
-    @Email(message = "Incorrect email format")
-    private String mail;
+        @Email(message = "Incorrect email format")
+        String mail,
 
-    @NotBlank(message = "Street cannot be blank")
-    private String street;
+        @NotBlank(message = "Street cannot be blank")
+        String street,
 
-    @NotBlank(message = "ZIP cannot be blank")
-    @Pattern(regexp = "^[0-9]{5}$", message = "ZIP must be 5 digits")
-    private String zip;
+        @NotBlank(message = "ZIP cannot be blank")
+        @Pattern(regexp = "^[0-9]{5}$", message = "ZIP must be 5 digits")
+        String zip,
 
-    @NotBlank(message = "City cannot be blank")
-    private String city;
+        @NotBlank(message = "City cannot be blank")
+        String city,
 
-    private Countries country;
+        Countries country,
 
-    private String note;
-
-    public CreatePersonRequest() {
-
-    }
-
-    public CreatePersonRequest(String name, String identificationNumber, String taxNumber, String accountNumber, String bankCode, String iban, String telephone, String mail, String street, String zip, String city, Countries country, String note) {
-        this.name = name;
-        this.identificationNumber = identificationNumber;
-        this.taxNumber = taxNumber;
-        this.accountNumber = accountNumber;
-        this.bankCode = bankCode;
-        this.iban = iban;
-        this.telephone = telephone;
-        this.mail = mail;
-        this.street = street;
-        this.zip = zip;
-        this.city = city;
-        this.country = country;
-        this.note = note;
-    }
-
-    // GETTERs and SETTERs block
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIdentificationNumber() {
-        return identificationNumber;
-    }
-
-    public void setIdentificationNumber(String identificationNumber) {
-        this.identificationNumber = identificationNumber;
-    }
-
-    public String getTaxNumber() {
-        return taxNumber;
-    }
-
-    public void setTaxNumber(String taxNumber) {
-        this.taxNumber = taxNumber;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public String getBankCode() {
-        return bankCode;
-    }
-
-    public void setBankCode(String bankCode) {
-        this.bankCode = bankCode;
-    }
-
-    public String getIban() {
-        return iban;
-    }
-
-    public void setIban(String iban) {
-        this.iban = iban;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Countries getCountry() {
-        return country;
-    }
-
-    public void setCountry(Countries country) {
-        this.country = country;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
+        String note
+) {
 }

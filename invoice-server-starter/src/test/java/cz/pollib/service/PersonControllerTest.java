@@ -58,22 +58,22 @@ public class PersonControllerTest extends BaseControllerTest {
                 .as(PersonResponse.class);
 
         assertThat(result).isNotNull();
-        assertThat(result.getId()).isNotNull().isPositive();
-        assertThat(result.getName()).isEqualTo("John Doe");
-        assertThat(result.getIdentificationNumber()).isEqualTo("11111111");
-        assertThat(result.getTaxNumber()).isEqualTo("CZ65487");
-        assertThat(result.getAccountNumber()).isEqualTo("654654654");
-        assertThat(result.getBankCode()).isEqualTo("5464");
-        assertThat(result.getIban()).isEqualTo("CZ564896");
-        assertThat(result.getTelephone()).isEqualTo("+420705489657");
-        assertThat(result.getMail()).isEqualTo("john@doe.org");
-        assertThat(result.getStreet()).isEqualTo("Studena");
-        assertThat(result.getZip()).isEqualTo("10000");
-        assertThat(result.getCity()).isEqualTo("Praha");
-        assertThat(result.getCountry()).isEqualTo(CZECHIA);
-        assertThat(result.getNote()).isNull();
+        assertThat(result.id()).isNotNull().isPositive();
+        assertThat(result.name()).isEqualTo("John Doe");
+        assertThat(result.identificationNumber()).isEqualTo("11111111");
+        assertThat(result.taxNumber()).isEqualTo("CZ65487");
+        assertThat(result.accountNumber()).isEqualTo("654654654");
+        assertThat(result.bankCode()).isEqualTo("5464");
+        assertThat(result.iban()).isEqualTo("CZ564896");
+        assertThat(result.telephone()).isEqualTo("+420705489657");
+        assertThat(result.mail()).isEqualTo("john@doe.org");
+        assertThat(result.street()).isEqualTo("Studena");
+        assertThat(result.zip()).isEqualTo("10000");
+        assertThat(result.city()).isEqualTo("Praha");
+        assertThat(result.country()).isEqualTo(CZECHIA);
+        assertThat(result.note()).isNull();
 
-        personId = result.getId();
+        personId = result.id();
     }
 
     @Order(2)
@@ -94,20 +94,20 @@ public class PersonControllerTest extends BaseControllerTest {
                 .as(PersonResponse.class);
 
         assertThat(result).isNotNull();
-        assertThat(result.getId()).isNotNull().isPositive();
-        assertThat(result.getName()).isEqualTo("John Doe");
-        assertThat(result.getIdentificationNumber()).isEqualTo("11111111");
-        assertThat(result.getTaxNumber()).isEqualTo("CZ65487");
-        assertThat(result.getAccountNumber()).isEqualTo("654654654");
-        assertThat(result.getBankCode()).isEqualTo("5464");
-        assertThat(result.getIban()).isEqualTo("CZ564896");
-        assertThat(result.getTelephone()).isEqualTo("+420705489657");
-        assertThat(result.getMail()).isEqualTo("john@doe.org");
-        assertThat(result.getStreet()).isEqualTo("Studena");
-        assertThat(result.getZip()).isEqualTo("10000");
-        assertThat(result.getCity()).isEqualTo("Praha");
-        assertThat(result.getCountry()).isEqualTo(CZECHIA);
-        assertThat(result.getNote()).isNull();
+        assertThat(result.id()).isNotNull().isPositive();
+        assertThat(result.name()).isEqualTo("John Doe");
+        assertThat(result.identificationNumber()).isEqualTo("11111111");
+        assertThat(result.taxNumber()).isEqualTo("CZ65487");
+        assertThat(result.accountNumber()).isEqualTo("654654654");
+        assertThat(result.bankCode()).isEqualTo("5464");
+        assertThat(result.iban()).isEqualTo("CZ564896");
+        assertThat(result.telephone()).isEqualTo("+420705489657");
+        assertThat(result.mail()).isEqualTo("john@doe.org");
+        assertThat(result.street()).isEqualTo("Studena");
+        assertThat(result.zip()).isEqualTo("10000");
+        assertThat(result.city()).isEqualTo("Praha");
+        assertThat(result.country()).isEqualTo(CZECHIA);
+        assertThat(result.note()).isNull();
     }
 
     @Order(3)
@@ -144,22 +144,22 @@ public class PersonControllerTest extends BaseControllerTest {
                 .as(PersonResponse.class);
 
         assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(personId);
-        assertThat(result.getName()).isEqualTo("Rumburak");
+        assertThat(result.id()).isEqualTo(personId);
+        assertThat(result.name()).isEqualTo("Rumburak");
 
-        assertThat(result.getIdentificationNumber()).isEqualTo("11111111");
-        assertThat(result.getTaxNumber()).isNull();
+        assertThat(result.identificationNumber()).isEqualTo("11111111");
+        assertThat(result.taxNumber()).isNull();
 
-        assertThat(result.getAccountNumber()).isEqualTo("98745385");
-        assertThat(result.getBankCode()).isEqualTo("6454");
-        assertThat(result.getIban()).isEqualTo("SK98745385");
-        assertThat(result.getTelephone()).isEqualTo("+421708489657");
-        assertThat(result.getMail()).isEqualTo("rumbu@rak.sk");
-        assertThat(result.getStreet()).isEqualTo("Zlova");
-        assertThat(result.getZip()).isEqualTo("20065");
-        assertThat(result.getCity()).isEqualTo("Blava");
-        assertThat(result.getCountry()).isEqualTo(SLOVAKIA);
-        assertThat(result.getNote()).isEqualTo("neviditelny");
+        assertThat(result.accountNumber()).isEqualTo("98745385");
+        assertThat(result.bankCode()).isEqualTo("6454");
+        assertThat(result.iban()).isEqualTo("SK98745385");
+        assertThat(result.telephone()).isEqualTo("+421708489657");
+        assertThat(result.mail()).isEqualTo("rumbu@rak.sk");
+        assertThat(result.street()).isEqualTo("Zlova");
+        assertThat(result.zip()).isEqualTo("20065");
+        assertThat(result.city()).isEqualTo("Blava");
+        assertThat(result.country()).isEqualTo(SLOVAKIA);
+        assertThat(result.note()).isEqualTo("neviditelny");
     }
 
     @Order(4)
@@ -182,7 +182,7 @@ public class PersonControllerTest extends BaseControllerTest {
         assertThat(results).isNotEmpty();
 
         assertThat(results)
-                .extracting(PersonResponse::getId)
+                .extracting(PersonResponse::id)
                 .contains(personId);
     }
 
