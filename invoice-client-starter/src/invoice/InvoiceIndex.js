@@ -23,6 +23,7 @@ export function InvoiceIndex() {
     const [invoices, setInvoices] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [persons, setPersons] = useState([]);
+    const [inputText, setInputText] = useState("");
     const [filterState, setFilter] = useState({
         minPrice: undefined,
         maxPrice: undefined,
@@ -42,7 +43,7 @@ export function InvoiceIndex() {
     */
     async function deleteInvoice(id) {
         try {
-            await apiDelete("/api/invoices/" + id);
+            await apiDelete("/api/invoice/" + id);
             setFlashMessage("Faktura byla úspěšně odebrána.")
         } catch (error) {
             console.log(error.message);
@@ -50,7 +51,7 @@ export function InvoiceIndex() {
         }
         setInvoices(invoices.filter((item) => item.id !== id));
 
-        if ((totalInvoices - 1) % 10 === 0) {
+        if ((totalInvoices - 1) % pageSize === 0) {
             navigate(`/invoices/pages/${page - 1}`)
         }
         setTotalInvoices(totalInvoices - 1);
@@ -71,7 +72,7 @@ export function InvoiceIndex() {
             setIsLoadingCount(false);
         }
         fetchInvoices();
-    }, [page, filterState.product]);
+    }, [page, filterState]);
 
     /**
      *  Clears the flash message after change of page if shown 
@@ -97,7 +98,7 @@ export function InvoiceIndex() {
         setTotalPages(Math.ceil(data.totalElements / params.limit));
 
         navigate("/invoices/pages/1");
-    };
+    }
 
     /**
     * Handles page change for pagination.

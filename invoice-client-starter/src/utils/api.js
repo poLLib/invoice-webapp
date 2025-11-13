@@ -19,7 +19,7 @@ const fetchData = (url, requestOptions) => {
             if (!response.ok) {
                 return response.json().then(data => {
                     const error = new Error();
-                    error.data = data;
+                    error.response = data;
                     throw error;
                 });
             }
@@ -42,6 +42,7 @@ export const apiGetPage = (url) => {
     const apiUrl = `${url}`;
     const requestOptions = {
         method: "GET",
+        credentials: 'include'
     };
 
     return fetchData(apiUrl, requestOptions);
@@ -61,6 +62,7 @@ export const apiGet = (url, params) => {
     const apiUrl = `${url}?${new URLSearchParams(filteredParams)}`;
     const requestOptions = {
         method: "GET",
+        credentials: 'include'
     };
 
     return fetchData(apiUrl, requestOptions);
@@ -77,6 +79,7 @@ export const apiPost = (url, data) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        credentials: 'include'
     };
 
     return fetchData(url, requestOptions);
@@ -93,6 +96,7 @@ export const apiPut = (url, data) => {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        credentials: 'include'
     };
 
     return fetchData(url, requestOptions);
@@ -106,6 +110,7 @@ export const apiPut = (url, data) => {
 export const apiDelete = (url) => {
     const requestOptions = {
         method: "DELETE",
+        credentials: 'include'
     };
 
     return fetchData(url, requestOptions);

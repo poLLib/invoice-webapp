@@ -16,14 +16,11 @@ export function SessionProvider({ children }) {
     useEffect(() => {
         async function fetchAuth() {
             try {
-                const authData = await apiGet("/api/auth");
+                const authData = await apiGet("/api/auth", {});
                 setSessionState({ data: authData, status: "authenticated" });
             } catch (e) {
-                if (e instanceof Error && e.response?.status === 401) {
-                    setSessionState({ data: null, status: "unauthenticated" });
-                } else {
-                    throw e;
-                }
+                console.log("Auth check failed:", e);
+                setSessionState({ data: null, status: "unauthenticated" });
             }
         }
         fetchAuth();

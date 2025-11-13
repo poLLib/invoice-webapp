@@ -34,7 +34,7 @@ export function PersonIndex() {
      */
     async function deletePerson(id) {
         try {
-            await apiDelete(`/api/persons/${id}`);
+            await apiDelete(`/api/person/${id}`);
             setFlashMessage("Společnost byla úspěšně odebrána.")
         } catch (error) {
             console.log(error.message);
@@ -42,7 +42,7 @@ export function PersonIndex() {
         }
         setPersons(persons.filter((item) => item.id !== id));
 
-        if ((totalPersons - 1) % 10 === 0) {
+        if ((totalPersons - 1) % pageSize === 0) {
             navigate(`/persons/pages/${page - 1}`)
         }
         setTotalPersons(totalPersons - 1);
@@ -53,12 +53,13 @@ export function PersonIndex() {
      */
     useEffect(() => {
         async function fetchSumPersons() {
-            setTotalPersons(await apiGet("/api/persons/total"));
-            setTotalPages(Math.ceil(totalPersons / pageSize));
+            const total = await apiGet("/api/persons/total");
+            setTotalPersons(total);
+            setTotalPages(Math.ceil(total / pageSize));
             setIsLoadingCount(false);
         }
         fetchSumPersons();
-    }, [totalPersons, pageSize]);
+    }, [pageSize]);
 
     /**
      * Fetches the persons for the current page.

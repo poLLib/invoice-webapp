@@ -23,14 +23,14 @@ export function LoginPage() {
     }
 
     async function handleSubmit(e) {
-        e.preventDefauld();
+        e.preventDefault();
 
         try {
             const data = await apiPost("/api/auth", valuesState);
             setSession({ data, status: "authenticated" });
         } catch (e) {
-            if (e instanceof Error && e.response) {
-                const message = await e.response.text();
+            if (e.response) {
+                const message = e.response.message || "Přihlášení se nezdařilo.";
                 setErrorMessageState(message);
             } else {
                 setErrorMessageState("Při komunikaci se serverem nastala chyba.");
