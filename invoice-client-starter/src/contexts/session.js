@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { apiGet } from "../utils/api";
+import { createContext, useContext, useState } from "react";
 
 const SessionContext = createContext({
     session: { data: null, status: "loading" },
@@ -11,23 +10,28 @@ export function useSession() {
 }
 
 export function SessionProvider({ children }) {
-    const [sessionState, setSessionState] = useState({ data: null, status: "loading" });
-
-    useEffect(() => {
-        async function fetchAuth() {
-            try {
-                const authData = await apiGet("/api/auth", {});
-                setSessionState({ data: authData, status: "authenticated" });
-            } catch (e) {
-                console.log("Auth check failed:", e);
-                setSessionState({ data: null, status: "unauthenticated" });
+    const [sessionState, setSessionState] = useState(() => {
+        const stored = sessionStorage.getItem("session");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed?.data?.token) {
+                return { data: parsed.data, status: "authenticated" };
             }
         }
-        fetchAuth();
-    }, []);
+        return { data: null, status: "unauthenticated" };
+    });
+
+    const setSession = (newSession) => {
+        setSessionState(newSession);
+        if (newSession.data) {
+            sessionStorage.setItem("session", JSON.stringify(newSession));
+        } else {
+            sessionStorage.removeItem("session");
+        }
+    };
 
     return (
-        <SessionContext.Provider value={{session: sessionState, setSession: setSessionState}}>
+        <SessionContext.Provider value={{session: sessionState, setSession}}>
             {children}
         </SessionContext.Provider>
     )

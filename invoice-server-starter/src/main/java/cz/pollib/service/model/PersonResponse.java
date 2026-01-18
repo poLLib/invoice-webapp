@@ -1,6 +1,7 @@
 package cz.pollib.service.model;
 
 import cz.pollib.constant.Countries;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Response for person details
@@ -21,6 +22,7 @@ import cz.pollib.constant.Countries;
  * - country: The country
  * - note: Any additional notes
  */
+@Schema(name = "PersonResponse")
 public record PersonResponse(
         long id,
         String name,

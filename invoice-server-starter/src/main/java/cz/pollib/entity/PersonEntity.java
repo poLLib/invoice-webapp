@@ -51,6 +51,7 @@ public class PersonEntity {
     @Column(nullable = false, unique = true)
     private String identificationNumber;
 
+    @Column
     private String taxNumber;
 
     @Column(nullable = false)

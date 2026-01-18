@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
  * @param {Function} props.deleteInvoice - Function to call when deleting an invoice.
  * @returns {JSX.Element} A table displaying the invoice records with action buttons.
  */
-export function InvoiceTable({ items, deleteInvoice }) {
+export function InvoiceTable({ items, deleteInvoice, isAdmin }) {
 
     return (
         <div className="pb-5">
@@ -46,13 +46,14 @@ export function InvoiceTable({ items, deleteInvoice }) {
                                     >
                                         Upravit
                                     </Link>
-                                    <button
-                                        onClick={() => deleteInvoice(item.id)}
-                                        className="btn btn-sm btn-danger"
-                                    >
-                                        Odstranit
-                                    </button>
-
+                                    {isAdmin && (
+                                        <button
+                                            onClick={() => deleteInvoice(item.id)}
+                                            className="btn btn-sm btn-danger"
+                                        >
+                                            Odstranit
+                                        </button>
+                                    )}
                                 </div>
                             </td>
                         </tr>

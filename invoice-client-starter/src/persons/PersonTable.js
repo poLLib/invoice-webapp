@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css'
  * @param {Function} props.deletePerson - Function to call when deleting a person.
  * @returns {JSX.Element} A table displaying the person records with action buttons.
  */
-export function PersonTable({ itemsPerPage, deletePerson }) {
+export function PersonTable({ itemsPerPage, deletePerson, isAdmin }) {
 
     return (
         <div>
@@ -40,12 +40,14 @@ export function PersonTable({ itemsPerPage, deletePerson }) {
                                     >
                                         Upravit
                                     </Link>
-                                    <button
-                                        onClick={() => deletePerson(item.id)}
-                                        className="btn btn-sm btn-danger"
-                                    >
-                                        Odstranit
-                                    </button>
+                                    {isAdmin && (
+                                        <button
+                                            onClick={() => deletePerson(item.id)}
+                                            className="btn btn-sm btn-danger"
+                                        >
+                                            Odstranit
+                                        </button>
+                                    )}
                                 </div>
                             </td>
                         </tr>

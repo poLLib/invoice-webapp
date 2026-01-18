@@ -5,54 +5,77 @@
 const API_URL = "http://localhost:8080";
 
 /**
- * Fetch data from the API
- * @param {string} url - The endpoint URL
- * @param {Object} requestOptions - Fetch request options
- * @returns {Promise<Object>} - The response data as a JSON object
- * @throws {Error} - Throws an error if the network response is not ok
+ * Get the auth token from session storage
  */
-const fetchData = (url, requestOptions) => {
+const getAuthToken = () => {
+    const session = sessionStorage.getItem("session");
+    if (session) {
+        const parsed = JSON.parse(session);
+        return parsed?.data?.token || null;
+    }
+    return null;
+};
+
+/**
+ * Get authorization headers if token exists
+ */
+const getAuthHeaders = () => {
+    const token = getAuthToken();
+    return token ? { "Authorization": `Bearer ${token}` } : {};
+};
+
+/**
+ * Fetch data from the API
+ */
+const fetchData = async (url, requestOptions) => {
     const apiUrl = `${API_URL}${url}`;
 
-    return fetch(apiUrl, requestOptions)
-        .then((response) => {
-            if (!response.ok) {
-                return response.json().then(data => {
-                    const error = new Error();
-                    error.response = data;
-                    throw error;
-                });
-            }
+    const response = await fetch(apiUrl, requestOptions);
 
-            if (requestOptions.method !== 'DELETE') {
-                return response.json();
+    if (!response.ok) {
+        // Handle 401 - redirect to login
+        if (response.status === 401) {
+            sessionStorage.removeItem("session");
+            window.location.href = "/login";
+            throw new Error("Session expired");
+        }
+
+        const error = new Error();
+        error.status = response.status;
+
+        const text = await response.text();
+        if (text) {
+            try {
+                error.response = JSON.parse(text);
+            } catch {
+                error.response = { message: text };
             }
-        })
-        .catch((error) => {
-            throw error;
-        });
+        } else {
+            error.response = { message: response.statusText || `Error ${response.status}` };
+        }
+        throw error;
+    }
+
+    if (requestOptions.method !== 'DELETE') {
+        return response.json();
+    }
 };
 
 /**
  * GET request to fetch a page from the API
- * @param {string} url - The endpoint URL
- * @returns {Promise<Object>} - The response data as a JSON object
  */
 export const apiGetPage = (url) => {
-    const apiUrl = `${url}`;
     const requestOptions = {
         method: "GET",
+        headers: { ...getAuthHeaders() },
         credentials: 'include'
     };
 
-    return fetchData(apiUrl, requestOptions);
+    return fetchData(url, requestOptions);
 };
 
 /**
  * GET request to fetch data from the API with query parameters
- * @param {string} url - The endpoint URL
- * @param {Object} params - The query parameters
- * @returns {Promise<Object>} - The response data as a JSON object
  */
 export const apiGet = (url, params) => {
     const filteredParams = Object.fromEntries(
@@ -62,6 +85,7 @@ export const apiGet = (url, params) => {
     const apiUrl = `${url}?${new URLSearchParams(filteredParams)}`;
     const requestOptions = {
         method: "GET",
+        headers: { ...getAuthHeaders() },
         credentials: 'include'
     };
 
@@ -70,14 +94,11 @@ export const apiGet = (url, params) => {
 
 /**
  * POST request to send data to the API
- * @param {string} url - The endpoint URL
- * @param {Object} data - The data to be sent
- * @returns {Promise<Object>} - The response data as a JSON object
  */
 export const apiPost = (url, data) => {
     const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify(data),
         credentials: 'include'
     };
@@ -87,14 +108,11 @@ export const apiPost = (url, data) => {
 
 /**
  * PUT request to update data on the API
- * @param {string} url - The endpoint URL
- * @param {Object} data - The data to be updated
- * @returns {Promise<Object>} - The response data as a JSON object
  */
 export const apiPut = (url, data) => {
     const requestOptions = {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify(data),
         credentials: 'include'
     };
@@ -104,12 +122,11 @@ export const apiPut = (url, data) => {
 
 /**
  * DELETE request to remove data from the API
- * @param {string} url - The endpoint URL
- * @returns {Promise<void>} - No return value
  */
 export const apiDelete = (url) => {
     const requestOptions = {
         method: "DELETE",
+        headers: { ...getAuthHeaders() },
         credentials: 'include'
     };
 

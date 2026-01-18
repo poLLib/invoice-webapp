@@ -5,6 +5,7 @@ import { PersonTable } from "./PersonTable";
 import { useNavigate, useParams } from "react-router-dom";
 import { FlashMessageContext } from "../contexts/FlashMessageContext";
 import { Link } from "react-router-dom";
+import { useSession } from "../contexts/session";
 
 /**
  * PersonIndex component displays a paginated list of persons and provides options to delete persons and navigate between pages.
@@ -25,6 +26,8 @@ export function PersonIndex() {
     const { page = 1 } = useParams();
     const navigate = useNavigate();
     const { flashMessage, setFlashMessage } = useContext(FlashMessageContext);
+    const { session } = useSession();
+    const isAdmin = session.data?.isAdmin || false;
 
     /**
      * Handles the deletion of a person.
@@ -35,18 +38,21 @@ export function PersonIndex() {
     async function deletePerson(id) {
         try {
             await apiDelete(`/api/person/${id}`);
-            setFlashMessage("Společnost byla úspěšně odebrána.")
-        } catch (error) {
-            console.log(error.message);
-            alert(error.message)
-        }
-        setPersons(persons.filter((item) => item.id !== id));
+            setFlashMessage("Společnost byla úspěšně odebrána.");
+            setPersons(persons.filter((item) => item.id !== id));
 
-        if ((totalPersons - 1) % pageSize === 0) {
-            navigate(`/persons/pages/${page - 1}`)
+            if ((totalPersons - 1) % pageSize === 0 && page > 1) {
+                navigate(`/persons/pages/${page - 1}`);
+            }
+            setTotalPersons(totalPersons - 1);
+        } catch (error) {
+            console.error(error);
+            const message = error.status === 403
+                ? "Nemáte oprávnění mazat záznamy."
+                : error.response?.message || "Nepodařilo se odstranit společnost.";
+            alert(message);
         }
-        setTotalPersons(totalPersons - 1);
-    };
+    }
 
     /**
      * Fetches the total number of persons and updates the pagination state.
@@ -113,6 +119,7 @@ export function PersonIndex() {
                         itemsPerPage={persons}
                         label="Celkový počet:"
                         page={page}
+                        isAdmin={isAdmin}
                     />
                 )}
                 <Pagination currentPage={parseInt(page)} totalPages={totalPages} onPageChange={handlePageChange} />

@@ -1,5 +1,7 @@
 package cz.pollib.service.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.time.LocalDate;
 
 /**
@@ -17,6 +19,7 @@ import java.time.LocalDate;
  * - buyer: The person or entity buying the product or service
  * - seller: The person or entity selling the product or service
  */
+@Schema(name = "InvoiceResponse")
 public record InvoiceResponse(
         long id,
         int invoiceNumber,

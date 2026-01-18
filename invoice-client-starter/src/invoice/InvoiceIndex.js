@@ -5,6 +5,7 @@ import { FlashMessageContext } from "../contexts/FlashMessageContext";
 import { InvoiceFilter } from "./InvoiceFilter";
 import { InvoiceTable } from "./InvoiceTable";
 import { Pagination } from "../components/Pagination";
+import { useSession } from "../contexts/session";
 
 /**
  * InvoiceIndex component displays a list of invoices with options for filtering, pagination, and deletion.
@@ -35,6 +36,8 @@ export function InvoiceIndex() {
     const { page = 1 } = useParams();
     const navigate = useNavigate();
     const { flashMessage, setFlashMessage } = useContext(FlashMessageContext);
+    const { session } = useSession();
+    const isAdmin = session.data?.isAdmin || false;
 
     /**
     * Deletes an invoice by ID and updates the invoice list and pagination.
@@ -44,18 +47,21 @@ export function InvoiceIndex() {
     async function deleteInvoice(id) {
         try {
             await apiDelete("/api/invoice/" + id);
-            setFlashMessage("Faktura byla úspěšně odebrána.")
-        } catch (error) {
-            console.log(error.message);
-            alert(error.message)
-        }
-        setInvoices(invoices.filter((item) => item.id !== id));
+            setFlashMessage("Faktura byla úspěšně odebrána.");
+            setInvoices(invoices.filter((item) => item.id !== id));
 
-        if ((totalInvoices - 1) % pageSize === 0) {
-            navigate(`/invoices/pages/${page - 1}`)
+            if ((totalInvoices - 1) % pageSize === 0 && page > 1) {
+                navigate(`/invoices/pages/${page - 1}`);
+            }
+            setTotalInvoices(totalInvoices - 1);
+        } catch (error) {
+            console.error(error);
+            const message = error.status === 403
+                ? "Nemáte oprávnění mazat záznamy."
+                : error.response?.message || "Nepodařilo se odstranit fakturu.";
+            alert(message);
         }
-        setTotalInvoices(totalInvoices - 1);
-    };
+    }
 
     useEffect(() => {
         async function fetchInvoices() {
@@ -185,6 +191,7 @@ export function InvoiceIndex() {
                         deleteInvoice={deleteInvoice}
                         items={invoices}
                         label="Počet zobrazených faktur:"
+                        isAdmin={isAdmin}
                     />
                     <Pagination currentPage={parseInt(page)} totalPages={totalPages} onPageChange={handlePageChange} />
                 </div>

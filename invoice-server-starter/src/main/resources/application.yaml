@@ -40,3 +40,6 @@ spring:
     baseline-on-migrate: true
     baseline-version: 0
     validate-on-migrate: true
+
+jwt:
+  expiration: 86400000

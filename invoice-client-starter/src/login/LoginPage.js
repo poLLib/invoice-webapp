@@ -26,7 +26,7 @@ export function LoginPage() {
         e.preventDefault();
 
         try {
-            const data = await apiPost("/api/auth", valuesState);
+            const data = await apiPost("/api/user/login", valuesState);
             setSession({ data, status: "authenticated" });
         } catch (e) {
             if (e.response) {

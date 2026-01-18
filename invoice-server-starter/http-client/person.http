@@ -2,6 +2,7 @@
 POST {{hostname}}/api/person
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 {
   "name": "Strejc Pompo",
@@ -31,6 +32,7 @@ Content-Type: application/json
 GET {{hostname}}/api/person/{{personId}}
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {
@@ -42,6 +44,7 @@ Content-Type: application/json
 GET {{hostname}}/api/persons/total
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {
@@ -55,6 +58,7 @@ GET {{hostname}}/api/persons
     &size=2
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {
@@ -66,6 +70,7 @@ Content-Type: application/json
 PUT {{hostname}}/api/person/{{personId}}
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 {
   "name": "Rumburak",
@@ -83,6 +88,7 @@ Content-Type: application/json
 ### Delete Person
 DELETE {{hostname}}/api/person/{{personId}}
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {
@@ -94,6 +100,7 @@ Content-Type: application/json
 GET {{hostname}}/api/person/statistics
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {

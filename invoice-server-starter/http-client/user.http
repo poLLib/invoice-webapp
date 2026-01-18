@@ -1,0 +1,49 @@
+### Create User
+POST {{hostname}}/api/user/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "Strejda@Pompo.org",
+  "password": "kopediru"
+}
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 201, "Response status should be 201");
+        client.global.set("auth_token", response.body.token);
+        client.log("Token saved to auth_token");
+    });
+%}
+
+### Login User
+POST {{hostname}}/api/user/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "Strejda@Pompo.org",
+  "password": "kopediru"
+}
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.global.set("auth_token", response.body.token);
+        client.log("Token saved to auth_token");
+    });
+%}
+
+### Logout User
+POST {{hostname}}/api/user/logout
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+> {%
+    client.test("Request was successful", function () {
+        client.assert(response.status === 200, "Response status should be 200");
+    });
+%}
+
+###

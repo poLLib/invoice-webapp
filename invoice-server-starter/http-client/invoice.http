@@ -7,6 +7,7 @@ run #Create Person
 POST {{hostname}}/api/invoice
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 {
   "invoiceNumber": {{$random.integer(100000000, 999999999)}},
@@ -32,6 +33,7 @@ Content-Type: application/json
 GET {{hostname}}/api/invoice/{{invoiceId}}
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {
@@ -44,6 +46,7 @@ GET {{hostname}}/api/invoices
     ?page=0
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {
@@ -55,6 +58,7 @@ Content-Type: application/json
 PUT {{hostname}}/api/invoice/{{invoiceId}}
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 {
   "invoiceNumber": {{$random.integer(100000000, 999999999)}},
@@ -77,6 +81,7 @@ Content-Type: application/json
 ### Delete Invoice
 DELETE {{hostname}}/api/invoice/{{invoiceId}}
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {
@@ -88,6 +93,7 @@ Content-Type: application/json
 GET {{hostname}}/api/invoices/statistics
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {
@@ -100,6 +106,7 @@ Content-Type: application/json
 GET {{hostname}}/api/identification/{{identificationNumber}}/sales
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {
@@ -111,6 +118,7 @@ Content-Type: application/json
 GET {{hostname}}/api/identification/{{identificationNumber}}/purchases
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{auth_token}}
 
 > {%
     client.test("Request was successful", function () {

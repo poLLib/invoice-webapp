@@ -83,10 +83,8 @@ jspm_packages/
 .pnp.*
 
 # IDE
-/.idea
-# Default ignored files from .idea directories
-.idea/shelf/
-.idea/workspace.xml
+.idea
+/invoice-server-starter/.idea
 
 # Java
 *.class
