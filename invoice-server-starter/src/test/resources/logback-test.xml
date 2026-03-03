@@ -1,0 +1,17 @@
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="ERROR">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <logger name="org.testcontainers" level="OFF"/>
+    <logger name="com.github.dockerjava" level="OFF"/>
+    <logger name="tc" level="OFF"/>
+    <logger name="org.springframework" level="OFF"/>
+    <logger name="com.zaxxer.hikari" level="OFF"/>
+</configuration>

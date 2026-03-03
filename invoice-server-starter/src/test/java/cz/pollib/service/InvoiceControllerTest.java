@@ -36,7 +36,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
     void shouldCreatePersons() {
         sellerId = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(new CreatePersonRequest(
@@ -59,7 +59,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .post("/person")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
                 .statusCode(201)
@@ -69,7 +69,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
 
         buyerId = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(new CreatePersonRequest(
@@ -92,7 +92,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .post("/person")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
                 .statusCode(201)
@@ -107,7 +107,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
     void shouldCreateInvoice() {
         InvoiceResponse result = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(new CreateInvoiceRequest(
@@ -126,7 +126,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .post("/invoice")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-response.json"))
                 .statusCode(201)
@@ -163,7 +163,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
     void shouldReturnInvoice() {
         InvoiceResponse result = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .accept(ContentType.JSON)
                 .pathParam(
                         "invoiceId",
@@ -173,7 +173,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .get("/invoice/{invoiceId}")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-response.json"))
                 .statusCode(200)
@@ -208,7 +208,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
     void shouldUpdateInvoice() {
         InvoiceResponse result = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(new UpdateInvoiceRequest(
@@ -230,7 +230,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .put("/invoice/{invoiceId}")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-response.json"))
                 .statusCode(200)
@@ -265,7 +265,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
     void shouldReturnInvoices() {
         InvoiceResponse[] results = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .accept(ContentType.JSON)
                 .param(
                         "page",
@@ -279,7 +279,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .get("/invoices")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(200)
                 .extract()
                 .jsonPath()
@@ -301,7 +301,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
     void shouldDeleteInvoice() {
         given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .pathParam(
                         "invoiceId",
                         invoiceId
@@ -310,7 +310,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .delete("/invoice/{invoiceId}")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(204);
     }
 
@@ -320,7 +320,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
     void shouldNotReturnDeletedInvoice() {
         given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .accept(ContentType.JSON)
                 .pathParam(
                         "invoiceId",
@@ -330,7 +330,7 @@ public class InvoiceControllerTest extends BaseControllerTest {
                 .get("/invoice/{invoiceId}")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(404);
     }
 
@@ -340,13 +340,13 @@ public class InvoiceControllerTest extends BaseControllerTest {
     void shouldReturnInvoiceStatistics() {
         given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .accept(ContentType.JSON)
                 .when()
                 .get("/invoices/statistics")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-statistics-response.json"))
                 .statusCode(200)

@@ -30,7 +30,7 @@ public class PersonControllerTest extends BaseControllerTest {
     void shouldCreatePerson() {
         PersonResponse result = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(new CreatePersonRequest(
@@ -53,7 +53,7 @@ public class PersonControllerTest extends BaseControllerTest {
                 .post("/person")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
                 .statusCode(201)
@@ -86,7 +86,7 @@ public class PersonControllerTest extends BaseControllerTest {
     void shouldReturnPerson() {
         PersonResponse result = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .accept(ContentType.JSON)
                 .pathParam(
                         "personId",
@@ -96,7 +96,7 @@ public class PersonControllerTest extends BaseControllerTest {
                 .get("/person/{personId}")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
                 .statusCode(200)
@@ -127,7 +127,7 @@ public class PersonControllerTest extends BaseControllerTest {
     void shouldUpdatePerson() {
         PersonResponse result = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(new UpdatePersonRequest(
@@ -153,7 +153,7 @@ public class PersonControllerTest extends BaseControllerTest {
                 .put("/person/{personId}")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
                 .statusCode(200)
@@ -185,7 +185,7 @@ public class PersonControllerTest extends BaseControllerTest {
     void shouldReturnPersons() {
         PersonResponse[] results = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .accept(ContentType.JSON)
                 .param(
                         "page",
@@ -199,7 +199,7 @@ public class PersonControllerTest extends BaseControllerTest {
                 .get("/persons")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(200)
                 .extract()
                 .as(PersonResponse[].class);
@@ -217,7 +217,7 @@ public class PersonControllerTest extends BaseControllerTest {
     void shouldDeletePerson() {
         given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .pathParam(
                         "personId",
                         personId
@@ -226,7 +226,7 @@ public class PersonControllerTest extends BaseControllerTest {
                 .delete("/person/{personId}")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(204);
     }
 
@@ -236,7 +236,7 @@ public class PersonControllerTest extends BaseControllerTest {
     void shouldNotFindDeletedPersonToReturn() {
         given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .accept(ContentType.JSON)
                 .pathParam(
                         "personId",
@@ -246,7 +246,7 @@ public class PersonControllerTest extends BaseControllerTest {
                 .get("/person/{personId}")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(404);
     }
 
@@ -256,13 +256,13 @@ public class PersonControllerTest extends BaseControllerTest {
     void shouldReturnPersonStatistics() {
         given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .accept(ContentType.JSON)
                 .when()
                 .get("/person/statistics")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("validationjsonschema/person-statistics-response.json"))
                 .statusCode(200)

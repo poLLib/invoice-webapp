@@ -1,4 +1,8 @@
 spring:
+  main:
+    banner-mode: off
+  jpa:
+    show-sql: false
   flyway:
     locations:
       - classpath:db/migration
@@ -6,4 +10,6 @@ spring:
 
 logging:
   level:
-    org.testcontainers: INFO
+    root: WARN
+    org.testcontainers: WARN
+    io.restassured: WARN
