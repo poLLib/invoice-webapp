@@ -36,15 +36,19 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleEntityNotFoundException(
             EntityNotFoundException ex,
             HttpServletRequest request
-    ) {
+                                                                      ) {
         ErrorResponse errorResponse = new ErrorResponse(
                 ENTITY_NOT_FOUND,
                 request.getRequestURI(),
                 ex.getMessage() != null ? ex.getMessage() : "Entity not found"
         );
-        logger.info("Entity not found: {}", ex.getMessage());
+        logger.info(
+                "Entity not found: {}",
+                ex.getMessage()
+                   );
 
-        return ResponseEntity.status(NOT_FOUND).body(errorResponse);
+        return ResponseEntity.status(NOT_FOUND)
+                             .body(errorResponse);
     }
 
     /**
@@ -54,15 +58,20 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleRuntimeException(
             RuntimeException ex,
             HttpServletRequest request
-    ) {
+                                                               ) {
         ErrorResponse errorResponse = new ErrorResponse(
                 ErrorCode.INTERNAL_SERVER_ERROR,
                 request.getRequestURI(),
                 "An unexpected error occurred" + ex.getMessage()
         );
-        logger.error("Unexpected error: {}", ex.getMessage(), ex);
+        logger.error(
+                "Unexpected error: {}",
+                ex.getMessage(),
+                ex
+                    );
 
-        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(errorResponse);
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR)
+                             .body(errorResponse);
     }
 
     /**
@@ -72,21 +81,25 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleConstraintViolationException(
             ConstraintViolationException ex,
             HttpServletRequest request
-    ) {
+                                                                           ) {
         List<String> validationErrors = ex.getConstraintViolations()
-                .stream()
-                .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
-                .toList();
+                                          .stream()
+                                          .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
+                                          .toList();
 
-        logger.error("Constraint validation failed for URI: {} - Errors: {}",
-                request.getRequestURI(), validationErrors);
+        logger.error(
+                "Constraint validation failed for URI: {} - Errors: {}",
+                request.getRequestURI(),
+                validationErrors
+                    );
 
         ErrorResponse errorResponse = new ErrorResponse(
                 CONSTRAINT_VIOLATION,
                 request.getRequestURI(),
                 validationErrors
         );
-        return ResponseEntity.status(BAD_REQUEST).body(errorResponse);
+        return ResponseEntity.status(BAD_REQUEST)
+                             .body(errorResponse);
     }
 
     /**
@@ -96,25 +109,30 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex,
             HttpServletRequest request
-    ) {
-        List<String> validationErrors = ex.getBindingResult().getAllErrors()
-                .stream()
-                .map(error -> {
-                    if (error instanceof FieldError fieldError) {
-                        return fieldError.getField() + ": " + fieldError.getDefaultMessage();
-                    }
-                    return error.getDefaultMessage();
-                })
-                .toList();
+                                                                              ) {
+        List<String> validationErrors = ex.getBindingResult()
+                                          .getAllErrors()
+                                          .stream()
+                                          .map(error -> {
+                                              if (error instanceof FieldError fieldError) {
+                                                  return fieldError.getField() + ": " + fieldError.getDefaultMessage();
+                                              }
+                                              return error.getDefaultMessage();
+                                          })
+                                          .toList();
 
-        logger.error("Request body validation failed for URI: {} - Errors: {}",
-                request.getRequestURI(), validationErrors);
+        logger.error(
+                "Request body validation failed for URI: {} - Errors: {}",
+                request.getRequestURI(),
+                validationErrors
+                    );
 
         ErrorResponse errorResponse = new ErrorResponse(
                 VALIDATION_FAILED,
                 request.getRequestURI(),
                 validationErrors
         );
-        return ResponseEntity.status(BAD_REQUEST).body(errorResponse);
+        return ResponseEntity.status(BAD_REQUEST)
+                             .body(errorResponse);
     }
 }

@@ -33,28 +33,48 @@ public record InvoiceSpecification(InvoiceFilter invoiceFilter) implements Speci
      * @return The combined {@link Predicate} based on the filter criteria.
      */
     @Override
-    public Predicate toPredicate(@NonNull Root<InvoiceEntity> root, CriteriaQuery<?> query, @NonNull CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(
+            @NonNull Root<InvoiceEntity> root,
+            CriteriaQuery<?> query,
+            @NonNull CriteriaBuilder criteriaBuilder
+                                ) {
         List<Predicate> predicates = new ArrayList<>();
 
         if (invoiceFilter.minPrice() != null) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(InvoiceEntity_.PRICE), invoiceFilter.minPrice()));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(
+                    root.get(InvoiceEntity_.PRICE),
+                    invoiceFilter.minPrice()
+                                                               ));
         }
 
         if (invoiceFilter.maxPrice() != null) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(InvoiceEntity_.PRICE), invoiceFilter.maxPrice()));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(
+                    root.get(InvoiceEntity_.PRICE),
+                    invoiceFilter.maxPrice()
+                                                            ));
         }
 
         if (invoiceFilter.sellerId() != null) {
             Join<PersonEntity, InvoiceEntity> seller = root.join(InvoiceEntity_.SELLER);
-            predicates.add(criteriaBuilder.equal(seller.get(PersonEntity_.ID), invoiceFilter.sellerId()));
+            predicates.add(criteriaBuilder.equal(
+                    seller.get(PersonEntity_.ID),
+                    invoiceFilter.sellerId()
+                                                ));
         }
 
         if (invoiceFilter.buyerId() != null) {
             Join<PersonEntity, InvoiceEntity> buyer = root.join(InvoiceEntity_.BUYER);
-            predicates.add(criteriaBuilder.equal(buyer.get(PersonEntity_.ID), invoiceFilter.buyerId()));
+            predicates.add(criteriaBuilder.equal(
+                    buyer.get(PersonEntity_.ID),
+                    invoiceFilter.buyerId()
+                                                ));
         }
         if (invoiceFilter.product() != null) {
-            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get(InvoiceEntity_.PRODUCT)), "%" + invoiceFilter.product().toLowerCase() + "%"));
+            predicates.add(criteriaBuilder.like(
+                    criteriaBuilder.lower(root.get(InvoiceEntity_.PRODUCT)),
+                    "%" + invoiceFilter.product()
+                                       .toLowerCase() + "%"
+                                               ));
         }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

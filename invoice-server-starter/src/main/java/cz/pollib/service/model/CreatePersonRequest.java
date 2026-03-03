@@ -32,12 +32,22 @@ public record CreatePersonRequest(
         @NotBlank(message = "Name cannot be blank")
         String name,
 
-        @Unique(entity = "person", field = "identificationNumber", message = "Identification number must be unique")
+        @Unique(
+                entity = "person",
+                field = "identificationNumber",
+                message = "Identification number must be unique"
+        )
         @Positive(message = "Identification number must be positive number")
-        @Pattern(regexp = "^[0-9]{8}$", message = "Identification number must be 8 digits")
+        @Pattern(
+                regexp = "^[0-9]{8}$",
+                message = "Identification number must be 8 digits"
+        )
         String identificationNumber,
 
-        @Pattern(regexp = "^[A-Z]{2}\\d+$", message = "Tax number must start with two uppercase letters")
+        @Pattern(
+                regexp = "^[A-Z]{2}\\d+$",
+                message = "Tax number must start with two uppercase letters"
+        )
         String taxNumber,
 
         @Positive(message = "Account number must be positive number")
@@ -60,7 +70,10 @@ public record CreatePersonRequest(
         String street,
 
         @NotBlank(message = "ZIP cannot be blank")
-        @Pattern(regexp = "^[0-9]{5}$", message = "ZIP must be 5 digits")
+        @Pattern(
+                regexp = "^[0-9]{5}$",
+                message = "ZIP must be 5 digits"
+        )
         String zip,
 
         @NotBlank(message = "City cannot be blank")

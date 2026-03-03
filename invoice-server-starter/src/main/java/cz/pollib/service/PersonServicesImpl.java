@@ -20,14 +20,16 @@ import java.util.List;
 @Service
 public class PersonServicesImpl implements PersonServices {
 
+    private static final Logger logger = LoggerFactory.getLogger(PersonServicesImpl.class);
     private final PersonRepository personRepository;
     private final PersonEntityProvider personEntityProvider;
-
     private final PersonMapper personMapper;
 
-    private static final Logger logger = LoggerFactory.getLogger(PersonServicesImpl.class);
-
-    public PersonServicesImpl(PersonMapper personMapper, PersonRepository personRepository, PersonEntityProvider personEntityProvider) {
+    public PersonServicesImpl(
+            PersonMapper personMapper,
+            PersonRepository personRepository,
+            PersonEntityProvider personEntityProvider
+                             ) {
         this.personMapper = personMapper;
         this.personRepository = personRepository;
         this.personEntityProvider = personEntityProvider;
@@ -36,15 +38,30 @@ public class PersonServicesImpl implements PersonServices {
     public PersonResponse createPerson(CreatePersonRequest request) {
         PersonEntity entity = personMapper.toEntity(request);
         entity = personRepository.saveAndFlush(entity);
-        logger.info("Person was created id:{}", entity.getId());
+        logger.info(
+                "Person was created id:{}",
+                entity.getId()
+                   );
 
         return personMapper.toModel(entity);
     }
 
     @Override
-    public List<PersonResponse> getPersons(int page, int size) {
-        List<PersonEntity> persons = new ArrayList<>(personRepository.findByHidden(false, PageRequest.of(page, size)));
-        logger.info("Found {} persons", persons.size());
+    public List<PersonResponse> getPersons(
+            int page,
+            int size
+                                          ) {
+        List<PersonEntity> persons = new ArrayList<>(personRepository.findByHidden(
+                false,
+                PageRequest.of(
+                        page,
+                        size
+                              )
+                                                                                  ));
+        logger.info(
+                "Found {} persons",
+                persons.size()
+                   );
 
         return persons
                 .stream()
@@ -73,19 +90,31 @@ public class PersonServicesImpl implements PersonServices {
             person.setHidden(true);
 
             personRepository.saveAndFlush(person);
-            logger.info("Person was deleted id:{}", personId);
+            logger.info(
+                    "Person was deleted id:{}",
+                    personId
+                       );
 
         } catch (EntityNotFoundException ignored) {
         }
     }
 
     @Override
-    public PersonResponse updatePerson(Long id, UpdatePersonRequest request) {
+    public PersonResponse updatePerson(
+            Long id,
+            UpdatePersonRequest request
+                                      ) {
         PersonEntity fetchedPerson = personEntityProvider.getEntity(id);
-        PersonEntity updatedPerson = personMapper.merge(fetchedPerson, request);
+        PersonEntity updatedPerson = personMapper.merge(
+                fetchedPerson,
+                request
+                                                       );
 
         personRepository.saveAndFlush(updatedPerson);
-        logger.info("Person updated id:{}", id);
+        logger.info(
+                "Person updated id:{}",
+                id
+                   );
 
         return personMapper.toModel(updatedPerson);
     }

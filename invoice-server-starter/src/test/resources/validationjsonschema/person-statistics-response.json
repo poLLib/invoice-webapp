@@ -17,12 +17,20 @@
       },
       "revenue": {
         "oneOf": [
-          {"type": "integer", "minimum": 0},
-          {"type": "null"}
+          {
+            "type": "integer",
+            "minimum": 0
+          },
+          {
+            "type": "null"
+          }
         ]
       }
     },
-    "required": ["personId", "personName"],
+    "required": [
+      "personId",
+      "personName"
+    ],
     "additionalProperties": false
   }
 }

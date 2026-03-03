@@ -37,7 +37,10 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-@Tag(name = "Person", description = "Person management")
+@Tag(
+        name = "Person",
+        description = "Person management"
+)
 public class PersonController {
 
     private final PersonServices personServices;
@@ -72,7 +75,10 @@ public class PersonController {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<PersonResponse> createPerson(@RequestBody @Valid CreatePersonRequest request) {
-        return new ResponseEntity<>(personServices.createPerson(request), CREATED);
+        return new ResponseEntity<>(
+                personServices.createPerson(request),
+                CREATED
+        );
     }
 
     @Operation(
@@ -109,8 +115,11 @@ public class PersonController {
                     required = true
             )
             @PathVariable Long personId
-    ) {
-        return new ResponseEntity<>(personServices.getPerson(personId), OK);
+                                                   ) {
+        return new ResponseEntity<>(
+                personServices.getPerson(personId),
+                OK
+        );
     }
 
     @Operation(
@@ -149,8 +158,14 @@ public class PersonController {
             )
             @PathVariable Long personId,
             @RequestBody @Valid UpdatePersonRequest request
-    ) {
-        return new ResponseEntity<>(personServices.updatePerson(personId, request), OK);
+                                                      ) {
+        return new ResponseEntity<>(
+                personServices.updatePerson(
+                        personId,
+                        request
+                                           ),
+                OK
+        );
     }
 
     @Operation(
@@ -185,7 +200,7 @@ public class PersonController {
                     required = true
             )
             @PathVariable Long personId
-    ) {
+                            ) {
         personServices.removePerson(personId);
     }
 
@@ -223,8 +238,14 @@ public class PersonController {
                     schema = @Schema(defaultValue = "10")
             )
             @RequestParam(defaultValue = "10") int size
-    ) {
-        return new ResponseEntity<>(personServices.getPersons(page, size), OK);
+                                                          ) {
+        return new ResponseEntity<>(
+                personServices.getPersons(
+                        page,
+                        size
+                                         ),
+                OK
+        );
     }
 
     @Operation(
@@ -251,7 +272,10 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Long> getCountPersons() {
-        return new ResponseEntity<>(personServices.getVisiblePersonsCount(), OK);
+        return new ResponseEntity<>(
+                personServices.getVisiblePersonsCount(),
+                OK
+        );
     }
 
     @Operation(
@@ -278,7 +302,10 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<List<PersonStatisticsResponse>> getPersonStatistics() {
-        return new ResponseEntity<>(personServices.getPersonStatistics(), OK);
+        return new ResponseEntity<>(
+                personServices.getPersonStatistics(),
+                OK
+        );
     }
 }
 

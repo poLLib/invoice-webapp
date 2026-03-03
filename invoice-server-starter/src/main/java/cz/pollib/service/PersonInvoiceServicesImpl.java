@@ -14,7 +14,10 @@ public class PersonInvoiceServicesImpl implements PersonInvoiceServices {
 
     private final InvoiceMapper invoiceMapper;
 
-    public PersonInvoiceServicesImpl(InvoiceRepository invoiceRepository, InvoiceMapper invoiceMapper) {
+    public PersonInvoiceServicesImpl(
+            InvoiceRepository invoiceRepository,
+            InvoiceMapper invoiceMapper
+                                    ) {
         this.invoiceRepository = invoiceRepository;
         this.invoiceMapper = invoiceMapper;
     }
@@ -24,7 +27,9 @@ public class PersonInvoiceServicesImpl implements PersonInvoiceServices {
         return invoiceRepository
                 .findAll()
                 .stream()
-                .filter(i -> i.getSeller().getIdentificationNumber().equals(identificationNumber))
+                .filter(i -> i.getSeller()
+                              .getIdentificationNumber()
+                              .equals(identificationNumber))
                 .map(invoiceMapper::toModel)
                 .toList();
     }
@@ -32,9 +37,11 @@ public class PersonInvoiceServicesImpl implements PersonInvoiceServices {
     @Override
     public List<InvoiceResponse> getInvoicesByBuyer(String identificationNumber) {
         return invoiceRepository.findAll()
-                .stream()
-                .filter(i -> i.getBuyer().getIdentificationNumber().equals(identificationNumber))
-                .map(invoiceMapper::toModel)
-                .toList();
+                                .stream()
+                                .filter(i -> i.getBuyer()
+                                              .getIdentificationNumber()
+                                              .equals(identificationNumber))
+                                .map(invoiceMapper::toModel)
+                                .toList();
     }
 }

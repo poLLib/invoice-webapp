@@ -27,7 +27,10 @@ public interface PersonServices {
      * @param size Number of pages
      * @return List of Person of current page
      */
-    List<PersonResponse> getPersons(int page, int size);
+    List<PersonResponse> getPersons(
+            int page,
+            int size
+                                   );
 
     /**
      * Counts all visible persons
@@ -57,11 +60,14 @@ public interface PersonServices {
      * Edits person by [id], according to low of accountancy the old data must be stored, therefore the person gets hidden
      * also [identificationNumber, taxNumber] cannot be changed, so updated person sets the values from the previous ones
      *
-     * @param id   Person to edit
+     * @param id      Person to edit
      * @param request Updated data of person to edit
      * @return Edited Person
      */
-    PersonResponse updatePerson(Long id, UpdatePersonRequest request);
+    PersonResponse updatePerson(
+            Long id,
+            UpdatePersonRequest request
+                               );
 
     /**
      * Fetches all values of {@link PersonStatisticsResponse} [Long personId, String personName, Long revenue]

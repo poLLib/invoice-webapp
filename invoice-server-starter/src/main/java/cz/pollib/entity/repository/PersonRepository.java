@@ -13,7 +13,6 @@ import java.util.List;
  */
 public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
 
-
     /**
      * Finds hidden entities and returns them in a paginated format.
      *
@@ -21,7 +20,10 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
      * @param pageable Pagination information.
      * @return A list of hidden {@link PersonEntity} entities.
      */
-    List<PersonEntity> findByHidden(boolean hidden, Pageable pageable);
+    List<PersonEntity> findByHidden(
+            boolean hidden,
+            Pageable pageable
+                                   );
 
     /**
      * Finds hidden entities without pagination.
@@ -36,11 +38,13 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
      *
      * @return The total number of non-hidden people.
      */
-    @Query(value = """
-            SELECT COUNT(*)
-            FROM Person p
-            WHERE p.hidden = false
-            """)
+    @Query(
+            value = """
+                    SELECT COUNT(*)
+                    FROM Person p
+                    WHERE p.hidden = false
+                    """
+    )
     Long countAllVisiblePeople();
 
     /**
@@ -49,12 +53,14 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
      * @param id The ID of the person.
      * @return The total income for the person.
      */
-    @Query(value = """
-            SELECT SUM(i.price)
-            FROM Invoice i
-                JOIN FETCH Person p ON i.seller.id = p.id
-            WHERE p.id = :id
-            """)
+    @Query(
+            value = """
+                    SELECT SUM(i.price)
+                    FROM Invoice i
+                        JOIN FETCH Person p ON i.seller.id = p.id
+                    WHERE p.id = :id
+                    """
+    )
     Long sumAllPrice(@Param("id") Long id);
 
     /**

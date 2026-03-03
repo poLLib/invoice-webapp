@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
             PasswordEncoder passwordEncoder,
             AuthenticationConfiguration authenticationConfiguration,
             JwtService jwtService
-    ) {
+                          ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationConfiguration = authenticationConfiguration;
@@ -38,18 +38,25 @@ public class UserServiceImpl implements UserService {
         try {
             AuthenticationManager authenticationManager = authenticationConfiguration.getAuthenticationManager();
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.email(), request.password())
-            );
+                    new UsernamePasswordAuthenticationToken(
+                            request.email(),
+                            request.password()
+                    )
+                                              );
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         UserEntity user = userRepository.findByEmail(request.email())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         String token = jwtService.generateToken(user);
 
-        return new AuthResponse(token, user.getEmail(), user.isAdmin());
+        return new AuthResponse(
+                token,
+                user.getEmail(),
+                user.isAdmin()
+        );
     }
 
     @Override
@@ -66,12 +73,16 @@ public class UserServiceImpl implements UserService {
 
         String token = jwtService.generateToken(user);
 
-        return new AuthResponse(token, user.getEmail(), user.isAdmin());
+        return new AuthResponse(
+                token,
+                user.getEmail(),
+                user.isAdmin()
+        );
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+                             .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 }

@@ -9,22 +9,22 @@ import org.springframework.util.StringUtils;
 /**
  * Validator for the {@link Unique} annotation.
  * Checks if a value is unique in the specified entity and field.
- * 
+ *
  * <p>This validator supports the following entity and field combinations:</p>
  * <ul>
  *   <li>entity="person", field="identificationNumber" - Checks if a person with the given identification number exists</li>
  *   <li>entity="invoice", field="invoiceNumber" - Checks if an invoice with the given invoice number exists</li>
  * </ul>
- * 
+ *
  * <p>To use this validator, add the {@link Unique} annotation to a field in your request class:</p>
  * <pre>
  * {@code @Unique(entity = "person", field = "identificationNumber")}
  * private String identificationNumber;
- * 
+ *
  * {@code @Unique(entity = "invoice", field = "invoiceNumber")}
  * private int invoiceNumber;
  * </pre>
- * 
+ *
  * <p>The validator handles different types of values:</p>
  * <ul>
  *   <li>Null values are considered valid (use {@code @NotNull} for null validation)</li>
@@ -36,11 +36,14 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
 
     private final PersonRepository personRepository;
     private final InvoiceRepository invoiceRepository;
-    
+
     private String entity;
     private String field;
 
-    public UniqueValidator(PersonRepository personRepository, InvoiceRepository invoiceRepository) {
+    public UniqueValidator(
+            PersonRepository personRepository,
+            InvoiceRepository invoiceRepository
+                          ) {
         this.personRepository = personRepository;
         this.invoiceRepository = invoiceRepository;
     }
@@ -53,11 +56,14 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
     }
 
     @Override
-    public boolean isValid(Object value, ConstraintValidatorContext context) {
+    public boolean isValid(
+            Object value,
+            ConstraintValidatorContext context
+                          ) {
         if (value == null) {
             return true;
         }
-        
+
         // Check uniqueness based on entity and field
         if ("person".equalsIgnoreCase(entity)) {
             if ("identificationNumber".equalsIgnoreCase(field)) {

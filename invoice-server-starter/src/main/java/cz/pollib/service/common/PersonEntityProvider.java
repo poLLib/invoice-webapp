@@ -24,6 +24,6 @@ public class PersonEntityProvider {
      */
     public PersonEntity getEntity(Long id) {
         return personRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                               .orElseThrow(EntityNotFoundException::new);
     }
 }

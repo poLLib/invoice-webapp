@@ -13,6 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class InvoiceManagerApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(InvoiceManagerApp.class, args);
+        SpringApplication.run(
+                InvoiceManagerApp.class,
+                args
+                             );
     }
 }

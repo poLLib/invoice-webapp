@@ -30,7 +30,10 @@ public record UpdatePersonRequest(
         @NotBlank(message = "Name cannot be blank")
         String name,
 
-        @Pattern(regexp = "^[A-Z]{2}\\d+$", message = "Tax number must start with two uppercase letters")
+        @Pattern(
+                regexp = "^[A-Z]{2}\\d+$",
+                message = "Tax number must start with two uppercase letters"
+        )
         String taxNumber,
 
         @Positive(message = "Account number must be positive number")
@@ -53,7 +56,10 @@ public record UpdatePersonRequest(
         String street,
 
         @NotBlank(message = "ZIP cannot be blank")
-        @Pattern(regexp = "^[0-9]{5}$", message = "ZIP must be 5 digits")
+        @Pattern(
+                regexp = "^[0-9]{5}$",
+                message = "ZIP must be 5 digits"
+        )
         String zip,
 
         @NotBlank(message = "City cannot be blank")

@@ -21,14 +21,16 @@ import java.util.List;
 @Service
 public class InvoiceServicesImpl implements InvoiceServices {
 
+    private static final Logger logger = LoggerFactory.getLogger(InvoiceServicesImpl.class);
     private final InvoiceRepository invoiceRepository;
     private final InvoiceEntityProvider invoiceEntityProvider;
-
     private final InvoiceMapper invoiceMapper;
 
-    private static final Logger logger = LoggerFactory.getLogger(InvoiceServicesImpl.class);
-
-    public InvoiceServicesImpl(InvoiceRepository invoiceRepository, InvoiceEntityProvider invoiceEntityProvider, InvoiceMapper invoiceMapper) {
+    public InvoiceServicesImpl(
+            InvoiceRepository invoiceRepository,
+            InvoiceEntityProvider invoiceEntityProvider,
+            InvoiceMapper invoiceMapper
+                              ) {
         this.invoiceRepository = invoiceRepository;
         this.invoiceEntityProvider = invoiceEntityProvider;
         this.invoiceMapper = invoiceMapper;
@@ -38,26 +40,50 @@ public class InvoiceServicesImpl implements InvoiceServices {
     public InvoiceResponse createInvoice(CreateInvoiceRequest request) {
         InvoiceEntity entity = invoiceMapper.toEntity(request);
         invoiceRepository.saveAndFlush(entity);
-        logger.info("Invoice was created id:{}", entity.getId());
+        logger.info(
+                "Invoice was created id:{}",
+                entity.getId()
+                   );
 
         return invoiceMapper.toModel(entity);
     }
 
     @Override
-    public InvoicePageResponse searchInvoices(InvoiceFilter invoiceFilter, int page) {
+    public InvoicePageResponse searchInvoices(
+            InvoiceFilter invoiceFilter,
+            int page
+                                             ) {
         InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
 
-        long totalElements = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.limit()))
-                .getTotalElements();
+        long totalElements = invoiceRepository.findAll(
+                                                      invoiceSpecification,
+                                                      PageRequest.of(
+                                                              page,
+                                                              invoiceFilter.limit()
+                                                                    )
+                                                      )
+                                              .getTotalElements();
 
-        List<InvoiceResponse> invoices = invoiceRepository.findAll(invoiceSpecification, PageRequest.of(page, invoiceFilter.limit()))
-                .stream()
-                .map(invoiceMapper::toModel)
-                .toList();
+        List<InvoiceResponse> invoices = invoiceRepository.findAll(
+                                                                  invoiceSpecification,
+                                                                  PageRequest.of(
+                                                                          page,
+                                                                          invoiceFilter.limit()
+                                                                                )
+                                                                  )
+                                                          .stream()
+                                                          .map(invoiceMapper::toModel)
+                                                          .toList();
 
-        logger.info("Search found {} invoices", totalElements);
+        logger.info(
+                "Search found {} invoices",
+                totalElements
+                   );
 
-        return new InvoicePageResponse(invoices, totalElements);
+        return new InvoicePageResponse(
+                invoices,
+                totalElements
+        );
     }
 
     @Override
@@ -68,15 +94,27 @@ public class InvoiceServicesImpl implements InvoiceServices {
     @Override
     public void deleteInvoice(Long id) {
         invoiceRepository.delete(invoiceEntityProvider.getEntity(id));
-        logger.info("Invoice was deleted id:{}", id);
+        logger.info(
+                "Invoice was deleted id:{}",
+                id
+                   );
     }
 
-    public InvoiceResponse updateInvoice(Long id, UpdateInvoiceRequest request) {
+    public InvoiceResponse updateInvoice(
+            Long id,
+            UpdateInvoiceRequest request
+                                        ) {
         InvoiceEntity fetchedInvoice = invoiceEntityProvider.getEntity(id);
-        InvoiceEntity updatedInvoice = invoiceMapper.merge(fetchedInvoice, request);
+        InvoiceEntity updatedInvoice = invoiceMapper.merge(
+                fetchedInvoice,
+                request
+                                                          );
 
         invoiceRepository.saveAndFlush(updatedInvoice);
-        logger.info("Invoice updated id:{}", id);
+        logger.info(
+                "Invoice updated id:{}",
+                id
+                   );
 
         return invoiceMapper.toModel(updatedInvoice);
     }

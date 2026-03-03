@@ -26,7 +26,10 @@ import static org.springframework.http.HttpStatus.*;
 @CrossOrigin
 @RequestMapping("/api/user")
 @Validated
-@Tag(name = "User", description = "Authentication management")
+@Tag(
+        name = "User",
+        description = "Authentication management"
+)
 public class UserController {
 
     private final UserService userService;
@@ -44,26 +47,29 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody UserRequest request) {
         AuthResponse response = userService.registerUser(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                             .body(response);
     }
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout() {
         SecurityContextHolder.clearContext();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok()
+                             .build();
     }
 
     @ExceptionHandler(DuplicateEmailException.class)
     public ResponseEntity<ErrorResponse> handleDuplicateEmailException(
             DuplicateEmailException ex,
             HttpServletRequest request
-    ) {
+                                                                      ) {
         ErrorResponse errorResponse = new ErrorResponse(
                 DUPLICATE_EMAIL,
                 request.getRequestURI(),
                 ex.getMessage()
         );
 
-        return ResponseEntity.status(CONFLICT).body(errorResponse);
+        return ResponseEntity.status(CONFLICT)
+                             .body(errorResponse);
     }
 }

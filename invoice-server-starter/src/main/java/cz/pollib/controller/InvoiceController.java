@@ -39,7 +39,10 @@ import static org.springframework.http.HttpStatus.*;
 @CrossOrigin
 @RequestMapping("/api")
 @Validated
-@Tag(name = "Invoice", description = "Invoice management")
+@Tag(
+        name = "Invoice",
+        description = "Invoice management"
+)
 public class InvoiceController {
 
     private final InvoiceServices invoiceServices;
@@ -73,7 +76,10 @@ public class InvoiceController {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<InvoiceResponse> createInvoice(@RequestBody @Valid CreateInvoiceRequest request) {
-        return new ResponseEntity<>(invoiceServices.createInvoice(request), CREATED);
+        return new ResponseEntity<>(
+                invoiceServices.createInvoice(request),
+                CREATED
+        );
     }
 
     @Operation(
@@ -100,14 +106,21 @@ public class InvoiceController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<InvoicePageResponse> searchInvoices(
-            InvoiceFilter invoiceFilter, // TODO: 28.07.2025 query params as input for controller
+            InvoiceFilter invoiceFilter,
+            // TODO: 28.07.2025 query params as input for controller
             @Parameter(
                     description = "Page",
                     schema = @Schema(defaultValue = "0")
             )
             @RequestParam(defaultValue = "0") int page
-    ) {
-        return new ResponseEntity<>(invoiceServices.searchInvoices(invoiceFilter, page), OK);
+                                                             ) {
+        return new ResponseEntity<>(
+                invoiceServices.searchInvoices(
+                        invoiceFilter,
+                        page
+                                              ),
+                OK
+        );
     }
 
     @Operation(
@@ -144,8 +157,11 @@ public class InvoiceController {
                     required = true
             )
             @PathVariable Long invoiceId
-    ) {
-        return new ResponseEntity<>(invoiceServices.getInvoice(invoiceId), OK);
+                                                     ) {
+        return new ResponseEntity<>(
+                invoiceServices.getInvoice(invoiceId),
+                OK
+        );
     }
 
     @Operation(
@@ -180,7 +196,7 @@ public class InvoiceController {
                     required = true
             )
             @PathVariable Long invoiceId
-    ) {
+                             ) {
         invoiceServices.deleteInvoice(invoiceId);
     }
 
@@ -220,8 +236,14 @@ public class InvoiceController {
             )
             @PathVariable Long invoiceId,
             @RequestBody @Valid UpdateInvoiceRequest request
-    ) {
-        return new ResponseEntity<>(invoiceServices.updateInvoice(invoiceId, request), OK);
+                                                        ) {
+        return new ResponseEntity<>(
+                invoiceServices.updateInvoice(
+                        invoiceId,
+                        request
+                                             ),
+                OK
+        );
     }
 
     @Operation(
@@ -248,6 +270,9 @@ public class InvoiceController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<InvoiceStatisticsResponse> getStatistics() {
-        return new ResponseEntity<>(invoiceServices.getInvoiceStatistics(), OK);
+        return new ResponseEntity<>(
+                invoiceServices.getInvoiceStatistics(),
+                OK
+        );
     }
 }

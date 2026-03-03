@@ -26,7 +26,10 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-@Tag(name = "PersonInvoice", description = "Management between sellers and buyers")
+@Tag(
+        name = "PersonInvoice",
+        description = "Management between sellers and buyers"
+)
 public class PersonInvoiceController {
     private final PersonInvoiceServices personInvoiceServices;
 
@@ -68,8 +71,11 @@ public class PersonInvoiceController {
                     required = true
             )
             @PathVariable String identificationNumber
-    ) {
-        return new ResponseEntity<>(personInvoiceServices.getInvoicesBySeller(identificationNumber), OK);
+                                                                  ) {
+        return new ResponseEntity<>(
+                personInvoiceServices.getInvoicesBySeller(identificationNumber),
+                OK
+        );
     }
 
     @Operation(
@@ -106,7 +112,10 @@ public class PersonInvoiceController {
                     required = true
             )
             @PathVariable String identificationNumber
-    ) {
-        return new ResponseEntity<>(personInvoiceServices.getInvoicesByBuyer(identificationNumber), OK);
+                                                                  ) {
+        return new ResponseEntity<>(
+                personInvoiceServices.getInvoicesByBuyer(identificationNumber),
+                OK
+        );
     }
 }

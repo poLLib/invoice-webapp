@@ -10,7 +10,10 @@ public class SellerAndBuyerNotSameValidator implements ConstraintValidator<Selle
     }
 
     @Override
-    public boolean isValid(SellerAndBuyerValidatable InvoiceRequest, ConstraintValidatorContext context) {
+    public boolean isValid(
+            SellerAndBuyerValidatable InvoiceRequest,
+            ConstraintValidatorContext context
+                          ) {
         if (InvoiceRequest == null) {
             return true;
         }
@@ -27,11 +30,11 @@ public class SellerAndBuyerNotSameValidator implements ConstraintValidator<Selle
         if (!isValid) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
-                    .addPropertyNode("buyerId")
-                    .addConstraintViolation();
+                   .addPropertyNode("buyerId")
+                   .addConstraintViolation();
             context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
-                    .addPropertyNode("sellerId")
-                    .addConstraintViolation();
+                   .addPropertyNode("sellerId")
+                   .addConstraintViolation();
         }
 
         return isValid;

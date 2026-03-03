@@ -13,9 +13,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("InvoiceWebApp OpenAPI Documentation")
-                        .version("1.0")
-                        .description("API for managing invoices"));
+                              .title("InvoiceWebApp OpenAPI Documentation")
+                              .version("1.0")
+                              .description("API for managing invoices"));
     }
 
     @Bean
@@ -31,7 +31,7 @@ public class OpenApiConfig {
                         "/api/person/**",
                         "/api/persons",
                         "/api/persons/**"
-                        )
+                             )
                 .build();
     }
 
@@ -45,7 +45,7 @@ public class OpenApiConfig {
                         "/api/invoice/**",
                         "/api/invoices",
                         "/api/invoices/**"
-                )
+                             )
                 .build();
     }
 }

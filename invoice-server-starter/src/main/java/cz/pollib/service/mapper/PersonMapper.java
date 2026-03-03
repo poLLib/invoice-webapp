@@ -45,7 +45,10 @@ public class PersonMapper {
      * @param model  the source {@link CreatePersonRequest}
      * @param entity the target {@link PersonEntity} to be updated
      */
-    public PersonEntity merge(PersonEntity entity, UpdatePersonRequest model) {
+    public PersonEntity merge(
+            PersonEntity entity,
+            UpdatePersonRequest model
+                             ) {
         entity.setName(model.name());
         entity.setTaxNumber(model.taxNumber());
         entity.setAccountNumber(model.accountNumber());

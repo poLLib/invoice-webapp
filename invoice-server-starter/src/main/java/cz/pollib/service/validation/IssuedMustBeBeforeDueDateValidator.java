@@ -10,17 +10,21 @@ public class IssuedMustBeBeforeDueDateValidator implements ConstraintValidator<I
     }
 
     @Override
-    public boolean isValid(InvoiceDateValidatable invoiceRequest, ConstraintValidatorContext context) {
+    public boolean isValid(
+            InvoiceDateValidatable invoiceRequest,
+            ConstraintValidatorContext context
+                          ) {
         if (invoiceRequest == null) {
             return true;
         }
 
         if (invoiceRequest.getIssued() != null && invoiceRequest.getDueDate() != null) {
-            if (invoiceRequest.getDueDate().isBefore(invoiceRequest.getIssued())) {
+            if (invoiceRequest.getDueDate()
+                              .isBefore(invoiceRequest.getIssued())) {
                 context.disableDefaultConstraintViolation();
                 context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
-                        .addPropertyNode("dueDate")
-                        .addConstraintViolation();
+                       .addPropertyNode("dueDate")
+                       .addConstraintViolation();
                 return false;
             }
         }

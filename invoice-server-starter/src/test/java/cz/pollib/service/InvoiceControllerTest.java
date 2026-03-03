@@ -35,60 +35,66 @@ public class InvoiceControllerTest extends BaseControllerTest {
     @DisplayName("Should create seller and buyer for the invoice")
     void shouldCreatePersons() {
         sellerId = given()
-                .log().all()
+                .log()
+                .all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(new CreatePersonRequest(
-                                "Seller",
-                                "11122223",
-                                "CZ65666",
-                                "65455654",
-                                "5455",
-                                "CZ564896",
-                                "+420705489657",
-                                "sell@id.org",
-                                "Studena",
-                                "10000",
-                                "Praha",
-                                CZECHIA,
-                                null
-                        )
-                )
+                              "Seller",
+                              "11122223",
+                              "CZ65666",
+                              "65455654",
+                              "5455",
+                              "CZ564896",
+                              "+420705489657",
+                              "sell@id.org",
+                              "Studena",
+                              "10000",
+                              "Praha",
+                              CZECHIA,
+                              null
+                      )
+                     )
                 .when()
                 .post("/person")
                 .then()
-                .log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
+                .log()
+                .all()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
                 .statusCode(201)
                 .extract()
                 .as(PersonResponse.class)
                 .id();
 
         buyerId = given()
-                .log().all()
+                .log()
+                .all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(new CreatePersonRequest(
-                                "Buyer",
-                                "33322221",
-                                "CZ65666",
-                                "65455654",
-                                "5455",
-                                "CZ564896",
-                                "+420705489657",
-                                "sell@id.org",
-                                "Studena",
-                                "10000",
-                                "Praha",
-                                CZECHIA,
-                                null
-                        )
-                )
+                              "Buyer",
+                              "33322221",
+                              "CZ65666",
+                              "65455654",
+                              "5455",
+                              "CZ564896",
+                              "+420705489657",
+                              "sell@id.org",
+                              "Studena",
+                              "10000",
+                              "Praha",
+                              CZECHIA,
+                              null
+                      )
+                     )
                 .when()
                 .post("/person")
                 .then()
-                .log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
+                .log()
+                .all()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("validationjsonschema/person-response.json"))
                 .statusCode(201)
                 .extract()
                 .as(PersonResponse.class)
@@ -100,26 +106,29 @@ public class InvoiceControllerTest extends BaseControllerTest {
     @DisplayName("Should create invoice")
     void shouldCreateInvoice() {
         InvoiceResponse result = given()
-                .log().all()
+                .log()
+                .all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(new CreateInvoiceRequest(
-                                666555444,
-                                LocalDate.parse("2020-01-01"),
-                                LocalDate.parse("2020-03-01"),
-                                "product",
-                                23000L,
-                                21,
-                                null,
-                                buyerId,
-                                sellerId
-                        )
-                )
+                              666555444,
+                              LocalDate.parse("2020-01-01"),
+                              LocalDate.parse("2020-03-01"),
+                              "product",
+                              23000L,
+                              21,
+                              null,
+                              buyerId,
+                              sellerId
+                      )
+                     )
                 .when()
                 .post("/invoice")
                 .then()
-                .log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-response.json"))
+                .log()
+                .all()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-response.json"))
                 .statusCode(201)
                 .extract()
                 .as(InvoiceResponse.class);
@@ -134,12 +143,16 @@ public class InvoiceControllerTest extends BaseControllerTest {
         assertThat(result.note()).isNull();
 
         assertThat(result.seller()).isNotNull();
-        assertThat(result.seller().id()).isEqualTo(sellerId);
-        assertThat(result.seller().identificationNumber()).isEqualTo("11122223");
+        assertThat(result.seller()
+                         .id()).isEqualTo(sellerId);
+        assertThat(result.seller()
+                         .identificationNumber()).isEqualTo("11122223");
 
         assertThat(result.buyer()).isNotNull();
-        assertThat(result.buyer().id()).isEqualTo(buyerId);
-        assertThat(result.buyer().identificationNumber()).isEqualTo("33322221");
+        assertThat(result.buyer()
+                         .id()).isEqualTo(buyerId);
+        assertThat(result.buyer()
+                         .identificationNumber()).isEqualTo("33322221");
 
         invoiceId = result.id();
     }
@@ -149,14 +162,20 @@ public class InvoiceControllerTest extends BaseControllerTest {
     @DisplayName("Should return invoice")
     void shouldReturnInvoice() {
         InvoiceResponse result = given()
-                .log().all()
+                .log()
+                .all()
                 .accept(ContentType.JSON)
-                .pathParam("invoiceId", invoiceId)
+                .pathParam(
+                        "invoiceId",
+                        invoiceId
+                          )
                 .when()
                 .get("/invoice/{invoiceId}")
                 .then()
-                .log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-response.json"))
+                .log()
+                .all()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-response.json"))
                 .statusCode(200)
                 .extract()
                 .as(InvoiceResponse.class);
@@ -171,12 +190,16 @@ public class InvoiceControllerTest extends BaseControllerTest {
         assertThat(result.note()).isNull();
 
         assertThat(result.seller()).isNotNull();
-        assertThat(result.seller().id()).isEqualTo(sellerId);
-        assertThat(result.seller().identificationNumber()).isEqualTo("11122223");
+        assertThat(result.seller()
+                         .id()).isEqualTo(sellerId);
+        assertThat(result.seller()
+                         .identificationNumber()).isEqualTo("11122223");
 
         assertThat(result.buyer()).isNotNull();
-        assertThat(result.buyer().id()).isEqualTo(buyerId);
-        assertThat(result.buyer().identificationNumber()).isEqualTo("33322221");
+        assertThat(result.buyer()
+                         .id()).isEqualTo(buyerId);
+        assertThat(result.buyer()
+                         .identificationNumber()).isEqualTo("33322221");
     }
 
     @Order(4)
@@ -184,26 +207,32 @@ public class InvoiceControllerTest extends BaseControllerTest {
     @DisplayName("Should update invoice")
     void shouldUpdateInvoice() {
         InvoiceResponse result = given()
-                .log().all()
+                .log()
+                .all()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .body(new UpdateInvoiceRequest(
-                                LocalDate.parse("2021-01-01"),
-                                LocalDate.parse("2021-01-01"),
-                                "item",
-                                100L,
-                                16,
-                                "note",
-                                sellerId,
-                                buyerId
-                        )
-                )
-                .pathParam("invoiceId", invoiceId)
+                              LocalDate.parse("2021-01-01"),
+                              LocalDate.parse("2021-01-01"),
+                              "item",
+                              100L,
+                              16,
+                              "note",
+                              sellerId,
+                              buyerId
+                      )
+                     )
+                .pathParam(
+                        "invoiceId",
+                        invoiceId
+                          )
                 .when()
                 .put("/invoice/{invoiceId}")
                 .then()
-                .log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-response.json"))
+                .log()
+                .all()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-response.json"))
                 .statusCode(200)
                 .extract()
                 .as(InvoiceResponse.class);
@@ -218,12 +247,16 @@ public class InvoiceControllerTest extends BaseControllerTest {
         assertThat(result.note()).isEqualTo("note");
 
         assertThat(result.buyer()).isNotNull();
-        assertThat(result.buyer().id()).isEqualTo(sellerId);
-        assertThat(result.buyer().identificationNumber()).isEqualTo("11122223");
+        assertThat(result.buyer()
+                         .id()).isEqualTo(sellerId);
+        assertThat(result.buyer()
+                         .identificationNumber()).isEqualTo("11122223");
 
         assertThat(result.seller()).isNotNull();
-        assertThat(result.seller().id()).isEqualTo(buyerId);
-        assertThat(result.seller().identificationNumber()).isEqualTo("33322221");
+        assertThat(result.seller()
+                         .id()).isEqualTo(buyerId);
+        assertThat(result.seller()
+                         .identificationNumber()).isEqualTo("33322221");
     }
 
     @Order(5)
@@ -231,18 +264,29 @@ public class InvoiceControllerTest extends BaseControllerTest {
     @DisplayName("Should return invoices")
     void shouldReturnInvoices() {
         InvoiceResponse[] results = given()
-                .log().all()
+                .log()
+                .all()
                 .accept(ContentType.JSON)
-                .param("page", "0")
-                .param("size", "10")
+                .param(
+                        "page",
+                        "0"
+                      )
+                .param(
+                        "size",
+                        "10"
+                      )
                 .when()
                 .get("/invoices")
                 .then()
-                .log().all()
+                .log()
+                .all()
                 .statusCode(200)
                 .extract()
                 .jsonPath()
-                .getObject("invoices", InvoiceResponse[].class);
+                .getObject(
+                        "invoices",
+                        InvoiceResponse[].class
+                          );
 
         assertThat(results).isNotEmpty();
 
@@ -256,12 +300,17 @@ public class InvoiceControllerTest extends BaseControllerTest {
     @DisplayName("Should delete invoice")
     void shouldDeleteInvoice() {
         given()
-                .log().all()
-                .pathParam("invoiceId", invoiceId)
+                .log()
+                .all()
+                .pathParam(
+                        "invoiceId",
+                        invoiceId
+                          )
                 .when()
                 .delete("/invoice/{invoiceId}")
                 .then()
-                .log().all()
+                .log()
+                .all()
                 .statusCode(204);
     }
 
@@ -270,13 +319,18 @@ public class InvoiceControllerTest extends BaseControllerTest {
     @DisplayName("Should not return deleted invoice")
     void shouldNotReturnDeletedInvoice() {
         given()
-                .log().all()
+                .log()
+                .all()
                 .accept(ContentType.JSON)
-                .pathParam("invoiceId", invoiceId)
+                .pathParam(
+                        "invoiceId",
+                        invoiceId
+                          )
                 .when()
                 .get("/invoice/{invoiceId}")
                 .then()
-                .log().all()
+                .log()
+                .all()
                 .statusCode(404);
     }
 
@@ -285,13 +339,16 @@ public class InvoiceControllerTest extends BaseControllerTest {
     @DisplayName("Should return invoice statistics")
     void shouldReturnInvoiceStatistics() {
         given()
-                .log().all()
+                .log()
+                .all()
                 .accept(ContentType.JSON)
                 .when()
                 .get("/invoices/statistics")
                 .then()
-                .log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-statistics-response.json"))
+                .log()
+                .all()
+                .assertThat()
+                .body(matchesJsonSchemaInClasspath("validationjsonschema/invoice-statistics-response.json"))
                 .statusCode(200)
                 .extract()
                 .as(InvoiceStatisticsResponse.class);

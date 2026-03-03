@@ -24,6 +24,6 @@ public class InvoiceEntityProvider {
      */
     public InvoiceEntity getEntity(long id) {
         return invoiceRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                                .orElseThrow(EntityNotFoundException::new);
     }
 }

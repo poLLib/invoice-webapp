@@ -41,58 +41,65 @@ import java.util.List;
 @Table(name = "person")
 public class PersonEntity {
 
+    @OneToMany(
+            mappedBy = "buyer",
+            cascade = CascadeType.REMOVE
+    )
+    private final List<InvoiceEntity> purchases = new ArrayList<>();
+    @OneToMany(
+            mappedBy = "seller",
+            cascade = CascadeType.REMOVE
+    )
+    private final List<InvoiceEntity> sales = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false, unique = true)
+    @Column(
+            nullable = false,
+            unique = true
+    )
     private String identificationNumber;
-
     @Column
     private String taxNumber;
-
     @Column(nullable = false)
     private String accountNumber;
-
     @Column(nullable = false)
     private String bankCode;
-
     private String iban;
-
     @Column(nullable = false)
     private String telephone;
-
     @Column(nullable = false)
     private String mail;
-
     @Column(nullable = false)
     private String street;
-
     @Column(nullable = false)
     private String zip;
-
     @Column(nullable = false)
     private String city;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Countries country;
-
     @Column
     private String note;
-
     private boolean hidden = false;
 
-    @OneToMany(mappedBy = "buyer", cascade = CascadeType.REMOVE)
-    private List<InvoiceEntity> purchases = new ArrayList<>();
-
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.REMOVE)
-    private List<InvoiceEntity> sales = new ArrayList<>();
-
-    public PersonEntity(String name, String identificationNumber, String taxNumber, String accountNumber, String bankCode, String iban, String telephone, String mail, String street, String zip, String city, Countries country, String note) {
+    public PersonEntity(
+            String name,
+            String identificationNumber,
+            String taxNumber,
+            String accountNumber,
+            String bankCode,
+            String iban,
+            String telephone,
+            String mail,
+            String street,
+            String zip,
+            String city,
+            Countries country,
+            String note
+                       ) {
         this.name = name;
         this.identificationNumber = identificationNumber;
         this.taxNumber = taxNumber;
@@ -226,11 +233,11 @@ public class PersonEntity {
         this.note = note;
     }
 
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
-
     public boolean isHidden() {
         return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 }

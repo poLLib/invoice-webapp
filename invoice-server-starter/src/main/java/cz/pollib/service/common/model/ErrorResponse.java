@@ -2,7 +2,7 @@ package cz.pollib.service.common.model;
 
 import cz.pollib.constant.ErrorCode;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ErrorResponse {
@@ -10,16 +10,24 @@ public class ErrorResponse {
     private String uri;
     private List<String> errors;
 
-    public ErrorResponse(ErrorCode code, String uri, List<String> errors) {
+    public ErrorResponse(
+            ErrorCode code,
+            String uri,
+            List<String> errors
+                        ) {
         this.uri = uri;
         this.code = code;
         this.errors = errors;
     }
 
-    public ErrorResponse(ErrorCode code, String uri, String error) {
+    public ErrorResponse(
+            ErrorCode code,
+            String uri,
+            String error
+                        ) {
         this.uri = uri;
         this.code = code;
-        errors = Arrays.asList(error);
+        errors = Collections.singletonList(error);
     }
 
     public ErrorCode getCode() {

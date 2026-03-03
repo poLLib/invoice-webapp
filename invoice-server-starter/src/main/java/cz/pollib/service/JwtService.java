@@ -16,41 +16,64 @@ import java.util.function.Function;
 public class JwtService {
 
     private final JwtProperties jwtProperties;
+    private final SecretKey secretKey = Jwts.SIG.HS256.key()
+                                                      .build();
 
     public JwtService(JwtProperties jwtProperties) {
         this.jwtProperties = jwtProperties;
     }
 
-    private final SecretKey secretKey = Jwts.SIG.HS256.key().build();
-
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        return extractClaim(
+                token,
+                Claims::getSubject
+                           );
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    public <T> T extractClaim(
+            String token,
+            Function<Claims, T> claimsResolver
+                             ) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        return generateToken(
+                new HashMap<>(),
+                userDetails
+                            );
     }
 
-    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return buildToken(extraClaims, userDetails, jwtProperties.expiration());
+    public String generateToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails
+                               ) {
+        return buildToken(
+                extraClaims,
+                userDetails,
+                jwtProperties.expiration()
+                         );
     }
 
-    private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
+    private String buildToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails,
+            long expiration
+                             ) {
         return Jwts.builder()
-                .claims(extraClaims)
-                .subject(userDetails.getUsername())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey())
-                .compact();
+                   .claims(extraClaims)
+                   .subject(userDetails.getUsername())
+                   .issuedAt(new Date(System.currentTimeMillis()))
+                   .expiration(new Date(System.currentTimeMillis() + expiration))
+                   .signWith(getSignInKey())
+                   .compact();
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
+    public boolean isTokenValid(
+            String token,
+            UserDetails userDetails
+                               ) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
@@ -60,15 +83,18 @@ public class JwtService {
     }
 
     private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
+        return extractClaim(
+                token,
+                Claims::getExpiration
+                           );
     }
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .verifyWith(getSignInKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+                   .verifyWith(getSignInKey())
+                   .build()
+                   .parseSignedClaims(token)
+                   .getPayload();
     }
 
     private SecretKey getSignInKey() {

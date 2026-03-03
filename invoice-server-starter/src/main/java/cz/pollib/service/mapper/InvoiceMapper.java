@@ -20,7 +20,10 @@ public class InvoiceMapper {
 
     private final PersonMapper personMapper;
 
-    public InvoiceMapper(PersonEntityProvider personEntityProvider, PersonMapper personMapper) {
+    public InvoiceMapper(
+            PersonEntityProvider personEntityProvider,
+            PersonMapper personMapper
+                        ) {
         this.personEntityProvider = personEntityProvider;
         this.personMapper = personMapper;
     }
@@ -51,7 +54,10 @@ public class InvoiceMapper {
      * @param model  the source {@link UpdateInvoiceRequest}
      * @param entity the target {@link InvoiceEntity} to be updated
      */
-    public InvoiceEntity merge(InvoiceEntity entity, UpdateInvoiceRequest model) {
+    public InvoiceEntity merge(
+            InvoiceEntity entity,
+            UpdateInvoiceRequest model
+                              ) {
         entity.setIssued(model.getIssued());
         entity.setDueDate(model.getDueDate());
         entity.setProduct(model.product());

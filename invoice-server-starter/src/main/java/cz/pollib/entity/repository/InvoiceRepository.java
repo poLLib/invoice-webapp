@@ -15,10 +15,12 @@ public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, J
      *
      * @return The total sum of all invoices.
      */
-    @Query(value = """
-            SELECT SUM(i.price)
-            FROM Invoice i
-            """)
+    @Query(
+            value = """
+                    SELECT SUM(i.price)
+                    FROM Invoice i
+                    """
+    )
     Long sumAllPrice();
 
     /**
@@ -26,10 +28,12 @@ public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, J
      *
      * @return The total count of all invoices.
      */
-    @Query(value = """
-            SELECT COUNT(i.id)
-            FROM Invoice i
-            """)
+    @Query(
+            value = """
+                    SELECT COUNT(i.id)
+                    FROM Invoice i
+                    """
+    )
     Long countAll();
 
     /**
@@ -37,11 +41,13 @@ public interface InvoiceRepository extends JpaRepository<InvoiceEntity, Long>, J
      *
      * @return The total sum of the invoices
      */
-    @Query(value = """
-            SELECT SUM(i.price)
-            FROM Invoice i
-                WHERE YEAR(i.issued) = YEAR(CURRENT_DATE)
-            """)
+    @Query(
+            value = """
+                    SELECT SUM(i.price)
+                    FROM Invoice i
+                        WHERE YEAR(i.issued) = YEAR(CURRENT_DATE)
+                    """
+    )
     Long sumPriceOfCurrentYear();
 
     /**

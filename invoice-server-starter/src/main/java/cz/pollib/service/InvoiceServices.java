@@ -29,7 +29,10 @@ public interface InvoiceServices {
      * @param page          Current page
      * @return List of InvoiceDTO and count of invoice elements after filtration
      */
-    InvoicePageResponse searchInvoices(InvoiceFilter invoiceFilter, int page);
+    InvoicePageResponse searchInvoices(
+            InvoiceFilter invoiceFilter,
+            int page
+                                      );
 
     /**
      * Look up for a specific invoice by [id]
@@ -54,7 +57,10 @@ public interface InvoiceServices {
      * @param request New source of data for update invoice
      * @return Edited Invoice
      */
-    InvoiceResponse updateInvoice(Long id, UpdateInvoiceRequest request);
+    InvoiceResponse updateInvoice(
+            Long id,
+            UpdateInvoiceRequest request
+                                 );
 
     /**
      * Counts the invoices, profit of the invoices in the current year and in total

@@ -27,7 +27,7 @@ import java.time.LocalDate;
  * - buyer: The person or entity buying the product or service.
  * - seller: The person or entity selling the product or service.
  */
-@Entity (name = "Invoice")
+@Entity(name = "Invoice")
 @Table(name = "invoice")
 public class InvoiceEntity {
 
@@ -35,7 +35,10 @@ public class InvoiceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(
+            nullable = false,
+            unique = true
+    )
     private int invoiceNumber;
 
     @Column(nullable = false)
@@ -57,14 +60,30 @@ public class InvoiceEntity {
     private String note;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "buyer_id", nullable = false)
+    @JoinColumn(
+            name = "buyer_id",
+            nullable = false
+    )
     private PersonEntity buyer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id", nullable = false)
+    @JoinColumn(
+            name = "seller_id",
+            nullable = false
+    )
     private PersonEntity seller;
 
-    public InvoiceEntity(int invoiceNumber, LocalDate issued, LocalDate dueDate, String product, Long price, int vat, String note, PersonEntity buyer, PersonEntity seller) {
+    public InvoiceEntity(
+            int invoiceNumber,
+            LocalDate issued,
+            LocalDate dueDate,
+            String product,
+            Long price,
+            int vat,
+            String note,
+            PersonEntity buyer,
+            PersonEntity seller
+                        ) {
         this.invoiceNumber = invoiceNumber;
         this.issued = issued;
         this.dueDate = dueDate;
@@ -133,7 +152,7 @@ public class InvoiceEntity {
         return vat;
     }
 
-    public void setVat(int vat) { this.vat = vat; }
+    public void setVat(int vat) {this.vat = vat;}
 
     public String getNote() {
         return note;

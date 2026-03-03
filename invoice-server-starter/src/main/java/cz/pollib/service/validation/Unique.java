@@ -17,12 +17,12 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Unique {
     String message() default "FieldIsNotUnique";
-    
+
     /**
      * The entity types to check uniqueness against (e.g., "person", "invoice")
      */
     String entity();
-    
+
     /**
      * The field name to check uniqueness against (e.g., "identificationNumber", "invoiceNumber")
      */

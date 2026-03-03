@@ -11,7 +11,10 @@ public record UserRequest(
         @NotBlank(message = "Email cannot be blank")
         String email,
 
-        @Size(min = 6, message = "Password must be at least 6 characters")
+        @Size(
+                min = 6,
+                message = "Password must be at least 6 characters"
+        )
         @NotBlank(message = "Password cannot be blank")
         String password
 ) {

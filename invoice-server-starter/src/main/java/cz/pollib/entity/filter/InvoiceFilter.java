@@ -23,6 +23,8 @@ public record InvoiceFilter(
         @Schema(defaultValue = "10") @Min(1) Integer limit
 ) {
     public InvoiceFilter {
-        if (limit == null) limit = 10;
+        if (limit == null) {
+            limit = 10;
+        }
     }
 }

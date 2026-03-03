@@ -21,7 +21,10 @@ public class UserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(
+            nullable = false,
+            unique = true
+    )
     private String email;
 
     @Column(nullable = false)
@@ -30,7 +33,12 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private Boolean admin = false;
 
-    public UserEntity(long id, String email, String password, boolean admin) {
+    public UserEntity(
+            long id,
+            String email,
+            String password,
+            boolean admin
+                     ) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -68,6 +76,10 @@ public class UserEntity implements UserDetails {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String getUsername() {
         return email;
@@ -95,9 +107,5 @@ public class UserEntity implements UserDetails {
 
     public boolean isAdmin() {
         return admin;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

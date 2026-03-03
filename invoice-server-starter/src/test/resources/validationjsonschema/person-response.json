@@ -68,7 +68,10 @@
     },
     "country": {
       "type": "string",
-      "enum": ["CZECHIA", "SLOVAKIA"]
+      "enum": [
+        "CZECHIA",
+        "SLOVAKIA"
+      ]
     },
     "note": {
       "oneOf": [

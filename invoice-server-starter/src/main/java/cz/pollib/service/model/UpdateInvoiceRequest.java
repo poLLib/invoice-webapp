@@ -45,11 +45,17 @@ public record UpdateInvoiceRequest(
         String product,
 
         @NotNull(message = "Price cannot be null")
-        @Min(value = 1, message = "Price has minimal value 1")
+        @Min(
+                value = 1,
+                message = "Price has minimal value 1"
+        )
         Long price,
 
         @Positive(message = "VAT must be positive number")
-        @Max(value = 100, message = "VAT must be less than 100")
+        @Max(
+                value = 100,
+                message = "VAT must be less than 100"
+        )
         Integer vat,
 
         String note,
