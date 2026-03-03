@@ -18,7 +18,7 @@ public class PersonInvoiceControllerTest extends BaseControllerTest {
     void shouldReturnSellersInvoices() {
         InvoiceResponse[] results = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .accept(ContentType.JSON)
                 .pathParam(
                         "identificationNumber",
@@ -28,7 +28,7 @@ public class PersonInvoiceControllerTest extends BaseControllerTest {
                 .get("/identification/{identificationNumber}/sales")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(200)
                 .extract()
                 .as(InvoiceResponse[].class);
@@ -73,7 +73,7 @@ public class PersonInvoiceControllerTest extends BaseControllerTest {
     void shouldReturnBuyersInvoices() {
         InvoiceResponse[] results = given()
                 .log()
-                .all()
+                .ifValidationFails()
                 .accept(ContentType.JSON)
                 .pathParam(
                         "identificationNumber",
@@ -83,7 +83,7 @@ public class PersonInvoiceControllerTest extends BaseControllerTest {
                 .get("/identification/{identificationNumber}/purchases")
                 .then()
                 .log()
-                .all()
+                .ifValidationFails()
                 .statusCode(200)
                 .extract()
                 .as(InvoiceResponse[].class);
