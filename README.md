@@ -9,7 +9,8 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 3. [Installation](#installation)
 4. [Usage](#usage)
 5. [API Documentation](#api-documentation)
-6. [Conclusion](#conclusion)
+6. [Contributing](#contributing)
+7. [License](#license)
 
 ## Features
 
@@ -22,18 +23,18 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 ## Technologies Used
 
 - **Frontend**:
-  - React.js
-  - Node.js
+  - React 18
   - HTML5
-  - CSS3 (Bootstrap)
+  - CSS3 (Bootstrap 5)
 - **Backend**:
-  - JavaSE
-  - SpringBoot3
+  - Java 21
+  - Spring Boot 3
   - Maven
 - **Database**:
   - MariaDB
-- **Application Server**
-  - Apache Tomcat
+- **Infrastructure**:
+  - Docker
+  - Apache Tomcat (embedded)
 - **VCS**:
   - Git
   - GitHub
@@ -42,11 +43,11 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 
 ### Prerequisites
 
-- JDK 18 [Download JDK 18 Temurin](https://adoptium.net/temurin/releases/?os=any&version=18)
-- Node.js (v20.14.0 or later) [Download Node.js](https://nodejs.org/)
-- XAMPP (which includes MariaDB or MySQL) [Download XAMPP](https://www.apachefriends.org/index.html)
-- Git [Download Git](https://git-scm.com/downloads)
-- Maven [Download Maven](https://maven.apache.org/download.cgi)
+- [JDK 21 Temurin](https://adoptium.net/temurin/releases/?arch=any&version=21&os=any)
+- [Node.js 18+](https://nodejs.org/)
+- [Docker](https://www.docker.com/products/docker-desktop/)
+- [Git](https://git-scm.com/downloads)
+- [Maven](https://maven.apache.org/download.cgi)
 
 ### Steps
 
@@ -56,29 +57,25 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
    cd invoice-webapp
    ```
 
-2. **Install frontend dependencies:**
+2. **Start the database in Docker container:**
    ```bash
-   cd invoice-client-starter
-   npm install
-   npm install bootstrap@5.2.3 react-router-dom@6.10.0
-   ```
-3. **Start the frontend server:**
-   ```bash
-   npm start
+   cd invoice-server-starter
+   docker compose up -d
    ```
 
-4. **Start the database in docker**
-   ```bash
-   cd ../invoice-server-starter
-   docker compose up
-   ```
-   
-5. **Start the backend server:**
+3. **Start the backend server:**
    ```bash
    mvn spring-boot:run
    ```
 
-6. **Open your browser and navigate to:**
+4. **Install and start the frontend** (in a new terminal):
+   ```bash
+   cd invoice-client-starter
+   npm install
+   npm start
+   ```
+
+5. **Open your browser and navigate to:**
    ```
    http://localhost:3000
    ```
@@ -102,33 +99,44 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 
 ## API Documentation
 
-The API provides endpoints for managing companies and invoices using JSON format. You can also use API tool [Swagger](http://localhost:8080/swagger-ui/index.html#/). Below is a summary of the available endpoints:
+The API provides endpoints for managing companies and invoices using JSON format. You can also use the interactive API documentation via [Swagger UI](http://localhost:8080/swagger-ui/index.html#/).
 
-- **Companies**
-  - `GET /api/persons` : Get all companies.
-  - `POST /api/person` : Create a new company.
-  - `GET /api/person/:id` : Get a single company by ID.
-  - `PUT /api/person/:id` : Update a company by ID.
-  - `DELETE /api/person/:id` : Delete a company by ID.
-  - `GET /api/persons/statistics` : Get statistics of each company.
-  - `GET /api/persons/total` : Get total number of companies.
-  - `GET /api/identification/:identificationNumber/sales` : Get all sold invoices of single company by its identification number.
-  - `GET /api/identification/:identificationNumber/purchases` : Get all received invoices of single company by its identification number.
+Below is a summary of the available endpoints:
 
-    
-- **Invoices**
-  - `GET /api/invoices` : Get all invoices.
-  - `POST /api/invoice` : Create a new invoice.
-  - `GET /api/invoice/:id` : Get a single invoice by ID.
-  - `PUT /api/invoice/:id` : Update an invoice by ID.
-  - `DELETE /api/invoice/:id` : Delete an invoice by ID.
-  - `GET /api/invoices/statistics` : Get invoice statistics.
+### Companies (Persons)
 
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/persons` | Get all companies |
+| POST | `/api/persons` | Create a new company |
+| GET | `/api/persons/{id}` | Get a single company by ID |
+| PUT | `/api/persons/{id}` | Update a company by ID |
+| DELETE | `/api/persons/{id}` | Delete a company by ID |
+| GET | `/api/persons/statistics` | Get statistics of each company |
+| GET | `/api/identification/{identificationNumber}/sales` | Get all sold invoices by company identification number |
+| GET | `/api/identification/{identificationNumber}/purchases` | Get all received invoices by company identification number |
 
-## Conclusion
+### Invoices
 
-This project was founded with the support of ITnetwork.cz.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/invoices` | Get all invoices |
+| POST | `/api/invoices` | Create a new invoice |
+| GET | `/api/invoices/{id}` | Get a single invoice by ID |
+| PUT | `/api/invoices/{id}` | Update an invoice by ID |
+| DELETE | `/api/invoices/{id}` | Delete an invoice by ID |
+| GET | `/api/invoices/statistics` | Get invoice statistics |
 
-I welcome contributions from the community!
+## Contributing
 
-Thank you for using our Invoice Management Web Application!
+Contributions are welcome! If you'd like to contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
