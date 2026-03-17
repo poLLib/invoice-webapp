@@ -1,0 +1,62 @@
+services:
+  database:
+    image: mariadb:11.7
+    container_name: invoiceapp-db
+    environment:
+      MYSQL_ROOT_PASSWORD: invoiceapp
+      MYSQL_DATABASE: invoiceapp
+      MYSQL_USER: invoiceapp_user
+      MYSQL_PASSWORD: invoiceapp_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - invoiceapp-network
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  backend:
+    build:
+      context: ./invoice-server-starter
+      dockerfile: Dockerfile
+    container_name: invoiceapp-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/invoiceapp
+      SPRING_DATASOURCE_USERNAME: invoiceapp_user
+      SPRING_DATASOURCE_PASSWORD: invoiceapp_pass
+      SPRING_FLYWAY_URL: jdbc:mariadb://database:3306/invoiceapp
+      SPRING_FLYWAY_USER: invoiceapp_user
+      SPRING_FLYWAY_PASSWORD: invoiceapp_pass
+    ports:
+      - "8080:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - invoiceapp-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./invoice-client-starter
+      dockerfile: Dockerfile
+    container_name: invoiceapp-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - invoiceapp-network
+    restart: unless-stopped
+
+volumes:
+  db_data:
+
+networks:
+  invoiceapp-network:
+    driver: bridge

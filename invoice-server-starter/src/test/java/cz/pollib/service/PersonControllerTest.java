@@ -259,7 +259,7 @@ public class PersonControllerTest extends BaseControllerTest {
                 .ifValidationFails()
                 .accept(ContentType.JSON)
                 .when()
-                .get("/person/statistics")
+                .get("/persons/statistics")
                 .then()
                 .log()
                 .ifValidationFails()

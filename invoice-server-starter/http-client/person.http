@@ -97,7 +97,7 @@ Authorization: Bearer {{auth_token}}
 %}
 
 ### Get person statistics
-GET {{hostname}}/api/person/statistics
+GET {{hostname}}/api/persons/statistics
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}

@@ -41,7 +41,41 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 
 ## Installation
 
-### Prerequisites
+### Quick Start (Docker - Recommended)
+
+The easiest way to run the application. You only need [Docker](https://www.docker.com/products/docker-desktop/) installed.
+
+```bash
+git clone https://github.com/poLLib/invoice-webapp.git
+cd invoice-webapp
+docker compose up
+```
+
+That's it! Open http://localhost:3000 in your browser.
+
+| Service  | URL |
+|----------|-----|
+| Frontend | http://localhost:3000 |
+| Backend API | http://localhost:8080/api |
+| Swagger UI | http://localhost:8080/swagger-ui/index.html |
+
+To stop the application:
+```bash
+docker compose down
+```
+
+To rebuild after code changes:
+```bash
+docker compose up --build
+```
+
+---
+
+### Manual Installation (for Development)
+
+Use this method if you want to develop with hot-reload support.
+
+#### Prerequisites
 
 - [JDK 21 Temurin](https://adoptium.net/temurin/releases/?arch=any&version=21&os=any)
 - [Node.js 18+](https://nodejs.org/)
@@ -49,7 +83,7 @@ Welcome to the Invoice Manager Web Application! This project is designed to help
 - [Git](https://git-scm.com/downloads)
 - [Maven](https://maven.apache.org/download.cgi)
 
-### Steps
+#### Steps
 
 1. **Clone the repository:**
    ```bash
@@ -108,24 +142,29 @@ Below is a summary of the available endpoints:
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/persons` | Get all companies |
-| POST | `/api/persons` | Create a new company |
-| GET | `/api/persons/{id}` | Get a single company by ID |
-| PUT | `/api/persons/{id}` | Update a company by ID |
-| DELETE | `/api/persons/{id}` | Delete a company by ID |
+| POST | `/api/person` | Create a new company |
+| GET | `/api/person/{id}` | Get a single company by ID |
+| PUT | `/api/person/{id}` | Update a company by ID |
+| DELETE | `/api/person/{id}` | Delete a company by ID |
 | GET | `/api/persons/statistics` | Get statistics of each company |
-| GET | `/api/identification/{identificationNumber}/sales` | Get all sold invoices by company identification number |
-| GET | `/api/identification/{identificationNumber}/purchases` | Get all received invoices by company identification number |
 
 ### Invoices
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/invoices` | Get all invoices |
-| POST | `/api/invoices` | Create a new invoice |
-| GET | `/api/invoices/{id}` | Get a single invoice by ID |
-| PUT | `/api/invoices/{id}` | Update an invoice by ID |
-| DELETE | `/api/invoices/{id}` | Delete an invoice by ID |
+| Method | Endpoint                | Description |
+|--------|-------------------------|-------------|
+| GET | `/api/invoices`         | Get all invoices |
+| POST | `/api/invoice`          | Create a new invoice |
+| GET | `/api/invoice/{id}`     | Get a single invoice by ID |
+| PUT | `/api/invoice/{id}`     | Update an invoice by ID |
+| DELETE | `/api/invoice/{id}`     | Delete an invoice by ID |
 | GET | `/api/invoices/statistics` | Get invoice statistics |
+
+### Invoices of a Company
+
+| Method | Endpoint                | Description |
+|--------|-------------------------|-------------|
+| GET | `/api/identification/{identificationNumber}/sales` | Get all sold invoices by company identification number |
+| GET | `/api/identification/{identificationNumber}/purchases` | Get all received invoices by company identification number |
 
 ## Contributing
 

@@ -298,7 +298,7 @@ public class PersonController {
             }
     )
     @GetMapping(
-            value = "/person/statistics",
+            value = "/persons/statistics",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<List<PersonStatisticsResponse>> getPersonStatistics() {
