@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { apiGet, apiPost, apiPut } from "../utils/api";
 import { BackButton } from "../components/BackButton";
 import { InputCheck } from "../components/InputCheck";
@@ -10,10 +11,11 @@ import { Country } from "./Country";
 /**
  * PersonForm component allows users to create or update a person's details.
  * It uses form fields to gather data and handles submission with API calls.
- * 
+ *
  * @returns {JSX.Element} The component rendering the form for creating or updating a person.
  */
 export function PersonForm() {
+    const { t } = useTranslation();
     const [person, setPerson] = useState({
         name: "",
         identificationNumber: "",
@@ -59,7 +61,7 @@ export function PersonForm() {
      * Sends data to the API and updates the state based on the response.
      * Pops up a flash message of result on top of the page.
      * If invalid submit then validation error message is handled.
-     * 
+     *
      * @param {Event} e - The form submission event.
      */
     async function handleSubmit(e) {
@@ -69,12 +71,12 @@ export function PersonForm() {
         try {
             const response = id ? await apiPut(`/api/person/${id}`, person) : await apiPost("/api/person", person);
             setError(false);
-            setFlashMessage("Přidání společnosti proběhlo úspěšně.")
+            setFlashMessage(t('persons.addSuccess'))
             navigate("/persons");
         } catch (error) {
             if (error.data) {
                 setFieldErrors(error.data);
-                setError("Chyba při odesílání formuláře, zkontrolujte zda-li jsou správně vyplněná pole.");
+                setError(t('persons.formError'));
             } else {
                 console.error("An error occurred while saving form:", error);
             }
@@ -83,14 +85,14 @@ export function PersonForm() {
 
     return (
         <div className="ms-5 px-5 mb-5">
-            <h1>{id ? "Upravit" : "Vytvořit"} společnost</h1>
+            <h1>{id ? t('persons.editTitle') : t('persons.createTitle')}</h1>
             <hr />
             {errorState ? (
                 <div className="alert alert-danger">{errorState}</div>
             ) : null}
 
             {/* controls if user update or create a new person
-                when id=true then hides InputField [identificationNumber, taxNumber] 
+                when id=true then hides InputField [identificationNumber, taxNumber]
             */}
 
             <form noValidate onSubmit={handleSubmit}>
@@ -101,8 +103,8 @@ export function PersonForm() {
                                 type="text"
                                 name="personName"
                                 min="3"
-                                label="Jméno"
-                                prompt="Zadejte celé jméno"
+                                label={t('persons.form.name')}
+                                prompt={t('persons.form.namePlaceholder')}
                                 value={person.name}
                                 error={fieldErrors.name}
                                 isSubmitted={isSubmitted}
@@ -115,8 +117,8 @@ export function PersonForm() {
                                 type="text"
                                 name="mail"
                                 min="3"
-                                label="Mail"
-                                prompt="Zadejte mail"
+                                label={t('persons.form.email')}
+                                prompt={t('persons.form.emailPlaceholder')}
                                 value={person.mail}
                                 error={fieldErrors.mail}
                                 isSubmitted={isSubmitted}
@@ -129,8 +131,8 @@ export function PersonForm() {
                                 type="text"
                                 name="telephone"
                                 min="3"
-                                label="Telefon"
-                                prompt="Zadejte Telefon"
+                                label={t('persons.form.phone')}
+                                prompt={t('persons.form.phonePlaceholder')}
                                 value={person.telephone}
                                 error={fieldErrors.telephone}
                                 isSubmitted={isSubmitted}
@@ -145,8 +147,8 @@ export function PersonForm() {
                                     type="text"
                                     name="identificationNumber"
                                     min="3"
-                                    label="IČO"
-                                    prompt="Zadejte IČO"
+                                    label={t('persons.form.ico')}
+                                    prompt={t('persons.form.icoPlaceholder')}
                                     value={person.identificationNumber}
                                     error={fieldErrors.identificationNumber}
                                     isSubmitted={isSubmitted}
@@ -159,8 +161,8 @@ export function PersonForm() {
                                     type="text"
                                     name="taxNumber"
                                     min="3"
-                                    label="DIČ"
-                                    prompt="Zadejte DIČ"
+                                    label={t('persons.form.dic')}
+                                    prompt={t('persons.form.dicPlaceholder')}
                                     value={person.taxNumber}
                                     error={fieldErrors.taxNumber}
                                     isSubmitted={isSubmitted}
@@ -175,8 +177,8 @@ export function PersonForm() {
                                 type="text"
                                 name="accountNumber"
                                 min="3"
-                                label="Číslo bankovního účtu"
-                                prompt="Zadejte číslo bankovního účtu"
+                                label={t('persons.form.bankAccount')}
+                                prompt={t('persons.form.bankAccountPlaceholder')}
                                 value={person.accountNumber}
                                 error={fieldErrors.accountNumber}
                                 isSubmitted={isSubmitted}
@@ -189,8 +191,8 @@ export function PersonForm() {
                                 type="text"
                                 name="bankCode"
                                 min="3"
-                                label="Kód banky"
-                                prompt="Zadejte kód banky"
+                                label={t('persons.form.bankCode')}
+                                prompt={t('persons.form.bankCodePlaceholder')}
                                 value={person.bankCode}
                                 error={fieldErrors.bankCode}
                                 isSubmitted={isSubmitted}
@@ -205,8 +207,8 @@ export function PersonForm() {
                                 type="text"
                                 name="IBAN"
                                 min="3"
-                                label="IBAN"
-                                prompt="Zadejte IBAN"
+                                label={t('persons.form.iban')}
+                                prompt={t('persons.form.ibanPlaceholder')}
                                 value={person.iban}
                                 error={fieldErrors.iban}
                                 isSubmitted={isSubmitted}
@@ -219,8 +221,8 @@ export function PersonForm() {
                                 type="text"
                                 name="street"
                                 min="3"
-                                label="Ulice"
-                                prompt="Zadejte ulici"
+                                label={t('persons.form.street')}
+                                prompt={t('persons.form.streetPlaceholder')}
                                 value={person.street}
                                 error={fieldErrors.street}
                                 isSubmitted={isSubmitted}
@@ -233,8 +235,8 @@ export function PersonForm() {
                                 type="text"
                                 name="ZIP"
                                 min="3"
-                                label="PSČ"
-                                prompt="Zadejte PSČ"
+                                label={t('persons.form.zip')}
+                                prompt={t('persons.form.zipPlaceholder')}
                                 value={person.zip}
                                 error={fieldErrors.zip}
                                 isSubmitted={isSubmitted}
@@ -247,8 +249,8 @@ export function PersonForm() {
                                 type="text"
                                 name="city"
                                 min="3"
-                                label="Město"
-                                prompt="Zadejte město"
+                                label={t('persons.form.city')}
+                                prompt={t('persons.form.cityPlaceholder')}
                                 value={person.city}
                                 error={fieldErrors.city}
                                 isSubmitted={isSubmitted}
@@ -260,7 +262,7 @@ export function PersonForm() {
                                 required={true}
                                 type="text"
                                 name="note"
-                                label="Poznámka"
+                                label={t('persons.form.note')}
                                 value={person.note}
                                 error={fieldErrors.note}
                                 isSubmitted={isSubmitted}
@@ -268,11 +270,11 @@ export function PersonForm() {
                                     setPerson({ ...person, note: e.target.value });
                                 }}
                             />
-                            <h6>Země:</h6>
+                            <h6>{t('common.country')}</h6>
                             <InputCheck
                                 type="radio"
                                 name="country"
-                                label="Česká republika"
+                                label={t('common.czechRepublic')}
                                 value={Country.CZECHIA}
                                 handleChange={(e) => {
                                     setPerson({ ...person, country: e.target.value });
@@ -282,7 +284,7 @@ export function PersonForm() {
                             <InputCheck
                                 type="radio"
                                 name="country"
-                                label="Slovensko"
+                                label={t('common.slovakia')}
                                 value={Country.SLOVAKIA}
                                 handleChange={(e) => {
                                     setPerson({ ...person, country: e.target.value });
@@ -292,7 +294,7 @@ export function PersonForm() {
                         </div>
                     </div>
                 <BackButton style="btn btn-success mt-3 ms-3 px-4" />
-                <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value="Uložit" />            </form>
+                <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value={t('common.save')} />            </form>
         </div>
     );
 }

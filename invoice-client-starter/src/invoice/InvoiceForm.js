@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { InputSelect } from "../components/InputSelect";
 import { apiGet, apiPost, apiPut } from "../utils/api";
 import { InputField } from "../components/InputField";
@@ -10,10 +11,11 @@ import { FlashMessageContext } from "../contexts/FlashMessageContext";
 /**
  * InvoiceForm component handles the creation and editing of invoices.
  * It fetches necessary data for the form, handles form submission, and displays success or error messages.
- * 
+ *
  * @returns {JSX.Element} A component that renders a form for creating or editing invoices.
  */
 export function InvoiceForm() {
+    const { t } = useTranslation();
 
     const [errorState, setError] = useState(null);
     const [fieldErrors, setFieldErrors] = useState({});
@@ -52,7 +54,7 @@ export function InvoiceForm() {
     * Sends data to the API and updates the state based on the response.
     * Pops up a flash message of result on top of the page.
     * If invalid submit then validation error message is handled.
-    * 
+    *
     * @param {Event} e - The form submit event.
     */
     async function handleSubmit(e) {
@@ -62,14 +64,14 @@ export function InvoiceForm() {
         try {
             const response = id ? await apiPut(`/api/invoice/${id}`, invoice) : await apiPost("/api/invoice", invoice);
             setError(false);
-            setFlashMessage("Uložení faktury proběhlo úspěšně.")
+            setFlashMessage(t('invoices.saveSuccess'))
             navigate("/invoices")
         } catch (error) {
             if (error.data) {
                 setFieldErrors(error.data);
-                setError("Chyba při odesílání formuláře, zkontrolujte zda-li jsou správně vyplněná pole.");
+                setError("Form submission error, please check if all fields are filled correctly.");
             } else {
-                console.error("Vyskytla se chyba při odesílání formuláře:", error);
+                console.error("An error occurred while submitting the form:", error);
             }
         }
     }
@@ -83,9 +85,9 @@ export function InvoiceForm() {
 
     return (
         <div className="ms-5 px-5 mb-5">
-            <h1>{id ? "Upravit" : "Vytvořit"} fakturu</h1>
+            <h1>{id ? t('invoices.editTitle') : t('invoices.createTitle')}</h1>
             <hr />
-            
+
             {errorState ? (
                 <div className="alert alert-danger fw-bold">{errorState}</div>
             ) : null}
@@ -95,9 +97,9 @@ export function InvoiceForm() {
                     <div className="col">
                         <InputSelect
                             name="seller"
-                            label="Dodavatel"
+                            label={t('invoices.form.supplier')}
                             items={persons}
-                            prompt="Vyberte dodavatele"
+                            prompt={t('invoices.form.supplierPlaceholder')}
                             value={invoice.sellerId}
                             isSubmitted={isSubmitted}
                             error={mergeErrors(fieldErrors["seller.id"], fieldErrors.seller)}
@@ -108,9 +110,9 @@ export function InvoiceForm() {
                         />
                         <InputSelect
                             name="buyer"
-                            label="Odběratel"
+                            label={t('invoices.form.buyer')}
                             items={persons}
-                            prompt="Vyberte odběratele"
+                            prompt={t('invoices.form.buyerPlaceholder')}
                             value={invoice.buyerId}
                             isSubmitted={isSubmitted}
                             error={mergeErrors(fieldErrors["buyer.id"], fieldErrors.buyer)}
@@ -125,8 +127,8 @@ export function InvoiceForm() {
                                 type="number"
                                 name="invoiceNumber"
                                 min="0"
-                                label="Číslo faktury"
-                                prompt="Zadejte číslo faktury"
+                                label={t('invoices.form.invoiceNumber')}
+                                prompt={t('invoices.form.invoiceNumberPlaceholder')}
                                 value={invoice.invoiceNumber}
                                 isSubmitted={isSubmitted}
                                 error={fieldErrors.invoiceNumber}
@@ -140,8 +142,8 @@ export function InvoiceForm() {
                             type="number"
                             name="price"
                             min="0"
-                            label="Cena"
-                            prompt="Zadejte cenu"
+                            label={t('invoices.form.price')}
+                            prompt={t('invoices.form.pricePlaceholder')}
                             value={invoice.price}
                             isSubmitted={isSubmitted}
                             error={fieldErrors.price}
@@ -155,7 +157,7 @@ export function InvoiceForm() {
                             required={true}
                             type="date"
                             name="issued"
-                            label="Datum vystavení"
+                            label={t('invoices.form.issueDate')}
                             min="0"
                             value={dateStringFormatter(invoice.issued)}
                             isSubmitted={isSubmitted}
@@ -168,7 +170,7 @@ export function InvoiceForm() {
                             required={true}
                             type="date"
                             name="dueDate"
-                            label="Datum splatnosti"
+                            label={t('invoices.form.dueDate')}
                             min="0"
                             value={dateStringFormatter(invoice.dueDate)}
                             isSubmitted={isSubmitted}
@@ -182,8 +184,8 @@ export function InvoiceForm() {
                             type="text"
                             name="product"
                             minlength="3"
-                            label="Položka"
-                            prompt="Zadejte jméno položky"
+                            label={t('invoices.form.item')}
+                            prompt={t('invoices.form.itemPlaceholder')}
                             value={invoice.product}
                             error={fieldErrors.product}
                             isSubmitted={isSubmitted}
@@ -196,8 +198,8 @@ export function InvoiceForm() {
                             type="number"
                             name="vat"
                             min="0"
-                            label="DPH"
-                            prompt="Zadejte procentuální DHP"
+                            label={t('invoices.form.vat')}
+                            prompt={t('invoices.form.vatPlaceholder')}
                             value={invoice.vat}
                             isSubmitted={isSubmitted}
                             error={fieldErrors.vat}
@@ -212,8 +214,8 @@ export function InvoiceForm() {
                     required={false}
                     type="textarea"
                     name="note"
-                    label="Poznámky"
-                    prompt="Napište dodatečný text k položce"
+                    label={t('invoices.form.note')}
+                    prompt={t('invoices.form.notePlaceholder')}
                     minlength={null}
                     value={invoice.note}
                     isSubmitted={isSubmitted}
@@ -223,7 +225,7 @@ export function InvoiceForm() {
                     }}
                 />
                 <BackButton style="btn btn-success mt-3 ms-3 px-4" />
-                <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value="Uložit" />
+                <input type="submit" className="btn btn-primary mt-3 ms-5 px-4" value={t('common.save')} />
             </form>
         </div>
     );

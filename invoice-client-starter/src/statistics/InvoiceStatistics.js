@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { apiGet } from "../utils/api";
 
 /**
  * InvoiceStatistics component fetches and displays invoice statistics,
  * including current year's revenue, all-time revenue, and the total number of invoices.
- * 
+ *
  * @returns {JSX.Element} A table displaying invoice statistics or a loading spinner.
  */
 export function InvoiceStatistics() {
+    const { t } = useTranslation();
     const [isLoading, setIsLoading] = useState(true);
     const [statistics, setStatistics] = useState({
         currentYearSum: "",
@@ -32,16 +34,16 @@ export function InvoiceStatistics() {
                 </div>) : (
                 <tbody>
                     <tr>
-                        <th >Celkový příjem za letošní rok:</th>
+                        <th >{t('statistics.yearlyRevenue')}</th>
 
-                        <td className="fw-bold">{statistics.currentYearSum ? statistics.currentYearSum : 0} Kč</td>
+                        <td className="fw-bold">{statistics.currentYearSum ? statistics.currentYearSum : 0} {t('common.currency')}</td>
                     </tr>
                     <tr>
-                        <th>Celkový příjem:</th>
-                        <td className="fw-bold">{statistics.allTimeSum ? statistics.allTimeSum : 0} Kč</td>
+                        <th>{t('statistics.totalRevenue')}</th>
+                        <td className="fw-bold">{statistics.allTimeSum ? statistics.allTimeSum : 0} {t('common.currency')}</td>
                     </tr>
                     <tr>
-                        <th >Celkový počet faktur:</th>
+                        <th >{t('statistics.totalInvoices')}</th>
                         <td className="fw-bold">{statistics.invoicesCount ? statistics.invoicesCount : 0}</td>
                     </tr>
                 </tbody>

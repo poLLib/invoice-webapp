@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { apiGet } from "../utils/api";
 import { BackButton } from "../components/BackButton";
 
 export function InvoiceDetail() {
+    const { t } = useTranslation();
     const { id } = useParams();
     const [invoice, setInvoice] = useState({});
     const [seller, setSeller] = useState({});
@@ -26,7 +28,7 @@ export function InvoiceDetail() {
     return (
         <>
             <div>
-                <h1>Detail faktury</h1>
+                <h1>{t('invoices.detail')}</h1>
                 <hr />
                 {isLoading ? (
                     <div className="d-flex justify-content-center align-items-center">
@@ -37,35 +39,35 @@ export function InvoiceDetail() {
                     </div>
                 ) : (<div>
 
-                    <h3 className="ms-5 fs-2">Faktura číslo: <strong>{invoice?.invoiceNumber}</strong></h3>
+                    <h3 className="ms-5 fs-2">{t('invoices.detail_labels.invoiceNumber')} <strong>{invoice?.invoiceNumber}</strong></h3>
                     <br />
                     <p>
-                        <strong className="ms-2">Odběratel:</strong>
+                        <strong className="ms-2">{t('invoices.detail_labels.buyer')}</strong>
                         <br />
                         {buyer.name}
                     </p>
                     <p>
-                        <strong className="ms-2">Dodavatel:</strong>
+                        <strong className="ms-2">{t('invoices.detail_labels.supplier')}</strong>
                         <br />
                         {seller.name}
                     </p>
                     <p>
-                        <strong>Datum vystavení: </strong> {invoice.issued}
+                        <strong>{t('invoices.detail_labels.issueDate')} </strong> {invoice.issued}
                     </p>
                     <p>
-                        <strong>Datum splatnosti: </strong> {invoice.dueDate}
+                        <strong>{t('invoices.detail_labels.dueDate')} </strong> {invoice.dueDate}
                     </p>
                     <p>
-                        <strong>Položka: </strong> {invoice.product}
+                        <strong>{t('invoices.detail_labels.item')} </strong> {invoice.product}
                     </p>
                     <p>
-                        <strong>Cena: </strong> {invoice.price} Kč
+                        <strong>{t('invoices.detail_labels.price')} </strong> {invoice.price} {t('common.currency')}
                     </p>
                     <p>
-                        <strong>DPH: </strong> {invoice.vat} %
+                        <strong>{t('invoices.detail_labels.vat')} </strong> {invoice.vat} %
                     </p>
                     <p>
-                        <strong className="ms-2">Poznámky: </strong>
+                        <strong className="ms-2">{t('invoices.detail_labels.note')} </strong>
                         <br />
                         {invoice.note}
                     </p>
@@ -78,4 +80,3 @@ export function InvoiceDetail() {
         </>
     );
 }
-
