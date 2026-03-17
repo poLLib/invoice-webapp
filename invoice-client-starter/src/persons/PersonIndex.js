@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { apiDelete, apiGet, apiGetPage } from "../utils/api";
 import { Pagination } from "../components/Pagination";
 import { PersonTable } from "./PersonTable";
@@ -9,10 +10,11 @@ import { useSession } from "../contexts/session";
 
 /**
  * PersonIndex component displays a paginated list of persons and provides options to delete persons and navigate between pages.
- * 
+ *
  * @returns {JSX.Element} The component rendering the person index page with pagination and action buttons.
  */
 export function PersonIndex() {
+    const { t } = useTranslation();
 
     const [persons, setPersons] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -32,13 +34,13 @@ export function PersonIndex() {
     /**
      * Handles the deletion of a person.
      * Updates the state and redirects to the previous page if needed.
-     * 
+     *
      * @param {string} id - The ID of the person to delete.
      */
     async function deletePerson(id) {
         try {
             await apiDelete(`/api/person/${id}`);
-            setFlashMessage("Společnost byla úspěšně odebrána.");
+            setFlashMessage(t('persons.deleteSuccess'));
             setPersons(persons.filter((item) => item.id !== id));
 
             if ((totalPersons - 1) % pageSize === 0 && page > 1) {
@@ -48,8 +50,8 @@ export function PersonIndex() {
         } catch (error) {
             console.error(error);
             const message = error.status === 403
-                ? "Nemáte oprávnění mazat záznamy."
-                : error.response?.message || "Nepodařilo se odstranit společnost.";
+                ? t('persons.noPermission')
+                : error.response?.message || t('persons.deleteError');
             alert(message);
         }
     }
@@ -80,7 +82,7 @@ export function PersonIndex() {
     }, [page]);
 
     /**
-    *  Clears the flash message after change of page if shown 
+    *  Clears the flash message after change of page if shown
     */
     useEffect(() => {
         return () => {
@@ -90,7 +92,7 @@ export function PersonIndex() {
 
     /**
      * Handles page change event.
-     * 
+     *
      * @param {number} newPage - The new page number to navigate to.
      */
     function handlePageChange(newPage) {
@@ -100,13 +102,13 @@ export function PersonIndex() {
     return (
         <div className="row">
             <div className="col">
-                <h1>Seznam společností</h1>
+                <h1>{t('persons.title')}</h1>
                 <hr />
 
                 {flashMessage ? (<div className="alert alert-success fw-bold h4 py-4 ps-5"> {flashMessage}</div>) : null}
 
                 <p>
-                    Celkový počet: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalPersons}</strong>)}
+                    {t('common.total')} &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalPersons}</strong>)}
                 </p>
 
                 {isLoading ? (
@@ -117,7 +119,7 @@ export function PersonIndex() {
                     <PersonTable
                         deletePerson={deletePerson}
                         itemsPerPage={persons}
-                        label="Celkový počet:"
+                        label={t('common.total')}
                         page={page}
                         isAdmin={isAdmin}
                     />
@@ -125,7 +127,7 @@ export function PersonIndex() {
                 <Pagination currentPage={parseInt(page)} totalPages={totalPages} onPageChange={handlePageChange} />
 
                 <Link to={"/persons/create"} className="btn btn-success ms-5 mb-5 px-5">
-                    Nová firma/osoba
+                    {t('persons.newPerson')}
                 </Link>
             </div>
         </div>

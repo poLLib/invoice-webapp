@@ -1,26 +1,28 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 /**
  * InvoiceTable component renders a table of invoice records.
  * Each record includes options to view, edit, or delete the invoice.
  * Additionally, it provides a link to create a new invoice.
- * 
+ *
  * @param {Array} props.items - Array of invoice objects to display in the table.
  * @param {Function} props.deleteInvoice - Function to call when deleting an invoice.
  * @returns {JSX.Element} A table displaying the invoice records with action buttons.
  */
 export function InvoiceTable({ items, deleteInvoice, isAdmin }) {
+    const { t } = useTranslation();
 
     return (
         <div className="pb-5">
             <table className="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Číslo faktury</th>
-                        <th>Položka</th>
-                        <th>Dodavatel</th>
-                        <th>Odběratel</th>
-                        <th>Cena</th>
+                        <th>{t('invoices.table.invoiceNumber')}</th>
+                        <th>{t('invoices.table.item')}</th>
+                        <th>{t('invoices.table.supplier')}</th>
+                        <th>{t('invoices.table.buyer')}</th>
+                        <th>{t('invoices.table.price')}</th>
                         <th colSpan={3}></th>
                     </tr>
                 </thead>
@@ -31,27 +33,27 @@ export function InvoiceTable({ items, deleteInvoice, isAdmin }) {
                             <td>{item.product}</td>
                             <td>{item.seller.name}</td>
                             <td>{item.buyer.name}</td>
-                            <td>{item.price} Kč</td>
+                            <td>{item.price} {t('common.currency')}</td>
                             <td>
                                 <div className="btn-group">
                                     <Link
                                         to={"/invoices/show/" + item.id}
                                         className="btn btn-sm btn-info"
                                     >
-                                        Zobrazit
+                                        {t('common.show')}
                                     </Link>
                                     <Link
                                         to={"/invoices/edit/" + item.id}
                                         className="btn btn-sm btn-warning"
                                     >
-                                        Upravit
+                                        {t('common.edit')}
                                     </Link>
                                     {isAdmin && (
                                         <button
                                             onClick={() => deleteInvoice(item.id)}
                                             className="btn btn-sm btn-danger"
                                         >
-                                            Odstranit
+                                            {t('common.delete')}
                                         </button>
                                     )}
                                 </div>
@@ -61,7 +63,7 @@ export function InvoiceTable({ items, deleteInvoice, isAdmin }) {
                 </tbody>
             </table>
             <Link to={"/invoices/create"} className="btn btn-success ms-5 px-5">
-                Nová faktura
+                {t('invoices.newInvoice')}
             </Link>
         </div>
     );

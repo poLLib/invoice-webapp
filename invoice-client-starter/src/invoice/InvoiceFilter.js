@@ -1,10 +1,11 @@
+import { useTranslation } from "react-i18next";
 import { InputField } from "../components/InputField";
 import { InputSelect } from "../components/InputSelect";
 
 /**
  * InvoiceFilter component provides a form for filtering invoices based on various criteria.
  * It includes fields for price range, product search, and selectors for sellers and buyers.
- * 
+ *
  * @param {Object} props - The properties passed to the component.
  * @param {Function} props.handleChange - Function to handle input changes.
  * @param {Function} props.handleSubmit - Function to handle form submission.
@@ -14,10 +15,11 @@ import { InputSelect } from "../components/InputSelect";
  * @param {Array} props.buyers - List of buyers for the select input.
  * @param {string} props.confirm - Text for the submit button.
  * @param {string} props.reset - Text for the reset button.
- * 
+ *
  * @returns {JSX.Element} A form element with input fields and buttons for filtering invoices.
  */
 export function InvoiceFilter(props) {
+    const { t } = useTranslation();
 
     // Handle input change events
     function handleChange(e) {
@@ -52,8 +54,8 @@ export function InvoiceFilter(props) {
                         min="0"
                         name="minPrice"
                         handleChange={handleChange}
-                        label="Minimální cena"
-                        prompt="Zadejte cenu"
+                        label={t('invoices.filter.minPrice')}
+                        prompt={t('invoices.filter.pricePlaceholder')}
                         value={filter.minPrice ? filter.minPrice : ""}
                     />
                 </div>
@@ -65,8 +67,8 @@ export function InvoiceFilter(props) {
                         min="0"
                         name="maxPrice"
                         handleChange={handleChange}
-                        label="Maximální cena"
-                        prompt="Zadejte cenu"
+                        label={t('invoices.filter.maxPrice')}
+                        prompt={t('invoices.filter.pricePlaceholder')}
                         value={filter.maxPrice ? filter.maxPrice : ""}
                     />
                 </div>
@@ -77,8 +79,8 @@ export function InvoiceFilter(props) {
                         type="text"
                         name="product"
                         handleChange={handleInput}
-                        label="Vyhledat položku"
-                        prompt="Zadejte název produktu"
+                        label={t('invoices.filter.searchItem')}
+                        prompt={t('invoices.filter.searchItemPlaceholder')}
                         value={filter.product ? filter.product : ""}
                     />
                 </div>
@@ -89,8 +91,8 @@ export function InvoiceFilter(props) {
                         <InputSelect
                             name="sellerId"
                             handleChange={handleChange}
-                            label="Dodavatel"
-                            prompt="Vyberte dodavatele"
+                            label={t('invoices.filter.supplier')}
+                            prompt={t('invoices.filter.supplierPlaceholder')}
                             value={filter.sellerId ? filter.sellerId : ""}
                             items={props.sellers}
                         />
@@ -101,8 +103,8 @@ export function InvoiceFilter(props) {
                         <InputSelect
                             name="buyerId"
                             handleChange={handleChange}
-                            label="Odběratel"
-                            prompt="Vyberte odběratele"
+                            label={t('invoices.filter.buyer')}
+                            prompt={t('invoices.filter.buyerPlaceholder')}
                             value={filter.buyerId ? filter.buyerId : ""}
                             items={props.buyers}
                         />
@@ -114,9 +116,9 @@ export function InvoiceFilter(props) {
                             type="number"
                             name="limit"
                             handleChange={handleChange}
-                            label="Limit zobrazených faktur"
+                            label={t('invoices.filter.limit')}
                             min="1"
-                            prompt="10"
+                            prompt={t('invoices.filter.limitPlaceholder')}
                             value={filter.limit ? filter.limit : ""}
                         />
                     </div>
@@ -131,7 +133,7 @@ export function InvoiceFilter(props) {
                         className="btn btn-secondary float-right mt-2"
                         value={props.confirm}
                     />
-                    
+
                     {/* Reset Button */}
                     <button
                         type="button"

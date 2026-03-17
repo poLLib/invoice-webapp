@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { apiDelete, apiGet } from "../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { FlashMessageContext } from "../contexts/FlashMessageContext";
@@ -10,10 +11,11 @@ import { useSession } from "../contexts/session";
 /**
  * InvoiceIndex component displays a list of invoices with options for filtering, pagination, and deletion.
  * It handles fetching invoices from the API, applying filters, and managing pagination state.
- * 
+ *
  * @returns {JSX.Element} A component with an invoice list, filter options, and pagination controls.
  */
 export function InvoiceIndex() {
+    const { t } = useTranslation();
 
     // Pagination states
     const [isLoadingCount, setIsLoadingCount] = useState(true);
@@ -41,13 +43,13 @@ export function InvoiceIndex() {
 
     /**
     * Deletes an invoice by ID and updates the invoice list and pagination.
-    * 
+    *
     * @param {string} id - The ID of the invoice to delete.
     */
     async function deleteInvoice(id) {
         try {
             await apiDelete("/api/invoice/" + id);
-            setFlashMessage("Faktura byla úspěšně odebrána.");
+            setFlashMessage(t('invoices.deleteSuccess'));
             setInvoices(invoices.filter((item) => item.id !== id));
 
             if ((totalInvoices - 1) % pageSize === 0 && page > 1) {
@@ -57,8 +59,8 @@ export function InvoiceIndex() {
         } catch (error) {
             console.error(error);
             const message = error.status === 403
-                ? "Nemáte oprávnění mazat záznamy."
-                : error.response?.message || "Nepodařilo se odstranit fakturu.";
+                ? t('invoices.noPermission')
+                : error.response?.message || t('invoices.deleteError');
             alert(message);
         }
     }
@@ -81,7 +83,7 @@ export function InvoiceIndex() {
     }, [page, filterState]);
 
     /**
-     *  Clears the flash message after change of page if shown 
+     *  Clears the flash message after change of page if shown
      */
     useEffect(() => {
         return () => {
@@ -91,7 +93,7 @@ export function InvoiceIndex() {
 
     /**
      * Handles form submission to apply filters and fetch filtered invoices.
-     * 
+     *
      * @param {Object} e - The form submit event.
      */
     async function handleSubmit(e) {
@@ -108,7 +110,7 @@ export function InvoiceIndex() {
 
     /**
     * Handles page change for pagination.
-    * 
+    *
     * @param {number} newPage - The new page number to navigate to.
     */
     function handlePageChange(newPage) {
@@ -117,7 +119,7 @@ export function InvoiceIndex() {
 
     /**
     * Updates the filter state based on user input.
-    * 
+    *
     * @param {Object} e - The input change event.
     */
     function handleChange(e) {
@@ -134,7 +136,7 @@ export function InvoiceIndex() {
 
     /**
      * Handles input changes for filtering invoices.
-     * 
+     *
      * @param {Object} e - The input change event.
      */
     function handleInput(e) {
@@ -163,7 +165,7 @@ export function InvoiceIndex() {
 
     return (
         <div>
-            <h1>Seznam faktur</h1>
+            <h1>{t('invoices.title')}</h1>
             {isLoading ? (
                 <div className="text-center">
                     <div className="spinner-grow my-3" role="status"></div>
@@ -178,19 +180,19 @@ export function InvoiceIndex() {
                         sellers={persons}
                         buyers={persons}
                         filter={filterState}
-                        confirm="Filtrovat faktury"
+                        confirm={t('invoices.filterTitle')}
                     />
                     <hr />
 
                     {flashMessage ? (<div className="alert alert-success fw-bold h4 py-4 ps-5"> {flashMessage}</div>) : null}
 
                     <p>
-                        Nalezené faktury: &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalInvoices}</strong>)}
+                        {t('invoices.foundInvoices')} &nbsp;&nbsp;&nbsp; {isLoadingCount ? (<div className="spinner-grow ms-3" role="status"></div>) : (<strong>{totalInvoices}</strong>)}
                     </p>
                     <InvoiceTable
                         deleteInvoice={deleteInvoice}
                         items={invoices}
-                        label="Počet zobrazených faktur:"
+                        label={t('invoices.displayedCount')}
                         isAdmin={isAdmin}
                     />
                     <Pagination currentPage={parseInt(page)} totalPages={totalPages} onPageChange={handlePageChange} />

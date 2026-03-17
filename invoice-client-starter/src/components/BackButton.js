@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 
 /**
@@ -13,10 +14,11 @@ import { useNavigate } from "react-router-dom";
  * <BackButton style="btn btn-primary" />
  */
 export function BackButton({ style }) {
+    const { t } = useTranslation();
     const navigate = useNavigate()
 
     return (
         <>
-            <button className={style} type="button" onClick={() => navigate(-1)}>Zpět</button></>
+            <button className={style} type="button" onClick={() => navigate(-1)}>{t('common.back')}</button></>
     );
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { apiGet } from "../utils/api";
 import { Country } from "./Country";
 import { BackButton } from "../components/BackButton";
@@ -9,11 +10,12 @@ import '../styles.css'
 /**
  * PersonDetail component fetches and displays detailed information about a person,
  * including their personal details and associated invoices (both sold and received).
- * 
+ *
  * @returns {JSX.Element} A detailed view of the person, including personal details
  * and tables of sold and received invoices.
  */
 export function PersonDetail() {
+    const { t } = useTranslation();
     const { id } = useParams();
     const [person, setPerson] = useState({});
     const [soldInvoices, setSoldInvoices] = useState([]);
@@ -39,12 +41,12 @@ export function PersonDetail() {
         fetchInvoices();
     }, [identificationNumber]);
 
-    const country = Country.CZECHIA === person.country ? "Česká republika" : "Slovensko";
+    const country = Country.CZECHIA === person.country ? t('common.czechRepublic') : t('common.slovakia');
 
     return (
         <>
             <div className="container">
-                <h1>Detail společnosti:</h1>
+                <h1>{t('persons.detail')}</h1>
                 <hr />
                 <div className="row mb-5">
                     <div className="col-md-6">
@@ -58,30 +60,30 @@ export function PersonDetail() {
                             <div>
 
                                 <h3 className="ms-3 fs-2">{person.name}</h3>
-                                <p className="ms-5">IČO:{person.identificationNumber}</p>
+                                <p className="ms-5">{t('persons.detail_labels.ico')}{person.identificationNumber}</p>
                                 <p>
-                                    <strong className="ms-2">Bankovní účet:</strong>
+                                    <strong className="ms-2">{t('persons.detail_labels.bankAccount')}</strong>
                                     <br />
-                                    {person.accountNumber}/{person.bankCode} (IBAN: {person.iban})
+                                    {person.accountNumber}/{person.bankCode} ({t('persons.detail_labels.iban')} {person.iban})
                                 </p>
                                 <p>
-                                    <strong className="ms-2">Tel.:</strong>
+                                    <strong className="ms-2">{t('persons.detail_labels.phone')}</strong>
                                     <br />
                                     {person.telephone}
                                 </p>
                                 <p>
-                                    <strong className="ms-2">Mail:</strong>
+                                    <strong className="ms-2">{t('persons.detail_labels.email')}</strong>
                                     <br />
                                     {person.mail}
                                 </p>
                                 <p>
-                                    <strong className="ms-2">Sídlo:</strong>
+                                    <strong className="ms-2">{t('persons.detail_labels.address')}</strong>
                                     <br />
                                     {person.street}, {person.city},
                                     {person.zip}, {country}
                                 </p>
                                 <p>
-                                    <strong className="ms-2">Poznámka:</strong>
+                                    <strong className="ms-2">{t('persons.detail_labels.note')}</strong>
                                     <br />
                                     {person.note}
                                 </p>
@@ -98,12 +100,12 @@ export function PersonDetail() {
                         ) : (
                             <div>
                                 <div>
-                                    <strong className="fs-4">Vystavené faktury:</strong>
+                                    <strong className="fs-4">{t('persons.issuedInvoices')}</strong>
                                     <table className="table">
                                         <thead>
                                             <tr>
-                                                <th>Číslo faktury</th>
-                                                <th>Položka</th>
+                                                <th>{t('invoices.table.invoiceNumber')}</th>
+                                                <th>{t('invoices.table.item')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -119,12 +121,12 @@ export function PersonDetail() {
                                 <br />
                                 <br />
                                 <div>
-                                    <strong className="fs-4">Proplacené faktury:</strong>
+                                    <strong className="fs-4">{t('persons.paidInvoices')}</strong>
                                     <table className="table table-person-detail">
                                         <thead>
                                             <tr>
-                                                <th>Číslo faktury</th>
-                                                <th>Položka</th>
+                                                <th>{t('invoices.table.invoiceNumber')}</th>
+                                                <th>{t('invoices.table.item')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
