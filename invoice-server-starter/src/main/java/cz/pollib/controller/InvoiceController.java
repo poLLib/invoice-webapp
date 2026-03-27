@@ -106,8 +106,12 @@ public class InvoiceController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<InvoicePageResponse> searchInvoices(
-            InvoiceFilter invoiceFilter,
-            // TODO: 28.07.2025 query params as input for controller
+            @Parameter(
+                    description = "Invoice filter parameters",
+                    schema = @Schema(implementation = InvoiceFilter.class),
+                    required = true
+            ) InvoiceFilter invoiceFilter,
+
             @Parameter(
                     description = "Page",
                     schema = @Schema(defaultValue = "0")

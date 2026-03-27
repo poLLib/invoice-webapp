@@ -18,7 +18,7 @@ export function PersonStatistics() {
 
     useEffect(() => {
         async function fetchStats() {
-            setStatistics(await apiGet("/api/person/statistics"));
+            setStatistics(await apiGet("/api/persons/statistics"));
             setPersons(await apiGet("/api/persons"));
             setIsLoading(false);
         }
