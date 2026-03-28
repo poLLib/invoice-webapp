@@ -27,4 +27,16 @@ public record InvoiceFilter(
             limit = 10;
         }
     }
+
+    public String cacheKey() {
+        return "buyerId=%s-sellerId=%s-product=%s-minPrice=%s-maxPrice=%s-limit=%s"
+                .formatted(
+                        buyerId,
+                        sellerId,
+                        product,
+                        minPrice,
+                        maxPrice,
+                        limit
+                          );
+    }
 }

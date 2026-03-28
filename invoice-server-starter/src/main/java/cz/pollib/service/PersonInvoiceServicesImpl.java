@@ -3,6 +3,7 @@ package cz.pollib.service;
 import cz.pollib.entity.repository.InvoiceRepository;
 import cz.pollib.service.mapper.InvoiceMapper;
 import cz.pollib.service.model.InvoiceResponse;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,10 @@ public class PersonInvoiceServicesImpl implements PersonInvoiceServices {
     }
 
     @Override
+    @Cacheable(
+            value = "get-seller-invoices",
+            key = "'seller=' + #identificationNumber"
+    )
     public List<InvoiceResponse> getInvoicesBySeller(String identificationNumber) {
         return invoiceRepository
                 .findAll()
@@ -35,6 +40,10 @@ public class PersonInvoiceServicesImpl implements PersonInvoiceServices {
     }
 
     @Override
+    @Cacheable(
+            value = "get-buyer-invoices",
+            key = "'buyer=' + #identificationNumber"
+    )
     public List<InvoiceResponse> getInvoicesByBuyer(String identificationNumber) {
         return invoiceRepository.findAll()
                                 .stream()

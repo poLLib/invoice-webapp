@@ -8,7 +8,6 @@ spring:
   application:
     name: "invoice-webapp"
 
-
   jpa:
     open-in-view: true
     hibernate:
@@ -40,6 +39,24 @@ spring:
     baseline-on-migrate: true
     baseline-version: 0
     validate-on-migrate: true
+
+  cache:
+    caffeine:
+      spec: initialCapacity=100,maximumSize=300,expireAfterWrite=300s
+    cache-names:
+        - search-invoices
+        - get-persons
+        - get-person-statistics
+        - get-invoice-statistics
+        - get-seller-invoices
+        - get-buyer-invoices
+
+logging:
+  level:
+    org.springframework.cache: trace
+    org.springframework.cache.interceptor: trace
+    com.github.benmanes.caffeine: debug
+    com.github.benmanes.caffeine.cache: debug
 
 jwt:
   expiration: 86400000
