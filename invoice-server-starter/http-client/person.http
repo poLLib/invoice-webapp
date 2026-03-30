@@ -1,3 +1,11 @@
+import auth.http
+
+### Create User
+run #Create User
+
+### Login User
+run #Login User
+
 ### Create Person
 POST {{hostname}}/api/person
 Accept: application/json

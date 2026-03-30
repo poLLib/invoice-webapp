@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -82,34 +83,26 @@ public class InvoiceServicesImpl implements InvoiceServices {
                                              ) {
         InvoiceSpecification invoiceSpecification = new InvoiceSpecification(invoiceFilter);
 
-        long totalElements = invoiceRepository.findAll(
-                                                      invoiceSpecification,
-                                                      PageRequest.of(
-                                                              page,
-                                                              invoiceFilter.limit()
-                                                                    )
-                                                      )
-                                              .getTotalElements();
-
-        List<InvoiceResponse> invoices = invoiceRepository.findAll(
-                                                                  invoiceSpecification,
-                                                                  PageRequest.of(
-                                                                          page,
-                                                                          invoiceFilter.limit()
-                                                                                )
-                                                                  )
-                                                          .stream()
-                                                          .map(invoiceMapper::toModel)
-                                                          .toList();
+        Page<InvoiceEntity> result = invoiceRepository.findAll(
+                invoiceSpecification,
+                PageRequest.of(
+                        page,
+                        invoiceFilter.limit()
+                              )
+                                                              );
+        List<InvoiceResponse> invoices = result.getContent()
+                                               .stream()
+                                               .map(invoiceMapper::toModel)
+                                               .toList();
 
         logger.info(
                 "Search found {} invoices",
-                totalElements
+                result.getTotalElements()
                    );
 
         return new InvoicePageResponse(
                 invoices,
-                totalElements
+                result.getTotalElements()
         );
     }
 
@@ -125,18 +118,17 @@ public class InvoiceServicesImpl implements InvoiceServices {
     )
     public void deleteInvoice(Long id) {
         InvoiceEntity invoiceEntity = invoiceEntityProvider.getEntity(id);
-
-        personInvoiceCacheEvictor.evictPersonInvoiceCache(invoiceEntity.getSeller()
-                                                                       .getIdentificationNumber());
-
-        personInvoiceCacheEvictor.evictPersonInvoiceCache(invoiceEntity.getBuyer()
-                                                                       .getIdentificationNumber());
-
         invoiceRepository.delete(invoiceEntityProvider.getEntity(id));
+
         logger.info(
                 "Invoice was deleted id:{}",
                 id
                    );
+
+        personInvoiceCacheEvictor.evictPersonInvoiceCache(invoiceEntity.getSeller()
+                                                                       .getIdentificationNumber());
+        personInvoiceCacheEvictor.evictPersonInvoiceCache(invoiceEntity.getBuyer()
+                                                                       .getIdentificationNumber());
     }
 
     @Override
@@ -178,10 +170,6 @@ public class InvoiceServicesImpl implements InvoiceServices {
     @Override
     @Cacheable(value = "get-invoice-statistics")
     public InvoiceStatisticsResponse getInvoiceStatistics() {
-        return new InvoiceStatisticsResponse(
-                invoiceRepository.sumPriceOfCurrentYear(),
-                invoiceRepository.sumAllPrice(),
-                invoiceRepository.countAll()
-        );
+        return invoiceRepository.getStatistics();
     }
 }

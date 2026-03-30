@@ -10,9 +10,7 @@ import java.util.List;
 
 @Service
 public class PersonInvoiceServicesImpl implements PersonInvoiceServices {
-
     private final InvoiceRepository invoiceRepository;
-
     private final InvoiceMapper invoiceMapper;
 
     public PersonInvoiceServicesImpl(
@@ -30,11 +28,8 @@ public class PersonInvoiceServicesImpl implements PersonInvoiceServices {
     )
     public List<InvoiceResponse> getInvoicesBySeller(String identificationNumber) {
         return invoiceRepository
-                .findAll()
+                .findBySellerIdentificationNumber(identificationNumber)
                 .stream()
-                .filter(i -> i.getSeller()
-                              .getIdentificationNumber()
-                              .equals(identificationNumber))
                 .map(invoiceMapper::toModel)
                 .toList();
     }
@@ -45,12 +40,10 @@ public class PersonInvoiceServicesImpl implements PersonInvoiceServices {
             key = "'buyer=' + #identificationNumber"
     )
     public List<InvoiceResponse> getInvoicesByBuyer(String identificationNumber) {
-        return invoiceRepository.findAll()
-                                .stream()
-                                .filter(i -> i.getBuyer()
-                                              .getIdentificationNumber()
-                                              .equals(identificationNumber))
-                                .map(invoiceMapper::toModel)
-                                .toList();
+        return invoiceRepository
+                .findByBuyerIdentificationNumber(identificationNumber)
+                .stream()
+                .map(invoiceMapper::toModel)
+                .toList();
     }
 }

@@ -19,5 +19,6 @@ public class PersonInvoiceCacheEvictor {
                     )
             }
     )
+    @SuppressWarnings("unused")
     public void evictPersonInvoiceCache(String identificationNumber) {}
 }

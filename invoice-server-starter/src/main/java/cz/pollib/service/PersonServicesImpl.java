@@ -147,17 +147,14 @@ public class PersonServicesImpl implements PersonServices {
     @Override
     @Cacheable(value = "get-person-statistics")
     public List<PersonStatisticsResponse> getPersonStatistics() {
-        List<PersonStatisticsResponse> list = new ArrayList<>();
-
-        for (PersonEntity person : personRepository.findByHidden(false)) {
-            PersonStatisticsResponse personStatisticsResponse = new PersonStatisticsResponse(
-                    person.getId(),
-                    person.getName(),
-                    personRepository.sumAllPrice(person.getId())
-            );
-
-            list.add(personStatisticsResponse);
-        }
-        return list;
+        return personRepository.findByHidden(false)
+                               .stream()
+                               .map(person ->
+                                            new PersonStatisticsResponse(
+                                                    person.getId(),
+                                                    person.getName(),
+                                                    personRepository.sumAllPrice(person.getId())
+                                            ))
+                               .toList();
     }
 }

@@ -54,9 +54,6 @@ spring:
 logging:
   level:
     org.springframework.cache: trace
-    org.springframework.cache.interceptor: trace
-    com.github.benmanes.caffeine: debug
-    com.github.benmanes.caffeine.cache: debug
 
 jwt:
   expiration: 86400000
