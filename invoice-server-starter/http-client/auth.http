@@ -4,8 +4,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "email": "Strejda@Pompo.org",
-  "password": "kopediru"
+  "email": "{{auth_email}}",
+  "password": "{{auth_password}}"
 }
 
 > {%
@@ -22,8 +22,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "email": "Strejda@Pompo.org",
-  "password": "kopediru"
+  "email": "{{auth_email}}",
+  "password": "{{auth_password}}"
 }
 
 > {%

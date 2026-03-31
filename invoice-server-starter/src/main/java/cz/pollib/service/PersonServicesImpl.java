@@ -3,6 +3,7 @@ package cz.pollib.service;
 import cz.pollib.entity.PersonEntity;
 import cz.pollib.entity.repository.PersonRepository;
 import cz.pollib.service.common.PersonEntityProvider;
+import cz.pollib.service.common.PersonInvoiceCacheEvictor;
 import cz.pollib.service.mapper.PersonMapper;
 import cz.pollib.service.model.CreatePersonRequest;
 import cz.pollib.service.model.PersonResponse;
@@ -11,6 +12,8 @@ import cz.pollib.service.model.UpdatePersonRequest;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +27,25 @@ public class PersonServicesImpl implements PersonServices {
     private final PersonRepository personRepository;
     private final PersonEntityProvider personEntityProvider;
     private final PersonMapper personMapper;
+    private final PersonInvoiceCacheEvictor personInvoiceCacheEvictor;
 
     public PersonServicesImpl(
             PersonMapper personMapper,
             PersonRepository personRepository,
-            PersonEntityProvider personEntityProvider
+            PersonEntityProvider personEntityProvider,
+            PersonInvoiceCacheEvictor personInvoiceCacheEvictor
                              ) {
         this.personMapper = personMapper;
         this.personRepository = personRepository;
         this.personEntityProvider = personEntityProvider;
+        this.personInvoiceCacheEvictor = personInvoiceCacheEvictor;
     }
 
+    @Override
+    @CacheEvict(
+            value = {"get-persons", "get-person-statistics"},
+            allEntries = true
+    )
     public PersonResponse createPerson(CreatePersonRequest request) {
         PersonEntity entity = personMapper.toEntity(request);
         entity = personRepository.saveAndFlush(entity);
@@ -47,6 +58,10 @@ public class PersonServicesImpl implements PersonServices {
     }
 
     @Override
+    @Cacheable(
+            value = "get-persons",
+            key = "'page=' + #page + '-size=' + #size"
+    )
     public List<PersonResponse> getPersons(
             int page,
             int size
@@ -84,10 +99,16 @@ public class PersonServicesImpl implements PersonServices {
     }
 
     @Override
+    @CacheEvict(
+            value = {"get-persons", "search-invoices", "get-person-statistics"},
+            allEntries = true
+    )
     public void removePerson(long personId) {
         try {
             PersonEntity person = personEntityProvider.getEntity(personId);
             person.setHidden(true);
+
+            personInvoiceCacheEvictor.evictPersonInvoiceCache(person.getIdentificationNumber());
 
             personRepository.saveAndFlush(person);
             logger.info(
@@ -100,6 +121,10 @@ public class PersonServicesImpl implements PersonServices {
     }
 
     @Override
+    @CacheEvict(
+            value = {"get-persons", "get-person-statistics"},
+            allEntries = true
+    )
     public PersonResponse updatePerson(
             Long id,
             UpdatePersonRequest request
@@ -120,18 +145,16 @@ public class PersonServicesImpl implements PersonServices {
     }
 
     @Override
+    @Cacheable(value = "get-person-statistics")
     public List<PersonStatisticsResponse> getPersonStatistics() {
-        List<PersonStatisticsResponse> list = new ArrayList<>();
-
-        for (PersonEntity person : personRepository.findByHidden(false)) {
-            PersonStatisticsResponse personStatisticsResponse = new PersonStatisticsResponse(
-                    person.getId(),
-                    person.getName(),
-                    personRepository.sumAllPrice(person.getId())
-            );
-
-            list.add(personStatisticsResponse);
-        }
-        return list;
+        return personRepository.findByHidden(false)
+                               .stream()
+                               .map(person ->
+                                            new PersonStatisticsResponse(
+                                                    person.getId(),
+                                                    person.getName(),
+                                                    personRepository.sumAllPrice(person.getId())
+                                            ))
+                               .toList();
     }
 }

@@ -1,4 +1,11 @@
+import auth.http
 import person.http
+
+### Create User
+run #Create User
+
+### Login User
+run #Login User
 
 ### Create Person
 run #Create Person
@@ -125,4 +132,5 @@ Authorization: Bearer {{auth_token}}
         client.assert(response.status === 200, "Response status should be 200");
     });
 %}
+
 ###
