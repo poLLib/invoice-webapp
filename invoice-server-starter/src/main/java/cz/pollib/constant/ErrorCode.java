@@ -1,10 +1,12 @@
 package cz.pollib.constant;
 
 public enum ErrorCode {
+    BAD_CREDENTIALS,
     BAD_REQUEST,
     CONSTRAINT_VIOLATION,
     DUPLICATE_EMAIL,
     ENTITY_NOT_FOUND,
     INTERNAL_SERVER_ERROR,
+    UNAUTHORIZED,
     VALIDATION_FAILED
 }
