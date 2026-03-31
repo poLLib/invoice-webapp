@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static cz.pollib.constant.ErrorCode.*;
 import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @RestController
 @CrossOrigin
@@ -58,6 +60,28 @@ public class UserController {
                              .build();
     }
 
+
+    /**
+     * Handles bad credentials exceptions and returns status 401.
+     */
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentialsException(
+            BadCredentialsException ex,
+            HttpServletRequest request
+                                                                      ) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                BAD_CREDENTIALS,
+                request.getRequestURI(),
+                "Invalid email or password"
+        );
+
+        return ResponseEntity.status(UNAUTHORIZED)
+                             .body(errorResponse);
+    }
+
+    /**
+     * Handles duplicate email exceptions and returns 409 status.
+     */
     @ExceptionHandler(DuplicateEmailException.class)
     public ResponseEntity<ErrorResponse> handleDuplicateEmailException(
             DuplicateEmailException ex,

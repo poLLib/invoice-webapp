@@ -6,12 +6,15 @@ import cz.pollib.entity.repository.UserRepository;
 import cz.pollib.service.model.AuthResponse;
 import cz.pollib.service.model.UserRequest;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,6 +46,8 @@ public class UserServiceImpl implements UserService {
                             request.password()
                     )
                                               );
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Invalid email or password");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -60,6 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public AuthResponse registerUser(UserRequest request) {
         if (userRepository.existsByEmail(request.email())) {
             throw new DuplicateEmailException();
