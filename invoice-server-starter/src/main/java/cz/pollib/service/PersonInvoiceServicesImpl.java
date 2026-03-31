@@ -5,6 +5,7 @@ import cz.pollib.service.mapper.InvoiceMapper;
 import cz.pollib.service.model.InvoiceResponse;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class PersonInvoiceServicesImpl implements PersonInvoiceServices {
             value = "get-seller-invoices",
             key = "'seller=' + #identificationNumber"
     )
+    @Transactional(readOnly = true)
     public List<InvoiceResponse> getInvoicesBySeller(String identificationNumber) {
         return invoiceRepository
                 .findBySellerIdentificationNumber(identificationNumber)
@@ -39,6 +41,7 @@ public class PersonInvoiceServicesImpl implements PersonInvoiceServices {
             value = "get-buyer-invoices",
             key = "'buyer=' + #identificationNumber"
     )
+    @Transactional(readOnly = true)
     public List<InvoiceResponse> getInvoicesByBuyer(String identificationNumber) {
         return invoiceRepository
                 .findByBuyerIdentificationNumber(identificationNumber)

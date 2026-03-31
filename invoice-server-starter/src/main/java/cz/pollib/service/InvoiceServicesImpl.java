@@ -20,6 +20,7 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -61,6 +62,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
                     )
             }
     )
+    @Transactional
     public InvoiceResponse createInvoice(CreateInvoiceRequest request) {
         InvoiceEntity entity = invoiceMapper.toEntity(request);
         invoiceRepository.saveAndFlush(entity);
@@ -77,6 +79,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
             value = "search-invoices",
             key = "#invoiceFilter.cacheKey() + '-' + #page"
     )
+    @Transactional(readOnly = true)
     public InvoicePageResponse searchInvoices(
             InvoiceFilter invoiceFilter,
             int page
@@ -107,6 +110,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public InvoiceResponse getInvoice(Long id) {
         return invoiceMapper.toModel(invoiceEntityProvider.getEntity(id));
     }
@@ -116,6 +120,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
             value = {"search-invoices", "get-person-statistics", "get-invoice-statistics"},
             allEntries = true
     )
+    @Transactional
     public void deleteInvoice(Long id) {
         InvoiceEntity invoiceEntity = invoiceEntityProvider.getEntity(id);
         invoiceRepository.delete(invoiceEntityProvider.getEntity(id));
@@ -148,6 +153,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
                     )
             }
     )
+    @Transactional
     public InvoiceResponse updateInvoice(
             Long id,
             UpdateInvoiceRequest request
@@ -169,6 +175,7 @@ public class InvoiceServicesImpl implements InvoiceServices {
 
     @Override
     @Cacheable(value = "get-invoice-statistics")
+    @Transactional(readOnly = true)
     public InvoiceStatisticsResponse getInvoiceStatistics() {
         return invoiceRepository.getStatistics();
     }

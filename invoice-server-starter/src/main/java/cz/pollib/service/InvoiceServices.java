@@ -22,8 +22,8 @@ public interface InvoiceServices {
     InvoiceResponse createInvoice(CreateInvoiceRequest request);
 
     /**
-     * Fetches all invoices in database and filter them according to user's parameters and make them pageable.
-     * The second parameter of the class Pageable which determinate size of page is taken from param [limit] InvoiceFilter.
+     * Fetches all invoices in a database and filter them according to user's parameters and make them pageable.
+     * The second parameter of the class Pageable which determinate the size of the page is taken from param [limit] InvoiceFilter.
      *
      * @param invoiceFilter Parameters for filtration [buyerId], [sellerId], [product], [minPrice], [maxPrice], [limit (default value = 10)];
      * @param page          Current page
@@ -43,7 +43,7 @@ public interface InvoiceServices {
     InvoiceResponse getInvoice(Long id);
 
     /**
-     * <p>Sets hidden flag to true for the person with the matching [id]</p>
+     * <p>Sets a hidden flag to true for the person with the matching [id]</p>
      * <p>In case a person with the passed [id] isn't found, the method <b>silently fails</b></p>
      *
      * @param id Invoice to delete
