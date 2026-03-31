@@ -16,6 +16,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,7 @@ public class PersonServicesImpl implements PersonServices {
             value = {"get-persons", "get-person-statistics"},
             allEntries = true
     )
+    @Transactional
     public PersonResponse createPerson(CreatePersonRequest request) {
         PersonEntity entity = personMapper.toEntity(request);
         entity = personRepository.saveAndFlush(entity);
@@ -62,6 +64,7 @@ public class PersonServicesImpl implements PersonServices {
             value = "get-persons",
             key = "'page=' + #page + '-size=' + #size"
     )
+    @Transactional(readOnly = true)
     public List<PersonResponse> getPersons(
             int page,
             int size
@@ -85,11 +88,13 @@ public class PersonServicesImpl implements PersonServices {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Long getVisiblePersonsCount() {
-        return personRepository.countAllVisiblePeople();
+        return personRepository.countAllByHidden(false);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PersonResponse getPerson(Long id) {
         PersonEntity person = personEntityProvider.getEntity(id);
         if (person.isHidden()) {
@@ -103,6 +108,7 @@ public class PersonServicesImpl implements PersonServices {
             value = {"get-persons", "search-invoices", "get-person-statistics"},
             allEntries = true
     )
+    @Transactional
     public void removePerson(long personId) {
         try {
             PersonEntity person = personEntityProvider.getEntity(personId);
@@ -125,6 +131,7 @@ public class PersonServicesImpl implements PersonServices {
             value = {"get-persons", "get-person-statistics"},
             allEntries = true
     )
+    @Transactional
     public PersonResponse updatePerson(
             Long id,
             UpdatePersonRequest request
@@ -146,6 +153,7 @@ public class PersonServicesImpl implements PersonServices {
 
     @Override
     @Cacheable(value = "get-person-statistics")
+    @Transactional(readOnly = true)
     public List<PersonStatisticsResponse> getPersonStatistics() {
         return personRepository.findByHidden(false)
                                .stream()

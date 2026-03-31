@@ -38,14 +38,7 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Long> {
      *
      * @return The total number of non-hidden people.
      */
-    @Query(
-            value = """
-                    SELECT COUNT(*)
-                    FROM Person p
-                    WHERE p.hidden = false
-                    """
-    )
-    Long countAllVisiblePeople();
+    Long countAllByHidden(boolean hidden);
 
     /**
      * Calculates the total income for a person by their ID.
