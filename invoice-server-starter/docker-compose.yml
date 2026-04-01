@@ -18,6 +18,73 @@ services:
       timeout: 5s
       retries: 3
 
+  grafana:
+    image: grafana/grafana:12.2.0
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./docker/grafana/tmp:/var/lib/grafana
+      - ./docker/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+      - ./docker/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./docker/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - loki
+      - tempo
+      - prometheus
+    networks:
+      - invoiceapp_network
+
+  promtail:
+    image: grafana/promtail:3.5.7
+    container_name: promtail
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./docker/promtail:/etc/promtail
+    command: -config.file=/etc/promtail/promtail-config.yml
+    ports:
+      - "9080:9080"
+    restart: unless-stopped
+    depends_on:
+      - loki
+    networks:
+      - invoiceapp_network
+
+  loki:
+    image: grafana/loki:3.5.7
+    container_name: loki
+    ports:
+      - "3100:3100"
+    networks:
+      - invoiceapp_network
+
+  prometheus:
+    image: prom/prometheus:v3.7.1
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus/tmp:/prometheus
+      - ./docker/prometheus:/etc/prometheus:ro
+    command: --config.file=/etc/prometheus/prometheus-config.yml
+    networks:
+      - invoiceapp_network
+
+  tempo:
+    image: grafana/tempo:2.9.0
+    container_name: tempo
+    command: -config.file=/etc/tempo/tempo-config.yml
+    volumes:
+      - ./docker/tempo:/etc/tempo
+    ports:
+      - "3200:3200"   # Tempo UI
+      - "4317:4317"   # OTLP gRPC receiver
+    networks:
+      - invoiceapp_network
+
 networks:
   invoiceapp_network:
     driver: bridge

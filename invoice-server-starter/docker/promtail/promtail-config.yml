@@ -1,0 +1,25 @@
+server:
+  http_listen_port: 9080
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+    batchwait: 1s
+    batchsize: 102400
+
+scrape_configs:
+  - job_name: invoice-app-promtail-logs
+    docker_sd_configs:
+      - host: unix:///var/run/docker.sock
+        refresh_interval: 5s
+    relabel_configs:
+      - source_labels: [ __meta_docker_container_name ]
+#        regex: /invoice_app_api // TODO: 01.04.2026 - Change according to where the app is running. For local development logs are only available in the console
+        action: keep
+      - source_labels: [ __meta_docker_container_name ]
+        target_label: container_name
+
+    pipeline_stages:
+      - docker: { }

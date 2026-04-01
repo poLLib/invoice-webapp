@@ -102,3 +102,6 @@ spring-boot-starter-*.jar
 # Database
 *.db
 *.sqlite
+
+# Monitoring
+/docker/grafana/tmp/**/**
